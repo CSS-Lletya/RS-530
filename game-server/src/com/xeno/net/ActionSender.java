@@ -142,7 +142,7 @@ public class ActionSender {
 	}
 	
 	public void sendLogin() {
-		sendWindowPane(548);
+		sendWindowPane(player.isHd() ? 746 : 548);
 		sendSkillLevels();
 		int starter = 1;
 		//ill handle it later
@@ -194,7 +194,7 @@ public class ActionSender {
 		if (windowType == 0 || windowType == 1) {
 			resetVariables = player.isHd();
 			player.setHd(false);
-			sendWindowPane(548);
+			sendWindowPane(player.isHd() ? 746 : 548);
 			sendTab(14, 751); // Chat options
 			sendTab(75, 752); // Chatbox
 			sendTab(70, 748); // HP bar
