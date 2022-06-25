@@ -1,0 +1,37 @@
+1 = no forfeit
+2 = no movement
+4 = nothing
+8 = nothing
+16 = no range
+32 = no melee
+64 = no magic
+128 = no drinks
+256 = no food
+512 = no prayer
+1024 = obstacles
+2048 = nothing
+4096 = fun weapons
+8192 = special attacks
+16384 = nothing
+32768 = nothing
+65536 = amulet
+131072 = weapon
+262144 = body
+524288 = shield
+1048576 = nothing
+2097152 = legs
+4194304 = nothing
+8388608 = gloves
+16777216 = boots
+33554432 = nothing
+67108864 = ring
+134217728 = arrows
+268435456 = summoning
+536870912 = nothing
+1073741824 = nothing
+16384 = hat
+49152 = cape
+the next are config 283
+
+
+

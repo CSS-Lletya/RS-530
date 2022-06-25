@@ -1,0 +1,303 @@
+npcs used:-
+LUMBRIDGE:-
+
+0 = hans (d) NA
+1 = man DONE
+2 = man DONE
+3 = man DONE
+4 = woman DONE
+5 = woman DONE
+6 = woman DONE
+519 - bob NA
+7937 - Father Aereck NA
+7890 - guardsman peale NA
+7886 - guardsman deshawn NA
+7885 - guardsman dante NA
+278 - cook NA
+7917 - victoria NA
+7889 - guardsman pazel NA
+741 - duke horacio NA
+7969 - explorer jack NA
+520 - shopkeeper NA
+521 - shopkeeper assistant NA
+925 - border patrol NA
+1769 - Goblin DONE
+1770 - Goblin DONE
+1771 - Goblin DONE
+1772 - Goblin DONE
+1773 - Goblin DONE
+1774 - Goblin DONE
+1775 - Goblin DONE
+1776 - Goblin DONE
+81 - cow - DONE
+397 - cow - DONE
+41 - chicken - DONE
+7 = farmer - DONE
+43 = sheep NA
+
+Brimhaven dungeon - TODO entrance
+
+1594 - wild dog DONE
+4688 - moss giant DONE
+1586 - fire giant DONE
+1584 - fire giant DONE
+7003 - fire giant DONE
+53 - red dragon DONE
+1589 - baby red dragon DONE
+1590 - bronze dragon DONE
+4702 - black demon DONE
+4703 - black demon DONE
+4704 - black demon DONE
+1591 - iron dragon DONE
+1592 - steel dragon DONE
+4698 - greater demon DONE
+4699 - greater demon DONE
+4700 - greater demon DONE
+4701 - greater demon DONE
+
+Taverly dungeon
+90 - skeleton (22)
+90 - skeleton (22)
+90 - skeleton (22)
+5342 - ghost DONE
+7966 - chaos druid DONE
+7105 - chaos druid DONE
+2547 - chaos druid DONE
+78 - giant bat DONE
+127 - magic axe DONE
+108 - poison scorpion DONE
+4691 - hill giant DONE
+119 - chaos dwarf DONE
+4694 - lesser demon DONE
+4695 - lesser demon DONE
+4696 - lesser demon DONE
+4697 - lesser demon DONE
+52 - baby blue dragon DONE
+55 - blue dragon DONE
+4702 - black demon DONE
+4703 - black demon DONE
+4704 - black demon DONE
+134 - poison spiders DONE
+49 - hellhound DONE
+54 - black dragon DONE
+190 - zamorak monk DONE
+
+ancient cavern (dragon forge is on level 1..used for d plate smithing)
+5363 - mithril dragon DONE
+5362 - brutal green dragon DONE
+5361 - waterfiend DONE
+749 - angry barbarian spirit DONE
+750 - Enraged barbarian spirit DONE
+751 - Berserk barbarian spirit DONE
+6105 - skeleton warlord DONE
+6106 - skeleton heavy DONE
+
+Tzhaar
+2613 - lvl 149 DONE
+2608 - lvl 133 DONE
+2593 - lvl 103 DONE
+2602 - lvl 74 DONE
+
+Varrock
+546 - zaff NA
+550 - lowe NA
+522 - shopkeeper NA
+523 - shop assistant NA
+553 - Aubury NA
+6135 - town crier NA
+549 - horvik NA
+6526 - Relobo Blinyo NA
+6524 - bob barter NA
+6527 - Hofuthand NA
+6523 - farid morrisane NA
+6525 - murky matt NA
+6528 - GE clerk NA
+6530 - GE clerk NA
+6533 - GE banker NA
+6534 - GE banker NA
+
+Warriors guild
+4296 - Jade (banker) NA
+4278, - bronze DONE
+4279, - iron DONE
+4280, - steel DONE
+4281, - black DONE
+4282, - mithril DONE
+4283, - adamant DONE
+4284, - rune DONE
+4291 - cyclops (56) DONE
+4292 - cyclops (76) DONE
+
+Jatiszo
+6530 - GE clerk NA
+44 - Banker NA
+All fishing spots** NA
+
+Neitiznot
+4540 - Captain bentley NA
+5529 - yak DONE
+7875 - man DONE
+7877 - man DONE
+7881 - woman DONE
+553 - aubury NA
+519 - bob NA
+9 - guard DONE
+21 - hero DONE
+20 - paladin DONE
+1862 - ali morrisane NA
+1769 to 1774 - goblin DONE
+105 - grizzly bear DONE
+
+Waterbirth island
+2436 - Jarvald NA
+
+Mort'ton
+1567 - Cyreg Paddlehorn NA
+
+Edgeville
+44 - banker NA
+45 - banker NA
+9 - guard DONE
+7877 - man DONE
+7878 - man DONE
+7875 - man DONE
+2259 - mage of zamorak NA
+89 - unicorn (near bb village) DONE
+8275 - duradel - NA
+
+Al-Kharid
+1862 - ali-morissane NA
+80 - camel NA
+15 - warrior woman DONE
+18 - al-kharid warrior DONE
+2 - man DONE
+541 - zeke NA
+804 - tanner NA
+1 - man DONE
+543 - karim NA
+496 - banker NA
+497 - banker NA
+21 - hero DONE
+525 - shop assistant NA
+524 - shopkeeper NA
+542 - louie legs NA
+544 - ranael NA
+545 - dommik NA
+1926 - bandit
+539 - silk trader NA
+3 - man DONE
+540 - gem trader NA
+20 - paladin DONE
+107 - scorpion DONE
+
+Slayer tower
+1653 - crawling hand
+1649 - crawling hand
+1648 - crawling hand
+1650 - crawling hand
+1655 - crawling hand
+1653 - crawling hand
+1652 - crawling hand
+1657 - crawling hand
+1656 - crawling hand
+1654 - crawling hand
+1656 - crawling hand
+1612 - banshee
+1643 - infernal mage
+1644 - infernal mage
+1645 - infernal mage
+1618 - bloodveld
+1619 - bloodveld
+7801 - Aberrant Spectre
+1610 - gargoyle
+1613 - nechyrael
+1615 - abyssal demon
+
+relkella slayer dungeon
+1600 - cave crawler - poisonous
+1601 - cave crawler
+1602 - cave crawler
+1603 - cave crawler
+1631 - rockslug
+1632 - rockslug
+1620 - cockatrice
+1633 - pyrefiend
+1634 - pyrefiend
+1635 - pyrefiend
+1636 - pyrefiend
+1616 - basilisk
+1617 - basilisk
+1637 - jelly
+1628 - turoth
+1627 - turoth
+1622 - turoth
+1626 - turoth
+1629 - turoth
+1623 - turoth
+1608 - kurask
+
+Edgeville dungeon
+59 - giant spider
+91 - skeleton (lvl 21)
+92 - skeleton (lvl 25)
+1597 - vannaka
+7107 - thug
+7108 - thug
+7109 - thug
+7966 - chaos druid DONE
+7105 - chaos druid DONE
+2547 - chaos druid DONE
+63 - deadly red spider
+124 - earth warrior
+93 - skeleton (lvl 45)
+4702 - black demon DONE
+4703 - black demon DONE
+4704 - black demon DONE
+134 - poison spider
+5308 - zombie (lvl 18)
+5309 - zombie (lvl 18)
+5310 - zombie (lvl 18)
+5311 - zombie (lvl 18)
+5312 - zombie (lvl 18)
+5313 - zombie (lvl 18)
+90 - skeleton (lvl 22)
+122	- Hobgoblin (lvl 28)
+123	- Hobgoblin (lvl 42)
+5314 - zombie (lvl 24)
+5316 - zombie (lvl 24)
+5318 - zombie (lvl 24)
+4691 - hill giant DONE
+
+wilderness
+90 - skeleton (lvl 22)
+92 - skeleton (lvl 25)
+941 - green dragon
+192 - dark warrior
+107 - scorpion DONE
+174 - dark wizard (lvl 7) - todo attack
+172 - dark wizard (lvl 20) - todo attack
+
+Lletya
+2354 - banker
+2355 - banker
+6530 - GE clerk
+553 - Aubury
+2244 - Lumbridge guide
+2353 - Oronwen
+2356 - dalldav
+2357 - Gethin
+2352 - Eudav
+8273 - turael
+650 - warrior
+1862 - ali morisanne
+
+-TODO - SPAWN DUCKS/BUTTERFLIES/IMPS
+TODO - random cow eating emote
+
+
+GARGOYLE DEATH STUFF
+	case 1610:
+				npcs.get(I).transformId = 1611;
+				npcs.get(I).transformRequired = true;
+				npcs.get(I).updateRequired = true;
+			return 1520;

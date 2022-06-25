@@ -1,0 +1,8 @@
+0 = standard walls (+ some doors)
+1 = tiny bits of wall
+2 = 'corner' walls
+3 = pillars
+4-8 = various wall decoration
+9 = diagonal walls
+10 = most regular objects
+11 = other world objects..hardly used

@@ -1,0 +1,15 @@
+0 - HD (dosent look right?)
+1 - Just the black transparent bit (no text)
+2 - ""
+3 - ""
+4 - ""
+5 - ""
+6 - ""
+7 - ""
+8 - Proper HD chat
+9 - messes up
+10 - messes up again
+11 - messed up
+12 - messed up
+
+sendInterface(1, 752, ID, 137);

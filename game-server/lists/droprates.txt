@@ -1,0 +1,964 @@
+ID 1,2,3,4,5,6 - men & women
+---always
+bones
+---common
+1000 coins
+25 fire runes
+25 water runes
+25 air runes
+25 earth runes
+25 body runes
+25 mind runes
+25 bronze arrows
+1 grimy guam
+1 grimy marrentill
+1 iron chainbody
+1 iron pickaxe
+1 iron med helm
+1 iron scimitar
+1 iron platelegs
+---uncommon
+1 cabbage
+1 iron axe
+1 iron pickaxe
+---rare
+6,500 coins
+25 noted tin ore
+25 noted copper ore
+
+---------------------------------------------------------------------
+
+ID - 81, 397 - cow - TODO random grazing emote
+---always
+1 cowhide
+1 raw beef
+1 bones
+
+---------------------------------------------------------------------
+
+ID - 41 - chicken - TODO make them say "squawk!" when they hit you + fix death time
+---always
+75 feathers
+1 bones
+1 raw chicken
+---rare
+egg
+
+-----------------------------------------------------------------------
+
+ID 7 - farmer
+---always
+bones
+---common
+1,450 coins
+45 fire runes
+1 potato seed
+1 onion seed
+1 tomato seed
+1 rake
+1 grain
+1 earth talisman
+1 sweetcorn seed
+10 chaos runes
+1 cabbage seed
+---uncommon
+50 fishing bait
+1 black dagger
+1 iron full helm
+---rare
+gardening boots
+
+---------------------------------------------------------------------
+
+ID - 89 - unicorn
+---always
+1 unicorn horn
+1 bones
+
+---------------------------------------------------------------------
+
+ID - 105 - grizzly bear TODO emotes
+---always
+1 bones
+1 bear fur
+1 raw bear meat
+
+---------------------------------------------------------------------
+
+ID - 7966,7105,2547 - chaos druid
+---always
+1 bones
+---common
+random 2 grimy guam
+random 2 grimy marrentill
+random 2 grimy tarromin
+random 2 grimy harralander
+1000 coins
+1 waterfilled vial
+1 eye of newt
+1 mithril dagger
+---uncommon
+random 2 grimy irit
+random 2 grimy avantoe
+random 2 grimy cadantine
+random 2 grimy kwuarm
+random 2 grimy dwarf weed
+random 2 grimy torstol
+1 grimy rannar
+1 mithril longsword
+55 air runes
+1 uncut opal
+1 uncut jade
+---rare
+1 snape grass
+1 uncut sapphire
+50 waterfilled vial (noted)
+1 chaos talisman
+
+---------------------------------------------------------------------
+
+ID - 127 - magic axe
+---always
+1 iron axe
+
+---------------------------------------------------------------------
+
+ID - 1594 - wild dog
+---always
+1 bones
+
+---------------------------------------------------------------------
+
+ID - 4688 - moss giant
+---always
+1 big bones
+---common
+1 grimy guam
+1 grimy marrentill
+1 grimy tarromin
+50 steel arrows
+70 air runes
+3500 coins
+5 noted gold bars
+75 noted normal logs
+1 mithril dagger
+1 strength potion (2)
+1 steel kiteshield
+---uncommon
+1 uncut sapphire
+1 grimy ranaar
+1 muddy key
+1 uncut emerald
+10 law runes
+1 black full helm
+15 chaos runes
+---rare
+1 rune med helm
+1 loop half of key
+100 earth runes
+
+---------------------------------------------------------------------
+
+ID - 1584,1586,7003 - fire giant
+---always
+1 big bones
+---common
+random 500 fire runes
+6200 coins
+1 grimy marrentill
+1 grimy tarromin
+1 uncut ruby
+1 staff of fire
+1 adamant mace
+3 raw sharks (unnoted)
+1 uncut sapphire
+1 mithril med helm
+10 blood runes
+---uncommon
+1 rune scimitar
+1 grimy rannaar
+1 grimy cadantine
+1 grimy kwuarm
+1 grimy dwarf weed
+1 grimy torstol
+60 iron ore
+1 uncut diamond
+25 rune arrows
+1 muddy key
+---rare
+1 dragon med helm
+1 dragon spear
+1 shield left half
+1 rune kiteshield
+1 rune battleaxe
+1 teeth half of key
+
+---------------------------------------------------------------------
+
+ID - 53 - red dragon
+
+---always
+1 dragon bones
+1 red dragonhide
+---common
+random 30 rune arrows
+12000 coins
+1 rune dagger
+3 cooked lobsters
+1 adamant platebody
+5 noted grimy kwuarm
+50 adamant arrowtips
+1 rune med helm
+800 water runes
+---uncommon
+85 noted bowstrings
+1 rune spear
+1 runite ore
+1 adamant square shield
+1 loop half of key
+40 nature runes
+40 law runes
+---rare
+1 rune longsword
+1 shield left half
+1 rune platebody
+
+---------------------------------------------------------------------
+
+ID - 1589 - baby red dragon
+---always
+1 babydragon bones
+
+---------------------------------------------------------------------
+
+ID - 4702,4703,4704 - black demon
+---always
+1 ashes
+---common
+9000 coins
+525 fire runes
+1 black square shield
+30 nature runes
+random 1000 earth runes
+1 grimy ranaar weed
+---uncommon
+1 rune bar
+1 adamant axe
+30 raw bass (noted)
+random 300 steel arrows
+1 rune med helm
+7 noted grimy cadantine
+20 noted sapphire amulet
+1 tooth half of key
+1 loop half of key
+1 rune sq shield
+1 uncut emerald
+---rare
+1 dragon med helm
+1 rune 2h sword
+1 rune platelegs
+
+---------------------------------------------------------------------
+
+ID - 1591 - iron dragon
+---always
+1 dragon bones
+5 iron bars
+---common
+11000 coins
+random 1000 fire runes
+35 death runes
+1 rune med helm
+1 uncut diamond
+1 adamant kiteshield
+300 mind runes
+---uncommon
+1 rune limbs
+1 rune sword
+1 grimy rannaar
+random 125 chaos runes
+50 coal (noted)
+1 rune axe
+---rare
+1 draconic visage
+1 dragon platelegs
+1 dragon plateskirt
+1 rune chainbody
+
+----------------------------------------------------------
+
+ID - 1592 - steel dragon
+---always
+1 dragon bones
+5 steel bars
+---common
+16500 coins
+900 water runes
+1 adamant platelegs
+2 cooked sharks
+1 rune dagger
+random 45 mithril ore (noted)
+1 rune ore
+5 noted uncut ruby
+---uncommon
+1 shield left half
+1 rune longsword
+30 law runes
+1 rune sq shield
+1 loop half of key
+1 adamant platebody
+1 super attack (2)
+3 noted grimy ranaar
+---rare
+1 draconic visage
+1 dragon platelegs
+1 dragon plateskirt
+1 rune platebody
+-------------------------------------------------------------
+
+ID - 4698, 4699, 4700, 4701 - greater demon
+---always
+1 ashes
+---common
+5 adamant bar (noted)
+450 fire runes
+5000 coins
+1 uncut ruby
+350 iron arrow
+1 mithril kiteshield
+15 blood runes
+---uncommon
+1 rune axe
+1 adamant full helm
+1 uncut sapphire
+1 uncut diamond
+1 grimy irit
+1 grimy avantoe
+1 adamant pickaxe
+random 2000 bronze arrowtips
+---rare
+1 dragon spear
+1 rune full helm
+
+-------------------------------------------------------------
+
+ID - 5342 - ghost
+
+---always
+NOTHING
+---common
+2500 coins
+125 air runes
+125 fire runes
+10 law runes
+1 cooked shark
+1 antipoison (2)
+1 grimy irit
+1 grimy tarromin
+1 grimy harralander
+---uncommon
+1 mithril 2h sword
+130 steel arrows
+3 adamant bars (noted)
+uncut ruby
+---rare
+15000 coins
+
+-------------------------------------------------------------
+
+ID - 108 - poison scorpion
+---always
+1 bones
+
+--------------------------------------------------------------
+
+ID - 52 - baby red dragon
+---always
+1 babydragon bones
+
+----------------------------------------------------------------
+
+ID - 1769,1770,1771,1772,1773,1774,1775,1776 - goblin
+
+---always
+1 bones
+---common
+1500 coins
+1 uncut sapphire
+1 iron kiteshield
+1 cooked swordfish
+5 law runes
+1 iron scimitar
+60 fire runes
+---uncommon
+1 iron 2h sword
+35 air runes
+1 red cape
+5 noted silver ore
+1 grimy tarromin
+---rare
+1 uncut diamond
+
+----------------------------------------------------------------
+
+ID - 4691 - hill giant
+---always
+1 big bones
+---common
+2250 coins
+1 uncut emerald
+70 steel arrows
+130 fire runes
+15 noted gold bars
+---uncommon
+6 noted limpwurt root
+1 adamant battleaxe
+1 rune dagger
+1 grimy haaralander
+1 grimy cadantine
+30 noted bronze bars
+---rare
+1 rune sword
+20 nature runes
+
+-----------------------------------------------------------------
+
+ID - 4694, 4695, 4696, 4697 - lesser demon
+---always
+1 ashes
+---common
+4950 coins
+300 fire runes
+1 power amulet
+rune axe
+1 uncut ruby
+---uncommon
+15 death runes
+1 staff of water
+2 noted grimy dwarf weed
+1 adamant pickaxe
+12 noted molten glass
+1 grimy rannaar
+250 water runes
+---rare
+1 rune scimitar
+1 rune sword
+
+---------------------------------------------------------------------
+
+ID - 54 - black dragon
+---always
+1 dragon bones
+1 black dragonghide
+---common
+18000 coins
+1 rune sword
+2 noted uncut diamonds
+3 adamantitie bar
+1 rune mace
+30 noted grimy tarromin
+1000 earth runes
+---uncommon
+25 law runes
+2 noted grimy ranaar
+1 rune med helm
+650 noted willow logs
+40 death runes
+20 noted gold ore
+---rare
+1 draconic visage
+1 dragon med helm
+1 shield left half
+1 dragon spear
+5 noted rune ore
+
+------------------------------------------------------------------
+
+ID - 5363 - mithril dragon
+---always
+1 dragon bones
+3 mithril bars
+---common
+22000 coins
+20 noted uncut sapphire
+random 2 rune med helm
+800 water runes
+1 rune battleaxe
+1 rune scimitar
+---uncommon
+2 runite bars
+130 noted mithril ore
+1 rune kiteshield
+75 rune arrow
+9 noted grimy torstol
+9 noted grimy avantoe
+45 noted snape grass
+1 super defence(1)
+1 rune 2h sword
+---rare
+1 draconic visage
+1 dragon left half
+1 dragon spear
+1 dragon med helm
+1 dragon full helm
+
+---------------------------------------------------------------
+
+ID - 5362 - brutal green dragon
+---always
+1 dragon bones
+2 green dragonhide
+---common
+random 30000 coins
+1000 air runes
+125 noted copper ore
+1 rune med helm
+6 noted grimy kwuarm
+1 rune axe
+1 strength potion (1)
+---uncommon
+1 loop half of key
+15 noted uncut emerald
+1 rune pickaxe
+10 noted adamantite bar
+1 rune full helm
+10 noted raw shark
+1 adamant kiteshield
+---rare
+1 dragon med helm
+1 dragon shield left half
+1 dragon spear
+
+-------------------------------------------------------------
+
+ID - 5361 - waterfiend
+---always
+random 350 water runes
+---common
+200 water runes
+7000 coins
+1 water battlestaff
+1 rune mace
+1 uncut diamond
+1 uncut sapphire
+1 mithril 2h sword
+---uncommon
+1 adamant platebody
+15 blood runes
+1 grimy rannaar
+30 noted silver ore
+1 adamant full helm
+1 black platelegs
+---rare
+1 rune chainbody
+10 noted grimy irit
+
+--------------------------------------------------------------
+
+ID - 749,750,751 - angry, enraged,berserk barbarian spirit
+---always
+NOTHING
+---common
+12000 coins
+1 muddy key
+18 noted grimy guam
+5 noted uncut ruby
+1000 fire runes
+1 rune axe
+---uncommon
+1 rune scimitar
+1 rune plateskirt
+15 soul runes
+adamant 2h sword
+blue cape
+---rare
+1 rune platelegs
+1 loop half of key
+
+----------------------------------------------------------------
+
+ID 6105, 6106 - barbarian skeleton warlord/heavy
+---always
+1 bones
+--- common
+1 ruby ring
+8000 coins
+10 noted ruby amulet
+200 noted logs
+1 black med helm
+---uncommon
+1 rune pickaxe
+1 rune square shield
+20 nature runes
+1 mithril bar
+50 noted coal
+1 magic log
+---rare
+1 rune scimitar
+
+--------------------------------------------------------------------
+
+ID - 4278 - bronze animated armour
+---always
+5 warrior guild tokens
+1 bronze full helm
+1 brone platebody
+1 bronze platelegs
+
+---------------------------------------------------------------------
+
+ID - 4279 - iron animated armour
+---always
+10 warrior guild tokens
+1 iron full helm
+1 iron platebody
+1 iron platelegs
+
+---------------------------------------------------------------------
+
+ID - 4280 - steel animated armour
+---always
+15 warrior guild tokens
+1 steel full helm
+1 steel platebody
+1 steel platelegs
+
+---------------------------------------------------------------------
+
+ID - 4281 - black animated armour
+---always
+20 warrior guild tokens
+1 black full helm
+1 black platebody
+1 black platelegs
+
+---------------------------------------------------------------------
+
+ID - 4282 - mithril animated armour
+---always
+25 warrior guild tokens
+1 mithril full helm
+1 mithril platebody
+1 mithril platelegs
+
+---------------------------------------------------------------------
+
+ID - 4283 - adamant animated armour
+---always
+30 warrior guild tokens
+1 adamant full helm
+1 adamant platebody
+1 adamant platelegs
+
+---------------------------------------------------------------------
+
+ID - 4284 - rune animated armour
+---always
+30 warrior guild tokens
+1 rune full helm
+1 rune platebody
+1 rune platelegs
+
+---------------------------------------------------------------------
+
+ID - 5529 - yak
+---always
+1 bones
+1 raw yak meat
+1 yak hide
+
+---------------------------------------------------------------------
+
+ID - 107 - scorpion
+---always
+1 bones
+
+---------------------------------------------------------------------
+
+ID - 55 - blue dragon
+---always
+1 dragon bones
+1 blue dragonhide
+---common
+7225 coins
+1 adamant full helm
+1 uncut diamond
+750 earth runes
+45 adamant arrows
+---uncommon
+10 noted sapphire necklace
+1 adamantite ore
+1 grimy dwarf weed
+1 rune sword
+30 noted silver bars
+1 muddy key
+25 noted grimy tarromin
+---rare
+1 rune chainbody
+
+---------------------------------------------------------------------
+
+ID - 190 - monk of zamorak
+---always
+1 bones
+---common
+1 wine of zamorak
+---uncommon
+1 zamorak robe top
+1 zamorak robe bottom
+---rare
+10 noted wine of zamorak
+5 noted wine of zamorak
+
+---------------------------------------------------------------------
+
+ID - 119 - chaos dwarf
+---always
+1 bones
+---common
+random 6000 coins
+1 muddy key
+150 fire runes
+150 water runes
+150 air runes
+150 earth runes
+1 hammer
+1 purple cape
+175 iron arrowtips
+---uncommon
+1 uncut diamond
+1 uncut ruby
+1 uncut emerald
+1 uncut sapphire
+10 nature runes
+10 noted gold bars
+1 magic shortbow
+---rare
+1 runite ore
+
+---------------------------------------------------------------------
+
+ID - 134 - poison spider
+---always
+1 bones
+
+---------------------------------------------------------------------
+
+ID - 49 - hellhound
+---always
+1 bones
+---common
+random 7500 coins
+
+---------------------------------------------------------------------
+
+ID - 4291, 4292 - cyclops (56), cyclops (76)
+---always
+1 bones
+---common
+3250 coins
+adamant med helm
+10 noted steel bar
+1 grimy irit
+1 yew longbow
+1 magic log
+---uncommon
+8 soul runes
+1 grimy torstol
+1 adamant full helm
+10 noted molten glass
+1 defence potion (1)
+180 fire runes
+1 mithril platebody
+---rare
+1 bronze defender - the server changes the id
+
+-------------------------------------------------------------------
+
+ID - 9 - guard
+---always
+1 bones
+---common
+1 steel platebody
+2500 coins
+3 noted grimy guam
+200 earth runes
+1 uncut sapphire
+1 mithril scimitar
+---uncommon
+1 mithril warhammer
+1 prayer potion (2)
+1 adamantite ore
+1 steel kiteshield
+1 mithril axe
+---rare
+random 15000 coins
+
+-------------------------------------------------------------------
+
+ID - 21 - hero
+---always
+1 bones
+
+------------------------------------------------------------------
+
+ID - 20 - paladin
+---always
+1 bones
+---common
+3750 coins
+1 mithril 2h sword
+1 muddy key
+1 wine of zamorak
+3 noted staff of earth
+---uncommon
+1 grimy guam
+1 grimy marrentill
+1 grimy haaralander
+1 grimy irit
+1 gramy avantoe
+1 grimy cadantine
+1 grimy kwuarm
+1 grimy dwarf leaf
+1 grimy torstol
+10 noted gold ore
+1 adamant scimitar
+300 air runes
+---rare
+1 rune scimitar
+
+--------------------------------------------------------------------
+
+ID - 15 - warrior woman
+---always
+1 bones
+---common
+2400 coins
+1 uncut ruby
+1 steel pickaxe
+5 noted mithril ore
+---uncommon
+1 adamant plateskirt
+1 black chainbody
+30 iron arrow
+1 muddy key
+---rare
+10000 coins
+
+--------------------------------------------------------------------
+
+id - 18 al-kharid warrior
+---always
+1 bones
+---common
+2000 coins
+1 black scimitar
+1 steel warhammer
+1 antipoison (3)
+100 water runes
+1 uncut emerald
+1 grimy guam
+---uncommon
+1 sapphire ring
+5 law runes
+10 noted tin ore
+1 cabbage
+---rare
+1 mithril platelegs
+
+----------------------------------------------------------------------
+
+id - 2602 - TzHaar-Hur (lvl 74)
+---always
+random 500 tokkul
+---common
+20 noted pure essence
+20 noted gold bars
+1 diamond ring
+1 rune dagger
+200 earth runes
+1 mithril sword
+---uncommon
+90 mithril arrows
+3 noted uncut sapphire
+1 adamant chainbody
+1 uncut diamond
+---rare
+1 runite ore
+75 nature runes
+1 Toktz-Mej-Tal (obby staff)
+
+----------------------------------------------------------------------
+
+id - 2593 - TzHaar-Mej (lvl 103)
+---always
+random 750 tokkul
+---common
+25 noted pure essence
+1 uncut diamond
+1 rune mace
+100 noted maple logs
+1 adamantite bar
+500 fire runes
+---uncommon
+35 noted silver ore
+20 noted molten glass
+1 grimy cadantine
+1 grimy dwwarf weed
+1 grimy torstol
+1 grimy rannaar
+---rare
+1 Toktz-Mej-Tal (obby staff)
+1 obsidian cape
+700 water runes
+
+-----------------------------------------------------------------------
+
+ID - 2608 - TzHaar-Xil (lvl 133)
+---always
+random 1000 tokkul
+---common
+random 30 obsidian rings
+600 earth runes
+1 grimy dwarf weed
+1 grimy torstol
+3 noted uncut emerald
+3 raw lobsters
+---uncommon
+80 noted cowhide
+20 noted gold bars
+1 adamant platebody
+80 noted flax
+---rare
+1 obsidian staff
+1 obsidian cape
+1 obsidian shield (Toktz-ket-xil)
+1 water battlestaff
+1000 air runes
+
+----------------------------------------------------------------------
+
+ID - 2613 - TzHaar-Ket (lvl 149)
+---always
+random 1500 tokkul
+---common
+random 50 obsidian rings
+1 uncut diamond
+500 water runes
+1 rune axe
+1 raw bass
+---uncommon
+5 noted uncut ruby
+1 rune bar
+35 noted gold rings
+20 noted yew logs
+50 noted pure essence
+20 noted grimy guam leaf
+50 chaos runes
+---rare
+1 obsidian staff
+1 obsidian cape
+1 obsidian shield (Toktz-ket-xil)
+1 rune platebody
+
+----------------------------------------------------------------------

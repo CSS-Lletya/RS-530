@@ -1,0 +1,199 @@
+Shop list by Luke132
+
+800 - complete weapon + armour
+801 - normal str att def pots
+802 - tribal\villager clothes
+803 - gnome cocktails
+804 - hunter shop
+805 - nothing
+806 - mining helm, tinderbox and unlit torch
+807 - frog leather items
+808 - some general store items + glassblowing pipe + unlit torch
+809 - nothing
+810 - initiate shop
+811 - initiate + prostelyte shop
+812 - karambwan store
+813 - kp (poisoned) spear store
+814 - blackjack store
+815 - blackjack (d) store
+816 - menaphite store (colourful desert robes)
+817 - desert robes (from polienneavich)
+818 - the 4 basic elemental runes
+819 - all the other runes
+820 - nothing
+821 - axes, pickaxe and battleaxes
+822 - swords and daggers (varrock sword shop?)
+823 - lowes archery emporium
+824 - lowes archery emporium again..but for F2P
+825 - zaffs staffs shop
+826 - scimitar shop
+827 - mace shop
+828 - battleaxe shop
+829 - lost city weapon shop (d long + dagger)
+830 - 2 handed swords
+831 - d battleaxe + d mace shop
+832 - range items (range guild)
+833 - same as above but with range 99 cape untrimmed
+834 - same as above but trimmed cape
+835 - another staff shop
+836 - range items with 2handed swords
+837 - pickaxe shop
+838 - cannon shop
+839 - range shop (bows and arrowheads)
+840 - javelins and thrownaxes
+841 - elemental runes, mind, body, chaos and death (tzhaar runes)
+842 - same as above but with untrimmed runecraft cape
+843 - same as above but with trimmed cape
+844 - same as above but with wizard hats and eye of newt instead of cape
+845 - magic guild store (all runes + some staffs)
+846 - mystic robe store
+847 - same as above but with untrimmed magic cape
+848 - same as above but with trimmed magic cape
+849 - horviks armour (chain + platebodys)
+850 - helm store (med + full helms upto addy)
+851 - plateleg store
+852 - shield store (no rune sq)
+853 - plateskirt store
+854 - chainbody store
+855 - champions guild store (some rune items + range armour)
+856 - rune plate and green dhide body
+857 - platebody store (upto and including mith)
+858 - leather range armours
+859 - same as above but with untrimmed range cape
+860 - same as above but trimmed range cape
+861 - general store
+862 - nothing
+863 - nothing
+864 - nothing
+865 - cape, black helm + legs and addy plate
+866 - some general store items (old general store)
+867 - new general store
+868 - nothing
+869 - old general store..again
+870 - new general store..again
+871 - old general store with pickaxe and axe
+872 - general store with knife, rope, chisel, bowl and cake tin
+873 - karamja general store
+874 - another general store with swamp paste and pot of flour
+875 - general store with bronze arrows, meat and pickaxe
+876 - karamja general store (or shilo ive forgot)
+877 - same as above but some changes
+878 - old general store
+879 - cooked swordfish, apple pie, attack potion, steel arrow
+880 - gnome robes and boots
+881 - range shop with 2handers
+882 - nothing
+883 - nothing
+884 - fishing shop
+885 - pizza base shop
+886 - another fishing shop (f2p i think, not as much as the other)
+887 - cake stall store
+888 - nothing
+889 - fishing bait and feathers
+890 - lots of cooking items (cooking guild store?)
+891 - cup of tea
+892 - spice, knife and garlic
+893 - lots of foods (cabbage, potatoe, chocolate...cant think were from on real rs)
+894 - fishing shop again (f2p)
+895 - beer, wine and jug of wine
+896 - amulet and ring store
+897 - a ruby ring
+898 - strung amulets and strung holy symbol
+899 - unstrung symbol
+900 - varrock clothes shop
+901 - hammer and pickaxe
+902 - crafting store
+903 - another crafting shop (f2p i think)
+904 - replica of 902
+905 - replica of 903
+906 - herblore store
+907 - unlit candle
+908 - herblore store again
+909 - basic clothing store (never seen it)
+910 - herblore store
+911 - fur trader
+912 - water items
+913 - shanty pass store
+914 - legends guild store
+915 - diango store
+916 - farming store
+917 - nothing
+918 - nothing
+919 - nothing
+920 - low level seed store
+921 - nothing
+922 - nothing
+923 - nothing
+924 - nothing
+925 - various items, nothing special
+926 - bolt racks
+927 - a general store
+928 - farming tools
+929 - white chainbody + platelegs
+930 - same as above but with white sword + dagger
+931 - same as above but with white helm + shield now (i see a pattern :o!)
+932 - same as above but more white items...
+933 - same as above...more white items -.-
+934 - guess what?....more white items
+935 - various items, nothing special
+936 - raw salmon and raw cod
+937 - cooked salmon and cooked cod
+938 - mithril armour shop
+939 - mithril weapon shop
+940 - tin ore and copper ore
+941 - yak items
+942 - wine and a jug
+943 - same as above with with jug of vinegar
+944 - jug of wine and empty jug
+945 - javelins and arrowheads
+946 - F2P rune store
+947 - general store with field ration
+948 - lighthouse store
+949 - bone item store
+950 - stock and limb store (crossbow items)
+951 - same as above but more items
+952 - rotten tomato
+953 - fremmenik cape and robe store
+954 - beer shop with keg of beer
+955 - warhammers and fremmenik helms
+956 - various items (with wf vials)
+957 - fishing store with raw shrimp and sardine
+958 - fur trader
+959 - feathers, iron + steel arrows and arrowheads
+960 - small crafting store with some desert robes
+961 - looks like a desert general store
+962 - same as above but with some food items
+963 - beer and wine store
+964 - pie recipe book
+965 - gnome coctail store except the items are "premade"
+966 - premade foods..probably gnome items
+967 - slayer store
+968 - raw meat store
+969 - robe and hat store (canifis)
+970 - various items (ape atoll maybe)
+971 - ape atoll rune stall or general store
+972 - scimitar shop
+973 - same as above but with dragon scimmy
+974 - ape atoll food shop
+975 - crafting store
+976 - old general store
+977 - desert general store
+978 - bandits brew
+979 - rasoolo the merchant's store
+980 - tzhaar weapons and armour
+981 - nothing
+982 - tzhaar runes store
+983 onwards - nothing
+
+
+
+
+
+
+
+
+
+
+
+
+

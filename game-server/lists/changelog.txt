@@ -1,0 +1,366 @@
+1:
+Banking.
+Trading.
+Shopping.
+
+2:
+last one before going to 530.
+
+3:
+Back to 525.
+Full Fletching skill.
+
+4:
+Teleports.
+Full Herblore skill.
+
+5:
+Last version before converting to 530.
+
+6:
+Cooking skill.
+Food and potions.
+Stat restore event.
+
+7:
+Fixed some potion bugs.
+Completed 525 item list (except for 377+ examine + 377+ stats :$).
+Item prices (needs redoing)
+Fixed the code which checks whether an item is noted/stackable.
+Fixed a shop bug where selling items wouldn't give money.
+Object restore system (for rocks/trees etc).
+Quest/achievement tab now saves.
+'Changed' objects will load if you change region.
+Full mining skill.
+
+8:
+Changed the way food and potions are consumed.
+Prevented packet bugs regarding invalid slots/id's/indexes.
+Added some commands.
+Smelting completed.
+Fixed trade right click so it'll now accept a trade.
+All 'cycle' skills will now stop upon doing most things.
+Annoying bug fixed where you could run through objects.
+Friends/ignore list completed, with privacy support.
+Smithing started.
+Clan chat 50% completed.
+
+9:
+Fixed a friendslist login bug.
+Added the rest of the interface right click option packets.
+Completed clan chat except for setting kick rights.
+Completed smithing skill.
+Dropped stackable items will now stack if there's already a stack on the floor.
+
+10:
+Added another inventory right click option packet.
+Corrected the create ground item packet amount stream method.
+Fixed a few bugs with fletching.
+Added clan chat kick rights.
+Added a forcewalk method.
+Fixed picking an item up from 1 square away.
+Fixed problems with ground items regarding height levels.
+Full RuneCrafting skill (except combo runes + Ourania altar).
+
+11:
+Bone burying.
+Started combat w/ special attacks.
+Fixed some RuneCrafting bugs.
+Added most NPC update masks.
+Added two handed item support.
+Perfected trade/duel requests.
+Fixed the items on death and equipment stat interface item options.
+Fixed a trade bug with adding/removing items.
+Fixed a trade request bug.
+Added some more items to the equipment array.
+Added CFG item list.
+Duel arena completed 75%.
+Changed/fixed the entity headicon packet (arrow on head).
+
+12.
+Fixed Abyss agility tunnels.
+Added complete Abyss teleport coordinates.
+Added duel spoils interface.
+Added the rest of the stake right click options.
+Added more bank booths.
+Added mining object distance events.
+Fixed multiple duel arena bugs.
+Fixed dragable inventory items in bank, shop, trade, duel.
+Added spoils screen right click option.
+Added a dialogue system (could be done better though).
+Full bank pins.
+Edited buttons to prevent bugs (such as a dialogue popping up when fletching).
+Full woodcutting skill.
+Fixed Magic levelup when teleporting.
+
+13.
+Lowered the chance of getting an item from a nest.
+Thieving skill started, good 'base' done for pickpocketing and stalls.
+Fixed a big bank pin 'error' i had forgot about (pins would never delete or set).
+Perfect prayer switching (added protect item, combat protect and smite effects, others will be in a later version).
+Redid protect items to fix issues with stackable items.
+Dialogues will now reset when an interface is closed.
+Added level 20 wilderness check to teleports.
+Added some teleport variables i had missed.
+Fixed a bank bug with items that are in the item list twice (such as runes).
+Added the correct multi icon variables.
+Fixed a possible accept request glitch if you had an interface already open.
+Fixed a few duel bugs.
+Adjusted the levelup graphic.
+Added most item animations.
+Fixed a bug with the heal() method for players.
+Fixed the player dropLoot method to take into account the # of items to save.
+Fixed a bug with clan ranks if the user was on your friends list.
+Edited the arrowOnEntity packet to display different arrows for players/NPCs.
+Added full autocasting.
+Started on Barrows, will be finished in a later version.
+Melee combat pretty much done (except for 'proper' specials, 1v1/multi etc).
+Range combat 70% done (xbows yet to be done and 1v1 etc).
+Magic combat 90% done (some spell effects left to do, and 1v1 etc).
+Added most attack styles the attack interface buttons use, but will be redone.
+
+14.
+Redid tree sizes due to a mismatched array.
+Finished the staff/replacerune arrays.
+Fixed a small bug with trade/duel requests.
+Fixed a small autocast bug with the spell icon still displaying if not autocasting.
+Fixed the login bug when using uppercase letters.
+Fixed the possibility of trading/staking playerBound items.
+You will recieve your stake winnings if you teleport before accepting now.
+Full HD support for all 3 versions.
+Started fishing skill.
+Fixed a delete bank pin bug.
+Started on destroy item.
+Edited the client to load the same cache as the LD client (client is in v14 archive).
+
+15.
+Fixed some HD/LD bugs.
+Added crossbow bolt effects.
+Done some more of Barrows.
+Added teleport checks to see whether you actually have that magictype set.
+Added split private chat support.
+Fixed a prayer bug.
+2nd region packet done properly.
+Fixed another bank pin glitch.
+Fixed a bug with teleporting after a duel.
+Added teleport jewellery.
+Thieving skill finished.
+Removed combat.
+Last backup before #530.
+
+16.
+Updated to #530.
+Updated all packets to 530 structures.
+All player update masks (except 2).
+All NPC update masks (except 1/2).
+Fixed public chat effects.
+Fixed the message you get when you try to walk in a no movement duel.
+Redone melee combat.
+Added recoil ring.
+
+17.
+Fishing skill completed.
+Added the 530 projectile packet.
+Added a 'render emote list' with some id's fixed.
+Fixed some bugs with the global object & item systems.
+Updated magic and range.
+Finished firemaking skill.
+Added the air altar to RuneCrafting.
+
+18.
+Fixed a Ring of Dueling bug.
+Fixed a potential glitch with trade/duel accept requests.
+Fixed a bug with barrows tunnel warning.
+Added Lumbridge furnace.
+Crafting skill.
+
+19.
+Added Barrow heads.
+Fixed a trading typo.
+Added magic on player packet.
+Changed dragon woodcutting animation.
+Finished protected items.
+Added operate options for jewellery & skillcapes.
+Fixed numerous crafting glitches.
+Items cannot be dropped, picked up or worn when dead.
+Skill cycles will now reset upon death.
+Added attack distances (for NPCs bigger than 1 square).
+Fixed player right click options.
+Fixed a bug with fire deletion.
+Added force movement mask for players.
+Added wilderness ditch.
+Fixed a small text bug with bank PINs.
+Added some more places where interfaces will be closed.
+Added death checks to most packets.
+Complete Slayer skill (Except for monster Ids).
+Started Agility skill.
+Fixed a bug with walking away from a bank with the interface open.
+Corrected a problem with the NPC update masks.
+Fixed a bug with CoordinateEvent if youre already on that spot.
+Synchronized the ArrayLists since i think they were causing problems.
+Fixed smite.
+Added banking checks to trade/duel.
+Fixed some grounditem owner checks.
+Fixed some bugs with refreshing untradable ground items.
+Fixed a bug with the operate item packet.
+Added cut Onyx animation.
+Fixed a problem sending the config packet.
+Farming skill.
+
+20.
+Fixed a bug with farming distances.
+Fixed a few bugs with teleport jewellery.
+Added agility arena, except obstacles :$.
+Changed the maxhit method.
+Bonuses are now set upon login.
+Fixed a problem when eating/drinking in combat.
+Added (t) & (g) helms to the full helm list.
+Fixed the melee defence animation-when attacking glitch.
+Fixed a Smite bug.
+Fixed a bug with level restoration whilst in combat.
+Fixed the trade request/accept packets.
+Fixed a glitch in the trade request packets.
+Levels now reset when you die.
+Fixed a protect item bug.
+Redid the combat level formula, now includes summoning.
+Finished the distanceEvent stuff.
+Readded the objectLocation loading code.
+Optimised melee combat.
+Fixed a bug wielding items in a duel.
+Readded the NPC hit queue.
+Fixed a bug with removing slayer tasks with points.
+Fixed a bug when dying in a duel with autocast on.
+Fixed teleporting in a duel.
+Fixed recieveing winnings if logging out/teleporting.
+Added the remove option to the 'arrow' slot on the stat screen.
+Prayers affect special attack hits.
+Fixed a bug with protect items.
+Fixed a bug with duel statuses.
+Started on the Grand Exchange.
+Added lots of post-377 item stats.
+
+21.
+Added rapid heal & rapid restore prayer effects.
+Added ring of life.
+Added redemption prayer.
+Added retribution prayer.
+Can no longer home teleport in the wilderness.
+Added teletabs except home teleport.
+Added the customizable X option to the bank.
+Added item switching in bank/trade/shop inventorys.
+Fixed a firemaking bug if you pick the log up.
+Cannot firemake on other fires.
+Fixed a message when trying to mine a blank rock.
+Changed the sardine you get from fishing to raw :p.
+Fixed an agility bug clicking obstacles half way through doing it.
+Fixed a bug with normal leather crafting.
+Tweaked the noted-to-unnoted item code.
+Added item examines to inventory...other interfaces use different packets, i'll get them all eventually.
+Player directions now wont reset when changing region.
+Players now face the same way when logging in.
+Farming skill rewritten.
+
+22.
+Added the 2nd map region packet.
+Fixed the parrot dialogue model for the agility arena.
+Edited multi autocasting to stop if theres nothing to hit.
+Fixed a bug with adding magic damage.
+Fight pits minigame.
+Fight cave minigame.
+
+23.
+Fixed a bug X'ing out whilst in the fight pits viewing orb.
+Added cooking on a fire.
+Fixed a bug picking up items with a full inventory.
+NPC's spawned for :-
+- Brimhaven dungeon
+- Mithril Dragon dungeon
+- Taverly dungeon
+- Lumbridge
+- Tzhaar
+Fixed when the defence animation should be shown.
+Added 4th object option packet.
+Added the correct player death animation (cape dosen't stick up).
+Added a cheap fix for the force movement mask.
+Entity focus is reset after fight pits/duel/fight cave.
+Equipped items will now go into their respective swapped slot.
+Added Ghostly to the wearable list.
+-1 respawn rate now means the NPC won't respawn.
+Fixed a fight cave coordinate problem with npc max coords.
+Fixed a bug with bonuses when dead.
+Fixed shadow barrage rune requirement.
+Redid melee accuracy/def.
+Warriors guild animated armour + cyclops drop system done.
+Added prayer draining with bonus support.
+Created a door system, although i think it can be better, and will be redone.
+Added Arctic pine trees to Woodcutting.
+Attempting to mine an empty rock now uses an AreaEvent.
+Created a stairs/ladder system.
+Created a spawned object system, which required me to edit the GlobalObject code.
+Edited the mining code so "You swing your pick.." isn't shown every time for multiple-ore rocks.
+Grand Exchange rewritten, although not finished.
+Added an anvil smithing AreaEvent.
+Added the system update login message.
+Added item on NPC packet.
+
+24.
+Redid the attack option buttons, completed attack option loading and item switching.
+Added wilderness webs.
+Added wilderness levers, although need the id/animation for the "used" lever.
+Fixed a problem with spawning objects.
+Added Jatiszo + Neitiznot doors.
+Fixed a bug with respawning NPCs.
+Added some new men & women ids to pickpocketing.
+Configured Aubury.
+Added Pure Essence mining.
+Fixed a bug when levelling up HP.
+Fixed a bug loading shop player stock.
+Fixed selling random items to a non-general store.
+Value option added to shops.
+Some item data added.
+Spawned more NPCs.
+Configured Oo'glog.
+Added wilderness obelisks.
+Fixed numerous shop/trade/duel bugs when dealing with over 2.147b of an item.
+Added the chat/trade/private incoming packet.
+Fixed some bugs with chat/privacy settings.
+Fixed a bug with 2 accounts logging in with the same name before the account has created a save file.
+Fixed some clan chat bugs.
+Walking queue now resets when you teleport, or are about to teleport.
+Reconfigured the defence formula.
+Adjusted special attacks.
+Bolt attack chance increased.
+Added a monster defence system for melee.
+Fixed a projectile error.
+Added Tormented Demons mapdata.
+Edited the client to prevent mapdata crashes.
+Rewrote NPC drops.
+Edited a method in Applet_Sub1 to enable a webclient.
+Added SQL saving/loading.
+Fixed a bug with aggressive NPCs on different height levels.
+Configured dragonfire for normal dragons.
+Teleblock will no longer teleblock when splashing.
+Godswords now have the correct attack options.
+Aggressive monsters will be aggressive for players upto 2x their combat level, except in the wilderness.
+You can no longer eat/drink if the next hit is going to kill you (so "ko's" can actually happen instead of spam eating).
+Added Dharok and Guthan effects for players.
+Guthan NPC now heals on his special attack.
+Vengeance delay now resets upon death.
+Added super antipoison and antifire potion effects.
+You now stop walking when you open the equipment interface.
+Fixed a walking bug which affected agility.
+Fixed the cooking animations.
+Farming flowers no longer uses the spade animation.
+Bolt tips can now be crafted.
+Fixed chat encryption/decryption.
+Added the 'Barrage orb'.
+Fixed which spells can multi-hit.
+Miasmic spells with relevant effects.
+NPC's freeze delay will reset upon death.
+Frozen is now an Entity variable (IDK why i didn't do this at the start).
+Added more death messages.
+Farmed vegatables and fruit can now be eaten.
+Ice barrage and ice blitz now use a projectile if the target is running.
+
+25.
+Added farming amulet to teleport you to patches.
