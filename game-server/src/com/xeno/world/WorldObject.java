@@ -2,10 +2,10 @@ package com.xeno.world;
 
 import com.xeno.entity.player.Player;
 
-public class WorldObject {
+public class WorldObject extends Location {
 
 	private boolean spawnedObject;
-	private int originalId;
+	public int id;
 	private int secondaryId;
 	private Location location;
 	private int restoreDelay;
@@ -19,8 +19,12 @@ public class WorldObject {
 	private int type;
 	private boolean deleteObject;
 	
+	public int getId() {
+		return id;
+	}
+	
 	public WorldObject(int originalId, int secondaryId, int face, Location location, int delay, int health) {
-		this.originalId = originalId;
+		this.id = originalId;
 		this.secondaryId = secondaryId;
 		this.location = location;
 		this.face = face;
@@ -32,7 +36,7 @@ public class WorldObject {
 	}
 	
 	public WorldObject(int originalId, int secondaryId, int face, Location location, int delay) {
-		this.originalId = originalId;
+		this.id = originalId;
 		this.secondaryId = secondaryId;
 		this.location = location;
 		this.face = face;
@@ -54,15 +58,26 @@ public class WorldObject {
 	 * Used for fires
 	 */
 	public WorldObject(int id, Location location, int objectType) {
-		this.originalId = id;
+		this.id = id;
 		this.location = location;
 		this.face = 0;
 		this.type = 10;
 		this.objectType = objectType;
 	}
 	
+	/*
+	 * Generic map object
+	 */
+	public WorldObject(int id, Location location) {
+		this.id = id;
+		this.location = location;
+		this.face = 0;
+		this.type = 10;
+		this.objectType = 0;
+	}
+	
 	public WorldObject(int id, Location location, int face, int type) {
-		this.originalId = id;
+		this.id = id;
 		this.location = location;
 		this.face = face;
 		this.type = type;
@@ -70,7 +85,7 @@ public class WorldObject {
 	}
 	
 	public WorldObject(int id, int secondary, Location location, int face, int type) {
-		this.originalId = id;
+		this.id = id;
 		this.secondaryId = secondary;
 		this.location = location;
 		this.face = face;
@@ -79,7 +94,7 @@ public class WorldObject {
 	}
 	
 	public WorldObject(int id, Location location, int face, int type, boolean spawned) {
-		this.originalId = id;
+		this.id = id;
 		this.location = location;
 		this.face = face;
 		this.type = type;
@@ -100,7 +115,7 @@ public class WorldObject {
 	}
 
 	public int getOriginalId() {
-		return originalId;
+		return id;
 	}
 
 	public int getSecondaryId() {

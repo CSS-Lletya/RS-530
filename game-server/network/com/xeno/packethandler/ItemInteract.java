@@ -146,9 +146,6 @@ public class ItemInteract implements PacketHandler {
 		int interfaceId = packet.readLEShort();
 		int child = packet.readShort();
 		int objectId = packet.readShortA();
-		player.setObjectClickId(objectId);
-		player.setObjectClickX(objectX);
-		player.setObjectClickY(objectY);
 		player.setClickItem(item);
 		if (slot > 28 || slot < 0 || player.isDead() || player.getTemporaryAttribute("cantDoAnything") != null) {
 			return;

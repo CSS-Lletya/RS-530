@@ -886,46 +886,6 @@ public class Player extends Entity {
 		this.distanceEvent = event;
 	}
 	
-	private int objectClickId;
-	
-	public int getObjectClickId() {
-		return objectClickId;
-	}
-	
-	public void setObjectClickId(int id) {
-		this.objectClickId = id;
-	}
-	
-	private int objectClickX;
-	
-	public int getObjectClickX() {
-		return objectClickX;
-	}
-	
-	public void setObjectClickX(int x) {
-		this.objectClickX = x;
-	}
-	
-	private int objectClickY;
-	
-	public int getObjectClickY() {
-		return objectClickY;
-	}
-	
-	public void setObjectClickY(int y) {
-		this.objectClickY = y;
-	}
-	
-	private int objectClickZ;
-	
-	public int getObjectClickZ() {
-		return objectClickZ;
-	}
-	
-	public void setObjectClickZ(int z) {
-		this.objectClickZ = z;
-	}
-	
 	public final boolean goodDistance(int objectX, int objectY, int playerX, int playerY, int distance) {
         int deltaX = objectX - playerX;
         int deltaY = objectY - playerY;

@@ -2,6 +2,8 @@ package com.xeno.util;
 
 import org.tinylog.Logger;
 
+import com.xeno.GameConstants;
+
 /**
  * Represents a feature-rich Logging utility backed by TinyLog
  * <https://tinylog.org/v2/> <https://tinylog.org/v2/logging/>
@@ -28,6 +30,9 @@ public final class LogUtility {
 	 * @param message
 	 */
 	public static void log(LogType logType, String message) {
+		if (!GameConstants.DEBUG_MODE) {
+			return;
+		}
 		switch (logType) {
 		case DEBUG:
 			Logger.debug(message);

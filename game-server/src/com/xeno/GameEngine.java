@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.rs.plugin.PluginManager;
 import com.xeno.io.MapDataLoader;
 import com.xeno.io.MapDataPacker;
 import com.xeno.io.XStreamPlayerLoader;
@@ -86,6 +87,7 @@ public class GameEngine {
 		ItemDefinition.load();
 		LogUtility.log(LogType.INFO, "Loading npc definitions...");
 		NPCDefinition.load();
+		PluginManager.loadPlugins();
 		/*
 		 * Set up the world.
 		 */

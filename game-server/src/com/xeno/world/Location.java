@@ -13,7 +13,7 @@ public class Location implements Cloneable {
 	
 	private int x, y, z;
 	
-	private Location(int x, int y, int z) {
+	public Location(int x, int y, int z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -167,5 +167,9 @@ public class Location implements Cloneable {
 	public int distanceToPoint(Location l) {
 		return (int) Math.sqrt(Math.pow(x - l.getX(), 2) + Math.pow(y - l.getY(), 2));
 	}
+
+	public int getTileHash() {
+        return y + (x << 14) + (z << 28);
+    }
 }
 
