@@ -1,5 +1,6 @@
 package com.xeno.packethandler.commands;
 
+import com.xeno.GameConstants;
 import com.xeno.entity.player.Player;
 import com.xeno.world.World;
 
@@ -7,7 +8,7 @@ public class Uptime implements Command {
 
 	@Override
 	public void execute(Player player, String command) {
-		player.getActionSender().sendMessage("Xenorune uptime : " + getTime());
+		player.getActionSender().sendMessage(GameConstants.SERVER_NAME + " uptime : " + getTime());
 	}
 
 	@Override

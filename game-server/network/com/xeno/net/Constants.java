@@ -23,9 +23,9 @@ public class Constants {
 	/**
 	 * Standard session idle time, in seconds.
 	 * 
-	 * We make this slightly longer to allow for in-game lag.
+	 * We make this slightly longer to allow for in-game lag. (90 original)
 	 */
-	public static final int SESSION_IDLE_TIME = 90;
+	public static final int SESSION_IDLE_TIME = 60;
 	
 	/**
 	 * Connection throttle interval, in seconds.

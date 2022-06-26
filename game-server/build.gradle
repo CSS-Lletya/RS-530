@@ -1,0 +1,44 @@
+/*
+	The Plugins we want to define in our Gradle build
+*/
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+/*
+	The target runtime for our JVM
+*/
+sourceCompatibility = 1.8
+
+/*
+	A list of repositories we're going to be using
+*/
+repositories {
+    mavenCentral()
+}
+
+/*
+	The dependancies we're using in order to build our enviornment in
+*/
+dependencies {
+	implementation group: 'org.apache.mina', name: 'mina-core', version: '1.1.7'
+	runtimeOnly group: 'org.tinylog', name: 'tinylog-impl', version: '2.4.0-M1'
+	implementation group: 'org.tinylog', name: 'tinylog-api', version: '2.4.0-M1'
+	implementation group: 'com.thoughtworks.xstream', name: 'xstream', version: '1.4.2'
+	implementation 'xpp3:xpp3:1.1.4c'
+	implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.36'
+}
+
+/*
+	A list of all Source-built folders, list is  self-explanitory
+*/
+sourceSets {
+    main {
+        java {
+            srcDirs 'network'
+            srcDirs 'combat'
+            srcDirs 'skills'
+            srcDirs 'content'
+            srcDirs 'src'
+        }
+    }
+ }

@@ -14,6 +14,7 @@ import com.xeno.net.definitions.NPCDefinition;
 import com.xeno.packethandler.PacketHandlers;
 import com.xeno.util.LogUtility;
 import com.xeno.util.LogUtility.LogType;
+import com.xeno.util.TimeStamp;
 import com.xeno.world.World;
 
 /**
@@ -40,16 +41,24 @@ public class GameEngine {
 	 * Our worker thread.
 	 */
 	private WorkerThread workerThread;
+	
 	/**
 	 * Thread group.
 	 */
 	private ThreadGroup threads = new ThreadGroup("RuneShard");
+	
+    /**
+     * The time stamp of when the server started running.
+     */
+    public static long startTime;
 	
 	/**
 	 * Creates other things vital to the game logic, like the world class.
 	 * @throws Exception 
 	 */
 	public GameEngine() throws Exception {
+		startTime = System.currentTimeMillis();
+        final TimeStamp t = new TimeStamp();
 		/*
 		 * We are running.
 		 */
@@ -88,6 +97,7 @@ public class GameEngine {
 		LogUtility.log(LogType.INFO, "Launching worker thread...");
 		workerThread = new WorkerThread(new XStreamPlayerLoader());
 		newThread("WorkerThread", workerThread);
+		LogUtility.log(LogType.INFO, "Launched game server in " + t.duration(false, "") + " milliseconds.");
 	}
 	
 	public void newThread(String name, Runnable r) {

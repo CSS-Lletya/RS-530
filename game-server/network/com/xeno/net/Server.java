@@ -8,6 +8,7 @@ import org.apache.mina.common.IoAcceptor;
 import org.apache.mina.transport.socket.nio.SocketAcceptor;
 import org.apache.mina.transport.socket.nio.SocketAcceptorConfig;
 
+import com.xeno.GameConstants;
 import com.xeno.GameEngine;
 import com.xeno.cache.Cache;
 import com.xeno.util.LogUtility;
@@ -70,7 +71,7 @@ public class Server {
 		/*
 		 * Start everything rolling.
 		 */
-		LogUtility.log(LogType.INFO, "Xenorune");
+		LogUtility.log(LogType.INFO, GameConstants.SERVER_NAME);
         setCache(new Cache(new File("./data/cache/")));
 		engine = new GameEngine();
 		acceptor = new SocketAcceptor();
