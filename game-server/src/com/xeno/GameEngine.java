@@ -10,8 +10,9 @@ import com.xeno.io.XStreamPlayerLoader;
 import com.xeno.model.ItemDefinition;
 import com.xeno.model.World;
 import com.xeno.model.npc.NPCDefinition;
+import com.xeno.net.Server;
+import com.xeno.net.WorkerThread;
 import com.xeno.packethandler.PacketHandlers;
-import com.xeno.util.Scripts;
 import com.xeno.util.log.Logger;
 
 /**
@@ -27,7 +28,7 @@ public class GameEngine {
 	/**
 	 * Logger instance.
 	 */
-	private Logger logger = Logger.getInstance();
+	private static Logger logger = Logger.getInstance();
 	
 	/**
 	 * Running flag.
@@ -151,5 +152,29 @@ public class GameEngine {
 
 	public int[] getMapData(int region) {
 		return mapData.get(region);
+	}
+	
+	/**
+	 * Entry point of the program.
+	 * 
+	 * Sets everything rolling.
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				Server s = null;
+				try {
+					s = new Server();
+				} catch (Exception e) {
+					logger.error(e.toString());
+					logger.stackTrace(e);
+					return;
+				}
+				s.go();
+				
+			}
+		}, "GameEngine").start();
 	}
 }

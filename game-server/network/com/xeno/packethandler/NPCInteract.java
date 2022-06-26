@@ -2,12 +2,12 @@ package com.xeno.packethandler;
 
 import org.apache.mina.common.IoSession;
 
-import com.xeno.Constants;
 import com.xeno.content.combat.Combat;
 import com.xeno.content.combat.MagicCombat;
 import com.xeno.model.World;
 import com.xeno.model.npc.NPC;
 import com.xeno.model.player.Player;
+import com.xeno.net.Constants;
 import com.xeno.net.Packet;
 
 /**

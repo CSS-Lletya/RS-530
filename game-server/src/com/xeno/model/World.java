@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.xeno.Constants;
 import com.xeno.GameEngine;
 import com.xeno.content.combat.AggressiveNPC;
 import com.xeno.content.combat.Combat;
@@ -20,6 +19,7 @@ import com.xeno.event.CoordinateEvent;
 import com.xeno.event.Event;
 import com.xeno.model.npc.NPC;
 import com.xeno.model.player.Player;
+import com.xeno.net.Constants;
 import com.xeno.packetbuilder.NPCUpdate;
 import com.xeno.packetbuilder.PlayerUpdate;
 import com.xeno.util.Area;

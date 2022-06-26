@@ -1,6 +1,5 @@
 package com.xeno.packetbuilder;
 
-import com.xeno.Constants;
 import com.xeno.model.Item;
 import com.xeno.model.Location;
 import com.xeno.model.World;
@@ -8,6 +7,7 @@ import com.xeno.model.masks.Appearance;
 import com.xeno.model.masks.ForceMovement;
 import com.xeno.model.player.Player;
 import com.xeno.model.player.PlayerUpdateFlags;
+import com.xeno.net.Constants;
 import com.xeno.net.Packet.Size;
 import com.xeno.util.ItemData;
 import com.xeno.util.Misc;

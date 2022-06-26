@@ -1,6 +1,5 @@
 package com.xeno.packetbuilder;
 
-import com.xeno.Constants;
 import com.xeno.model.World;
 import com.xeno.model.masks.Animation;
 import com.xeno.model.masks.EntityFocus;
@@ -9,6 +8,7 @@ import com.xeno.model.masks.ForceText;
 import com.xeno.model.masks.Graphics;
 import com.xeno.model.npc.NPC;
 import com.xeno.model.player.Player;
+import com.xeno.net.Constants;
 import com.xeno.net.Packet.Size;
 
 /**

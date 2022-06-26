@@ -1,8 +1,8 @@
 package com.xeno.model;
 
-import com.xeno.Constants;
 import com.xeno.model.npc.NPC;
 import com.xeno.model.player.Player;
+import com.xeno.net.Constants;
 
 /**
  * Handles local entities.

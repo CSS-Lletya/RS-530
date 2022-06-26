@@ -4,7 +4,7 @@ import org.apache.mina.filter.codec.ProtocolCodecFactory;
 import org.apache.mina.filter.codec.ProtocolDecoder;
 import org.apache.mina.filter.codec.ProtocolEncoder;
 
-import com.xeno.WorkerThread;
+import com.xeno.net.WorkerThread;
 
 /**
  * Provides access to the encoders and decoders for the 508 protocol.

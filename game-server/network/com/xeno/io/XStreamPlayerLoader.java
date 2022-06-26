@@ -5,10 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 import com.thoughtworks.xstream.XStream;
-import com.xeno.Constants;
 import com.xeno.model.World;
 import com.xeno.model.player.Player;
 import com.xeno.model.player.PlayerDetails;
+import com.xeno.net.Constants;
 import com.xeno.util.XStreamUtil;
 
 /**

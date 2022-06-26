@@ -5,7 +5,6 @@ import org.apache.mina.common.IoHandler;
 import org.apache.mina.common.IoSession;
 import org.apache.mina.filter.codec.ProtocolCodecFilter;
 
-import com.xeno.Constants;
 import com.xeno.GameEngine;
 import com.xeno.model.World;
 import com.xeno.model.player.Player;

@@ -5,8 +5,8 @@ import org.apache.mina.common.IoSession;
 import org.apache.mina.filter.codec.ProtocolEncoder;
 import org.apache.mina.filter.codec.ProtocolEncoderOutput;
 
-import com.xeno.Server;
 import com.xeno.cache.ArchiveFile;
+import com.xeno.net.Server;
 
 /**
  * 

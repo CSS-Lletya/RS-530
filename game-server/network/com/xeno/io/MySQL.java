@@ -6,10 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import com.xeno.Constants;
 import com.xeno.model.World;
 import com.xeno.model.player.Player;
 import com.xeno.model.player.PlayerDetails;
+import com.xeno.net.Constants;
 import com.xeno.util.MD5;
 import com.xeno.util.log.Logger;
 

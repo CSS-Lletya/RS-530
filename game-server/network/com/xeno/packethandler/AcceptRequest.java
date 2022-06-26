@@ -2,12 +2,12 @@ package com.xeno.packethandler;
 
 import org.apache.mina.common.IoSession;
 
-import com.xeno.Constants;
 import com.xeno.event.AreaEvent;
 import com.xeno.model.World;
 import com.xeno.model.masks.FaceLocation;
 import com.xeno.model.player.Player;
 import com.xeno.model.player.TradeSession;
+import com.xeno.net.Constants;
 import com.xeno.net.Packet;
 import com.xeno.world.Trade;
 

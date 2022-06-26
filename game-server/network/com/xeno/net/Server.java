@@ -1,16 +1,15 @@
-package com.xeno;
+package com.xeno.net;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
+import com.xeno.GameEngine;
 import com.xeno.cache.Cache;
 import org.apache.mina.common.IoAcceptor;
 import org.apache.mina.transport.socket.nio.SocketAcceptor;
 import org.apache.mina.transport.socket.nio.SocketAcceptorConfig;
 
-import com.xeno.net.ConnectionHandler;
-import com.xeno.net.ConnectionThrottleFilter;
 import com.xeno.util.log.Logger;
 
 /**

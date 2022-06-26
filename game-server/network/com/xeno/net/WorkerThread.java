@@ -1,4 +1,4 @@
-package com.xeno;
+package com.xeno.net;
 
 import java.util.LinkedList;
 import java.util.Queue;

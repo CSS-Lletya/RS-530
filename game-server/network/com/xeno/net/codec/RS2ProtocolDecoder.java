@@ -5,7 +5,7 @@ import org.apache.mina.common.IoSession;
 import org.apache.mina.filter.codec.CumulativeProtocolDecoder;
 import org.apache.mina.filter.codec.ProtocolDecoderOutput;
 
-import com.xeno.Constants;
+import com.xeno.net.Constants;
 import com.xeno.net.Packet;
 import com.xeno.util.log.Logger;
 

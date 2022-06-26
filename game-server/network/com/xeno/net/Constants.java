@@ -1,4 +1,4 @@
-package com.xeno;
+package com.xeno.net;
 
 /**
  * Holds global server constants.
