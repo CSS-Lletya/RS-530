@@ -1,8 +1,8 @@
 package com.xeno.packethandler.commands;
 
-import com.xeno.content.events.SystemUpdateEvent;
-import com.xeno.model.World;
-import com.xeno.model.player.Player;
+import com.xeno.entity.player.Player;
+import com.xeno.event.impl.SystemUpdateEvent;
+import com.xeno.world.World;
 
 public class SystemUpdate implements Command {
 

@@ -1,11 +1,11 @@
 package com.xeno.util;
 
+import com.xeno.entity.masks.ForceMovement;
+import com.xeno.entity.player.Player;
 import com.xeno.event.AreaEvent;
 import com.xeno.event.Event;
-import com.xeno.model.Location;
-import com.xeno.model.World;
-import com.xeno.model.masks.ForceMovement;
-import com.xeno.model.player.Player;
+import com.xeno.world.Location;
+import com.xeno.world.World;
 
 public class Area {
 

@@ -4,11 +4,11 @@ import org.apache.mina.common.IoSession;
 
 import com.xeno.content.combat.Combat;
 import com.xeno.content.combat.MagicCombat;
-import com.xeno.model.World;
-import com.xeno.model.npc.NPC;
-import com.xeno.model.player.Player;
+import com.xeno.entity.npc.NPC;
+import com.xeno.entity.player.Player;
 import com.xeno.net.Constants;
 import com.xeno.net.Packet;
+import com.xeno.world.World;
 
 /**
  * 

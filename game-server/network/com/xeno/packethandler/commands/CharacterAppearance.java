@@ -1,7 +1,7 @@
 package com.xeno.packethandler.commands;
 
 import com.xeno.content.ConfigureAppearance;
-import com.xeno.model.player.Player;
+import com.xeno.entity.player.Player;
 
 public class CharacterAppearance implements Command {
 

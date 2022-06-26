@@ -1,22 +1,23 @@
 package com.xeno.packethandler;
 
-import com.xeno.content.*;
-
 import org.apache.mina.common.IoSession;
 
+import com.xeno.content.Clan;
+import com.xeno.content.ConfigureAppearance;
 import com.xeno.content.combat.MagicCombat;
-import com.xeno.content.skills.magic.AutoCast;
-import com.xeno.content.skills.magic.Lunar;
-import com.xeno.content.skills.magic.Teleport;
-import com.xeno.content.skills.prayer.Prayer;
-import com.xeno.model.World;
-import com.xeno.model.player.GESession;
-import com.xeno.model.player.Player;
+import com.xeno.content.combat.constants.AttackInterfaceConfig;
+import com.xeno.content.emote.Emotes;
+import com.xeno.entity.player.Player;
+import com.xeno.model.player.skills.SkillMenu;
+import com.xeno.model.player.skills.magic.AutoCast;
+import com.xeno.model.player.skills.magic.Lunar;
+import com.xeno.model.player.skills.magic.Teleport;
+import com.xeno.model.player.skills.prayer.Prayer;
+import com.xeno.model.player.skills.prayer.ProtectedItems;
 import com.xeno.net.Packet;
 import com.xeno.util.EnterVariable;
 import com.xeno.util.log.Logger;
-import com.xeno.world.Clan;
-import com.xeno.world.grandexchange.BuyOffer;
+import com.xeno.world.World;
 
 /**
  * 
@@ -246,176 +247,7 @@ public class ActionButton implements PacketHandler {
                    
                 }
                 break;
-			case 389: // GE Item Search
-				if (player.getGESession() != null) {
-					if (player.getGESession().getCurrentOffer() != null) {
-						if (player.getGESession().getCurrentOffer() instanceof BuyOffer) {
-							player.getActionSender().sendInterface(0, 752, 6, 137); // Removes the item search
-						}
-					}	
-				}
-				break;
-		
-			case 374: // Tzhaar fight pits viewing orb
-			
-				break;
-				
-			case 107: // GE Sell inventory.
-				if (player.getGESession() == null) {
-					break;
-				}
-				switch(buttonId) {
-					case 18: // Offer
-						player.getGESession().offerSellItem(buttonId2);
-						break;
-				}
-				break;
-			
-			case 105: // GE interface
-				if (player.getGESession() == null) {
-					break;
-				}
-				switch(buttonId) {
-				
-					case 209: // Collect-notes
-						player.getGESession().collectSlot1(true);
-						break;
-				
-					case 203: // Abort offer
-						player.getGESession().abortOffer();
-						break;
-						
-					case 31: // Sell, box 1
-						player.getGESession().newSellOffer(0);
-						break;
-				
-					case 30: // Buy, box 1
-						player.getGESession().newBuyOffer(0);
-						break;
-						
-					case 18: // Check status, box 1
-						player.getGESession().checkOffer(0);
-						break;
-						
-					case 46: // Buy, box 2
-						player.getGESession().newBuyOffer(1);
-						break;
-						
-					case 47: // Sell, box 2
-						player.getGESession().newSellOffer(1);
-						break;
-						
-					case 34: // Check status, box 2
-						player.getGESession().checkOffer(1);
-						break;
-						
-					case 62: // Buy, box 3
-						player.getGESession().newBuyOffer(2);
-						break;
-						
-					case 63: // Sell, box 3
-						player.getGESession().newSellOffer(2);
-						break;
-						
-					case 50: // Check status, box 3
-						player.getGESession().checkOffer(2);
-						break;
-						
-					case 81: // Buy, box 4
-						player.getGESession().newBuyOffer(3);
-						break;
-						
-					case 82: // Sell, box 4
-						player.getGESession().newSellOffer(3);
-						break;
-						
-					case 69: // Check status, box 4
-						player.getGESession().checkOffer(3);
-						break;
-						
-					case 100: // Buy, box 5
-						player.getGESession().newBuyOffer(4);
-						break;
-						
-					case 101: // Sell, box 5
-						player.getGESession().newSellOffer(4);
-						break;
-						
-					case 88: // Check status, box 5
-						player.getGESession().checkOffer(4);
-						break;
-						
-					case 119: // Buy, box 6
-						player.getGESession().newBuyOffer(5);
-						break;
-						
-					case 120: // Sell, box 6
-						player.getGESession().newSellOffer(5);
-						break;
-						
-					case 107: // Check status, box 6
-						player.getGESession().checkOffer(5);
-						break;
-						
-					case 127: // The "back" button
-						player.getActionSender().closeInterfaces();
-						player.setGESession(new GESession(player));
-						break;
-						
-					case 194: // Search for item
-						player.getGESession().openItemSearch();
-						break;
-						
-					case 159: // Increment amount by 1
-						player.getGESession().incrementAmount(1);
-						break;
-						
-					case 157: // Decrease amount by 1
-						player.getGESession().decreaseAmount(1);
-						break;
-						
-					case 162: // Increase amount by +1
-						player.getGESession().incrementAmount(1);
-						break;
-						
-					case 164: // Increase amount by +10
-						player.getGESession().incrementAmount(10);
-						break;
-						
-					case 166: // Increase amount by +100
-						player.getGESession().incrementAmount(100);
-						break;
-						
-					case 168: // Increase amount by +1k (or All if selling)
-						player.getGESession().incrementAmount(1000);
-						break;
-						
-					case 177: // Set price to minimum
-						player.getGESession().setPrice(0);
-						break;
-						
-					case 180: // Set price to medium
-						player.getGESession().setPrice(1);
-						break;
-						
-					case 183: // Set price to maximum
-						player.getGESession().setPrice(2);
-						break;
-						
-					case 171: // Set price -1
-						player.getGESession().setPrice(3);
-						break;
-						
-					case 173: // Set price +1
-						player.getGESession().setPrice(4);
-						break;
-						
-					case 190: // Confirm offer
-						player.getGESession().confirmOffer();
-						break;
-				}
-				break;
-			
+
 			case 161: // Slayer points interfaces
 			case 163:
 			case 164:

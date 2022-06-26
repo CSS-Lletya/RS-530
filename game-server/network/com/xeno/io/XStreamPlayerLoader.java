@@ -5,11 +5,11 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 import com.thoughtworks.xstream.XStream;
-import com.xeno.model.World;
-import com.xeno.model.player.Player;
-import com.xeno.model.player.PlayerDetails;
+import com.xeno.entity.player.Player;
+import com.xeno.entity.player.PlayerCredentials;
 import com.xeno.net.Constants;
 import com.xeno.util.XStreamUtil;
+import com.xeno.world.World;
 
 /**
  * XML player loader/saver.
@@ -19,7 +19,7 @@ import com.xeno.util.XStreamUtil;
 public class XStreamPlayerLoader implements PlayerLoader {
 	
 	@Override
-	public PlayerLoadResult load(PlayerDetails p) {
+	public PlayerLoadResult load(PlayerCredentials p) {
 		XStream xstream = XStreamUtil.getXStream();
 		PlayerLoadResult result = new PlayerLoadResult();
 		// by default wrong login

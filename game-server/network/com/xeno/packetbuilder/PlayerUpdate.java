@@ -1,16 +1,16 @@
 package com.xeno.packetbuilder;
 
-import com.xeno.model.Item;
-import com.xeno.model.Location;
-import com.xeno.model.World;
-import com.xeno.model.masks.Appearance;
-import com.xeno.model.masks.ForceMovement;
-import com.xeno.model.player.Player;
-import com.xeno.model.player.PlayerUpdateFlags;
+import com.xeno.entity.item.Item;
+import com.xeno.entity.item.ItemConstants;
+import com.xeno.entity.masks.Appearance;
+import com.xeno.entity.masks.ForceMovement;
+import com.xeno.entity.player.Player;
+import com.xeno.entity.player.PlayerUpdateFlags;
 import com.xeno.net.Constants;
 import com.xeno.net.Packet.Size;
-import com.xeno.util.ItemData;
-import com.xeno.util.Misc;
+import com.xeno.util.Utility;
+import com.xeno.world.Location;
+import com.xeno.world.World;
 
 /**
  * Player update block.
@@ -350,7 +350,7 @@ public class PlayerUpdate implements PacketBuilder {
 				}
 				Item chest = p.getEquipment().getSlot(4);
 				if(chest != null) {
-					if(!ItemData.isFullBody(chest.getDefinition())) {
+					if(!ItemConstants.isFullBody(chest.getDefinition())) {
 						playerProps.addShort(0x100 + app.getLook(3));
 					} else {
 						playerProps.addByte((byte) 0);
@@ -365,7 +365,7 @@ public class PlayerUpdate implements PacketBuilder {
 				}
 				Item hat = p.getEquipment().getSlot(0);
 				if(hat != null) {
-					if(!ItemData.isFullHat(hat.getDefinition()) && !ItemData.isFullMask(hat.getDefinition())) {
+					if(!ItemConstants.isFullHat(hat.getDefinition()) && !ItemConstants.isFullMask(hat.getDefinition())) {
 						playerProps.addShort(0x100 + app.getLook(0));
 					} else {
 						playerProps.addByte((byte) 0);
@@ -384,7 +384,7 @@ public class PlayerUpdate implements PacketBuilder {
 					playerProps.addShort(0x100 + app.getLook(6));
 				}
 				if(hat != null) {
-					if(!ItemData.isFullMask(hat.getDefinition())) {
+					if(!ItemConstants.isFullMask(hat.getDefinition())) {
 						playerProps.addShort(0x100 + app.getLook(1));
 					} else {
 						playerProps.addByte((byte) 0);
@@ -406,7 +406,7 @@ public class PlayerUpdate implements PacketBuilder {
 			playerProps.addByte((byte) colour);
 		}
 		playerProps.addShort(p.getEquipment().getStandWalkAnimation());
-		playerProps.addLong(Misc.stringToLong(p.getPlayerDetails().getUsername()));
+		playerProps.addLong(Utility.stringToLong(p.getPlayerDetails().getUsername()));
 		playerProps.addByte((byte) p.getLevels().getCombatLevel());
 		playerProps.addShort(0);
 		playerProps.addByte((byte) 0);

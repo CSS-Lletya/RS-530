@@ -7,14 +7,13 @@ import org.apache.mina.common.IoFuture;
 import org.apache.mina.common.IoFutureListener;
 import org.apache.mina.common.WriteFuture;
 
-import com.xeno.io.MySQL;
+import com.xeno.entity.player.Player;
+import com.xeno.entity.player.PlayerCredentials;
 import com.xeno.io.PlayerLoadResult;
 import com.xeno.io.PlayerLoader;
-import com.xeno.model.World;
-import com.xeno.model.player.Player;
-import com.xeno.model.player.PlayerDetails;
 import com.xeno.packetbuilder.StaticPacketBuilder;
 import com.xeno.util.log.Logger;
+import com.xeno.world.World;
 
 /**
  * Does blocking 'work'.
@@ -22,8 +21,6 @@ import com.xeno.util.log.Logger;
  *
  */
 public class WorkerThread implements Runnable {
-	
-	public MySQL sql;
 	
 	/**
 	 * Logger instance.
@@ -35,16 +32,14 @@ public class WorkerThread implements Runnable {
 	 */
 	public WorkerThread(PlayerLoader loader) {
 		this.loader = loader;
-		this.sql = new MySQL();
-		this.sql.createConnection();
-		this.playersToLoad = new LinkedList<PlayerDetails>();
+		this.playersToLoad = new LinkedList<PlayerCredentials>();
 		this.playersToSave = new LinkedList<Player>();
 	}
 
 	/**
 	 * Players to load.
 	 */
-	private Queue<PlayerDetails> playersToLoad;
+	private Queue<PlayerCredentials> playersToLoad;
 	
 	/**
 	 * Players to save.
@@ -67,7 +62,7 @@ public class WorkerThread implements Runnable {
 			}
 			synchronized(playersToLoad) {
 				if(!playersToLoad.isEmpty()) {
-					PlayerDetails d = null;
+					PlayerCredentials d = null;
 					while((d = playersToLoad.poll()) != null) {
 						PlayerLoadResult r = loader.load(d);
 						StaticPacketBuilder spb = new StaticPacketBuilder().setBare(true);
@@ -146,7 +141,7 @@ public class WorkerThread implements Runnable {
 		}
 	}
 
-	public void loadPlayer(PlayerDetails d) {
+	public void loadPlayer(PlayerCredentials d) {
 		synchronized(playersToLoad) {
 			playersToLoad.add(d);
 		}

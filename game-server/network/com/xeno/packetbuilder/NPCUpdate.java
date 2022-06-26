@@ -1,15 +1,15 @@
 package com.xeno.packetbuilder;
 
-import com.xeno.model.World;
-import com.xeno.model.masks.Animation;
-import com.xeno.model.masks.EntityFocus;
-import com.xeno.model.masks.FaceLocation;
-import com.xeno.model.masks.ForceText;
-import com.xeno.model.masks.Graphics;
-import com.xeno.model.npc.NPC;
-import com.xeno.model.player.Player;
+import com.xeno.entity.masks.Animation;
+import com.xeno.entity.masks.EntityFocus;
+import com.xeno.entity.masks.FaceLocation;
+import com.xeno.entity.masks.ForceText;
+import com.xeno.entity.masks.Graphics;
+import com.xeno.entity.npc.NPC;
+import com.xeno.entity.player.Player;
 import com.xeno.net.Constants;
 import com.xeno.net.Packet.Size;
+import com.xeno.world.World;
 
 /**
  * Handles NPC updating.

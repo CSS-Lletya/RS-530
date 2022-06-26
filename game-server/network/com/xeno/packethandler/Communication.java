@@ -2,13 +2,13 @@ package com.xeno.packethandler;
 
 import org.apache.mina.common.IoSession;
 
-import com.xeno.model.World;
-import com.xeno.model.masks.ChatMessage;
-import com.xeno.model.player.Player;
+import com.xeno.content.Clan;
+import com.xeno.content.ClanUser;
+import com.xeno.entity.masks.ChatMessage;
+import com.xeno.entity.player.Player;
 import com.xeno.net.Packet;
-import com.xeno.util.Misc;
-import com.xeno.world.Clan;
-import com.xeno.world.ClanUser;
+import com.xeno.util.Utility;
+import com.xeno.world.World;
 
 /**
  * 
@@ -81,9 +81,9 @@ public class Communication implements PacketHandler {
 		//String text = Misc.decryptPlayerChat(packet, size);
 		byte[] chatData = new byte[size];
 		chatData = packet.getRemainingData();
-		String unpacked = Misc.textUnpack(chatData, size);
+		String unpacked = Utility.textUnpack(chatData, size);
 		byte[] packed = new byte[size];
-		Misc.textPack(packed, unpacked);
+		Utility.textPack(packed, unpacked);
 		ChatMessage message;
 		if (unpacked.startsWith("/") && player.getClan() != null) {
 			message = new ChatMessage(colour, size, unpacked.substring(1), effects, player, packed);
@@ -104,7 +104,7 @@ public class Communication implements PacketHandler {
 			World.getInstance().getClanManager().leaveChannel(player);
 			return;
 		}
-		String ownerName = Misc.longToPlayerName(clanOwner).toLowerCase();
+		String ownerName = Utility.longToPlayerName(clanOwner).toLowerCase();
 		World.getInstance().getClanManager().enterChannel(player, ownerName);
 	}
 	
@@ -142,9 +142,9 @@ public class Communication implements PacketHandler {
 		//String text  = Misc.decryptPlayerChat(packet, numChars);
 		byte[] lol = packet.getRemainingData();
 		int size = lol.length;
-		String text = Misc.textUnpack(lol, size);
+		String text = Utility.textUnpack(lol, size);
 		byte[] packed = new byte[size];
-		Misc.textPack(packed, text);
+		Utility.textPack(packed, text);
 		if (text != null && name > 0) {
 			player.getFriends().sendMessage(name, text, packed);
 		}
@@ -158,12 +158,12 @@ public class Communication implements PacketHandler {
 		}
 		Clan clan = World.getInstance().getClanManager().getClanByOwner(player, player.getUsername());
 		if (clan != null) {
-			ClanUser user = clan.getUserByName(Misc.longToPlayerName(name));
+			ClanUser user = clan.getUserByName(Utility.longToPlayerName(name));
 			if (user != null) {
 				user.setClanRights(rank);
 				World.getInstance().getClanManager().updateClan(clan);
 			} 
-			clan.getUsersWithRank().put(Misc.longToPlayerName(name), rank);
+			clan.getUsersWithRank().put(Utility.longToPlayerName(name), rank);
 		}
 	}
 	

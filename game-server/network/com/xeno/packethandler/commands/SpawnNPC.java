@@ -1,8 +1,8 @@
 package com.xeno.packethandler.commands;
 
-import com.xeno.model.World;
-import com.xeno.model.npc.NPC;
-import com.xeno.model.player.Player;
+import com.xeno.entity.npc.NPC;
+import com.xeno.entity.player.Player;
+import com.xeno.world.World;
 
 public class SpawnNPC implements Command {
 

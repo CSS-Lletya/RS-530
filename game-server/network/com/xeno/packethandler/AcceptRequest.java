@@ -2,14 +2,14 @@ package com.xeno.packethandler;
 
 import org.apache.mina.common.IoSession;
 
+import com.xeno.content.TradeSession;
+import com.xeno.entity.masks.FaceLocation;
+import com.xeno.entity.player.Player;
 import com.xeno.event.AreaEvent;
-import com.xeno.model.World;
-import com.xeno.model.masks.FaceLocation;
-import com.xeno.model.player.Player;
-import com.xeno.model.player.TradeSession;
 import com.xeno.net.Constants;
 import com.xeno.net.Packet;
 import com.xeno.world.Trade;
+import com.xeno.world.World;
 
 public class AcceptRequest implements PacketHandler {
 
@@ -42,7 +42,7 @@ public class AcceptRequest implements PacketHandler {
 				public void run() {
 					player.getWalkingQueue().reset();
 					player.getActionSender().clearMapFlag();
-					if (p2.getGESession() != null || p2.getTrade() != null || p2.getShopSession() != null || p2.getBank().isBanking()) {
+					if (p2.getTrade() != null || p2.getShopSession() != null || p2.getBank().isBanking()) {
 						player.getActionSender().sendMessage("That player is busy at the moment.");
 						return;
 					}
@@ -62,7 +62,7 @@ public class AcceptRequest implements PacketHandler {
 			});
 			return;
 		}
-		if (p2.getGESession() != null || p2.getTrade() != null || p2.getShopSession() != null || p2.getBank().isBanking()) {
+		if (p2.getTrade() != null || p2.getShopSession() != null || p2.getBank().isBanking()) {
 			player.getActionSender().sendMessage("That player is busy at the moment.");
 			return;
 		}

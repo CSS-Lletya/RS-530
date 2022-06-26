@@ -6,10 +6,10 @@ import org.apache.mina.common.IoSession;
 import org.apache.mina.filter.codec.ProtocolCodecFilter;
 
 import com.xeno.GameEngine;
-import com.xeno.model.World;
-import com.xeno.model.player.Player;
+import com.xeno.entity.player.Player;
 import com.xeno.net.codec.CodecFactory;
 import com.xeno.util.log.Logger;
+import com.xeno.world.World;
 
 /**
  * Handles incoming events from MINA.

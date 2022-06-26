@@ -1,6 +1,6 @@
 package com.xeno.io;
 
-import com.xeno.model.player.Player;
+import com.xeno.entity.player.Player;
 import com.xeno.net.Constants;
 
 /**

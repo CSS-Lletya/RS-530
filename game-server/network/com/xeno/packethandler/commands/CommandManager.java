@@ -3,7 +3,7 @@ package com.xeno.packethandler.commands;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.xeno.model.player.Player;
+import com.xeno.entity.player.Player;
 
 /**
  * 

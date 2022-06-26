@@ -2,7 +2,7 @@ package com.xeno.packethandler;
 
 import org.apache.mina.common.IoSession;
 
-import com.xeno.model.player.Player;
+import com.xeno.entity.player.Player;
 import com.xeno.net.Packet;
 import com.xeno.packethandler.commands.CommandManager;
 

@@ -11,13 +11,13 @@ import org.apache.mina.filter.codec.CumulativeProtocolDecoder;
 import org.apache.mina.filter.codec.ProtocolCodecFilter;
 import org.apache.mina.filter.codec.ProtocolDecoderOutput;
 
-import com.xeno.model.player.PlayerDetails;
+import com.xeno.entity.player.PlayerCredentials;
 import com.xeno.net.Constants;
 import com.xeno.net.Packet;
 import com.xeno.net.WorkerThread;
 import com.xeno.net.codec.js5.Js5CodecFactory;
 import com.xeno.packetbuilder.StaticPacketBuilder;
-import com.xeno.util.Misc;
+import com.xeno.util.Utility;
 import com.xeno.util.log.Logger;
 
 /**
@@ -153,7 +153,7 @@ public class RS2LoginProtocolDecoder extends CumulativeProtocolDecoder {
 
 					long clientSessionKey = p.readLong();
 					long serverSessionKey = p.readLong();
-					String	user = Misc.longToPlayerName(p.readLong()).toLowerCase().trim(), //given username
+					String	user = Utility.longToPlayerName(p.readLong()).toLowerCase().trim(), //given username
 					pass = p.readRS2String().toLowerCase().trim(); //given password
 					int sessionKey[] = new int[4];
 					sessionKey[0] = (int)(clientSessionKey >> 32);
@@ -174,7 +174,7 @@ public class RS2LoginProtocolDecoder extends CumulativeProtocolDecoder {
 					 * accepted, we change their session filter to a standard RS2ProtocolCodec.
 					 */
 					logger.debug("Login request: [username = "+user+",password = "+pass+"].");
-					PlayerDetails d = new PlayerDetails(user, pass, session, hd);
+					PlayerCredentials d = new PlayerCredentials(user, pass, session, hd);
 					workerThread.loadPlayer(d);
 
 					session.setIdleTime(IdleStatus.BOTH_IDLE, Constants.SESSION_IDLE_TIME);

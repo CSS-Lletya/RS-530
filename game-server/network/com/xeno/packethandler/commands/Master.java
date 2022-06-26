@@ -1,7 +1,7 @@
 package com.xeno.packethandler.commands;
 
-import com.xeno.model.player.Player;
-import com.xeno.model.player.Skills;
+import com.xeno.entity.player.Player;
+import com.xeno.model.player.skills.Skills;
 
 public class Master implements Command {
 

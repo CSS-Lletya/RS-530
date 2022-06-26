@@ -1,7 +1,7 @@
 package com.xeno.packethandler.commands;
 
-import com.xeno.model.player.Player;
-import com.xeno.model.player.ShopSession;
+import com.xeno.content.ShopSession;
+import com.xeno.entity.player.Player;
 
 public class OpenShop implements Command {
 

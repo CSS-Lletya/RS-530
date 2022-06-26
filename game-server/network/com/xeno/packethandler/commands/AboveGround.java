@@ -1,7 +1,7 @@
 package com.xeno.packethandler.commands;
 
-import com.xeno.model.Location;
-import com.xeno.model.player.Player;
+import com.xeno.entity.player.Player;
+import com.xeno.world.Location;
 
 public class AboveGround implements Command {
 

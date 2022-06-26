@@ -1,7 +1,6 @@
 package com.xeno.world;
 
-import com.xeno.model.Location;
-import com.xeno.model.player.Player;
+import com.xeno.entity.player.Player;
 
 public class WorldObject {
 

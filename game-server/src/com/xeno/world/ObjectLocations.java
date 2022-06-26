@@ -7,9 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.xeno.model.Location;
-import com.xeno.model.World;
-import com.xeno.model.player.Player;
+import com.xeno.entity.player.Player;
 
 public class ObjectLocations {
 

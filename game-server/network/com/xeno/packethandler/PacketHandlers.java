@@ -8,7 +8,7 @@ import java.util.Map;
 
 import org.apache.mina.common.IoSession;
 
-import com.xeno.model.player.Player;
+import com.xeno.entity.player.Player;
 import com.xeno.net.Packet;
 import com.xeno.util.XStreamUtil;
 import com.xeno.util.log.Logger;

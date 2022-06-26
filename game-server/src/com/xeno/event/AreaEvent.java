@@ -1,6 +1,6 @@
 package com.xeno.event;
 
-import com.xeno.model.player.Player;
+import com.xeno.entity.player.Player;
 
 public abstract class AreaEvent {
 	

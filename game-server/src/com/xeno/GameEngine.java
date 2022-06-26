@@ -7,13 +7,13 @@ import java.util.Map;
 import com.xeno.io.MapDataLoader;
 import com.xeno.io.MapDataPacker;
 import com.xeno.io.XStreamPlayerLoader;
-import com.xeno.model.ItemDefinition;
-import com.xeno.model.World;
-import com.xeno.model.npc.NPCDefinition;
 import com.xeno.net.Server;
 import com.xeno.net.WorkerThread;
+import com.xeno.net.definitions.ItemDefinition;
+import com.xeno.net.definitions.NPCDefinition;
 import com.xeno.packethandler.PacketHandlers;
 import com.xeno.util.log.Logger;
+import com.xeno.world.World;
 
 /**
  * A varek has called it before, the 'central motor' of the game.

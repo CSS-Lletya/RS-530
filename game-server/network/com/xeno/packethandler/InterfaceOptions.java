@@ -2,13 +2,13 @@ package com.xeno.packethandler;
 
 import org.apache.mina.common.IoSession;
 
-import com.xeno.model.World;
-import com.xeno.model.player.Player;
+import com.xeno.content.Clan;
+import com.xeno.entity.player.Player;
 import com.xeno.net.Packet;
 import com.xeno.util.EnterVariable;
-import com.xeno.util.Misc;
+import com.xeno.util.Utility;
 import com.xeno.util.log.Logger;
-import com.xeno.world.Clan;
+import com.xeno.world.World;
 
 public class InterfaceOptions implements PacketHandler {
 
@@ -75,10 +75,6 @@ public class InterfaceOptions implements PacketHandler {
 				
 			case CLICK_10:
 				handleClickTen(player, packet);
-				break;
-				
-			case GE_SEARCH:
-				handleGeSearch(player, packet);
 				break;
 		}
 	}
@@ -221,9 +217,9 @@ public class InterfaceOptions implements PacketHandler {
 			case 590: // Clan chat setup
 				Clan clan = World.getInstance().getClanManager().getClanByOwner(player, player.getUsername());
 				if (clan != null) {
-					clan.setClanName(Misc.longToPlayerName(textAsLong));
+					clan.setClanName(Utility.longToPlayerName(textAsLong));
 					World.getInstance().getClanManager().updateClan(clan);
-					player.getActionSender().modifyText(Misc.formatPlayerNameForDisplay(clan.getClanName()), 590, 22);
+					player.getActionSender().modifyText(Utility.formatPlayerNameForDisplay(clan.getClanName()), 590, 22);
 					break;
 				}
 				player.getActionSender().sendMessage("Please set up a clan channel before trying to change the name.");
@@ -257,18 +253,6 @@ public class InterfaceOptions implements PacketHandler {
 		int slot = packet.readShort();
 		Logger.getInstance().info("InterfaceOption 2: interfaceId: " + interfaceId);
 		switch(interfaceId) {
-			case 105: // GE Interface
-				switch(child) {
-					case 209: // "Collect" and "Collect-items" option
-						player.getGESession().collectSlot1(false);
-						break;
-						
-					case 211: // Left box "Collect" option (coins)
-						player.getGESession().collectSlot2();
-						break;
-				}
-				break;
-		
 			case 154: // Craft normal leather.
 			
 				break;
@@ -753,17 +737,5 @@ public class InterfaceOptions implements PacketHandler {
 		int child = packet.readShort();
 		int slot = packet.readShort();
 		Logger.getInstance().info("InterfaceOption 10: interfaceId: " + interfaceId);
-	}
-	
-	private void handleGeSearch(Player player, Packet packet) {
-		int item = packet.readShort();
-		if (item < 0 || item > 16000) {
-			return;
-		}
-		if (player.getGESession() == null) {
-			// TODO close the search interface
-			return;
-		}
-		player.getGESession().updateSearchItem(item);
 	}
 }

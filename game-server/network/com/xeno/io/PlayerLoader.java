@@ -1,7 +1,7 @@
 package com.xeno.io;
 
-import com.xeno.model.player.Player;
-import com.xeno.model.player.PlayerDetails;
+import com.xeno.entity.player.Player;
+import com.xeno.entity.player.PlayerCredentials;
 
 /**
  * Player load/save interface.
@@ -10,7 +10,7 @@ import com.xeno.model.player.PlayerDetails;
  */
 public interface PlayerLoader {
 	
-	public PlayerLoadResult load(PlayerDetails p);
+	public PlayerLoadResult load(PlayerCredentials p);
 	public boolean save(Player p);
 
 }

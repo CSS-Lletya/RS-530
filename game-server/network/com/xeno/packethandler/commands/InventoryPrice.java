@@ -2,7 +2,7 @@ package com.xeno.packethandler.commands;
 
 import java.text.NumberFormat;
 
-import com.xeno.model.player.Player;
+import com.xeno.entity.player.Player;
 
 public class InventoryPrice implements Command {
 

@@ -8,21 +8,19 @@ import java.io.IOException;
 import org.apache.mina.common.IoFuture;
 import org.apache.mina.common.IoFutureListener;
 
+import com.xeno.content.Clan;
 import com.xeno.content.combat.Combat;
-import com.xeno.model.Entity;
-import com.xeno.model.Item;
-import com.xeno.model.Location;
-import com.xeno.model.World;
-import com.xeno.model.npc.NPC;
-import com.xeno.model.player.Player;
-import com.xeno.model.player.Skills;
+import com.xeno.entity.Entity;
+import com.xeno.entity.item.GroundItem;
+import com.xeno.entity.item.Item;
+import com.xeno.entity.npc.NPC;
+import com.xeno.entity.player.Player;
+import com.xeno.model.player.skills.Skills;
 import com.xeno.net.Packet.Size;
 import com.xeno.packetbuilder.StaticPacketBuilder;
-import com.xeno.util.Misc;
-import com.xeno.world.Clan;
-import com.xeno.world.GroundItem;
-import com.xeno.world.grandexchange.BuyOffer;
-import com.xeno.world.grandexchange.GEItem;
+import com.xeno.util.Utility;
+import com.xeno.world.Location;
+import com.xeno.world.World;
 
 /**
  * 
@@ -65,14 +63,6 @@ public class ActionSender {
 		player.setTrade(null);
 		player.removeTemporaryAttribute("dialogue");
 		player.removeTemporaryAttribute("jewelleryTeleport");
-		if (player.getGESession() != null) {
-			if (player.getGESession().getCurrentOffer() != null) {
-				if (player.getGESession().getCurrentOffer() instanceof BuyOffer) {
-					sendInterface(0, 752, 6, 137); // Removes the item search
-				}
-			}	
-		}
-		player.setGESession(null);
 	}
 	
 	public void softCloseInterfaces() {
@@ -681,17 +671,18 @@ public class ActionSender {
 		player.getSession().write(spb.toPacket());
 	}
 	
-	public void updateGEProgress(GEItem offer) {
-		StaticPacketBuilder spb = new StaticPacketBuilder().setId(116);
-		spb.addByte((byte) offer.getSlot());
-		spb.addByte((byte) offer.getProgress());
-		spb.addShort(offer.getDisplayItem());
-		spb.addInt(offer.getPriceEach());
-		spb.addInt(offer.getTotalAmount());
-		spb.addInt(offer.getAmountTraded());
-		spb.addInt(offer.getTotalAmount() * offer.getPriceEach());
-		player.getSession().write(spb.toPacket());
-	}
+	//keeping this just in case we need to reference or even use.
+//	public void updateGEProgress(GEItem offer) {
+//		StaticPacketBuilder spb = new StaticPacketBuilder().setId(116);
+//		spb.addByte((byte) offer.getSlot());
+//		spb.addByte((byte) offer.getProgress());
+//		spb.addShort(offer.getDisplayItem());
+//		spb.addInt(offer.getPriceEach());
+//		spb.addInt(offer.getTotalAmount());
+//		spb.addInt(offer.getAmountTraded());
+//		spb.addInt(offer.getTotalAmount() * offer.getPriceEach());
+//		player.getSession().write(spb.toPacket());
+//	}
 	
 	public void resetGESlot(int slot) {
 		StaticPacketBuilder spb = new StaticPacketBuilder().setId(116);
@@ -1091,7 +1082,7 @@ public class ActionSender {
 	public void sendSentPrivateMessage(long name, String text, byte[] packed) {
 		//byte[] bytes = new byte[message.length()];
 		byte[] bytes = new byte[packed.length];
-		Misc.textPack(bytes, text);
+		Utility.textPack(bytes, text);
 		//Misc.method251(bytes, 0, 0, message.length(), message.getBytes());
 		player.getSession().write(new StaticPacketBuilder().setId(71).setSize(Size.VariableByte)
 		.addLong(name)
@@ -1118,7 +1109,7 @@ public class ActionSender {
 		if (c == null) {
 			clanRank = 0;
 		} else {
-			clanRank = c.getUserRank(Misc.longToPlayerName(name));
+			clanRank = c.getUserRank(Utility.longToPlayerName(name));
 		}
 		StaticPacketBuilder spb = new StaticPacketBuilder().setId(62).setSize(Size.VariableByte)
 		.addLong(name)

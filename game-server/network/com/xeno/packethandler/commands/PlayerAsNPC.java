@@ -1,6 +1,6 @@
 package com.xeno.packethandler.commands;
 
-import com.xeno.model.player.Player;
+import com.xeno.entity.player.Player;
 
 public class PlayerAsNPC implements Command {
 

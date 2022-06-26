@@ -20,15 +20,15 @@ public class XStreamUtil {
 			 * Set up our aliases.
 			 */
 			xstream.alias("packet", com.xeno.packethandler.PacketHandlerDef.class);
-			xstream.alias("player", com.xeno.model.player.Player.class);
-			xstream.alias("itemDefinition", com.xeno.model.ItemDefinition.class);
-			xstream.alias("item", com.xeno.model.Item.class);
-			xstream.alias("npcDefinition", com.xeno.model.npc.NPCDefinition.class);
-			xstream.alias("npc", com.xeno.model.npc.NPC.class);
-			xstream.alias("shop", com.xeno.world.Shop.class);
-			xstream.alias("npcDrop", com.xeno.model.npc.NPCDrop.class);
-			xstream.alias("door", com.xeno.world.DoorControl.Door.class);
-			xstream.alias("doorControl", com.xeno.world.DoorControl.class);
+			xstream.alias("player", com.xeno.entity.player.Player.class);
+			xstream.alias("itemDefinition", com.xeno.net.definitions.ItemDefinition.class);
+			xstream.alias("item", com.xeno.entity.item.Item.class);
+			xstream.alias("npcDefinition", com.xeno.net.definitions.NPCDefinition.class);
+			xstream.alias("npc", com.xeno.entity.npc.NPC.class);
+			xstream.alias("shop", com.xeno.content.Shop.class);
+			xstream.alias("npcDrop", com.xeno.entity.npc.NPCDrop.class);
+			xstream.alias("door", com.xeno.content.DoorControl.Door.class);
+			xstream.alias("doorControl", com.xeno.content.DoorControl.class);
 		}
 		return xstream;
 	}

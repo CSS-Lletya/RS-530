@@ -1,8 +1,8 @@
 package com.xeno.packethandler.commands;
 
 import com.xeno.content.combat.CombatFormula;
-import com.xeno.model.npc.NPC;
-import com.xeno.model.player.Player;
+import com.xeno.entity.npc.NPC;
+import com.xeno.entity.player.Player;
 
 public class O implements Command {
 	
