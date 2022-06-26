@@ -1,7 +1,6 @@
 package com.xeno.world;
 
 import java.io.BufferedReader;
-
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -12,8 +11,9 @@ import com.xeno.content.DoorControl;
 import com.xeno.entity.item.GroundItem;
 import com.xeno.entity.player.Player;
 import com.xeno.event.Event;
+import com.xeno.util.LogUtility;
+import com.xeno.util.LogUtility.LogType;
 import com.xeno.util.Utility;
-import com.xeno.util.log.Logger;
 
 
 public class ObjectManager {
@@ -898,7 +898,7 @@ public class ObjectManager {
 				if (line.equals("[ENDOFLIST]")) {
 					try {
 						characterfile.close();
-						Logger.getInstance().info("Loaded " + amount + " custom objects.");
+						LogUtility.log(LogType.INFO, "Loaded " + amount + " custom objects.");
 					} catch (IOException ioexception) {}
 					return true;
 				}
@@ -965,7 +965,7 @@ public class ObjectManager {
 				if (line.equals("[ENDOFLIST]")) {
 					try {
 						characterfile.close();
-						Logger.getInstance().info("Loaded " + amount + " deleted objects.");
+						LogUtility.log(LogType.INFO, "Loaded " + amount + " deleted objects.");
 					} catch (IOException ioexception) {}
 					return true;
 				}

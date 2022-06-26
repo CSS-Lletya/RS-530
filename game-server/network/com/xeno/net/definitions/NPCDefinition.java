@@ -7,8 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.xeno.entity.npc.NPCDrop;
+import com.xeno.util.LogUtility;
+import com.xeno.util.LogUtility.LogType;
 import com.xeno.util.XStreamUtil;
-import com.xeno.util.log.Logger;
 
 /**
  * Represents a type of NPC.
@@ -21,8 +22,6 @@ public class NPCDefinition {
 	public static final int RANGE = 1;
 	public static final int MAGIC = 2;
 	
-	private static Logger logger = Logger.getInstance();
-	
 	private static Map<Integer, NPCDefinition> definitions;
 
 	@SuppressWarnings("unchecked")
@@ -32,7 +31,7 @@ public class NPCDefinition {
 		for(NPCDefinition def : defs) {
 			definitions.put(def.getId(), def);
 		}
-		logger.info("Loaded " + definitions.size() + " npc definitions.");
+		LogUtility.log(LogType.INFO, "Loaded " + definitions.size() + " npc definitions.");
 		NPCDrop.load();
 	}
 	

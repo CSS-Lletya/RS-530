@@ -6,14 +6,10 @@ import org.apache.mina.filter.codec.ProtocolEncoder;
 import org.apache.mina.filter.codec.ProtocolEncoderOutput;
 
 import com.xeno.net.Packet;
-import com.xeno.util.log.Logger;
+import com.xeno.util.LogUtility;
+import com.xeno.util.LogUtility.LogType;
 
 public class RS2ProtocolEncoder implements ProtocolEncoder {
-	
-	/**
-	 * Logger instance.
-	 */
-	private Logger logger = Logger.getInstance();
 	
 	/**
 	 * Only CodecFactory can create us.
@@ -57,7 +53,7 @@ public class RS2ProtocolEncoder implements ProtocolEncoder {
 			buffer.flip();
 			out.write(buffer);
 		} catch(Exception err) {
-			logger.stackTrace(err);
+			LogUtility.log(LogType.INFO, err.toString());
 		}
 	}
 	

@@ -8,7 +8,8 @@ import org.apache.mina.filter.codec.ProtocolCodecFilter;
 import com.xeno.GameEngine;
 import com.xeno.entity.player.Player;
 import com.xeno.net.codec.CodecFactory;
-import com.xeno.util.log.Logger;
+import com.xeno.util.LogUtility;
+import com.xeno.util.LogUtility.LogType;
 import com.xeno.world.World;
 
 /**
@@ -17,11 +18,6 @@ import com.xeno.world.World;
  *
  */
 public class ConnectionHandler implements IoHandler {
-	
-	/**
-	 * Logger instance.
-	 */
-	private Logger logger = Logger.getInstance();
 	
 	/**
 	 * The game engine.
@@ -58,7 +54,7 @@ public class ConnectionHandler implements IoHandler {
 		if(session.getAttachment() != null) {
 			World.getInstance().unregister((Player) session.getAttachment());
 		}
-		logger.debug("Session has been closed: " + session.getRemoteAddress().toString());
+		LogUtility.log(LogType.INFO, "Session has been closed: " + session.getRemoteAddress().toString());
 		// TODO remove player from lists here
 	}
 
@@ -68,13 +64,13 @@ public class ConnectionHandler implements IoHandler {
 
 	@Override
 	public void sessionIdle(IoSession session, IdleStatus status) throws Exception {
-		logger.debug("Session is now idle: " + session.getRemoteAddress().toString());
+		LogUtility.log(LogType.INFO, "Session is now idle: " + session.getRemoteAddress().toString());
 		session.close();
 	}
 	
 	@Override
 	public void sessionOpened(IoSession session) throws Exception {
-		logger.debug("New session from: " + session.getRemoteAddress().toString());
+		LogUtility.log(LogType.INFO, "New session from: " + session.getRemoteAddress().toString());
 		session.setIdleTime(IdleStatus.BOTH_IDLE, Constants.SESSION_INITIAL_IDLE_TIME);
 		session.getFilterChain().addLast("protocolFilter", new ProtocolCodecFilter(new CodecFactory(engine.getWorkerThread())));
 	}

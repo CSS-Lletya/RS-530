@@ -4,7 +4,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Map;
 
-import com.xeno.util.log.Logger;
+import com.xeno.util.LogUtility;
+import com.xeno.util.LogUtility.LogType;
 
 /**
  * Loads mapdata from a binary file
@@ -12,11 +13,6 @@ import com.xeno.util.log.Logger;
  *
  */
 public class MapDataLoader {
-	
-	/**
-	 * Logger instance.
-	 */
-	private static Logger logger = Logger.getInstance();
 	
 	/**
 	 * Prevent an instance being created.
@@ -32,7 +28,7 @@ public class MapDataLoader {
 	 */
 	public static void load(Map<Integer, int[]> mapData) throws IOException {
 		// a much simpler way than TeleNubby's
-		logger.info("Reading mapdata...");
+		LogUtility.log(LogType.INFO, "Reading mapdata...");
 		DataInputStream in = new DataInputStream(new FileInputStream("data/mapdata/packed.dat"));
 		int useableMapdata = 0;
 		for(int i = 0; i < 16384; i++) {
@@ -45,7 +41,7 @@ public class MapDataLoader {
 			}
 			mapData.put(i, parts);
 		}
-		logger.info("Loaded mapdata.");
+		LogUtility.log(LogType.INFO, "Loaded mapdata.");
 	}
 
 }

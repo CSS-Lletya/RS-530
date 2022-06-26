@@ -27,8 +27,9 @@ import com.xeno.net.entity.EntityList;
 import com.xeno.packetbuilder.NPCUpdate;
 import com.xeno.packetbuilder.PlayerUpdate;
 import com.xeno.util.Area;
+import com.xeno.util.LogUtility;
+import com.xeno.util.LogUtility.LogType;
 import com.xeno.util.XStreamUtil;
-import com.xeno.util.log.Logger;
 
 /**
  * Represents the 'game world'.
@@ -36,11 +37,6 @@ import com.xeno.util.log.Logger;
  *
  */
 public class World {
-
-	/**
-	 * Logger instance.
-	 */
-	private Logger logger = Logger.getInstance();
 	
 	/**
 	 * The world instance.
@@ -300,9 +296,9 @@ public class World {
 		players.add(p);
 		slot = p.getIndex();
 		if(slot != -1) {
-			logger.info("Registered " + p.getPlayerDetails().getDisplayName() + " [idx = "+slot+",online = "+players.size()+"]");
+			LogUtility.log(LogType.INFO, "Registered " + p.getPlayerDetails().getDisplayName() + " [idx = "+slot+",online = "+players.size()+"]");
 		} else {
-			logger.info("Could not register " + p.getPlayerDetails().getDisplayName() + " - too many online [online = "+players.size()+"]");
+			LogUtility.log(LogType.INFO, "Could not register " + p.getPlayerDetails().getDisplayName() + " - too many online [online = "+players.size()+"]");
 		}
 		return slot;
 	}
@@ -328,7 +324,7 @@ public class World {
 		clanManager.leaveChannel(p);
 		players.remove(p);
 		engine.getWorkerThread().savePlayer(p);
-		logger.info("Unregistered " + p.getPlayerDetails().getDisplayName() + " [online = "+players.size()+"]");
+		LogUtility.log(LogType.INFO, "Unregistered " + p.getPlayerDetails().getDisplayName() + " [online = "+players.size()+"]");
 		p.getFriends().unregistered();
 	}
 
@@ -356,12 +352,12 @@ public class World {
 	@SuppressWarnings("unchecked")
 	public void setEngine(GameEngine gameEngine) throws FileNotFoundException {
 		this.engine = gameEngine;
-		logger.debug("Loading npcs spawns...");
+		LogUtility.log(LogType.DEBUG, "Loading npcs spawns...");
 		List<NPC> spawns = (List<NPC>) XStreamUtil.getXStream().fromXML(new FileInputStream("data/npcs.xml"));
 		for(NPC n : spawns) {
 			npcs.add(n);
 		}
-		logger.debug("Loaded " + spawns.size() + " npc spawns.");
+		LogUtility.log(LogType.DEBUG, "Loaded " + spawns.size() + " npc spawns.");
 		objectLocations = new ObjectLocations();
 		shopManager = new ShopManager();
 		itemManager = new GroundItemManager();

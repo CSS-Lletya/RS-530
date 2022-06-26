@@ -7,14 +7,10 @@ import org.apache.mina.filter.codec.ProtocolDecoderOutput;
 
 import com.xeno.net.Constants;
 import com.xeno.net.Packet;
-import com.xeno.util.log.Logger;
+import com.xeno.util.LogUtility;
+import com.xeno.util.LogUtility.LogType;
 
 public class RS2ProtocolDecoder extends CumulativeProtocolDecoder {
-	
-	/**
-	 * Logger instance.
-	 */
-	private Logger logger = Logger.getInstance();
 	
 	/**
 	 * To make sure only the CodecFactory can initialise us.
@@ -48,7 +44,7 @@ public class RS2ProtocolDecoder extends CumulativeProtocolDecoder {
 				}
 				if(len < 0) {
 					len = in.remaining();
-					logger.warning("Unkown length: " + id + ", guessed to be: " + len + ".");
+					LogUtility.log(LogType.WARN, "Unkown length: " + id + ", guessed to be: " + len + ".");
 					//throw new Exception("Packet length not known: " + id);
 				}
 				// if we can get the packet then do so
@@ -65,7 +61,7 @@ public class RS2ProtocolDecoder extends CumulativeProtocolDecoder {
 			}
 			return false;
 		} catch(Exception err) {
-			logger.stackTrace(err);
+			LogUtility.log(LogType.INFO, err.toString());
 			return false;
 		}
 	}

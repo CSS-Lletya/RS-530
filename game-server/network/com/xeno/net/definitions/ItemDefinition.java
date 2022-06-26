@@ -5,14 +5,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel.MapMode;
 import java.util.HashMap;
 import java.util.Map;
 
 import com.xeno.entity.item.ItemConstants;
-import com.xeno.util.log.Logger;
+import com.xeno.util.LogUtility;
+import com.xeno.util.LogUtility.LogType;
 
 /**
  * Item Definition class
@@ -92,7 +90,7 @@ public class ItemDefinition {
 						for (int i = 0; i < ItemConstants.PLAYER_BOUND_ITEMS.length; i++) {
 							forId(ItemConstants.PLAYER_BOUND_ITEMS[i]).setPlayerBound(true);
 						}
-						Logger.getInstance().info("Loaded " + definitions.size() + " item definitions.");
+						LogUtility.log(LogType.INFO, "Loaded " + definitions.size() + " item definitions.");
 						setNotedItemPrices();
 						loadEquipIds();
 						loadRenderIds();

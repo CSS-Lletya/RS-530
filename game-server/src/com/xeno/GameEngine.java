@@ -12,7 +12,8 @@ import com.xeno.net.WorkerThread;
 import com.xeno.net.definitions.ItemDefinition;
 import com.xeno.net.definitions.NPCDefinition;
 import com.xeno.packethandler.PacketHandlers;
-import com.xeno.util.log.Logger;
+import com.xeno.util.LogUtility;
+import com.xeno.util.LogUtility.LogType;
 import com.xeno.world.World;
 
 /**
@@ -24,11 +25,6 @@ import com.xeno.world.World;
  *
  */
 public class GameEngine {
-
-	/**
-	 * Logger instance.
-	 */
-	private static Logger logger = Logger.getInstance();
 	
 	/**
 	 * Running flag.
@@ -77,19 +73,19 @@ public class GameEngine {
 		/*
 		 * Load item definitions.
 		 */
-		logger.info("Loading item definitions...");
+		LogUtility.log(LogType.INFO, "Loading item definitions...");
 		ItemDefinition.load();
-		logger.info("Loading npc definitions...");
+		LogUtility.log(LogType.INFO, "Loading npc definitions...");
 		NPCDefinition.load();
 		/*
 		 * Set up the world.
 		 */
-		logger.info("Setting up world...");
+		LogUtility.log(LogType.INFO, "Setting up world...");
 		World.getInstance().setEngine(this);
 		/*
 		 * Start the worker thread.
 		 */
-		logger.info("Launching worker thread...");
+		LogUtility.log(LogType.INFO, "Launching worker thread...");
 		workerThread = new WorkerThread(new XStreamPlayerLoader());
 		newThread("WorkerThread", workerThread);
 	}
@@ -168,8 +164,7 @@ public class GameEngine {
 				try {
 					s = new Server();
 				} catch (Exception e) {
-					logger.error(e.toString());
-					logger.stackTrace(e);
+					LogUtility.log(LogType.ERROR, e.toString());
 					return;
 				}
 				s.go();

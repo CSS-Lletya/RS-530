@@ -12,7 +12,8 @@ import com.xeno.entity.player.PlayerCredentials;
 import com.xeno.io.PlayerLoadResult;
 import com.xeno.io.PlayerLoader;
 import com.xeno.packetbuilder.StaticPacketBuilder;
-import com.xeno.util.log.Logger;
+import com.xeno.util.LogUtility;
+import com.xeno.util.LogUtility.LogType;
 import com.xeno.world.World;
 
 /**
@@ -21,12 +22,7 @@ import com.xeno.world.World;
  *
  */
 public class WorkerThread implements Runnable {
-	
-	/**
-	 * Logger instance.
-	 */
-	private Logger logger = Logger.getInstance();
-	
+
 	/**
 	 * Constructor.
 	 */
@@ -97,7 +93,7 @@ public class WorkerThread implements Runnable {
 							});
 						} else {
 							r.player.getActionSender().sendMapRegion();
-							logger.debug("Loaded " + d.getDisplayName() + "'s game: returncode = " + r.returnCode + ".");
+							LogUtility.log(LogType.INFO, "Loaded " + d.getDisplayName() + "'s game: returncode = " + r.returnCode + ".");
 						}
 					}
 					playersToLoad.clear();
@@ -109,9 +105,9 @@ public class WorkerThread implements Runnable {
 					while((p = playersToSave.poll()) != null) {
 						if(loader.save(p)) {
 							//sql.saveHighscores(p);
-							logger.debug("Saved " + p.getPlayerDetails().getDisplayName() + "'s game.");
+							LogUtility.log(LogType.INFO, "Saved " + p.getPlayerDetails().getDisplayName() + "'s game.");
 						} else {
-							logger.warning("Could not save " + p.getPlayerDetails().getDisplayName() + "'s game.");
+							LogUtility.log(LogType.WARN, "Could not save " + p.getPlayerDetails().getDisplayName() + "'s game.");
 						}
 					}
 					playersToSave.clear();
@@ -122,22 +118,22 @@ public class WorkerThread implements Runnable {
 
 	public void cleanup() {
 		// save ALL games
-		logger.info("Saving all games...");
+		LogUtility.log(LogType.INFO, "Saving all games...");
 		int saved = 0;
 		int total = 0;
 		for(Player p : World.getInstance().getPlayerList()) {
 			total++;
 			if(loader.save(p)) {
-				logger.debug("Saved " + p.getPlayerDetails().getDisplayName() + "'s game.");
+				LogUtility.log(LogType.INFO, "Saved " + p.getPlayerDetails().getDisplayName() + "'s game.");
 				saved++;
 			} else {
-				logger.warning("Could not save " + p.getPlayerDetails().getDisplayName() + "'s game.");
+				LogUtility.log(LogType.INFO, "Could not save " + p.getPlayerDetails().getDisplayName() + "'s game.");
 			}
 		}
 		if(total == 0) {
-			logger.info("No games to save.");
+			LogUtility.log(LogType.INFO, "No games to save.");
 		} else {
-			logger.info("Saved " + (saved/total*100) + "% of games ("+saved+"/"+total+").");
+			LogUtility.log(LogType.INFO, "Saved " + (saved/total*100) + "% of games ("+saved+"/"+total+").");
 		}
 	}
 

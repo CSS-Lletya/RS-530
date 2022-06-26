@@ -5,7 +5,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 
-import com.xeno.util.log.Logger;
+import com.xeno.util.LogUtility;
+import com.xeno.util.LogUtility.LogType;
 
 /**
  * Packs map data
@@ -15,11 +16,6 @@ import com.xeno.util.log.Logger;
  * 
  */
 public class MapDataPacker {
-	
-	/**
-	 * Logger instance.
-	 */
-	private static Logger logger = Logger.getInstance();
 
 	/**
 	 * Prevent an instance being made.
@@ -31,7 +27,7 @@ public class MapDataPacker {
 	 * We actually pack the mapdata here.
 	 */
 	public static void pack(String from, String to) {
-		logger.info("Packing mapdata...");
+		LogUtility.log(LogType.INFO, "Packing mapdata...");
 		try {
 			DataOutputStream out = new DataOutputStream(new FileOutputStream(to));
 			int i2 = 0;
@@ -51,7 +47,7 @@ public class MapDataPacker {
 			}
 			out.flush();
 			out.close();
-			logger.info("Complete.");
+			LogUtility.log(LogType.INFO, "Complete.");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

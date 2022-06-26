@@ -16,7 +16,8 @@ import com.xeno.model.player.skills.prayer.Prayer;
 import com.xeno.model.player.skills.prayer.ProtectedItems;
 import com.xeno.net.Packet;
 import com.xeno.util.EnterVariable;
-import com.xeno.util.log.Logger;
+import com.xeno.util.LogUtility;
+import com.xeno.util.LogUtility.LogType;
 import com.xeno.world.World;
 
 /**
@@ -162,7 +163,7 @@ public class ActionButton implements PacketHandler {
 				break;
 				
 			default:
-				logger.info("ACTIONBUTTON3 = " + id);
+				LogUtility.log(LogType.INFO, "ACTIONBUTTON3 = " + id);
 				break;
 		}
 	
@@ -1261,12 +1262,9 @@ public class ActionButton implements PacketHandler {
  				
 			default:
 				if (interfaceId != 548 && interfaceId != 751) {
-					logger.info("Unhandled ActionButton : " + interfaceId + " " + buttonId + " " + buttonId2);
+					LogUtility.log(LogType.INFO, "Unhandled ActionButton : " + interfaceId + " " + buttonId + " " + buttonId2);
 				}
 				break;
 		}
 	}
-	
-	private Logger logger = Logger.getInstance();
-
 }

@@ -4,11 +4,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Map;
 
-import com.xeno.entity.item.Item;
 import com.xeno.entity.player.Player;
 import com.xeno.event.Event;
+import com.xeno.util.LogUtility;
+import com.xeno.util.LogUtility.LogType;
 import com.xeno.util.XStreamUtil;
-import com.xeno.util.log.Logger;
 import com.xeno.world.World;
 
 public class ShopManager {
@@ -17,7 +17,7 @@ public class ShopManager {
 	
 	@SuppressWarnings("unchecked")
 	public ShopManager() throws FileNotFoundException {
-		Logger.getInstance().debug("Loading shops...");
+		LogUtility.log(LogType.INFO, "Loading shops...");
 		shops = (Map<Integer, Shop>) XStreamUtil.getXStream().fromXML(new FileInputStream("data/shops.xml"));
 		World.getInstance().registerEvent(new Event(60000) {
 			@Override
@@ -25,7 +25,7 @@ public class ShopManager {
 				updateShopAmounts();
 			}
 		});
-		Logger.getInstance().debug("Loaded " + shops.size() + " shops.");
+		LogUtility.log(LogType.INFO, "Loaded " + shops.size() + " shops.");
 	}
 
 	private void updateShopAmounts() {

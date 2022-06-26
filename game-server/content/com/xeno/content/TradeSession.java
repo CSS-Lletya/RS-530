@@ -3,7 +3,8 @@ package com.xeno.content;
 import com.xeno.entity.item.Item;
 import com.xeno.entity.player.Player;
 import com.xeno.net.definitions.ItemDefinition;
-import com.xeno.util.log.Logger;
+import com.xeno.util.LogUtility;
+import com.xeno.util.LogUtility.LogType;
 import com.xeno.world.Trade;
 
 public class TradeSession {
@@ -111,7 +112,7 @@ public class TradeSession {
 		int tradeSlot = findItem(itemId);
 		boolean stackable = ItemDefinition.forId(itemId).isStackable();
 		if (tradeSlot == -1) {
-			logger.info("user tried to remove non-existing item from trade! " + player.getUsername());
+			LogUtility.log(LogType.INFO, "user tried to remove non-existing item from trade! " + player.getUsername());
 			return;
 		}
 		if (amount > getItemAmount(itemId)) {
@@ -278,7 +279,7 @@ public class TradeSession {
 		for (int i = 0; i < items.length; i++) {
 			if (items[i] != null) {
 				if (!player.getInventory().addItem(items[i].getItemId(), items[i].getItemAmount())) {
-					logger.info("Possible trade dupe " + player.getUsername());
+					LogUtility.log(LogType.INFO, "Possible trade dupe " + player.getUsername());
 				}
 			}
 		}		
@@ -396,7 +397,4 @@ public class TradeSession {
 	public Item getSlot(int slot) {
 		return items[slot];
 	}
-	
-	private Logger logger = Logger.getInstance();
-
 }

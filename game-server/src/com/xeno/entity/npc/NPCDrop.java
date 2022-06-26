@@ -9,8 +9,9 @@ import java.util.Map;
 
 import com.xeno.entity.item.Item;
 import com.xeno.net.definitions.NPCDefinition;
+import com.xeno.util.LogUtility;
+import com.xeno.util.LogUtility.LogType;
 import com.xeno.util.XStreamUtil;
-import com.xeno.util.log.Logger;
 
 /**
  * @author Graham
@@ -29,7 +30,7 @@ public class NPCDrop {
 			drop.ReadResolve();
 			p++;
 		}
-		Logger.getInstance().info("Loaded " + p + " npc drops.");
+		LogUtility.log(LogType.INFO, "Loaded " + p + " npc drops.");
 	}
 	
 	private int[] npcs;

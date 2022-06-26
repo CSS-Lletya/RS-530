@@ -4,13 +4,14 @@ import java.io.File;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 
-import com.xeno.GameEngine;
-import com.xeno.cache.Cache;
 import org.apache.mina.common.IoAcceptor;
 import org.apache.mina.transport.socket.nio.SocketAcceptor;
 import org.apache.mina.transport.socket.nio.SocketAcceptorConfig;
 
-import com.xeno.util.log.Logger;
+import com.xeno.GameEngine;
+import com.xeno.cache.Cache;
+import com.xeno.util.LogUtility;
+import com.xeno.util.LogUtility.LogType;
 
 /**
  * The central class of the server.
@@ -18,11 +19,6 @@ import com.xeno.util.log.Logger;
  *
  */
 public class Server {
-	
-	/**
-	 * Logger instance.
-	 */
-	private Logger logger = Logger.getInstance();
 	
 	/**
 	 * The game engine: where all the game logic processing takes place.
@@ -74,7 +70,7 @@ public class Server {
 		/*
 		 * Start everything rolling.
 		 */
-		logger.info("Xenorune");
+		LogUtility.log(LogType.INFO, "Xenorune");
         setCache(new Cache(new File("./data/cache/")));
 		engine = new GameEngine();
 		acceptor = new SocketAcceptor();
@@ -96,7 +92,7 @@ public class Server {
 		throttleFilter = new ConnectionThrottleFilter(Constants.THROTTLE_FILTER_INTERVAL*1000);
 		sac.getFilterChain().addFirst("throttleFilter", throttleFilter);
 		acceptor.bind(new InetSocketAddress(port), connectionHandler, sac);
-		logger.info("Listening on port " + port + ".");		
+		LogUtility.log(LogType.INFO, "Listening on port " + port + ".");		
 	}
 	
 	/**
@@ -125,12 +121,12 @@ public class Server {
 		/*
 		 * Shut down!
 		 */
-		logger.info("Unbinding all ports...");
+		LogUtility.log(LogType.INFO, "Unbinding all ports...");
 		acceptor.unbindAll();
 		/*
 		 * Cleanup.
 		 */
-		logger.info("Interrupting all threads...");
+		LogUtility.log(LogType.INFO, "Interrupting all threads...");
 		engine.cleanup();
 	}
 	

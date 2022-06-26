@@ -1,9 +1,5 @@
 package com.xeno.net.codec;
 
-import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
-
 import org.apache.mina.common.ByteBuffer;
 import org.apache.mina.common.IdleStatus;
 import org.apache.mina.common.IoSession;
@@ -17,8 +13,9 @@ import com.xeno.net.Packet;
 import com.xeno.net.WorkerThread;
 import com.xeno.net.codec.js5.Js5CodecFactory;
 import com.xeno.packetbuilder.StaticPacketBuilder;
+import com.xeno.util.LogUtility;
+import com.xeno.util.LogUtility.LogType;
 import com.xeno.util.Utility;
-import com.xeno.util.log.Logger;
 
 /**
  * Login protocol decoder.
@@ -26,11 +23,6 @@ import com.xeno.util.log.Logger;
  *
  */
 public class RS2LoginProtocolDecoder extends CumulativeProtocolDecoder {
-
-	/**
-	 * Logger instance.
-	 */
-	private Logger logger = Logger.getInstance();
 
 	private WorkerThread workerThread;
 
@@ -173,7 +165,7 @@ public class RS2LoginProtocolDecoder extends CumulativeProtocolDecoder {
 					 * Here's where we add the user to the login queue, and if the login is 
 					 * accepted, we change their session filter to a standard RS2ProtocolCodec.
 					 */
-					logger.debug("Login request: [username = "+user+",password = "+pass+"].");
+					LogUtility.log(LogType.INFO, "Login request: [username = "+user+",password = "+pass+"].");
 					PlayerCredentials d = new PlayerCredentials(user, pass, session, hd);
 					workerThread.loadPlayer(d);
 
@@ -188,7 +180,7 @@ public class RS2LoginProtocolDecoder extends CumulativeProtocolDecoder {
 				}
 			}
 		} catch(Exception e) {
-			logger.stackTrace(e);
+			LogUtility.log(LogType.INFO, e.toString());
 		}
 		return false;
 	}

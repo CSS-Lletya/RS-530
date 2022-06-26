@@ -6,14 +6,12 @@ import com.xeno.content.DestroyItem;
 import com.xeno.content.emote.Skillcape;
 import com.xeno.entity.item.GroundItem;
 import com.xeno.entity.item.ItemConstants;
-import com.xeno.entity.masks.FaceLocation;
 import com.xeno.entity.player.Player;
 import com.xeno.event.CoordinateEvent;
-import com.xeno.model.player.skills.magic.Teleport;
-import com.xeno.model.player.skills.prayer.Prayer;
 import com.xeno.net.Packet;
 import com.xeno.net.definitions.ItemDefinition;
-import com.xeno.util.log.Logger;
+import com.xeno.util.LogUtility;
+import com.xeno.util.LogUtility.LogType;
 import com.xeno.world.Location;
 import com.xeno.world.World;
 
@@ -276,7 +274,7 @@ public class ItemInteract implements PacketHandler {
 				break;
 			
 			default:
-				logger.info("UNHANDLED ITEM SWAP 1 : interface = " + interfaceId);
+				LogUtility.log(LogType.WARN, "UNHANDLED ITEM SWAP 1 : interface = " + interfaceId);
 				break;
 		}
 		//No need to update the screen since the client does it for us!
@@ -307,7 +305,7 @@ public class ItemInteract implements PacketHandler {
 				break;
 			
 			default:
-				logger.info("UNHANDLED ITEM SWAP 2 : interface = " + interfaceId);
+				LogUtility.log(LogType.WARN, "UNHANDLED ITEM SWAP 2 : interface = " + interfaceId);
 				break;
 		}
 		//No need to update the screen since the client does it for us!
@@ -367,6 +365,4 @@ public class ItemInteract implements PacketHandler {
 		String examine = ItemDefinition.forId(item).getExamine();
 		player.getActionSender().sendMessage(examine);
 	}
-
-	private Logger logger = Logger.getInstance();
 }

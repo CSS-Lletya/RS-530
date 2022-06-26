@@ -8,11 +8,12 @@ import java.util.Map;
 
 import org.apache.mina.common.IoSession;
 
+import com.thoughtworks.xstream.XStream;
 import com.xeno.entity.player.Player;
 import com.xeno.net.Packet;
+import com.xeno.util.LogUtility;
+import com.xeno.util.LogUtility.LogType;
 import com.xeno.util.XStreamUtil;
-import com.xeno.util.log.Logger;
-import com.thoughtworks.xstream.XStream;
 
 /**
  * Wholly static class used to handle packets.
@@ -25,11 +26,6 @@ public class PacketHandlers {
 	 * Packet handlers map.
 	 */
 	private static Map<Integer, PacketHandler> handlers;
-	
-	/**
-	 * Logger instance.
-	 */
-	private static Logger logger = Logger.getInstance();
 	
 	/**
 	 * Prevent an instance being created.
@@ -48,7 +44,7 @@ public class PacketHandlers {
 		handlers = new HashMap<Integer, PacketHandler>();
 		XStream xstream = XStreamUtil.getXStream();
 		
-		logger.info("Packet handlers:");
+		LogUtility.log(LogType.INFO, "Packet handlers:");
 		List<PacketHandlerDef> defs = (List<PacketHandlerDef>) xstream.fromXML(new FileInputStream("data/packetHandlers.xml"));
 		for(PacketHandlerDef def : defs) {
 			
@@ -61,7 +57,7 @@ public class PacketHandlers {
 			}
 			binds = binds.substring(0, binds.length()-2);
 			binds += " ]";
-			logger.info("\tPacket " + handler + " bound to: " + binds);
+			LogUtility.log(LogType.INFO, "\tPacket " + handler + " bound to: " + binds);
 		}
 	}
 	
@@ -74,7 +70,7 @@ public class PacketHandlers {
 		if(!p.isBare()) {
 			PacketHandler handler = handlers.get(p.getId());
 			if(handler == null) {
-				logger.debug("Unhandled packet: " + p + ".");
+				LogUtility.log(LogType.ERROR, "Unhandled packet: " + p + ".");
 			} else {
 				handler.handlePacket((Player) session.getAttachment(), session, p);
 			}

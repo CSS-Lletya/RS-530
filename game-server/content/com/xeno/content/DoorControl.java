@@ -8,9 +8,10 @@ import java.util.List;
 import com.xeno.entity.player.Player;
 import com.xeno.event.AreaEvent;
 import com.xeno.event.Event;
+import com.xeno.util.LogUtility;
+import com.xeno.util.LogUtility.LogType;
 import com.xeno.util.Utility;
 import com.xeno.util.XStreamUtil;
-import com.xeno.util.log.Logger;
 import com.xeno.world.Location;
 import com.xeno.world.World;
 
@@ -125,7 +126,7 @@ public class DoorControl {
 			xstream.toXML(this, new FileOutputStream("data/doors.xml"));
 		} catch(Exception e) {
 		}*/
-		Logger.getInstance().info("Loaded " + doors.size() + " door configurations.");
+		LogUtility.log(LogType.INFO, "Loaded " + doors.size() + " door configurations.");
 	}
 
 	public static class Door {

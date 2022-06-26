@@ -1,7 +1,8 @@
 package com.xeno.content;
 
 import com.xeno.entity.player.Player;
-import com.xeno.util.log.Logger;
+import com.xeno.util.LogUtility;
+import com.xeno.util.LogUtility.LogType;
 
 public class ClanUser {
 
@@ -28,7 +29,7 @@ public class ClanUser {
 		} else {
 			clan.getUsersWithRank().put(p.getUsername(), rights);
 			if (clan.getUsersWithRank().size() >= 250) {
-				Logger.getInstance().info("Clan 'usersWithRank' map size needs increasing!");
+				LogUtility.log(LogType.INFO, "Clan 'usersWithRank' map size needs increasing!");
 			}
 		}
 		this.rights = rights;

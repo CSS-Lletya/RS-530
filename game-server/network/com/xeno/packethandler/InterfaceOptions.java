@@ -6,8 +6,9 @@ import com.xeno.content.Clan;
 import com.xeno.entity.player.Player;
 import com.xeno.net.Packet;
 import com.xeno.util.EnterVariable;
+import com.xeno.util.LogUtility;
+import com.xeno.util.LogUtility.LogType;
 import com.xeno.util.Utility;
-import com.xeno.util.log.Logger;
 import com.xeno.world.World;
 
 public class InterfaceOptions implements PacketHandler {
@@ -237,7 +238,7 @@ public class InterfaceOptions implements PacketHandler {
 			return;
 		}
 		player.getActionSender().closeInterfaces();
-		Logger.getInstance().info("InterfaceOption 1: interfaceId: " + interfaceId);
+		LogUtility.log(LogType.INFO, "InterfaceOption 1: interfaceId: " + interfaceId);
 		switch(interfaceId) {
 			case 387: // Unequip item
 				if (player.getEquipment().getItemInSlot(slot) == item) {
@@ -251,7 +252,7 @@ public class InterfaceOptions implements PacketHandler {
 		int interfaceId = packet.readShort();
 		int child = packet.readShort();
 		int slot = packet.readShort();
-		Logger.getInstance().info("InterfaceOption 2: interfaceId: " + interfaceId);
+		LogUtility.log(LogType.INFO, "InterfaceOption 2: interfaceId: " + interfaceId);
 		switch(interfaceId) {
 			case 154: // Craft normal leather.
 			
@@ -327,7 +328,7 @@ public class InterfaceOptions implements PacketHandler {
 		int interfaceId = packet.readShort();
 		int child = packet.readShort();
 		int slot = packet.readShort();
-		Logger.getInstance().info("InterfaceOption 3: interfaceId: " + interfaceId);
+		LogUtility.log(LogType.INFO, "InterfaceOption 3: interfaceId: " + interfaceId);
 		switch(interfaceId) {
 			case 154: // Craft normal leather.
 			
@@ -404,7 +405,7 @@ public class InterfaceOptions implements PacketHandler {
 		int interfaceId = packet.readShort();
 		int child = packet.readShort();
 		int slot = packet.readShort();
-		Logger.getInstance().info("InterfaceOption 4: interfaceId: " + interfaceId);
+		LogUtility.log(LogType.INFO, "InterfaceOption 4: interfaceId: " + interfaceId);
 		switch(interfaceId) {
 			case 763: // Bank inventory - Custom amount.
 				player.getBank().deposit(slot, player.getBank().getLastXAmount());
@@ -495,7 +496,7 @@ public class InterfaceOptions implements PacketHandler {
 		int interfaceId = packet.readShort();
 		int child = packet.readShort();
 		int slot = packet.readShort();
-		Logger.getInstance().info("InterfaceOption 5: interfaceId: " + interfaceId);
+		LogUtility.log(LogType.INFO, "InterfaceOption 5: interfaceId: " + interfaceId);
 		switch(interfaceId) {
 			case 763: // Bank inventory - X.
 				player.getActionSender().displayEnterAmount();
@@ -569,7 +570,7 @@ public class InterfaceOptions implements PacketHandler {
 		int interfaceId = packet.readShort();
 		int child = packet.readShort();
 		int slot = packet.readShort();
-		Logger.getInstance().info("InterfaceOption 6: interfaceId: " + interfaceId);
+		LogUtility.log(LogType.INFO, "InterfaceOption 6: interfaceId: " + interfaceId);
 		switch(interfaceId) {
 			case 763: // Bank inventory - All.
 				player.getBank().deposit(slot, player.getInventory().getItemAmount(player.getInventory().getItemInSlot(slot)));
@@ -616,7 +617,7 @@ public class InterfaceOptions implements PacketHandler {
 		int interfaceId = packet.readShort();
 		int child = packet.readShort();
 		int slot = packet.readShort();
-		Logger.getInstance().info("InterfaceOption 7: interfaceId: " + interfaceId);
+		LogUtility.log(LogType.INFO, "InterfaceOption 7: interfaceId: " + interfaceId);
 		switch(interfaceId) {		
 			case 762: // Bank - All but one.
 				player.getBank().withdraw(slot, player.getBank().getAmountInSlot(slot) - 1);
@@ -662,7 +663,7 @@ public class InterfaceOptions implements PacketHandler {
 		int interfaceId = packet.readShort();
 		int child = packet.readShort();
 		int slot = packet.readShort();
-		Logger.getInstance().info("InterfaceOption 8: interfaceId: " + interfaceId);
+		LogUtility.log(LogType.INFO, "InterfaceOption 8: interfaceId: " + interfaceId);
 		switch(interfaceId) {
 			case 590: // Clan chat setup
 				Clan clan = World.getInstance().getClanManager().getClanByOwner(player, player.getUsername());
@@ -699,7 +700,7 @@ public class InterfaceOptions implements PacketHandler {
 		int interfaceId = packet.readShort();
 		int child = packet.readShort();
 		int slot = packet.readShort();
-		Logger.getInstance().info("InterfaceOption 9: interfaceId: " + interfaceId);
+		LogUtility.log(LogType.INFO, "InterfaceOption 9: interfaceId: " + interfaceId);
 		switch(interfaceId) {
 			case 590: // Clan chat setup
 				Clan clan = World.getInstance().getClanManager().getClanByOwner(player, player.getUsername());
@@ -736,6 +737,6 @@ public class InterfaceOptions implements PacketHandler {
 		int interfaceId = packet.readShort();
 		int child = packet.readShort();
 		int slot = packet.readShort();
-		Logger.getInstance().info("InterfaceOption 10: interfaceId: " + interfaceId);
+		LogUtility.log(LogType.INFO, "InterfaceOption 10: interfaceId: " + interfaceId);
 	}
 }
