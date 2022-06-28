@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.rs.plugin.PluginManager;
+import com.rs.plugin.standard.CommandPluginDispatcher;
 import com.xeno.io.MapDataLoader;
 import com.xeno.io.MapDataPacker;
 import com.xeno.io.XStreamPlayerLoader;
@@ -12,7 +13,7 @@ import com.xeno.net.Server;
 import com.xeno.net.WorkerThread;
 import com.xeno.net.definitions.ItemDefinition;
 import com.xeno.net.definitions.NPCDefinition;
-import com.xeno.packethandler.PacketHandlers;
+import com.xeno.packetbuilder.packets.OutgoingPacketDispatcher;
 import com.xeno.util.LogUtility;
 import com.xeno.util.LogUtility.LogType;
 import com.xeno.util.TimeStamp;
@@ -77,16 +78,16 @@ public class GameEngine {
 		mapData = new HashMap<Integer, int[]>();
 		MapDataLoader.load(mapData);
 		/*
-		 * Load handlers.
-		 */
-		PacketHandlers.loadHandlers();
-		/*
 		 * Load item definitions.
 		 */
 		LogUtility.log(LogType.INFO, "Loading item definitions...");
 		ItemDefinition.load();
 		LogUtility.log(LogType.INFO, "Loading npc definitions...");
 		NPCDefinition.load();
+		
+		OutgoingPacketDispatcher.load();
+		CommandPluginDispatcher.load();
+		
 		PluginManager.loadPlugins();
 		/*
 		 * Set up the world.

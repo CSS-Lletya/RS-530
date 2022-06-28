@@ -1,8 +1,10 @@
 package com.xeno.util;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.google.common.reflect.ClassPath;
 import com.xeno.net.Packet;
@@ -1240,4 +1242,29 @@ public class Utility {
 		}
 		return classes;
 	}
+
+	/**
+	 * Gets all of the classes in a directory
+	 * 
+	 * @param directory The directory to iterate through
+	 * @return The list of classes
+	 */
+	public static List<Object> getClassesInDirectory(String directory) {
+		List<Object> classes = new ArrayList<>();
+		for (File file : new File("./bin/main/" + directory.replace(".", "/")).listFiles()) {
+			if (file.getName().contains("$")) {
+				continue;
+			}
+			try {
+				Object objectEvent;
+				objectEvent = (Class.forName(directory + "." + file.getName().replace(".class", ""))
+						.getConstructor().newInstance());
+				classes.add(objectEvent);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return classes;
+	}
+	
 }

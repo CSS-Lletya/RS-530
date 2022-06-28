@@ -14,12 +14,12 @@ import com.xeno.content.ShopSession;
 import com.xeno.content.TradeSession;
 import com.xeno.content.combat.Combat;
 import com.xeno.content.combat.Combat.CombatType;
-import com.xeno.content.combat.constants.Animations;
-import com.xeno.content.combat.constants.Bonuses;
-import com.xeno.content.combat.constants.AttackVars.CombatSkill;
-import com.xeno.content.emote.SkillCapes;
 import com.xeno.content.combat.CombatFormula;
 import com.xeno.content.combat.SpecialAttack;
+import com.xeno.content.combat.constants.Animations;
+import com.xeno.content.combat.constants.AttackVars.CombatSkill;
+import com.xeno.content.combat.constants.Bonuses;
+import com.xeno.content.emote.SkillCapes;
 import com.xeno.entity.Entity;
 import com.xeno.entity.Follow;
 import com.xeno.entity.WalkingQueue;
@@ -45,7 +45,8 @@ import com.xeno.net.ActionSender;
 import com.xeno.net.Packet;
 import com.xeno.net.definitions.NPCDefinition;
 import com.xeno.net.entity.LocalEntityList;
-import com.xeno.packethandler.PacketHandlers;
+import com.xeno.net.entity.PlayerUpdateFlags;
+import com.xeno.packetbuilder.packets.OutgoingPacketDispatcher;
 import com.xeno.util.Utility;
 import com.xeno.world.Location;
 import com.xeno.world.World;
@@ -235,7 +236,7 @@ public class Player extends Entity {
 		synchronized(queuedPackets) {
 			Packet p = null;
 			while((p = queuedPackets.poll()) != null) {
-				PacketHandlers.handlePacket(getSession(), p);
+				OutgoingPacketDispatcher.execute(this, p, p.getId());
 			}
 		}
 	}

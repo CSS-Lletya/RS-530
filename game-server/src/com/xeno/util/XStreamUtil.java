@@ -19,7 +19,6 @@ public class XStreamUtil {
 			/*
 			 * Set up our aliases.
 			 */
-			xstream.alias("packet", com.xeno.packethandler.PacketHandlerDef.class);
 			xstream.alias("player", com.xeno.entity.player.Player.class);
 			xstream.alias("itemDefinition", com.xeno.net.definitions.ItemDefinition.class);
 			xstream.alias("item", com.xeno.entity.item.Item.class);
