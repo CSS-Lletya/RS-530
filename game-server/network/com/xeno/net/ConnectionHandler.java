@@ -6,6 +6,7 @@ import org.apache.mina.common.IoSession;
 import org.apache.mina.filter.codec.ProtocolCodecFilter;
 
 import com.xeno.GameEngine;
+import com.xeno.GameLoader;
 import com.xeno.entity.player.Player;
 import com.xeno.net.codec.CodecFactory;
 import com.xeno.util.LogUtility;
@@ -72,7 +73,7 @@ public class ConnectionHandler implements IoHandler {
 	public void sessionOpened(IoSession session) throws Exception {
 		LogUtility.log(LogType.INFO, "New session from: " + session.getRemoteAddress().toString());
 		session.setIdleTime(IdleStatus.BOTH_IDLE, Constants.SESSION_INITIAL_IDLE_TIME);
-		session.getFilterChain().addLast("protocolFilter", new ProtocolCodecFilter(new CodecFactory(engine.getWorkerThread())));
+		session.getFilterChain().addLast("protocolFilter", new ProtocolCodecFilter(new CodecFactory(engine.getLoader().getWorkerThread())));
 	}
 
 }

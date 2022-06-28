@@ -31,6 +31,8 @@ import com.xeno.util.LogUtility;
 import com.xeno.util.LogUtility.LogType;
 import com.xeno.util.XStreamUtil;
 
+import lombok.SneakyThrows;
+
 /**
  * Represents the 'game world'.
  * @author Graham
@@ -323,7 +325,7 @@ public class World {
 		removeAllPlayersNPCs(p);
 		clanManager.leaveChannel(p);
 		players.remove(p);
-		engine.getWorkerThread().savePlayer(p);
+		engine.getLoader().getWorkerThread().savePlayer(p);
 		LogUtility.log(LogType.INFO, "Unregistered " + p.getPlayerDetails().getDisplayName() + " [online = "+players.size()+"]");
 		p.getFriends().unregistered();
 	}
@@ -350,7 +352,8 @@ public class World {
 	 * @throws FileNotFoundException
 	 */
 	@SuppressWarnings("unchecked")
-	public void setEngine(GameEngine gameEngine) throws FileNotFoundException {
+	@SneakyThrows(FileNotFoundException.class)
+	public void setEngine(GameEngine gameEngine){
 		this.engine = gameEngine;
 		LogUtility.log(LogType.DEBUG, "Loading npcs spawns...");
 		List<NPC> spawns = (List<NPC>) XStreamUtil.getXStream().fromXML(new FileInputStream("data/npcs.xml"));
@@ -375,7 +378,7 @@ public class World {
 	 * @return
 	 */
 	public int[] getMapData(int region) {
-		return engine.getMapData(region);
+		return engine.getLoader().getMapData(region);
 	}
 	
 	/**

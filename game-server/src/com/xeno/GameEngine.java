@@ -1,23 +1,9 @@
 package com.xeno;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-
-import com.rs.plugin.PluginManager;
-import com.rs.plugin.standard.CommandPluginDispatcher;
-import com.xeno.io.MapDataLoader;
-import com.xeno.io.MapDataPacker;
-import com.xeno.io.XStreamPlayerLoader;
-import com.xeno.net.Server;
-import com.xeno.net.WorkerThread;
-import com.xeno.net.definitions.ItemDefinition;
-import com.xeno.net.definitions.NPCDefinition;
-import com.xeno.packetbuilder.packets.OutgoingPacketDispatcher;
-import com.xeno.util.LogUtility;
-import com.xeno.util.LogUtility.LogType;
-import com.xeno.util.TimeStamp;
+import com.xeno.net.NetworkServer;
 import com.xeno.world.World;
+
+import lombok.Getter;
 
 /**
  * A varek has called it before, the 'central motor' of the game.
@@ -25,86 +11,29 @@ import com.xeno.world.World;
  * That means it handles periodic updating and packet handling/creation.
  * 
  * @author Graham
+ * @author Dennis
  *
  */
 public class GameEngine {
+
+	/**
+	 * The instance of the loader
+	 */
+	@Getter
+	private static final GameLoader loader = new GameLoader();
 	
 	/**
-	 * Running flag.
+	 * Represents an instance of the Networking server that the client connects to.
 	 */
-	private boolean isRunning;
-	
-	/**
-	 * This makes you wish that Java supported typedefs.
-	 */
-	private Map<Integer, int[]> mapData;
-	
-	/**
-	 * Our worker thread.
-	 */
-	private WorkerThread workerThread;
-	
-	/**
-	 * Thread group.
-	 */
-	private ThreadGroup threads = new ThreadGroup("RuneShard");
-	
-    /**
-     * The time stamp of when the server started running.
-     */
-    public static long startTime;
+	private static NetworkServer networkServer;
 	
 	/**
 	 * Creates other things vital to the game logic, like the world class.
 	 * @throws Exception 
 	 */
 	public GameEngine() throws Exception {
-		startTime = System.currentTimeMillis();
-        final TimeStamp t = new TimeStamp();
-		/*
-		 * We are running.
-		 */
-		isRunning = true;
-		/*
-		 * Check if mapdata packed file exists, if not, then we pack it.
-		 */
-		File packedFile = new File("data/mapdata/packed.dat");
-		if(!packedFile.exists()) {
-			MapDataPacker.pack("data/mapdata/unpacked/", "data/mapdata/packed.dat");
-		}
-		/*
-		 * Actually load the mapdata.
-		 */
-		mapData = new HashMap<Integer, int[]>();
-		MapDataLoader.load(mapData);
-		/*
-		 * Load item definitions.
-		 */
-		LogUtility.log(LogType.INFO, "Loading item definitions...");
-		ItemDefinition.load();
-		LogUtility.log(LogType.INFO, "Loading npc definitions...");
-		NPCDefinition.load();
-		
-		OutgoingPacketDispatcher.load();
-		CommandPluginDispatcher.load();
-		
-		PluginManager.loadPlugins();
-		/*
-		 * Set up the world.
-		 */
-		LogUtility.log(LogType.INFO, "Setting up world...");
+		getLoader().getBackgroundLoader().waitForPendingTasks().shutdown();
 		World.getInstance().setEngine(this);
-		/*
-		 * Start the worker thread.
-		 */
-		LogUtility.log(LogType.INFO, "Launching worker thread...");
-		workerThread = new WorkerThread(new XStreamPlayerLoader());
-		newThread("WorkerThread", workerThread);
-		LogUtility.log(LogType.INFO, "Launched game server in " + t.duration(false, "") + " milliseconds.");
-	}
-	
-	public void newThread(String name, Runnable r) {
-		new Thread(threads, r, name).start();
 	}
 	
 	/**
@@ -129,60 +58,19 @@ public class GameEngine {
 	}
 	
 	/**
-	 * Gets the is running flag.
-	 * @return
-	 */
-	public boolean isRunning() {
-		return isRunning;
-	}
-	
-	/**
-	 * Sets the is running flag.
-	 * @param isRunning
-	 */
-	public void setIsRunning(boolean isRunning) {
-		this.isRunning = isRunning;
-	}
-	
-	/**
-	 * Gets the worker thread.
-	 * @return
-	 */
-	public WorkerThread getWorkerThread() {
-		return workerThread;
-	}
-	
-	/**
-	 * Stops threads, saves games, etc.
-	 */
-	public void cleanup() {
-		threads.interrupt();
-	}
-
-	public int[] getMapData(int region) {
-		return mapData.get(region);
-	}
-	
-	/**
 	 * Entry point of the program.
 	 * 
 	 * Sets everything rolling.
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				Server s = null;
-				try {
-					s = new Server();
-				} catch (Exception e) {
-					LogUtility.log(LogType.ERROR, e.toString());
-					return;
-				}
-				s.go();
-				
+		getLoader().newThread("GameEngine", () -> {
+			try {
+				networkServer = new NetworkServer();
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-		}, "GameEngine").start();
+			networkServer.go();
+		});
 	}
 }

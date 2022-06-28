@@ -6,7 +6,7 @@ import org.apache.mina.filter.codec.ProtocolEncoder;
 import org.apache.mina.filter.codec.ProtocolEncoderOutput;
 
 import com.xeno.cache.ArchiveFile;
-import com.xeno.net.Server;
+import com.xeno.net.NetworkServer;
 
 /**
  * 
@@ -26,7 +26,7 @@ public class Js5Encoder implements ProtocolEncoder {
 	throws Exception {
 		if (object instanceof Js5FileRequest) {
 			Js5FileRequest js5 = (Js5FileRequest) object;
-			ArchiveFile af = Server.getCache().getFileSystem().getArchievedFile(js5.getIdxId(), js5.getFileId());
+			ArchiveFile af = NetworkServer.getCache().getFileSystem().getArchievedFile(js5.getIdxId(), js5.getFileId());
 			if (af == null) {
 				out.write(ByteBuffer.allocate(5));
 				return;

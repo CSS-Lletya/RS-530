@@ -19,7 +19,7 @@ import com.xeno.util.LogUtility.LogType;
  * @author Graham
  *
  */
-public class Server {
+public class NetworkServer {
 	
 	/**
 	 * The game engine: where all the game logic processing takes place.
@@ -67,7 +67,7 @@ public class Server {
 	 * Create this server.
 	 * @throws Exception 
 	 */
-	public Server() throws Exception {
+	public NetworkServer() throws Exception {
 		/*
 		 * Start everything rolling.
 		 */
@@ -107,7 +107,7 @@ public class Server {
 		/*
 		 * While we are running.
 		 */
-		while(engine.isRunning()) {
+		while(GameEngine.getLoader().isRunning()) {
 			try {
 				processEvents();
 				} catch (Exception e) {
@@ -128,7 +128,7 @@ public class Server {
 		 * Cleanup.
 		 */
 		LogUtility.log(LogType.INFO, "Interrupting all threads...");
-		engine.cleanup();
+		GameEngine.getLoader().cleanup();
 	}
 	
 	/**
@@ -185,7 +185,7 @@ public class Server {
 	}
 
 	public void setCache(Cache cache) {
-		this.cache = cache;
+		NetworkServer.cache = cache;
 	}
 
 	public static Cache getCache() {
