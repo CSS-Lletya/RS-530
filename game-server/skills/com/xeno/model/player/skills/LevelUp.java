@@ -1,7 +1,7 @@
 package com.xeno.model.player.skills;
 
 import com.xeno.entity.actor.player.Player;
-import com.xeno.util.Utility;
+import com.xeno.utility.Utility;
 
 /**
  * Level up class.

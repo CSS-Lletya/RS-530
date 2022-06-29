@@ -3,9 +3,8 @@ package com.xeno.content;
 import com.xeno.entity.actor.item.Item;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.net.definitions.ItemDefinition;
-import com.xeno.util.LogUtility;
-import com.xeno.util.LogUtility.LogType;
-import com.xeno.world.Trade;
+import com.xeno.utility.LogUtility;
+import com.xeno.utility.LogUtility.LogType;
 
 public class TradeSession {
 

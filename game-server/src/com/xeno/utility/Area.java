@@ -1,10 +1,11 @@
-package com.xeno.util;
+package com.xeno.utility;
 
+import com.xeno.entity.Location;
 import com.xeno.entity.actor.masks.ForceMovement;
 import com.xeno.entity.actor.player.Player;
-import com.xeno.event.AreaEvent;
+import com.xeno.entity.actor.player.task.AreaTask;
+import com.xeno.entity.actor.player.task.Task;
 import com.xeno.event.Event;
-import com.xeno.world.Location;
 import com.xeno.world.World;
 
 public class Area {
@@ -69,7 +70,7 @@ public class Area {
 		if (p.getTemporaryAttribute("unmovable") != null) {
 			return;
 		}
-		World.getInstance().registerCoordinateEvent(new AreaEvent(p, x, y - 1, x, y + 2) {
+		World.getInstance().registerCoordinateEvent(new AreaTask(p, x, y - 1, x, y + 2) {
 
 			@Override
 			public void run() {
@@ -80,10 +81,9 @@ public class Area {
 				final int dir = newY == 3 ? 0 : 4;
 				Location faceLocation = Location.location(p.getLocation().getX(), dir == 3 ? 3523 : 3520, 0);
 				p.setFaceLocation(faceLocation);
-				World.getInstance().registerEvent(new Event(500) {
+				World.getInstance().submit(new Task(1) {
 					@Override
-					public void execute() {
-						this.stop();
+					protected void execute() {
 						p.animate(6132);
 						int regionX = p.getUpdateFlags().getLastRegion().getRegionX();
 						int regionY = p.getUpdateFlags().getLastRegion().getRegionY();
@@ -92,16 +92,16 @@ public class Area {
 						ForceMovement movement = new ForceMovement(lX, lY, lX, newY, 33, 60, dir);
 						p.setForceMovement(movement);		
 						p.setFaceLocation(Location.location(x, y, 0));
-						World.getInstance().registerEvent(new Event(1250) {
-
+						stop();
+						World.getInstance().submit(new Task(2) {
 							@Override
-							public void execute() {
+							protected void execute() {
 								this.stop();
 								int playerY = p.getLocation().getY();
 								int nY = playerY >= 3523 ? 3520 : 3523;
 								p.teleport(Location.location(p.getLocation().getX(), nY, 0));
 								p.removeTemporaryAttribute("unmovable");
-							}	
+							}
 						});
 					}
 				});

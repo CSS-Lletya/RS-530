@@ -6,8 +6,8 @@ import org.apache.mina.filter.codec.ProtocolEncoder;
 import org.apache.mina.filter.codec.ProtocolEncoderOutput;
 
 import com.xeno.net.Packet;
-import com.xeno.util.LogUtility;
-import com.xeno.util.LogUtility.LogType;
+import com.xeno.utility.LogUtility;
+import com.xeno.utility.LogUtility.LogType;
 
 public class RS2ProtocolEncoder implements ProtocolEncoder {
 	

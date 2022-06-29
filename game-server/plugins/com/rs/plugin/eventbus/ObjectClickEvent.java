@@ -8,8 +8,8 @@ import java.util.Map;
 import com.rs.plugin.PluginEvent;
 import com.rs.plugin.handler.PluginHandler;
 import com.rs.plugin.handler.objects.ObjectClickHandler;
+import com.xeno.entity.Location;
 import com.xeno.entity.actor.player.Player;
-import com.xeno.world.Location;
 import com.xeno.world.WorldObject;
 
 public class ObjectClickEvent implements PluginEvent {

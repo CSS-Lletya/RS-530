@@ -3,11 +3,12 @@ package com.xeno.entity.actor.item;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.xeno.entity.Location;
 import com.xeno.entity.actor.player.Player;
+import com.xeno.entity.actor.player.task.Task;
 import com.xeno.event.Event;
 import com.xeno.net.definitions.ItemDefinition;
-import com.xeno.util.Area;
-import com.xeno.world.Location;
+import com.xeno.utility.Area;
 import com.xeno.world.World;
 
 public class GroundItemManager {
@@ -25,9 +26,9 @@ public class GroundItemManager {
 		if (item.getOwner() != null && !item.getOwner().isDestroyed()) {
 			item.getOwner().getActionSender().createGroundItem(item);
 		}
-		World.getInstance().registerEvent(new Event(60000) {
+		World.getInstance().submit(new Task(60) {
 			@Override
-			public void execute() {
+			protected void execute() {
 				newGlobalItem(item);
 				this.stop();
 			}
@@ -75,9 +76,9 @@ public class GroundItemManager {
 			}
 			final GroundItem i = item;
 			if (!item.isRespawn()) {
-				World.getInstance().registerEvent(new Event(60000) {
+				World.getInstance().submit(new Task(60) {
 					@Override
-					public void execute() {
+					protected void execute() {
 						clearGlobalItem(i);
 						this.stop();
 					}
@@ -115,9 +116,9 @@ public class GroundItemManager {
 			clearGlobalItem(item);
 			if (item.isRespawn()) {
 				final GroundItem i = item;
-				World.getInstance().registerEvent(new Event(60000) {
+				World.getInstance().submit(new Task(60) {
 					@Override
-					public void execute() {
+					protected void execute() {
 						GroundItem respawn = new GroundItem(i.getItemId(), i.getItemAmount(), i.getLocation(), null);
 						respawn.setRespawn(true);
 						respawn.setGlobal(true);

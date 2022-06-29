@@ -4,8 +4,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import com.rs.plugin.handler.PluginHandler;
-import com.xeno.util.LogUtility;
-import com.xeno.util.LogUtility.LogType;
+import com.xeno.utility.LogUtility;
+import com.xeno.utility.LogUtility.LogType;
 
 public class PluginMethodRepository {
 

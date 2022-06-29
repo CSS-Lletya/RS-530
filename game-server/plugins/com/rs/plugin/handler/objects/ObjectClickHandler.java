@@ -2,7 +2,7 @@ package com.rs.plugin.handler.objects;
 
 import com.rs.plugin.eventbus.ObjectClickEvent;
 import com.rs.plugin.handler.PluginHandler;
-import com.xeno.world.Location;
+import com.xeno.entity.Location;
 import com.xeno.world.ObjectType;
 
 public abstract class ObjectClickHandler extends PluginHandler<ObjectClickEvent> {

@@ -1,17 +1,20 @@
-package com.xeno.event.impl;
+package com.xeno.entity.actor.player.task.impl;
 
 import com.xeno.entity.actor.npc.NPC;
 import com.xeno.entity.actor.player.Player;
-import com.xeno.event.Event;
+import com.xeno.entity.actor.player.task.Task;
 import com.xeno.model.player.skills.Skills;
 import com.xeno.world.World;
 
-public class LevelChangeEvent extends Event {
-
+public final class LevelChangeEvent extends Task {
+	
 	private static int status;
 	
+	/**
+	 * Creates a new {@link LevelChangeEvent}.
+	 */
 	public LevelChangeEvent() {
-		super(22000);
+		super(2, false);
 		status = 0;
 	}
 
@@ -52,5 +55,11 @@ public class LevelChangeEvent extends Event {
 			}
 		}
 		status = status == 0 ? 1 : 0;
+	}
+	
+	
+	@Override
+	public void onCancel() {
+		World.getInstance().submit(new LevelChangeEvent());
 	}
 }

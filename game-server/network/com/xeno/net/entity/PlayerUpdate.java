@@ -1,5 +1,6 @@
 package com.xeno.net.entity;
 
+import com.xeno.entity.Location;
 import com.xeno.entity.actor.item.Item;
 import com.xeno.entity.actor.item.ItemConstants;
 import com.xeno.entity.actor.masks.Appearance;
@@ -9,8 +10,7 @@ import com.xeno.net.Constants;
 import com.xeno.net.Packet.Size;
 import com.xeno.packetbuilder.PacketBuilder;
 import com.xeno.packetbuilder.StaticPacketBuilder;
-import com.xeno.util.Utility;
-import com.xeno.world.Location;
+import com.xeno.utility.Utility;
 import com.xeno.world.World;
 
 /**

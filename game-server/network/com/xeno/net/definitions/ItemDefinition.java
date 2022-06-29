@@ -9,8 +9,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.xeno.entity.actor.item.ItemConstants;
-import com.xeno.util.LogUtility;
-import com.xeno.util.LogUtility.LogType;
+import com.xeno.utility.LogUtility;
+import com.xeno.utility.LogUtility.LogType;
 
 /**
  * Item Definition class

@@ -1,16 +1,16 @@
 package com.xeno.packetbuilder.packets.impl;
 
+import com.xeno.content.Trade;
 import com.xeno.content.TradeSession;
 import com.xeno.content.combat.Combat;
 import com.xeno.content.combat.MagicCombat;
 import com.xeno.entity.actor.masks.FaceLocation;
 import com.xeno.entity.actor.player.Player;
-import com.xeno.event.AreaEvent;
+import com.xeno.entity.actor.player.task.AreaTask;
 import com.xeno.net.Constants;
 import com.xeno.net.Packet;
 import com.xeno.packetbuilder.packets.OutgoingPacket;
 import com.xeno.packetbuilder.packets.OutgoingPacketSignature;
-import com.xeno.world.Trade;
 import com.xeno.world.World;
 
 @OutgoingPacketSignature(packetId = { 68, 71, 180, 195 }, description = "Represents an event where a Player interacts with another Player")
@@ -89,7 +89,7 @@ public class PlayerInteractionsPacket implements OutgoingPacket {
 		if (!player.getLocation().withinDistance(p2.getLocation(), 1)) {
 			int x = p2.getLocation().getX();
 			int y = p2.getLocation().getY();
-			World.getInstance().registerCoordinateEvent(new AreaEvent(player, x - 1, y - 1, x + 1, y + 1) {
+			World.getInstance().registerCoordinateEvent(new AreaTask(player, x - 1, y - 1, x + 1, y + 1) {
 				@Override
 				public void run() {
 					player.getWalkingQueue().reset();

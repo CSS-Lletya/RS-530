@@ -13,9 +13,9 @@ import com.xeno.net.Packet;
 import com.xeno.net.WorkerThread;
 import com.xeno.net.codec.js5.Js5CodecFactory;
 import com.xeno.packetbuilder.StaticPacketBuilder;
-import com.xeno.util.LogUtility;
-import com.xeno.util.LogUtility.LogType;
-import com.xeno.util.Utility;
+import com.xeno.utility.LogUtility;
+import com.xeno.utility.Utility;
+import com.xeno.utility.LogUtility.LogType;
 
 /**
  * Login protocol decoder.

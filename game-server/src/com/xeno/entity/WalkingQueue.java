@@ -1,8 +1,7 @@
 package com.xeno.entity;
 
 import com.xeno.entity.actor.player.Player;
-import com.xeno.util.Utility;
-import com.xeno.world.Location;
+import com.xeno.utility.Utility;
 
 /**
  * Handles walking.

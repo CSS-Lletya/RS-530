@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.xeno.entity.actor.npc.NPCDrop;
-import com.xeno.util.LogUtility;
-import com.xeno.util.LogUtility.LogType;
-import com.xeno.util.XStreamUtil;
+import com.xeno.utility.LogUtility;
+import com.xeno.utility.XStreamUtil;
+import com.xeno.utility.LogUtility.LogType;
 
 /**
  * Represents a type of NPC.

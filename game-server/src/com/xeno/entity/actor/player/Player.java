@@ -23,6 +23,7 @@ import com.xeno.content.emote.SkillCapes;
 import com.xeno.entity.Entity;
 import com.xeno.entity.EntityType;
 import com.xeno.entity.Follow;
+import com.xeno.entity.Location;
 import com.xeno.entity.WalkingQueue;
 import com.xeno.entity.actor.Actor;
 import com.xeno.entity.actor.item.GroundItem;
@@ -38,7 +39,7 @@ import com.xeno.entity.actor.masks.Graphics;
 import com.xeno.entity.actor.masks.Hits;
 import com.xeno.entity.actor.masks.Hits.Hit;
 import com.xeno.entity.actor.npc.NPC;
-import com.xeno.event.impl.DeathEvent;
+import com.xeno.event.DeathEvent;
 import com.xeno.model.player.skills.Skills;
 import com.xeno.model.player.skills.prayer.PrayerData;
 import com.xeno.model.player.skills.prayer.Prayers;
@@ -49,8 +50,7 @@ import com.xeno.net.definitions.NPCDefinition;
 import com.xeno.net.entity.LocalEntityList;
 import com.xeno.net.entity.PlayerUpdateFlags;
 import com.xeno.packetbuilder.packets.OutgoingPacketDispatcher;
-import com.xeno.util.Utility;
-import com.xeno.world.Location;
+import com.xeno.utility.Utility;
 import com.xeno.world.World;
 
 /**
@@ -496,7 +496,7 @@ public class Player extends Actor {
 		if(skills.getLevel(3) <= 0) {
 			skills.setLevel(3, 0);
 			if(!isDead()) {
-				World.getInstance().registerEvent(new DeathEvent(this));
+//				World.getInstance().registerEvent(new DeathEvent(this));//TODO: Finish converting
 				setDead(true);
 			}
 		}

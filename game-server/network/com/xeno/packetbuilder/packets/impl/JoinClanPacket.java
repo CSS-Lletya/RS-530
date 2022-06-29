@@ -4,7 +4,7 @@ import com.xeno.entity.actor.player.Player;
 import com.xeno.net.Packet;
 import com.xeno.packetbuilder.packets.OutgoingPacket;
 import com.xeno.packetbuilder.packets.OutgoingPacketSignature;
-import com.xeno.util.Utility;
+import com.xeno.utility.Utility;
 import com.xeno.world.World;
 
 @OutgoingPacketSignature(packetId = 104, description = "Represents an event where a Player attempts to join a clan chat")

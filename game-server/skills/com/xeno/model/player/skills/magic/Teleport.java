@@ -1,10 +1,11 @@
 package com.xeno.model.player.skills.magic;
 
+import com.xeno.entity.Location;
 import com.xeno.entity.actor.player.Player;
+import com.xeno.entity.actor.player.task.Task;
 import com.xeno.event.Event;
-import com.xeno.util.Area;
-import com.xeno.util.Utility;
-import com.xeno.world.Location;
+import com.xeno.utility.Area;
+import com.xeno.utility.Utility;
 import com.xeno.world.World;
 
 public class Teleport extends MagicData {
@@ -34,11 +35,11 @@ public class Teleport extends MagicData {
 		p.setTemporaryAttribute("homeTeleporting", true);
 		p.getWalkingQueue().reset();
 		p.getActionSender().clearMapFlag();
-		
-		World.getInstance().registerEvent(new Event(500) {
+		World.getInstance().submit(new Task(1) {
 			int currentStage = 0;
+			
 			@Override
-			public void execute() {
+			protected void execute() {
 				if (p.getTemporaryAttribute("homeTeleporting") == null) {
 					p.animate(65535, 0);
 					p.graphics(65535, 0);
@@ -84,25 +85,28 @@ public class Teleport extends MagicData {
 		p.getActionSender().clearMapFlag();
 		p.setTemporaryAttribute("teleporting", true);
 		
-		World.getInstance().registerEvent(new Event(ancients ? 2750 : 1800) {
+		World.getInstance().submit(new Task(ancients ? 3 : 2) {
 			@Override
-			public void execute() {
+			protected void execute() {
 				p.teleport(Location.location(x, y, 0));
 				if (!ancients) {
 					p.animate(8941, 0);
 					p.graphics(1577, 0);
 				}
-				World.getInstance().registerEvent(new Event(ancients ? 500 : 2000) {
+				World.getInstance().submit(new Task(ancients ? 2 : 1) {
+
 					@Override
-					public void execute() {
+					protected void execute() {
 						p.getLevels().addXp(MAGIC, TELEPORT_XP[teleport]);
 						resetTeleport(p);
 						this.stop();
 					}
+					
 				});
 				this.stop();
 			}
 		});
+		
 	}
 
 	private static boolean canTeleport(Player p, int teleport) {
@@ -175,10 +179,10 @@ public class Teleport extends MagicData {
 			p.animate(9597);
 			p.graphics(1680,0,0);
 			//p.graphics(678, 0, 0); // blue gfx
-			World.getInstance().registerEvent(new Event(900) {
+			World.getInstance().submit(new Task(1) {
 				int i = 0;
 				@Override
-				public void execute() {
+				protected void execute() {
 					if (i == 0) {
 						p.animate(4071);
 						i++;

@@ -1,17 +1,20 @@
-package com.xeno.event.impl;
+package com.xeno.entity.actor.player.task.impl;
 
+import com.xeno.entity.Location;
 import com.xeno.entity.actor.player.Player;
-import com.xeno.event.Event;
-import com.xeno.util.Area;
-import com.xeno.world.Location;
+import com.xeno.entity.actor.player.task.Task;
+import com.xeno.utility.Area;
 import com.xeno.world.World;
 
-public class AreaVariables extends Event {
-
+public final class AreaVariables extends Task {
+	
+	/**
+	 * Creates a new {@link DrainPrayerTask}.
+	 */
 	public AreaVariables() {
-		super(500);
+		super(1, false);
 	}
-
+	
 	@Override
 	public void execute() {
 		for (Player p : World.getInstance().getPlayerList()) {
@@ -19,6 +22,22 @@ public class AreaVariables extends Event {
 				updateVariables(p);
 			}
 		}
+	}
+	
+	@Override
+	public void onCancel() {
+		World.getInstance().submit(new AreaVariables());
+	}
+	
+	public int wildernessLevel(Location l) {
+		int y = l.getY();
+		if (!Area.inWilderness(l)) {
+			return -1;
+		}
+		if(y > 3523 && y < 4000) {
+			return (((int)(Math.ceil((double)(y)-3520D) / 8D) + 1));
+		}
+		return -1;
 	}
 	
 	/*
@@ -56,16 +75,4 @@ public class AreaVariables extends Event {
 			}
 		}
 	}
-
-	public int wildernessLevel(Location l) {
-		int y = l.getY();
-		if (!Area.inWilderness(l)) {
-			return -1;
-		}
-		if(y > 3523 && y < 4000) {
-			return (((int)(Math.ceil((double)(y)-3520D) / 8D) + 1));
-		}
-		return -1;
-	}
-
 }

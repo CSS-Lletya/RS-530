@@ -8,12 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.xeno.content.DoorControl;
+import com.xeno.entity.Location;
 import com.xeno.entity.actor.item.GroundItem;
 import com.xeno.entity.actor.player.Player;
+import com.xeno.entity.actor.player.task.Task;
 import com.xeno.event.Event;
-import com.xeno.util.LogUtility;
-import com.xeno.util.LogUtility.LogType;
-import com.xeno.util.Utility;
+import com.xeno.utility.LogUtility;
+import com.xeno.utility.LogUtility.LogType;
+import com.xeno.utility.Utility;
 
 
 public class ObjectManager {
@@ -63,9 +65,9 @@ public class ObjectManager {
 				}
 			}
 			int delay = object.isFire() ? (60000 + Utility.random(90000)) : object.getRestoreDelay(); 
-			World.getInstance().registerEvent(new Event(delay) {
+			World.getInstance().submit(new Task(delay) {//doesn't seem right, circle back!
 				@Override
-				public void execute() {
+				protected void execute() {
 					restoreObject(object);
 					this.stop();
 				}

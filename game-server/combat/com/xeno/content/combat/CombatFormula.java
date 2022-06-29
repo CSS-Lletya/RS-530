@@ -5,7 +5,7 @@ import com.xeno.entity.Entity;
 import com.xeno.entity.actor.npc.NPC;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.model.player.skills.prayer.PrayerData;
-import com.xeno.util.Utility;
+import com.xeno.utility.Utility;
 
 import java.util.Random;
 

@@ -12,8 +12,8 @@ import com.xeno.entity.actor.player.PlayerCredentials;
 import com.xeno.io.PlayerLoadResult;
 import com.xeno.io.PlayerLoader;
 import com.xeno.packetbuilder.StaticPacketBuilder;
-import com.xeno.util.LogUtility;
-import com.xeno.util.LogUtility.LogType;
+import com.xeno.utility.LogUtility;
+import com.xeno.utility.LogUtility.LogType;
 import com.xeno.world.World;
 
 /**

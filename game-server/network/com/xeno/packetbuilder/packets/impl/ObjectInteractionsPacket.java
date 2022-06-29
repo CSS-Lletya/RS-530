@@ -4,14 +4,14 @@ import com.rs.plugin.PluginManager;
 import com.rs.plugin.eventbus.ObjectClickEvent;
 import com.xeno.content.LaddersAndStairs;
 import com.xeno.content.WildernessObelisks;
+import com.xeno.entity.Location;
 import com.xeno.entity.actor.masks.FaceLocation;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.net.Packet;
 import com.xeno.packetbuilder.packets.OutgoingPacket;
 import com.xeno.packetbuilder.packets.OutgoingPacketSignature;
-import com.xeno.util.LogUtility;
-import com.xeno.util.LogUtility.LogType;
-import com.xeno.world.Location;
+import com.xeno.utility.LogUtility;
+import com.xeno.utility.LogUtility.LogType;
 import com.xeno.world.World;
 import com.xeno.world.WorldObject;
 

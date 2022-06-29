@@ -1,10 +1,11 @@
 package com.xeno.content;
 
+import com.xeno.entity.Location;
 import com.xeno.entity.actor.player.Player;
-import com.xeno.event.AreaEvent;
+import com.xeno.entity.actor.player.task.AreaTask;
+import com.xeno.entity.actor.player.task.Task;
 import com.xeno.event.Event;
-import com.xeno.util.Utility;
-import com.xeno.world.Location;
+import com.xeno.utility.Utility;
 import com.xeno.world.World;
 import com.xeno.world.WorldObject;
 
@@ -44,7 +45,7 @@ public class WildernessObelisks {
 			if (id == OBELISK_ID[i]) {
 				if (loc.inArea(OBELISK_LOCATIONS[i][0] - 2, OBELISK_LOCATIONS[i][1] - 2, OBELISK_LOCATIONS[i][0] + 2, OBELISK_LOCATIONS[i][1] + 2)) {
 					final int index = i;
-					World.getInstance().registerCoordinateEvent(new AreaEvent(p, loc.getX() - 1, loc.getY() - 1, loc.getX() + 1, loc.getY() + 1) {
+					World.getInstance().registerCoordinateEvent(new AreaTask(p, loc.getX() - 1, loc.getY() - 1, loc.getX() + 1, loc.getY() + 1) {
 		
 						@Override
 						public void run() {
@@ -72,10 +73,9 @@ public class WildernessObelisks {
 			}
 		}
 		obeliskActivated[index] = true;
-		World.getInstance().registerEvent(new Event(4000 + (Utility.random(4)) * 1000) {
-
+		World.getInstance().submit(new Task(4 + (Utility.random(4))) {
 			@Override
-			public void execute() {
+			protected void execute() {
 				this.stop();
 				int randomOb = index;
 				while(randomOb == index) {
@@ -90,21 +90,19 @@ public class WildernessObelisks {
 							p.graphics(1690);
 							p.animate(8939);
 							final Player p2 = p;
-							World.getInstance().registerEvent(new Event(1200) {
-
+							World.getInstance().submit(new Task(2) {
 								@Override
-								public void execute() {
+								protected void execute() {
 									this.stop();
 									p2.teleport(Location.location((OBELISK_LOCATIONS[random][0] - 1) + Utility.random(2), (OBELISK_LOCATIONS[random][1] - 1) + Utility.random(2), 0));
-									World.getInstance().registerEvent(new Event(500) {
-
+									World.getInstance().submit(new Task(2) {
 										@Override
-										public void execute() {
+										protected void execute() {
 											this.stop();
 											p2.animate(8941);
 										}
 									});
-								}	
+								}
 							});
 						}
 					}

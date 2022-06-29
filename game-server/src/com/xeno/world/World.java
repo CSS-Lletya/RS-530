@@ -4,33 +4,38 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 import com.xeno.GameEngine;
 import com.xeno.content.ClanManager;
 import com.xeno.content.ShopManager;
-import com.xeno.content.combat.AggressiveNPC;
 import com.xeno.content.combat.Combat;
+import com.xeno.entity.actor.Actor;
 import com.xeno.entity.actor.item.GroundItemManager;
 import com.xeno.entity.actor.npc.NPC;
 import com.xeno.entity.actor.player.Player;
-import com.xeno.event.AreaEvent;
-import com.xeno.event.CoordinateEvent;
+import com.xeno.entity.actor.player.task.AreaTask;
+import com.xeno.entity.actor.player.task.CoordinateTask;
+import com.xeno.entity.actor.player.task.Task;
+import com.xeno.entity.actor.player.task.TaskManager;
+import com.xeno.entity.actor.player.task.impl.AreaVariables;
+import com.xeno.entity.actor.player.task.impl.LevelChangeEvent;
+import com.xeno.entity.actor.player.task.impl.LowerPotionCycles;
+import com.xeno.entity.actor.player.task.impl.RestoreSpecialEvent;
+import com.xeno.entity.actor.player.task.impl.RunEnergyEvent;
+import com.xeno.entity.actor.player.task.impl.SkullCycleEvent;
 import com.xeno.event.Event;
-import com.xeno.event.impl.AreaVariables;
-import com.xeno.event.impl.LevelChangeEvent;
-import com.xeno.event.impl.LowerPotionCycles;
-import com.xeno.event.impl.RunEnergyEvent;
-import com.xeno.event.impl.SkullCycle;
-import com.xeno.event.impl.SpecialRestore;
 import com.xeno.net.Constants;
 import com.xeno.net.entity.EntityList;
 import com.xeno.net.entity.NPCUpdate;
 import com.xeno.net.entity.PlayerUpdate;
-import com.xeno.util.Area;
-import com.xeno.util.LogUtility;
-import com.xeno.util.LogUtility.LogType;
-import com.xeno.util.XStreamUtil;
+import com.xeno.utility.Area;
+import com.xeno.utility.LogUtility;
+import com.xeno.utility.LogUtility.LogType;
+import com.xeno.utility.XStreamUtil;
 
+import lombok.Getter;
 import lombok.SneakyThrows;
 
 /**
@@ -43,7 +48,41 @@ public class World {
 	/**
 	 * The world instance.
 	 */
-	private static World instance = null;
+	@Getter
+	private static World instance = new World();
+	
+	/**
+	 * Represents a valid Player check
+	 */
+	private final Predicate<Player> VALID_PLAYER = (player) -> player != null && !player.isDisconnected() && !player.isDestroyed();
+	
+	/**
+	 * Represents a valid NPC check
+	 */
+	private final Predicate<NPC> VALID_NPC = (npc) -> npc != null && !npc.isDestroyed();
+	
+	/**
+	 * Represents a valid Actor check
+	 */
+	public Stream<Actor> entities() {
+		return Stream.concat(players(), npcs());
+	}
+
+	/**
+	 * Gets a filtered stream of valid Players
+	 * @return players
+	 */
+	public Stream<Player> players() {
+		return players.stream().filter(VALID_PLAYER);
+	}
+
+	/**
+	 * Gets a filtered stream of valid NPCS
+	 * @return NPCS
+	 */
+	public Stream<NPC> npcs() {
+		return npcs.stream().filter(VALID_NPC);
+	}
 	
 	/**
 	 * A list of connected players.
@@ -54,13 +93,6 @@ public class World {
 	 * A list of npcs.
 	 */
 	private EntityList<NPC> npcs;
-	
-	/**
-	 * A list of pending events.
-	 */
-	private List<Event> events;
-	private List<Event> eventsToAdd;
-	private List<Event> eventsToRemove;
 	
 	/**
 	 * The game engine.
@@ -101,40 +133,29 @@ public class World {
 	private World() {
 		players = new EntityList<Player>(Constants.PLAYER_CAP);
 		npcs = new EntityList<NPC>(Constants.NPC_CAP);
-		events = new ArrayList<Event>();
-		eventsToAdd = new ArrayList<Event>();
-		eventsToRemove = new ArrayList<Event>();
 	}
 	
 	/**
 	 * Register our global events.
 	 */
 	public void registerGlobalEvents() {
-		registerEvent(new RunEnergyEvent());
-		registerEvent(new LevelChangeEvent());
-		registerEvent(new SpecialRestore());
-		registerEvent(new SkullCycle());
-		registerEvent(new AreaVariables());
-		registerEvent(new AggressiveNPC());
-		registerEvent(new LowerPotionCycles());
-	}
-	
-	/**
-	 * Registers an event.
-	 * @param event
-	 */
-	public void registerEvent(Event event) {
-		eventsToAdd.add(event);
+		World.getInstance().submit(new AreaVariables());
+		World.getInstance().submit(new LevelChangeEvent());
+		World.getInstance().submit(new LowerPotionCycles());
+		World.getInstance().submit(new RestoreSpecialEvent());
+		World.getInstance().submit(new RunEnergyEvent());
+		World.getInstance().submit(new SkullCycleEvent());
 	}
 	
 	/**
 	 * Registers a 'coordiante' event.
 	 * @param event
 	 */
-	public void registerCoordinateEvent(final CoordinateEvent event) {
-		registerEvent(new Event(0) {
+	public void registerCoordinateEvent(final CoordinateTask event) {
+		submit(new Task(0) {
+			
 			@Override
-			public void execute() {
+			protected void execute() {
 				boolean standingStill = event.getPlayer().getSprite().getPrimarySprite() == -1 && event.getPlayer().getSprite().getSecondarySprite() == -1;
 				if(event.getPlayer().getDistanceEvent() == null || !event.getPlayer().getDistanceEvent().equals(event)) {
 					this.stop();
@@ -142,7 +163,7 @@ public class World {
 				}
 				if (standingStill) {
 					if((event.getPlayer().getLocation().equals(event.getTargetLocation()) && event.getPlayer().getLocation().equals(event.getOldLocation())) || event.getFailedAttempts() >= 15) {
-						if(this.getTick() == 0) {
+						if(this.getDelay() == 0) {
 							event.run();
 							this.stop();
 							event.setPlayerNull();
@@ -163,15 +184,50 @@ public class World {
 						event.incrementFailedAttempts();
 					}
 				}
-				this.setTick(200);
+				setDelay(getDelay());
+			}
+		});
+		submit(new Task(0) {
+			@Override
+			protected void execute() {
+				boolean standingStill = event.getPlayer().getSprite().getPrimarySprite() == -1 && event.getPlayer().getSprite().getSecondarySprite() == -1;
+				if(event.getPlayer().getDistanceEvent() == null || !event.getPlayer().getDistanceEvent().equals(event)) {
+					this.stop();
+					return;
+				}
+				if (standingStill) {
+					if((event.getPlayer().getLocation().equals(event.getTargetLocation()) && event.getPlayer().getLocation().equals(event.getOldLocation())) || event.getFailedAttempts() >= 15) {
+						if(this.getDelay() == 0) {
+							event.run();
+							this.stop();
+							event.setPlayerNull();
+						} else {
+							if(!event.hasReached()) {
+								event.setReached(true);
+							} else {
+								event.run();
+								this.stop();
+								event.setPlayerNull();
+							}
+						}
+					}
+				} else {
+					if(!event.getPlayer().getLocation().equals(event.getOldLocation())) {
+						event.setOldLocation(event.getPlayer().getLocation());
+					} else {
+						event.incrementFailedAttempts();
+					}
+				}
+				this.setDelay(1);
 			}
 		});
 	}
 	
-	public void registerCoordinateEvent(final AreaEvent event) {
-		registerEvent(new Event(0) {
+	public void registerCoordinateEvent(final AreaTask event) {
+		submit(new Task(0) {
+			
 			@Override
-			public void execute() {
+			protected void execute() {
 				boolean standingStill = event.getPlayer().getSprite().getPrimarySprite() == -1 && event.getPlayer().getSprite().getSecondarySprite() == -1;
 				if(event.getPlayer().getDistanceEvent() == null || !event.getPlayer().getDistanceEvent().equals(event)) {
 					this.stop();
@@ -185,47 +241,17 @@ public class World {
 						return;
 					}
 				}
-				this.setTick(500);
+				setDelay(1);
+				stop();
 			}
 		});
-	}
-	
-	/**
-	 * Processes any pending events.
-	 */
-	public void processEvents() {
-		for(Event e : eventsToAdd) {
-			events.add(e);
-		}
-		eventsToAdd.clear();
-		for(Event e : events) {
-			if(e.isStopped()) {
-				eventsToRemove.add(e);
-			} else if(e.isReady()) {
-				e.run();
-			}
-		}
-		for(Event e : eventsToRemove) {
-			events.remove(e);
-		}
-		eventsToRemove.clear();
-	}
-	
-	/**
-	 * Get the world instance.
-	 * @return
-	 */
-	public static World getInstance() {
-		if(instance == null) {
-			instance = new World();
-		}
-		return instance;
 	}
 	
 	/**
 	 * Called whenever there is a major update.
 	 */
 	public void majorUpdate() {
+		getTaskManager().sequence();
 		for(Player p : players) {
 			p.tick();
 			p.processQueuedHits();
@@ -259,17 +285,13 @@ public class World {
 	 * Called whenever there is a minor update.
 	 */
 	public void minorUpdate() {
-		
 	}
 	
 	/**
-	 * Called every tick.
+	 * Called every tick (600ms).
 	 */
 	public void tick() {
-		for(Player p : players) {
-			p.processQueuedPackets();
-		}
-		processEvents();
+		players.stream().forEach(Player::processQueuedPackets);
 	}
 
 	/**
@@ -345,6 +367,16 @@ public class World {
 			}
 		}
 	}
+	
+	public void removeNPC(NPC npc) {
+		for (NPC n : npcs) {
+			if (n != null && npc == n) {
+				n.setHidden(true);
+				npcs.remove(n);
+			}
+		}
+	}
+	
 
 	/**
 	 * Sets the game engine.
@@ -448,5 +480,19 @@ public class World {
 
 	public long getServerStartupTime() {
 		return serverStartupTime;
+	}
+
+	/**
+	 * The manager for the queue of game tasks.
+	 */
+	@Getter
+	public final TaskManager taskManager = new TaskManager();
+	
+	/**
+	 * Submits {@code t} to the backing {@link TaskManager}.
+	 * @param task the task to submit to the queue.
+	 */
+	public void submit(Task task) {
+		getTaskManager().submit(task);
 	}
 }

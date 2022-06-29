@@ -12,13 +12,14 @@ import com.xeno.content.combat.constants.AttackVars;
 import com.xeno.entity.Entity;
 import com.xeno.entity.EntityType;
 import com.xeno.entity.Follow;
+import com.xeno.entity.Location;
 import com.xeno.entity.actor.masks.EntityFocus;
 import com.xeno.entity.actor.masks.Hits;
 import com.xeno.entity.actor.masks.Sprite;
 import com.xeno.entity.actor.npc.NPC;
 import com.xeno.entity.actor.player.Player;
-import com.xeno.util.Utility;
-import com.xeno.world.Location;
+import com.xeno.entity.actor.player.task.Task;
+import com.xeno.utility.Utility;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -231,5 +232,19 @@ public abstract class Actor extends Entity {
 			((Player) this).getSettings().setPoisonAmount(amt);
 		}
 		this.poisonAmount = amt;
+	}
+	
+	/**
+	 * Sends a delayed task for this player.
+	 */
+	public void task(int delay, Consumer<Actor> action) {
+		Actor actor = this;
+		new Task(delay, false) {
+			@Override
+			protected void execute() {
+				action.accept(actor);
+				stop();
+			}
+		}.submit();
 	}
 }

@@ -5,10 +5,10 @@ import java.io.FileNotFoundException;
 import java.util.Map;
 
 import com.xeno.entity.actor.player.Player;
-import com.xeno.event.Event;
-import com.xeno.util.LogUtility;
-import com.xeno.util.LogUtility.LogType;
-import com.xeno.util.XStreamUtil;
+import com.xeno.entity.actor.player.task.Task;
+import com.xeno.utility.LogUtility;
+import com.xeno.utility.LogUtility.LogType;
+import com.xeno.utility.XStreamUtil;
 import com.xeno.world.World;
 
 public class ShopManager {
@@ -19,10 +19,11 @@ public class ShopManager {
 	public ShopManager() throws FileNotFoundException {
 		LogUtility.log(LogType.INFO, "Loading shops...");
 		shops = (Map<Integer, Shop>) XStreamUtil.getXStream().fromXML(new FileInputStream("data/shops.xml"));
-		World.getInstance().registerEvent(new Event(60000) {
+		World.getInstance().submit(new Task(60) {
 			@Override
-			public void execute() {
+			protected void execute() {
 				updateShopAmounts();
+				stop();
 			}
 		});
 		LogUtility.log(LogType.INFO, "Loaded " + shops.size() + " shops.");

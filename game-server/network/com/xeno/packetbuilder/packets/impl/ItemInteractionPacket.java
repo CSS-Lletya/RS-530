@@ -2,17 +2,17 @@ package com.xeno.packetbuilder.packets.impl;
 
 import com.xeno.content.DestroyItem;
 import com.xeno.content.emote.Skillcape;
+import com.xeno.entity.Location;
 import com.xeno.entity.actor.item.GroundItem;
 import com.xeno.entity.actor.item.ItemConstants;
 import com.xeno.entity.actor.player.Player;
-import com.xeno.event.CoordinateEvent;
+import com.xeno.entity.actor.player.task.CoordinateTask;
 import com.xeno.net.Packet;
 import com.xeno.net.definitions.ItemDefinition;
 import com.xeno.packetbuilder.packets.OutgoingPacket;
 import com.xeno.packetbuilder.packets.OutgoingPacketSignature;
-import com.xeno.util.LogUtility;
-import com.xeno.util.LogUtility.LogType;
-import com.xeno.world.Location;
+import com.xeno.utility.LogUtility;
+import com.xeno.utility.LogUtility.LogType;
 import com.xeno.world.World;
 
 @OutgoingPacketSignature(packetId = { 55, 27, 156, 134, 206, 135, 66, 231, 161, 153, 92 }, description = "Represents an event where a Player interacts with an Item")
@@ -238,7 +238,7 @@ public class ItemInteractionPacket implements OutgoingPacket {
 			World.getInstance().getGroundItems().pickupItem(player, id, player.getLocation());
 			return;
 		}
-		World.getInstance().registerCoordinateEvent(new CoordinateEvent(player, l) {
+		World.getInstance().registerCoordinateEvent(new CoordinateTask(player, l) {
 			@Override
 			public void run() {
 				World.getInstance().getGroundItems().pickupItem(player, id, player.getLocation());

@@ -3,13 +3,14 @@ package com.xeno.content;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.xeno.entity.Location;
 import com.xeno.entity.actor.player.Player;
-import com.xeno.event.AreaEvent;
-import com.xeno.event.CoordinateEvent;
+import com.xeno.entity.actor.player.task.AreaTask;
+import com.xeno.entity.actor.player.task.CoordinateTask;
+import com.xeno.entity.actor.player.task.Task;
 import com.xeno.event.Event;
 import com.xeno.model.player.skills.magic.Teleport;
-import com.xeno.util.Lever;
-import com.xeno.world.Location;
+import com.xeno.utility.Lever;
 import com.xeno.world.World;
 
 public class LaddersAndStairs {
@@ -38,7 +39,7 @@ public class LaddersAndStairs {
 				if (object.getLocation().equals(location) && object.getOption() == option) {
 					final HeightObject obj = object;
 					if (object.getType() == COORDINATE_POSITION) {
-						World.getInstance().registerCoordinateEvent(new CoordinateEvent(p, object.getStandLocation()) {
+						World.getInstance().registerCoordinateEvent(new CoordinateTask(p, object.getStandLocation()) {
 							
 							@Override
 							public void run() {
@@ -46,7 +47,7 @@ public class LaddersAndStairs {
 							}
 						});
 					} else if (object.getType() == AREA_POSITION) {
-						World.getInstance().registerCoordinateEvent(new AreaEvent(p, object.getMinCoords().getX(), object.getMinCoords().getY(), object.getMaxCoords().getX(), object.getMaxCoords().getY()) {
+						World.getInstance().registerCoordinateEvent(new AreaTask(p, object.getMinCoords().getX(), object.getMinCoords().getY(), object.getMaxCoords().getX(), object.getMaxCoords().getY()) {
 							
 							@Override
 							public void run() {
@@ -68,14 +69,9 @@ public class LaddersAndStairs {
 		if (obj.getAnimation() != -1) {
 			p.animate(obj.getAnimation());
 		}
-		World.getInstance().registerEvent(new Event(obj.getAnimation() != -1 ? obj.getTeleDelay() : 500) {
-
-			@Override
-			public void execute() {
-				this.stop();
-				p.teleport(obj.getTeleLocation());
-				p.removeTemporaryAttribute("unmovable");
-			}
+		p.task(1, player -> {
+			player.teleport(obj.getTeleLocation());
+			player.toPlayer().removeTemporaryAttribute("unmovable");
 		});
 	}
 	
@@ -88,7 +84,7 @@ public class LaddersAndStairs {
 				if (lever.getLeverLocation().equals(leverLocation)) {
 					final Lever l = lever;
 					//TODO when in use it cant be used (in use = lever is facing down)
-					World.getInstance().registerCoordinateEvent(new CoordinateEvent(p, l.getLeverLocation()) {
+					World.getInstance().registerCoordinateEvent(new CoordinateTask(p, l.getLeverLocation()) {
 
 						@Override
 						public void run() {
@@ -105,18 +101,16 @@ public class LaddersAndStairs {
 							p.getWalkingQueue().reset();
 							p.getActionSender().clearMapFlag();
 							l.setInUse(true);
-							World.getInstance().registerEvent(new Event(700) {
-
+							World.getInstance().submit(new Task(1) {
 								@Override
-								public void execute() {
+								protected void execute() {
 									this.stop();
 									p.animate(8939, 0);
 									p.graphics(1576, 0);
 									l.setInUse(false);
-									World.getInstance().registerEvent(new Event(1800) {
-
+									World.getInstance().submit(new Task(2) {
 										@Override
-										public void execute() {
+										protected void execute() {
 											this.stop();
 											p.teleport(l.getTeleLocation());
 											p.animate(8941, 0);

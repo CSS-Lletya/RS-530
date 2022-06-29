@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.xeno.content.Clan;
-import com.xeno.util.Utility;
+import com.xeno.utility.Utility;
 import com.xeno.world.World;
 
 /**

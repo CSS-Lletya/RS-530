@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 import com.rs.plugin.standard.listener.Command;
 import com.rs.plugin.standard.wrapper.CommandSignature;
 import com.xeno.entity.actor.player.Player;
-import com.xeno.util.Utility;
+import com.xeno.utility.Utility;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 

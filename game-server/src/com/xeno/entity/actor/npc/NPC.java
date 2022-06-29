@@ -9,6 +9,7 @@ import com.xeno.content.combat.Combat.CombatType;
 import com.xeno.content.combat.constants.Animations;
 import com.xeno.entity.EntityType;
 import com.xeno.entity.Follow;
+import com.xeno.entity.Location;
 import com.xeno.entity.actor.Actor;
 import com.xeno.entity.actor.item.GroundItem;
 import com.xeno.entity.actor.item.Item;
@@ -20,11 +21,10 @@ import com.xeno.entity.actor.masks.Graphics;
 import com.xeno.entity.actor.masks.Hits;
 import com.xeno.entity.actor.masks.Hits.Hit;
 import com.xeno.entity.actor.player.Player;
-import com.xeno.event.impl.DeathEvent;
+import com.xeno.event.DeathEvent;
 import com.xeno.net.definitions.ItemDefinition;
 import com.xeno.net.definitions.NPCDefinition;
-import com.xeno.util.Utility;
-import com.xeno.world.Location;
+import com.xeno.utility.Utility;
 import com.xeno.world.World;
 
 /**
@@ -220,7 +220,7 @@ public class NPC extends Actor {
         if (hp <= 0) {
             hp = 0;
             if (!isDead()) {
-                World.getInstance().registerEvent(new DeathEvent(this));
+//                World.getInstance().registerEvent(new DeathEvent(this)); //TODO: Convert this
                 setDead(true);
             }
         }

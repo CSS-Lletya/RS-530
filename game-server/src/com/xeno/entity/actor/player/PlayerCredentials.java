@@ -2,7 +2,7 @@ package com.xeno.entity.actor.player;
 
 import org.apache.mina.common.IoSession;
 
-import com.xeno.util.Utility;
+import com.xeno.utility.Utility;
 
 /**
  * Contains a player's name and password.

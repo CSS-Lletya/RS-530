@@ -1,18 +1,24 @@
-package com.xeno.event.impl;
+package com.xeno.entity.actor.player.task.impl;
 
 import com.xeno.entity.actor.player.Player;
-import com.xeno.event.Event;
+import com.xeno.entity.actor.player.task.Task;
 import com.xeno.world.World;
 
-public class SystemUpdateEvent extends Event {
+import lombok.SneakyThrows;
+
+public final class SystemUpdateEvent extends Task {
 
 	private int time = 180;
 	
+	/**
+	 * Creates a new {@link SystemUpdateEvent}.
+	 */
 	public SystemUpdateEvent() {
-		super(1000);
+		super(1);
 	}
-
+	
 	@Override
+	@SneakyThrows(Throwable.class)
 	public void execute() {
 		for(Player p : World.getInstance().getPlayerList()) {
 			if (p != null) {
@@ -25,5 +31,10 @@ public class SystemUpdateEvent extends Event {
 				p.getActionSender().forceLogout();
 			}
 		}
+	}
+	
+	@Override
+	public void onCancel() {
+		World.getInstance().submit(new SystemUpdateEvent());
 	}
 }

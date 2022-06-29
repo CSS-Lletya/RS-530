@@ -1,15 +1,14 @@
-package com.xeno.event.impl;
+package com.xeno.event;
 
 import com.xeno.content.combat.Combat;
+import com.xeno.entity.Location;
 import com.xeno.entity.actor.Actor;
 import com.xeno.entity.actor.npc.NPC;
 import com.xeno.entity.actor.player.Player;
-import com.xeno.event.Event;
 import com.xeno.model.player.skills.prayer.Prayer;
 import com.xeno.model.player.skills.prayer.PrayerData;
-import com.xeno.util.Area;
-import com.xeno.util.Utility;
-import com.xeno.world.Location;
+import com.xeno.utility.Area;
+import com.xeno.utility.Utility;
 import com.xeno.world.World;
 
 /**

@@ -9,9 +9,9 @@ import java.util.Map;
 
 import com.xeno.entity.actor.item.Item;
 import com.xeno.net.definitions.NPCDefinition;
-import com.xeno.util.LogUtility;
-import com.xeno.util.LogUtility.LogType;
-import com.xeno.util.XStreamUtil;
+import com.xeno.utility.LogUtility;
+import com.xeno.utility.XStreamUtil;
+import com.xeno.utility.LogUtility.LogType;
 
 /**
  * @author Graham

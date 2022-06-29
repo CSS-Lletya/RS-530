@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 import com.xeno.entity.actor.player.Player;
 import com.xeno.net.Packet;
-import com.xeno.util.Utility;
+import com.xeno.utility.Utility;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 

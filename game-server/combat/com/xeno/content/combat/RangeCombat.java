@@ -1,15 +1,16 @@
 package com.xeno.content.combat;
 
+import com.xeno.entity.Location;
 import com.xeno.entity.actor.Actor;
 import com.xeno.entity.actor.item.GroundItem;
 import com.xeno.entity.actor.npc.NPC;
 import com.xeno.entity.actor.player.Player;
+import com.xeno.entity.actor.player.task.Task;
+import com.xeno.entity.actor.player.task.impl.PoisonEvent;
 import com.xeno.event.Event;
-import com.xeno.event.impl.PoisonEvent;
 import com.xeno.model.player.skills.prayer.PrayerData;
 import com.xeno.net.definitions.ItemDefinition;
-import com.xeno.util.Utility;
-import com.xeno.world.Location;
+import com.xeno.utility.Utility;
 import com.xeno.world.World;
 
 public class RangeCombat {
@@ -103,9 +104,9 @@ public class RangeCombat {
 		final int dam1 = damage1;
 		final int dam2 = damage2;
 		Combat.checkIfWillDie(target, (dam1 + dam2));
-		World.getInstance().registerEvent(new Event(hitDelay) {
+		World.getInstance().submit(new Task(hitDelay, true) {
 			@Override
-			public void execute() {
+			protected void execute() {
 				int damage = dam1;
 				int totalDamage = totDamage;
 				if (getBowType(killer) == 1) {
@@ -128,18 +129,16 @@ public class RangeCombat {
 		});
 		if (getBowType(killer) == 5) {
 			deductArrow(killer);
-			World.getInstance().registerEvent(new Event(200) {
-					
+			World.getInstance().submit(new Task(1, true) {
 				@Override
-				public void execute() {
+				protected void execute() {
 					displayProjectile(killer, target);
 					this.stop();
 				}
-					
 			});
-			World.getInstance().registerEvent(new Event(hitDelay + 400) {
+			World.getInstance().submit(new Task(hitDelay + 4, true) {
 				@Override
-				public void execute() {
+				protected void execute() {
 					target.hit(dam2);
 					if (killer instanceof Player && arrowType != -1 && arrowType != BOLT_RACK) {
 						createGroundArrow(killer, target, arrowType);
@@ -242,7 +241,7 @@ public class RangeCombat {
 				
 			case 9241: // Emerald.
 				if (!target.isPoisoned()) {
-					World.getInstance().registerEvent(new PoisonEvent(target, 6));
+					World.getInstance().submit(new PoisonEvent(target, 6));
 					target.graphics(752);
 				}
 				break;

@@ -1,16 +1,22 @@
-package com.xeno.event.impl;
+package com.xeno.entity.actor.player.task.impl;
 
 import com.xeno.entity.actor.player.Player;
-import com.xeno.event.Event;
+import com.xeno.entity.actor.player.task.Task;
 import com.xeno.world.World;
 
-public class SpecialRestore extends Event {
+import lombok.SneakyThrows;
 
-	public SpecialRestore() {
-		super(50000);
+public final class RestoreSpecialEvent extends Task {
+	
+	/**
+	 * Creates a new {@link RestoreSpecialEvent}.
+	 */
+	public RestoreSpecialEvent() {
+		super(5);
 	}
-
+	
 	@Override
+	@SneakyThrows(Throwable.class)
 	public void execute() {
 		for (Player p : World.getInstance().getPlayerList()) {
 			if (p == null) {
@@ -25,5 +31,9 @@ public class SpecialRestore extends Event {
 			}
 		}
 	}
-
+	
+	@Override
+	public void onCancel() {
+		World.getInstance().submit(new RestoreSpecialEvent());
+	}
 }

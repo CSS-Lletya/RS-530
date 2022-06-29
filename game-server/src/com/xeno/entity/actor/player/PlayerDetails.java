@@ -2,8 +2,8 @@ package com.xeno.entity.actor.player;
 
 import com.xeno.content.combat.constants.AttackVars;
 import com.xeno.entity.actor.Actor;
+import com.xeno.entity.actor.player.task.impl.PoisonEvent;
 import com.xeno.event.Event;
-import com.xeno.event.impl.PoisonEvent;
 import com.xeno.world.World;
 
 /**
@@ -85,20 +85,15 @@ public class PlayerDetails {
 		player.getSpecialAttack().setSpecialAmount(specialAmount);
 		player.setPoisonAmount(poisonAmount);
 		if (poisonAmount > 0) {
-			World.getInstance().registerEvent(new PoisonEvent((Actor) player, poisonAmount));
+			World.getInstance().submit(new PoisonEvent((Actor) player, poisonAmount));
 		}
 		if (teleblockTime > 0) {
 			if (teleblockTime > System.currentTimeMillis()) {
 				long delay = teleblockTime - System.currentTimeMillis();
 				player.setTemporaryAttribute("teleblocked", true);
-				World.getInstance().registerEvent(new Event(delay) {
-
-					@Override
-					public void execute() {
-						this.stop();
-						player.removeTemporaryAttribute("teleblocked");
-						teleblockTime = 0;
-					}	
+				player.task((int) delay, p -> {
+					player.removeTemporaryAttribute("teleblocked");
+					teleblockTime = 0;
 				});
 			}
 		}

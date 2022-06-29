@@ -1,16 +1,22 @@
-package com.xeno.event.impl;
+package com.xeno.entity.actor.player.task.impl;
 
 import com.xeno.entity.actor.player.Player;
-import com.xeno.event.Event;
+import com.xeno.entity.actor.player.task.Task;
 import com.xeno.world.World;
 
-public class LowerPotionCycles extends Event {
+import lombok.SneakyThrows;
 
+public final class LowerPotionCycles extends Task {
+	
+	/**
+	 * Creates a new {@link LowerPotionCycles}.
+	 */
 	public LowerPotionCycles() {
-		super(15000);
+		super(15);
 	}
-
+	
 	@Override
+	@SneakyThrows(Throwable.class)
 	public void execute() {
 		for (Player p : World.getInstance().getPlayerList()) {
 			if (p != null && !p.isDead()) {
@@ -29,5 +35,10 @@ public class LowerPotionCycles extends Event {
 				}
 			}
 		}
+	}
+	
+	@Override
+	public void onCancel() {
+		World.getInstance().submit(new LowerPotionCycles());
 	}
 }

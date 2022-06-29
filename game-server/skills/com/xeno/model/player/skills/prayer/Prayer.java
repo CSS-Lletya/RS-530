@@ -1,6 +1,8 @@
 package com.xeno.model.player.skills.prayer;
 
 import com.xeno.entity.actor.player.Player;
+import com.xeno.entity.actor.player.task.Task;
+import com.xeno.entity.actor.player.task.impl.DrainPrayerEvent;
 import com.xeno.event.Event;
 import com.xeno.world.World;
 
@@ -32,15 +34,11 @@ public class Prayer extends PrayerData {
 		p.getActionSender().clearMapFlag();
 		p.getActionSender().sendMessage("You dig a hole in the ground...");
 		p.animate(BURY_ANIMATION);
-		World.getInstance().registerEvent(new Event(300) {
-			@Override
-			public void execute() {
-				this.stop();
-				if (p.getInventory().deleteItem(BONES[i], slot, 1)) {
-					p.getLevels().addXp(PRAYER, BURY_XP[i]);
-					p.setTemporaryAttribute("lastBury", System.currentTimeMillis());
-					p.getActionSender().sendMessage("You bury the bones.");
-				}
+		p.task(1, bury -> {
+			if (bury.toPlayer().getInventory().deleteItem(BONES[i], slot, 1)) {
+				bury.toPlayer().getLevels().addXp(PRAYER, BURY_XP[i]);
+				bury.toPlayer().setTemporaryAttribute("lastBury", System.currentTimeMillis());
+				bury.toPlayer().getActionSender().sendMessage("You bury the bones.");
 			}
 		});
 	}
@@ -145,34 +143,8 @@ public class Prayer extends PrayerData {
 			p.getPrayers().setPrayerActive(i, false);
 		}
 	}
-	
-	public static void startPrayerDrainEvent(final Player p) {
-		World.getInstance().registerEvent(new Event(600) {
-			@Override
-			public void execute() {
-				if (p == null || p.isDead() || !isPrayerActive(p)) {
-					this.stop();
-					return;
-				}
-				double amountDrain = 0.0;
-				for(int i = 0; i < p.getPrayers().getPrayerActiveArray().length ; i++) {
-					if(p.getPrayers().isPrayerActive(i)) {
-						double drain = DRAIN_RATE[i];
-						double bonus = (0.035 * p.getBonuses().getBonus(12));
-						drain = drain * (1 + bonus);
-						drain = 0.6 / drain;
-						amountDrain += drain;
-					}
-				}
-				p.getSettings().decreasePrayerPoints(amountDrain);
-				if(p.getSettings().getPrayerPoints() <= 0) {
-					this.stop();
-				}
-			}
-		});
-	}
 
-	protected static boolean isPrayerActive(Player p) {
+	public static boolean isPrayerActive(Player p) {
 		for (int i = 0; i < p.getPrayers().getPrayerActiveArray().length; i++) {
 			if (p.getPrayers().isPrayerActive(i)) {
 				return true;
@@ -1062,7 +1034,7 @@ public class Prayer extends PrayerData {
 				break;
 			}
 			if (!usingPrayer && isPrayerActive(p)) { // we werent using a prayer but we are now
-				startPrayerDrainEvent(p);
+				World.getInstance().submit(new DrainPrayerEvent());
 			}
 	}
 }

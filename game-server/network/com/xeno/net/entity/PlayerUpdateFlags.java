@@ -1,6 +1,6 @@
 package com.xeno.net.entity;
 
-import com.xeno.world.Location;
+import com.xeno.entity.Location;
 
 /**
  * Manages update flags.

@@ -1,4 +1,4 @@
-package com.xeno.util;
+package com.xeno.utility;
 
 /**
  * Used for debugging duration of executing code.

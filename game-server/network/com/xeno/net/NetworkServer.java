@@ -11,8 +11,8 @@ import org.apache.mina.transport.socket.nio.SocketAcceptorConfig;
 import com.xeno.GameConstants;
 import com.xeno.GameEngine;
 import com.xeno.cache.Cache;
-import com.xeno.util.LogUtility;
-import com.xeno.util.LogUtility.LogType;
+import com.xeno.utility.LogUtility;
+import com.xeno.utility.LogUtility.LogType;
 
 import lombok.SneakyThrows;
 

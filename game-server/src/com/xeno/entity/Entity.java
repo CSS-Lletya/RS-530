@@ -1,7 +1,5 @@
 package com.xeno.entity;
 
-import com.xeno.world.Location;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

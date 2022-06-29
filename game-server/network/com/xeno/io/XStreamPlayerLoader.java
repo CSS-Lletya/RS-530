@@ -9,7 +9,7 @@ import com.xeno.entity.EntityType;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.PlayerCredentials;
 import com.xeno.net.Constants;
-import com.xeno.util.XStreamUtil;
+import com.xeno.utility.XStreamUtil;
 import com.xeno.world.World;
 
 /**

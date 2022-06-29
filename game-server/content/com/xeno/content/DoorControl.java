@@ -5,14 +5,15 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.xeno.entity.Location;
 import com.xeno.entity.actor.player.Player;
-import com.xeno.event.AreaEvent;
+import com.xeno.entity.actor.player.task.AreaTask;
+import com.xeno.entity.actor.player.task.Task;
 import com.xeno.event.Event;
-import com.xeno.util.LogUtility;
-import com.xeno.util.LogUtility.LogType;
-import com.xeno.util.Utility;
-import com.xeno.util.XStreamUtil;
-import com.xeno.world.Location;
+import com.xeno.utility.LogUtility;
+import com.xeno.utility.LogUtility.LogType;
+import com.xeno.utility.Utility;
+import com.xeno.utility.XStreamUtil;
 import com.xeno.world.World;
 
 public class DoorControl {
@@ -27,10 +28,9 @@ public class DoorControl {
 	}
 	
 	private void startCloseDoorEvent() {
-		World.getInstance().registerEvent(new Event(CHANGE_CYCLE_TIME) {
-
+		World.getInstance().submit(new Task(18) {
 			@Override
-			public void execute() {
+			protected void execute() {
 				for (Door door: doors) {
 					if (door != null) {
 						if (door.isDoorOpen() && !door.isInstantClose() && Utility.random(1) == 0) {
@@ -38,6 +38,7 @@ public class DoorControl {
 						}
 					}
 				}
+				this.stop();
 			}
 		});
 	}
@@ -56,7 +57,7 @@ public class DoorControl {
 						return true;
 					}
 					final Door d = door;
-					World.getInstance().registerCoordinateEvent(new AreaEvent(p, doorLocation.getX() - 1, doorLocation.getY() - 1, doorLocation.getX() + 1, doorLocation.getY() + 1) {
+					World.getInstance().registerCoordinateEvent(new AreaTask(p, doorLocation.getX() - 1, doorLocation.getY() - 1, doorLocation.getX() + 1, doorLocation.getY() + 1) {
 
 						@Override
 						public void run() {

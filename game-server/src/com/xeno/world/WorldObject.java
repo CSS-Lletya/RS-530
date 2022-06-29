@@ -1,5 +1,6 @@
 package com.xeno.world;
 
+import com.xeno.entity.Location;
 import com.xeno.entity.actor.player.Player;
 
 public class WorldObject extends Location {

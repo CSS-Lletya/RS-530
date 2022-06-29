@@ -1,8 +1,8 @@
-package com.xeno.event;
+package com.xeno.entity.actor.player.task;
 
 import com.xeno.entity.actor.player.Player;
 
-public abstract class AreaEvent {
+public abstract class AreaTask {
 	
 	private int x;
 	private int y;
@@ -10,7 +10,7 @@ public abstract class AreaEvent {
 	private int y2;
 	private Player p;
 
-	public AreaEvent(Player player, int x, int y, int x1, int y2) {
+	public AreaTask(Player player, int x, int y, int x1, int y2) {
 		this.p = player;
 		this.x = x;
 		this.y = y;

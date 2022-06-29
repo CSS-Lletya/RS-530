@@ -1,6 +1,6 @@
 package com.xeno.entity.actor.masks;
 
-import com.xeno.world.Location;
+import com.xeno.entity.Location;
 
 public class FaceLocation {
 

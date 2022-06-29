@@ -1,6 +1,6 @@
-package com.xeno.util;
+package com.xeno.utility;
 
-import com.xeno.world.Location;
+import com.xeno.entity.Location;
 
 public class Lever {
 

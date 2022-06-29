@@ -7,12 +7,13 @@ import com.xeno.entity.actor.item.Item;
 import com.xeno.entity.actor.masks.ForceText;
 import com.xeno.entity.actor.npc.NPC;
 import com.xeno.entity.actor.player.Player;
+import com.xeno.entity.actor.player.task.Task;
 import com.xeno.event.Event;
 import com.xeno.model.player.skills.prayer.Prayer;
 import com.xeno.model.player.skills.prayer.PrayerData;
 import com.xeno.net.definitions.NPCDefinition;
-import com.xeno.util.Area;
-import com.xeno.util.Utility;
+import com.xeno.utility.Area;
+import com.xeno.utility.Utility;
 import com.xeno.world.World;
 
 public class Combat {
@@ -176,9 +177,9 @@ public class Combat {
 			final boolean guthanSpec = guthanSpecial;
 			final int damage = getDamage(killer, target);
 			checkIfWillDie(target, damage);
-			World.getInstance().registerEvent(new Event(killer.getHitDelay()) {
+			World.getInstance().submit(new Task(killer.getHitDelay()) {
 				@Override
-				public void execute() {
+				protected void execute() {
 					this.stop();
 					addXp(killer, target, damage);
 					target.hit(damage);
@@ -207,10 +208,9 @@ public class Combat {
 	public static void doDragonfire(final Actor killer, final Actor target) {
 		killer.animate(81);
 		killer.graphics(1, 0, 50);
-		World.getInstance().registerEvent(new Event(600) {
-
+		World.getInstance().submit(new Task(1) {
 			@Override
-			public void execute() {
+			protected void execute() {
 				this.stop();
 				String message = null;
 				int fireDamage = 55;
@@ -232,7 +232,6 @@ public class Combat {
 				((Player)target).getActionSender().sendMessage(message);
 				target.hit(Utility.random(fireDamage));
 			}
-			
 		});
 	}
 	

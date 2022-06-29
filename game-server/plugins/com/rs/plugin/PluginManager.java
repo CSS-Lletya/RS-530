@@ -15,9 +15,9 @@ import java.util.Set;
 
 import com.rs.plugin.annotations.PluginEventHandler;
 import com.rs.plugin.handler.PluginHandler;
-import com.xeno.util.LogUtility;
-import com.xeno.util.LogUtility.LogType;
-import com.xeno.util.Utility;
+import com.xeno.utility.LogUtility;
+import com.xeno.utility.Utility;
+import com.xeno.utility.LogUtility.LogType;
 
 public class PluginManager {
 

@@ -9,8 +9,8 @@ import com.xeno.GameEngine;
 import com.xeno.GameLoader;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.net.codec.CodecFactory;
-import com.xeno.util.LogUtility;
-import com.xeno.util.LogUtility.LogType;
+import com.xeno.utility.LogUtility;
+import com.xeno.utility.LogUtility.LogType;
 import com.xeno.world.World;
 
 /**

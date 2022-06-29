@@ -16,10 +16,10 @@ import com.xeno.net.WorkerThread;
 import com.xeno.net.definitions.ItemDefinition;
 import com.xeno.net.definitions.NPCDefinition;
 import com.xeno.packetbuilder.packets.OutgoingPacketDispatcher;
-import com.xeno.util.BlockingExecutorService;
-import com.xeno.util.LogUtility;
-import com.xeno.util.LogUtility.LogType;
-import com.xeno.util.TimeStamp;
+import com.xeno.utility.BlockingExecutorService;
+import com.xeno.utility.LogUtility;
+import com.xeno.utility.TimeStamp;
+import com.xeno.utility.LogUtility.LogType;
 
 import lombok.Getter;
 import lombok.SneakyThrows;

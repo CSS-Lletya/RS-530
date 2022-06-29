@@ -5,8 +5,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 
-import com.xeno.util.LogUtility;
-import com.xeno.util.LogUtility.LogType;
+import com.xeno.utility.LogUtility;
+import com.xeno.utility.LogUtility.LogType;
 
 /**
  * Packs map data

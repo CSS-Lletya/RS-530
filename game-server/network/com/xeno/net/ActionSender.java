@@ -10,6 +10,7 @@ import org.apache.mina.common.IoFutureListener;
 
 import com.xeno.content.Clan;
 import com.xeno.content.combat.Combat;
+import com.xeno.entity.Location;
 import com.xeno.entity.actor.Actor;
 import com.xeno.entity.actor.item.GroundItem;
 import com.xeno.entity.actor.item.Item;
@@ -18,8 +19,7 @@ import com.xeno.entity.actor.player.Player;
 import com.xeno.model.player.skills.Skills;
 import com.xeno.net.Packet.Size;
 import com.xeno.packetbuilder.StaticPacketBuilder;
-import com.xeno.util.Utility;
-import com.xeno.world.Location;
+import com.xeno.utility.Utility;
 import com.xeno.world.World;
 
 /**

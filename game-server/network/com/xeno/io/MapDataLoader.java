@@ -4,8 +4,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Map;
 
-import com.xeno.util.LogUtility;
-import com.xeno.util.LogUtility.LogType;
+import com.xeno.utility.LogUtility;
+import com.xeno.utility.LogUtility.LogType;
 
 /**
  * Loads mapdata from a binary file

@@ -1,9 +1,9 @@
-package com.xeno.event;
+package com.xeno.entity.actor.player.task;
 
+import com.xeno.entity.Location;
 import com.xeno.entity.actor.player.Player;
-import com.xeno.world.Location;
 
-public abstract class CoordinateEvent {
+public abstract class CoordinateTask {
 	
 	private Player player;
 	private Location location;
@@ -11,7 +11,7 @@ public abstract class CoordinateEvent {
 	private int failedAttempts = 0;
 	private boolean reached = false;
 	
-	public CoordinateEvent(Player player, Location location) {
+	public CoordinateTask(Player player, Location location) {
 		this.player   = player;
 		this.location = location;
 		this.oldLocation = location;

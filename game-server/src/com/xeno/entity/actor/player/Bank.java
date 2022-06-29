@@ -2,9 +2,9 @@ package com.xeno.entity.actor.player;
 
 import com.xeno.entity.actor.item.Item;
 import com.xeno.entity.actor.item.ItemConstants;
-import com.xeno.event.AreaEvent;
+import com.xeno.entity.actor.player.task.AreaTask;
 import com.xeno.net.definitions.ItemDefinition;
-import com.xeno.util.Utility;
+import com.xeno.utility.Utility;
 import com.xeno.world.World;
 
 public class Bank {
@@ -92,7 +92,7 @@ public class Bank {
 	public void openBank(final boolean dialogue, int x, int y) {
 		openStatus = 0;
 		changingPin = false;
-		World.getInstance().registerCoordinateEvent(new AreaEvent(p, x-1, y-1, x+1, y+1) {
+		World.getInstance().registerCoordinateEvent(new AreaTask(p, x-1, y-1, x+1, y+1) {
 			@Override
 			public void run() {
 				if (dialogue) {

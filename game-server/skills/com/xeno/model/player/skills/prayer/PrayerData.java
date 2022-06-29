@@ -79,7 +79,7 @@ public class PrayerData {
 	/*
 	 * How many seconds to deplete 1 point
 	 */
-	protected static final double[] DRAIN_RATE = {
+	public static final double[] DRAIN_RATE = {
 		12.0, 12.0, 12.0, 12.0, 12.0, 6.0, 6.0,
 		6.0, 26.0, 18.0, 18.0, 6.0, 6.0, 3.0, 3.0,
 		3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 12.0,

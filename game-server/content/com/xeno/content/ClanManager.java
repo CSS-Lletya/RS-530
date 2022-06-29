@@ -6,10 +6,11 @@ import java.util.Map;
 
 import com.xeno.entity.actor.masks.ChatMessage;
 import com.xeno.entity.actor.player.Player;
+import com.xeno.entity.actor.player.task.Task;
 import com.xeno.event.Event;
 import com.xeno.net.Packet.Size;
 import com.xeno.packetbuilder.StaticPacketBuilder;
-import com.xeno.util.Utility;
+import com.xeno.utility.Utility;
 import com.xeno.world.World;
 
 public class ClanManager {
@@ -29,9 +30,9 @@ public class ClanManager {
 			Clan newClan = new Clan(p, owner, owner);
 			addChannel(newClan);
 		}
-		World.getInstance().registerEvent(new Event(700) {
+		World.getInstance().submit(new Task(1) {
 			@Override
-			public void execute() {
+			protected void execute() {
 				this.stop();
 				for (Clan c : clans) {
 					if (c != null) {
@@ -74,6 +75,7 @@ public class ClanManager {
 				}
 				p.getActionSender().sendMessage("The channel you tried to join does not exist. :clan:");
 			}
+			
 		});
 	}
 

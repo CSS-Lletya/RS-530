@@ -1,21 +1,22 @@
-package com.xeno.event.impl;
+package com.xeno.entity.actor.player.task.impl;
 
 import com.xeno.entity.actor.player.Player;
-import com.xeno.event.Event;
+import com.xeno.entity.actor.player.task.Task;
 import com.xeno.world.World;
 
-/**
- * Handles the regaining of player energy.
- * @author Graham
- *
- */
-public class RunEnergyEvent extends Event {
+import lombok.SneakyThrows;
 
+public final class RunEnergyEvent extends Task {
+	
+	/**
+	 * Creates a new {@link RunEnergyEvent}.
+	 */
 	public RunEnergyEvent() {
-		super(2000);
+		super(2);
 	}
-
+	
 	@Override
+	@SneakyThrows(Throwable.class)
 	public void execute() {
 		for(Player p : World.getInstance().getPlayerList()) {
 			if((p.getWalkingQueue().isRunToggled() || p.getWalkingQueue().isRunning()) && p.getSprite().getSecondarySprite() != -1) {
@@ -27,5 +28,9 @@ public class RunEnergyEvent extends Event {
 			}
 		}
 	}
-
+	
+	@Override
+	public void onCancel() {
+		World.getInstance().submit(new RunEnergyEvent());
+	}
 }
