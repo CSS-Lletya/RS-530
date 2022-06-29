@@ -1,4 +1,4 @@
-package com.xeno.entity.player;
+package com.xeno.entity.actor.player;
 
 import org.apache.mina.common.IoSession;
 

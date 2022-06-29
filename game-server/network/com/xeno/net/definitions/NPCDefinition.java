@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.xeno.entity.npc.NPCDrop;
+import com.xeno.entity.actor.npc.NPCDrop;
 import com.xeno.util.LogUtility;
 import com.xeno.util.LogUtility.LogType;
 import com.xeno.util.XStreamUtil;

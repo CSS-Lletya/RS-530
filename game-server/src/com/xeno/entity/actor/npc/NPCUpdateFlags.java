@@ -1,4 +1,4 @@
-package com.xeno.entity.npc;
+package com.xeno.entity.actor.npc;
 
 /**
  * NPC update flags.

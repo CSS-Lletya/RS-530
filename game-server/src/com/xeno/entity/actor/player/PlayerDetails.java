@@ -1,7 +1,7 @@
-package com.xeno.entity.player;
+package com.xeno.entity.actor.player;
 
 import com.xeno.content.combat.constants.AttackVars;
-import com.xeno.entity.Entity;
+import com.xeno.entity.actor.Actor;
 import com.xeno.event.Event;
 import com.xeno.event.impl.PoisonEvent;
 import com.xeno.world.World;
@@ -85,7 +85,7 @@ public class PlayerDetails {
 		player.getSpecialAttack().setSpecialAmount(specialAmount);
 		player.setPoisonAmount(poisonAmount);
 		if (poisonAmount > 0) {
-			World.getInstance().registerEvent(new PoisonEvent((Entity) player, poisonAmount));
+			World.getInstance().registerEvent(new PoisonEvent((Actor) player, poisonAmount));
 		}
 		if (teleblockTime > 0) {
 			if (teleblockTime > System.currentTimeMillis()) {

@@ -1,4 +1,4 @@
-package com.xeno.entity.item;
+package com.xeno.entity.actor.item;
 
 import java.util.Map;
 

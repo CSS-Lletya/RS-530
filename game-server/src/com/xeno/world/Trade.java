@@ -1,6 +1,6 @@
 package com.xeno.world;
 
-import com.xeno.entity.player.Player;
+import com.xeno.entity.actor.player.Player;
 
 public class Trade {
 

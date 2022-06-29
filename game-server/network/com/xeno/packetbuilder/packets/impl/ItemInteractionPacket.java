@@ -2,9 +2,9 @@ package com.xeno.packetbuilder.packets.impl;
 
 import com.xeno.content.DestroyItem;
 import com.xeno.content.emote.Skillcape;
-import com.xeno.entity.item.GroundItem;
-import com.xeno.entity.item.ItemConstants;
-import com.xeno.entity.player.Player;
+import com.xeno.entity.actor.item.GroundItem;
+import com.xeno.entity.actor.item.ItemConstants;
+import com.xeno.entity.actor.player.Player;
 import com.xeno.event.CoordinateEvent;
 import com.xeno.net.Packet;
 import com.xeno.net.definitions.ItemDefinition;

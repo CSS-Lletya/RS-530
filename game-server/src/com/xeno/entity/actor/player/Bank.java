@@ -1,7 +1,7 @@
-package com.xeno.entity.player;
+package com.xeno.entity.actor.player;
 
-import com.xeno.entity.item.Item;
-import com.xeno.entity.item.ItemConstants;
+import com.xeno.entity.actor.item.Item;
+import com.xeno.entity.actor.item.ItemConstants;
 import com.xeno.event.AreaEvent;
 import com.xeno.net.definitions.ItemDefinition;
 import com.xeno.util.Utility;

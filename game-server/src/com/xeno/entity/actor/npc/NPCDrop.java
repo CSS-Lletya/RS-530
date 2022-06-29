@@ -1,4 +1,4 @@
-package com.xeno.entity.npc;
+package com.xeno.entity.actor.npc;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.xeno.entity.item.Item;
+import com.xeno.entity.actor.item.Item;
 import com.xeno.net.definitions.NPCDefinition;
 import com.xeno.util.LogUtility;
 import com.xeno.util.LogUtility.LogType;

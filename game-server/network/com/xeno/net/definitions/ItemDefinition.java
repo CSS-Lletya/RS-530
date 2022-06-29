@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.xeno.entity.item.ItemConstants;
+import com.xeno.entity.actor.item.ItemConstants;
 import com.xeno.util.LogUtility;
 import com.xeno.util.LogUtility.LogType;
 

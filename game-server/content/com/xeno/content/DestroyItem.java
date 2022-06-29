@@ -1,7 +1,7 @@
 package com.xeno.content;
 
-import com.xeno.entity.item.Item;
-import com.xeno.entity.player.Player;
+import com.xeno.entity.actor.item.Item;
+import com.xeno.entity.actor.player.Player;
 
 public class DestroyItem {
 

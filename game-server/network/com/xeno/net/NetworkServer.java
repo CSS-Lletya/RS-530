@@ -14,6 +14,8 @@ import com.xeno.cache.Cache;
 import com.xeno.util.LogUtility;
 import com.xeno.util.LogUtility.LogType;
 
+import lombok.SneakyThrows;
+
 /**
  * The central class of the server.
  * @author Graham
@@ -67,7 +69,8 @@ public class NetworkServer {
 	 * Create this server.
 	 * @throws Exception 
 	 */
-	public NetworkServer() throws Exception {
+	@SneakyThrows(Exception.class)
+	public NetworkServer() {
 		/*
 		 * Start everything rolling.
 		 */

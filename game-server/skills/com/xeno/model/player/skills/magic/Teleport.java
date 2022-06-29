@@ -1,6 +1,6 @@
 package com.xeno.model.player.skills.magic;
 
-import com.xeno.entity.player.Player;
+import com.xeno.entity.actor.player.Player;
 import com.xeno.event.Event;
 import com.xeno.util.Area;
 import com.xeno.util.Utility;

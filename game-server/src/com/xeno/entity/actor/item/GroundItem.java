@@ -1,6 +1,6 @@
-package com.xeno.entity.item;
+package com.xeno.entity.actor.item;
 
-import com.xeno.entity.player.Player;
+import com.xeno.entity.actor.player.Player;
 import com.xeno.world.Location;
 
 public class GroundItem extends Item {

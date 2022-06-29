@@ -1,9 +1,9 @@
-package com.xeno.entity.item;
+package com.xeno.entity.actor.item;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.xeno.entity.player.Player;
+import com.xeno.entity.actor.player.Player;
 import com.xeno.event.Event;
 import com.xeno.net.definitions.ItemDefinition;
 import com.xeno.util.Area;
@@ -105,7 +105,7 @@ public class GroundItemManager {
 	
 	public void pickupItem(Player p, int id, Location location) {
 		GroundItem item = itemExists(location, id);
-		if (item != null && p.getSprites().getPrimarySprite() == -1 && p.getSprites().getSecondarySprite() == -1) {
+		if (item != null && p.getSprite().getPrimarySprite() == -1 && p.getSprite().getSecondarySprite() == -1) {
 			if (item.getDefinition().isPlayerBound() && !item.getOwner().equals(p)) {
 				return;
 			}

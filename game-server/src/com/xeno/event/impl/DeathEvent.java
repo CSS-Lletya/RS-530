@@ -1,9 +1,9 @@
 package com.xeno.event.impl;
 
 import com.xeno.content.combat.Combat;
-import com.xeno.entity.Entity;
-import com.xeno.entity.npc.NPC;
-import com.xeno.entity.player.Player;
+import com.xeno.entity.actor.Actor;
+import com.xeno.entity.actor.npc.NPC;
+import com.xeno.entity.actor.player.Player;
 import com.xeno.event.Event;
 import com.xeno.model.player.skills.prayer.Prayer;
 import com.xeno.model.player.skills.prayer.PrayerData;
@@ -19,8 +19,8 @@ import com.xeno.world.World;
  */
 public class DeathEvent extends Event {
 
-	private Entity lastAttacker;
-	private Entity entity;
+	private Actor lastAttacker;
+	private Actor entity;
 	private boolean firstNpcStage;
 	private static final String[] DEATH_MESSAGES = {
 		"You have defeated", 
@@ -33,7 +33,7 @@ public class DeathEvent extends Event {
 		"was no match for you"
 	};
 	
-	public DeathEvent(Entity entity) {
+	public DeathEvent(Actor entity) {
 		super(entity instanceof Player ? 6000 : (((NPC)entity).getDeathTime()));
 		this.entity = entity;
 		this.firstNpcStage = false;
@@ -147,7 +147,7 @@ public class DeathEvent extends Event {
 				p.getSpecialAttack().resetSpecial();
 				p.getSettings().getAttackVars().setDefault();
 				p.getEquipment().setWeapon();
-				entity.setLastkiller(null);
+				entity.setLastOpponent(null);
 				Combat.resetCombat(entity, 1);
 				entity.setDead(false);
 				p.getSettings().setLastVengeanceTime(0);

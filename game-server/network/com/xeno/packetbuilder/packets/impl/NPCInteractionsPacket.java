@@ -2,8 +2,8 @@ package com.xeno.packetbuilder.packets.impl;
 
 import com.xeno.content.combat.Combat;
 import com.xeno.content.combat.MagicCombat;
-import com.xeno.entity.npc.NPC;
-import com.xeno.entity.player.Player;
+import com.xeno.entity.actor.npc.NPC;
+import com.xeno.entity.actor.player.Player;
 import com.xeno.net.Constants;
 import com.xeno.net.Packet;
 import com.xeno.packetbuilder.packets.OutgoingPacket;

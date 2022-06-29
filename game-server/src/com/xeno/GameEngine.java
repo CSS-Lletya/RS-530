@@ -25,7 +25,7 @@ public class GameEngine {
 	/**
 	 * Represents an instance of the Networking server that the client connects to.
 	 */
-	private static NetworkServer networkServer;
+	private static NetworkServer networkServer = new NetworkServer();
 	
 	/**
 	 * Creates other things vital to the game logic, like the world class.
@@ -64,13 +64,6 @@ public class GameEngine {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		getLoader().newThread("GameEngine", () -> {
-			try {
-				networkServer = new NetworkServer();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			networkServer.go();
-		});
+		getLoader().newThread("GameEngine", networkServer::go);
 	}
 }

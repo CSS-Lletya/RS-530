@@ -10,9 +10,9 @@ import com.xeno.content.ClanManager;
 import com.xeno.content.ShopManager;
 import com.xeno.content.combat.AggressiveNPC;
 import com.xeno.content.combat.Combat;
-import com.xeno.entity.item.GroundItemManager;
-import com.xeno.entity.npc.NPC;
-import com.xeno.entity.player.Player;
+import com.xeno.entity.actor.item.GroundItemManager;
+import com.xeno.entity.actor.npc.NPC;
+import com.xeno.entity.actor.player.Player;
 import com.xeno.event.AreaEvent;
 import com.xeno.event.CoordinateEvent;
 import com.xeno.event.Event;
@@ -135,7 +135,7 @@ public class World {
 		registerEvent(new Event(0) {
 			@Override
 			public void execute() {
-				boolean standingStill = event.getPlayer().getSprites().getPrimarySprite() == -1 && event.getPlayer().getSprites().getSecondarySprite() == -1;
+				boolean standingStill = event.getPlayer().getSprite().getPrimarySprite() == -1 && event.getPlayer().getSprite().getSecondarySprite() == -1;
 				if(event.getPlayer().getDistanceEvent() == null || !event.getPlayer().getDistanceEvent().equals(event)) {
 					this.stop();
 					return;
@@ -172,7 +172,7 @@ public class World {
 		registerEvent(new Event(0) {
 			@Override
 			public void execute() {
-				boolean standingStill = event.getPlayer().getSprites().getPrimarySprite() == -1 && event.getPlayer().getSprites().getSecondarySprite() == -1;
+				boolean standingStill = event.getPlayer().getSprite().getPrimarySprite() == -1 && event.getPlayer().getSprite().getSecondarySprite() == -1;
 				if(event.getPlayer().getDistanceEvent() == null || !event.getPlayer().getDistanceEvent().equals(event)) {
 					this.stop();
 					return;

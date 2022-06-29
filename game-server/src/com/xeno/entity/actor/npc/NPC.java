@@ -1,15 +1,25 @@
-package com.xeno.entity.npc;
+package com.xeno.entity.actor.npc;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 import com.xeno.content.combat.Combat;
 import com.xeno.content.combat.Combat.CombatType;
 import com.xeno.content.combat.constants.Animations;
-import com.xeno.entity.*;
-import com.xeno.entity.item.GroundItem;
-import com.xeno.entity.item.Item;
-import com.xeno.entity.masks.*;
-import com.xeno.entity.masks.Hits.Hit;
-import com.xeno.entity.player.Player;
-import com.xeno.event.Event;
+import com.xeno.entity.EntityType;
+import com.xeno.entity.Follow;
+import com.xeno.entity.actor.Actor;
+import com.xeno.entity.actor.item.GroundItem;
+import com.xeno.entity.actor.item.Item;
+import com.xeno.entity.actor.masks.Animation;
+import com.xeno.entity.actor.masks.EntityFocus;
+import com.xeno.entity.actor.masks.FaceLocation;
+import com.xeno.entity.actor.masks.ForceText;
+import com.xeno.entity.actor.masks.Graphics;
+import com.xeno.entity.actor.masks.Hits;
+import com.xeno.entity.actor.masks.Hits.Hit;
+import com.xeno.entity.actor.player.Player;
 import com.xeno.event.impl.DeathEvent;
 import com.xeno.net.definitions.ItemDefinition;
 import com.xeno.net.definitions.NPCDefinition;
@@ -17,22 +27,13 @@ import com.xeno.util.Utility;
 import com.xeno.world.Location;
 import com.xeno.world.World;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
-
 /**
  * Represents a 'non-player' character in the game.
  *
  * @author Graham
  * @author Luke132
  */
-public class NPC extends Entity {
-
-    public NPC() {
-    }
-
-    ;
+public class NPC extends Actor {
 
     public static enum WalkType {
         STATIC,
@@ -67,7 +68,7 @@ public class NPC extends Entity {
     }
 
     public Object readResolve() {
-        super.readResolve();
+        super.readResolve(EntityType.NPC);
         definition = NPCDefinition.forId(id);
         updateFlags = new NPCUpdateFlags();
         this.setFollow(new Follow(this));
@@ -78,7 +79,7 @@ public class NPC extends Entity {
     }
 
     public void tick() {
-        getSprites().setSprites(-1, -1);
+        getSprite().setSprites(-1, -1);
         int sprite = -1;
         if (this.inCombat()) {
             Combat.combatLoop(this);
@@ -99,7 +100,7 @@ public class NPC extends Entity {
             if (sprite != -1) {
                 sprite >>= 1;
                 faceDirection = sprite;
-                getSprites().setSprites(sprite, -1);
+                getSprite().setSprites(sprite, -1);
                 this.setLocation(Location.location(tgtX, tgtY, this.getLocation().getZ()));
             }
             return;
@@ -108,7 +109,7 @@ public class NPC extends Entity {
 
     @Override
     public void dropLoot() {
-        Entity killer = this.getKiller();
+        Actor killer = this.getKiller();
         Player p = killer instanceof Player ? (Player) killer : null;
         NPCDrop drop = this.definition.getDrop();
         if (killer == null || p == null) {

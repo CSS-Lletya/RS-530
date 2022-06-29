@@ -5,8 +5,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 import com.thoughtworks.xstream.XStream;
-import com.xeno.entity.player.Player;
-import com.xeno.entity.player.PlayerCredentials;
+import com.xeno.entity.EntityType;
+import com.xeno.entity.actor.player.Player;
+import com.xeno.entity.actor.player.PlayerCredentials;
 import com.xeno.net.Constants;
 import com.xeno.util.XStreamUtil;
 import com.xeno.world.World;

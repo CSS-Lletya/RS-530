@@ -1,20 +1,23 @@
 package com.xeno.entity;
 
-import com.xeno.entity.npc.NPC;
-import com.xeno.entity.player.Player;
+import com.xeno.entity.actor.Actor;
+import com.xeno.entity.actor.npc.NPC;
+import com.xeno.entity.actor.player.Player;
 import com.xeno.util.Utility;
 import com.xeno.world.Location;
 
 public class Follow {
 
-	private Entity entity;
-	private Entity follower;
+	private Actor entity;
+	private Actor follower;
 	private int sameCoordWait;
-	
-	public Follow(Entity e) {
+
+	public Follow(Actor e) {
 		this.entity = e;
 	}
+
 	Location lastLoc = null;
+
 	public void followEntity() {
 		if (follower == null || entity.isDead() || follower.isDead() || follower.isDestroyed()) {
 			follower = null;
@@ -29,8 +32,9 @@ public class Follow {
 		}
 		if (follower instanceof Player) {
 			dir = ((Player) follower).getWalkingQueue().getLastDirection();
-			if (follower.getEntityFocus() == null || follower.getEntityFocus().getEntityId() != entity.getClientIndex()) {
-				//entity.setEntityFocus(follower.getClientIndex());
+			if (follower.getEntityFocus() == null
+					|| follower.getEntityFocus().getEntityId() != entity.getClientIndex()) {
+				// entity.setEntityFocus(follower.getClientIndex());
 			}
 			if (!follower.getLocation().withinDistance(entity.getLocation(), 15)) {
 				setFollowing(null);
@@ -64,70 +68,33 @@ public class Follow {
 				sameCoordWait = 0;
 			}
 		}
-		/*if (dir == 1) { // North.
-			targetY--;
-		}
-		if (dir == 4) { // East.
-			targetX--;
-		}
-		if (dir == 6) { // South.
-			targetY++;
-		}
-		if (dir == 3) { // West.
-			targetX++;
-		}
-		if (dir == 2) { // North east.
-			targetY--;
-			targetX--;
-		}
-		if (dir == 7) { // South east.
-			targetY++;
-			targetX--;
-		}
-		if (dir == 5) { // South west.
-			targetY++;
-			targetX++;
-		}
-		if (dir == 0) { // North west.
-			targetY--;
-			targetX++;
-		}*/
 		if (!sameCoords) {
 			if (targetX > x && targetY == y) {
 				newX++;
-			} else
-			if (targetX < x && targetY == y) {
+			} else if (targetX < x && targetY == y) {
 				newX--;
-			}else
-			if (targetX == x && targetY > y) {
+			} else if (targetX == x && targetY > y) {
 				newY++;
-			}else
-			if (targetX == x && targetY < y) {
+			} else if (targetX == x && targetY < y) {
 				newY--;
-			}else
-			if (targetX > x && targetY > y) {
+			} else if (targetX > x && targetY > y) {
 				newX++;
 				newY++;
-			}else
-			if (targetX < x && targetY < y) {
+			} else if (targetX < x && targetY < y) {
 				newX--;
 				newY--;
-			}else
-			if (targetX > x && targetY < y) {
+			} else if (targetX > x && targetY < y) {
 				newX++;
 				newY--;
-			}else
-			if (targetX < x && targetY > y) {
+			} else if (targetX < x && targetY > y) {
 				newX--;
 				newY++;
 			}
 		}
-		//if (entity.getLocation().withinDistance(following.getLocation(),  Combat.npcUsesRange((NPC)entity) ? 30 : Combat.getNPCSize(entity, following))) {
-		//	return;
-		//}
 		if (entity instanceof NPC) {
 			Location newLoc = Location.location(newX, newY, entity.getLocation().getZ());
-			if (!newLoc.inArea(((NPC)entity).getMinimumCoords().getX(), ((NPC)entity).getMinimumCoords().getY(), ((NPC)entity).getMaximumCoords().getX(), ((NPC)entity).getMaximumCoords().getY())) {
+			if (!newLoc.inArea(((NPC) entity).getMinimumCoords().getX(), ((NPC) entity).getMinimumCoords().getY(),
+					((NPC) entity).getMaximumCoords().getX(), ((NPC) entity).getMaximumCoords().getY())) {
 				follower = null;
 				return;
 			}
@@ -138,33 +105,13 @@ public class Follow {
 		if (follower.getEntityFocus() == null || follower.getEntityFocus().getEntityId() != entity.getClientIndex()) {
 			entity.setEntityFocus(follower.getClientIndex());
 		}
-		/*if (!npc.getLocation().withinDistance(following.getLocation())) {
-			if (((Player) following).getSettings().getSummonedNPC() == npc) {
-				npc.animate(8298);
-				npc.graphics(NPCSizes.getNpcSize(npc.getId()) > 0 ? 1315 : 1314);
-				npc.setLocation(Location.location(targetX, targetY, following.getLocation().getZ()));
-				npc.setEntityFocus(following.getClientIndex());
-				return;
-				
-			}
-		}*/
-		/*if (entity instanceof NPC) {
-			((Player) entity).getActionSender().followPlayer(((NPC) follower), 1);
-		((NPC)entity).getSprites().setSprites(Misc.direction(x, y, newX, newY), -1);
-			if (((NPC)entity).getSprites().getPrimarySprite() != -1) {
-				int sprite = ((NPC)entity).getSprites().getPrimarySprite() >> 1;
-				((NPC)entity).getSprites().setSprites(sprite, -1);
-				((NPC)entity).setLocation(Location.location(newX, newY, ((NPC)entity).getLocation().getZ()));
-			}
-		} else {
-		}*/
 	}
-	
-	public Entity getFollowing() {
+
+	public Actor getFollowing() {
 		return follower;
 	}
 
-	public void setFollowing(Entity following) {
+	public void setFollowing(Actor following) {
 		if (following == null) {
 			if (entity instanceof Player) {
 				((Player) entity).getActionSender().followPlayer(null, -1);

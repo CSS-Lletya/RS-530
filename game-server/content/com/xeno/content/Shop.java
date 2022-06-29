@@ -1,6 +1,6 @@
 package com.xeno.content;
 
-import com.xeno.entity.item.Item;
+import com.xeno.entity.actor.item.Item;
 
 public class Shop {
 

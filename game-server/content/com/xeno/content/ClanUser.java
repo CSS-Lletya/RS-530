@@ -1,6 +1,6 @@
 package com.xeno.content;
 
-import com.xeno.entity.player.Player;
+import com.xeno.entity.actor.player.Player;
 import com.xeno.util.LogUtility;
 import com.xeno.util.LogUtility.LogType;
 

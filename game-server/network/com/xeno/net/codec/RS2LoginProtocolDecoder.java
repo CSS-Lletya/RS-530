@@ -7,7 +7,7 @@ import org.apache.mina.filter.codec.CumulativeProtocolDecoder;
 import org.apache.mina.filter.codec.ProtocolCodecFilter;
 import org.apache.mina.filter.codec.ProtocolDecoderOutput;
 
-import com.xeno.entity.player.PlayerCredentials;
+import com.xeno.entity.actor.player.PlayerCredentials;
 import com.xeno.net.Constants;
 import com.xeno.net.Packet;
 import com.xeno.net.WorkerThread;

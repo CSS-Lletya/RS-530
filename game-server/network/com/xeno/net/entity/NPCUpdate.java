@@ -1,12 +1,12 @@
 package com.xeno.net.entity;
 
-import com.xeno.entity.masks.Animation;
-import com.xeno.entity.masks.EntityFocus;
-import com.xeno.entity.masks.FaceLocation;
-import com.xeno.entity.masks.ForceText;
-import com.xeno.entity.masks.Graphics;
-import com.xeno.entity.npc.NPC;
-import com.xeno.entity.player.Player;
+import com.xeno.entity.actor.masks.Animation;
+import com.xeno.entity.actor.masks.EntityFocus;
+import com.xeno.entity.actor.masks.FaceLocation;
+import com.xeno.entity.actor.masks.ForceText;
+import com.xeno.entity.actor.masks.Graphics;
+import com.xeno.entity.actor.npc.NPC;
+import com.xeno.entity.actor.player.Player;
 import com.xeno.net.Constants;
 import com.xeno.net.Packet.Size;
 import com.xeno.packetbuilder.PacketBuilder;
@@ -95,23 +95,23 @@ public class NPCUpdate implements PacketBuilder {
 	}
 
 	private static void updateNpcMovement(NPC npc, StaticPacketBuilder mainPacket) {
-		if(npc.getSprites().getPrimarySprite() == -1) {
+		if(npc.getSprite().getPrimarySprite() == -1) {
 			if(npc.getUpdateFlags().isUpdateRequired()) {
 				mainPacket.addBits(1, 1);
 				mainPacket.addBits(2, 0);
 			} else {
 				mainPacket.addBits(1, 0);
 			}
-		} else if(npc.getSprites().getSecondarySprite() == -1) {
+		} else if(npc.getSprite().getSecondarySprite() == -1) {
 			mainPacket.addBits(1, 1);
 			mainPacket.addBits(2, 1);
-			mainPacket.addBits(3, Constants.XLATE_DIRECTION_TO_CLIENT[npc.getSprites().getPrimarySprite()]);
+			mainPacket.addBits(3, Constants.XLATE_DIRECTION_TO_CLIENT[npc.getSprite().getPrimarySprite()]);
 			mainPacket.addBits(1, npc.getUpdateFlags().isUpdateRequired() ? 1 : 0);
 		} else {
 			mainPacket.addBits(1, 1);
 			mainPacket.addBits(2, 2);
-			mainPacket.addBits(3, npc.getSprites().getPrimarySprite());
-			mainPacket.addBits(3, npc.getSprites().getSecondarySprite());
+			mainPacket.addBits(3, npc.getSprite().getPrimarySprite());
+			mainPacket.addBits(3, npc.getSprite().getSecondarySprite());
 			mainPacket.addBits(1, npc.getUpdateFlags().isUpdateRequired() ? 1 : 0);
 		}
 	}

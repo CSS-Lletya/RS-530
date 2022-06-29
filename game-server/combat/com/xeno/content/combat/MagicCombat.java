@@ -1,8 +1,9 @@
 package com.xeno.content.combat;
 
-import com.xeno.entity.Entity;
-import com.xeno.entity.npc.NPC;
-import com.xeno.entity.player.Player;
+import com.xeno.entity.EntityType;
+import com.xeno.entity.actor.Actor;
+import com.xeno.entity.actor.npc.NPC;
+import com.xeno.entity.actor.player.Player;
 import com.xeno.event.Event;
 import com.xeno.model.player.skills.magic.MagicData;
 import com.xeno.model.player.skills.magic.RuneManager;
@@ -18,11 +19,11 @@ public class MagicCombat extends MagicData {
 		
 	}
 	
-	public static void newMagicAttack(final Player p, final Entity target, final int id, final boolean ancients) {
+	public static void newMagicAttack(final Player p, final Actor target, final int id, final boolean ancients) {
 		final int index = getSpellIndex(p, id, ancients);
 		boolean autoCasting = p.getTemporaryAttribute("autoCasting") != null;
 		final boolean fakeNPC = target != null && target instanceof NPC && ((NPC)target).getId() == 0;
-		Entity lastAutocastEntity = null;
+		Actor lastAutocastEntity = null;
 		boolean frozen = false;
 		if (index == -1) {
 			return;
@@ -30,7 +31,7 @@ public class MagicCombat extends MagicData {
 		if (p.getTarget() == null) {
 			if (autoCasting) {
 				if (Area.inMultiCombat(p.getLocation())) {
-					lastAutocastEntity = (Entity) p.getTemporaryAttribute("autocastEntity") == null ? null : (Entity) p.getTemporaryAttribute("autocastEntity");
+					lastAutocastEntity = (Actor) p.getTemporaryAttribute("autocastEntity") == null ? null : (Actor) p.getTemporaryAttribute("autocastEntity");
 					if (lastAutocastEntity == null || lastAutocastEntity instanceof Player) {
 						p.removeTemporaryAttribute("autoCasting");
 						Combat.resetCombat(p, 1);
@@ -38,9 +39,9 @@ public class MagicCombat extends MagicData {
 					}
 					if (hitsMulti(p, index)) {
 						Location location = (Location)p.getTemporaryAttribute("autocastLocation");
-						Entity newTarget = new NPC(0);
+						Actor newTarget = new NPC(0);
 						newTarget.setLocation(location);
-						newTarget.readResolve();
+						newTarget.readResolve(EntityType.NPC);
 						p.setTarget(newTarget);
 						newMagicAttack(p, newTarget, id, ancients);
 						return;
@@ -64,7 +65,7 @@ public class MagicCombat extends MagicData {
 		}
 		int distance = 8;
 		if (target instanceof Player) {
-			if (((Player)target).getSprites().getPrimarySprite() != -1) {
+			if (((Player)target).getSprite().getPrimarySprite() != -1) {
 				distance = 8;
 			}
 		}
@@ -261,7 +262,7 @@ public class MagicCombat extends MagicData {
 		}
 	}
 
-	protected static void applyMiasmicEffects(Player p, final Entity target, int index) {
+	protected static void applyMiasmicEffects(Player p, final Actor target, int index) {
 		if (index < 48 || index > 51) {
 			return;
 		}
@@ -320,7 +321,7 @@ public class MagicCombat extends MagicData {
 	/*
 	 * Used to check whether we should stop autocasting.
 	 */
-	public static boolean monsterInArea(Player p, Entity mainTarget) {
+	public static boolean monsterInArea(Player p, Actor mainTarget) {
 		Location l = mainTarget.getLocation();
 		for (NPC n : World.getInstance().getNpcList()) {
 			if (n == null || n.equals(mainTarget) || n.isDead() || n.isHidden() || n.isDestroyed()) {
@@ -341,7 +342,7 @@ public class MagicCombat extends MagicData {
 		return false;
 	}
 	
-	public static void hitInMulti(Player p, Entity mainTarget, int index) {
+	public static void hitInMulti(Player p, Actor mainTarget, int index) {
 		if (!Area.inMultiCombat(p.getLocation()) || !Area.inMultiCombat(mainTarget.getLocation())) {
 			return;
 		}
@@ -439,7 +440,7 @@ public class MagicCombat extends MagicData {
 		}
 	}
 
-	public static boolean freezeTarget(int i, final Entity target) {
+	public static boolean freezeTarget(int i, final Actor target) {
 		if ((i != 34 && i != 36 && i != 40 && i != 19 && i != 23 && i != 27 && i != 31) || target.isFrozen()) {
 			return false;
 		}
@@ -522,7 +523,7 @@ public class MagicCombat extends MagicData {
 		return false;
 	}
 
-	private static void sendProjectile(int index, Entity target, Player player) {
+	private static void sendProjectile(int index, Actor target, Player player) {
 		for (Player p : World.getInstance().getPlayerList()) {
 			if (p.getLocation().withinDistance(player.getLocation(), 60)) {
 				if (index != 31 && index != 27) { // ice barrage + ice blitz
@@ -534,7 +535,7 @@ public class MagicCombat extends MagicData {
 		}
 	}
 
-	private static boolean canCastSpell(Player p, Entity target, int i, boolean fakeNPC) {
+	private static boolean canCastSpell(Player p, Actor target, int i, boolean fakeNPC) {
 		// fakeNPC is used to keep location when autocasting.
 		if (fakeNPC) {
 			return !p.isDead();
@@ -624,7 +625,7 @@ public class MagicCombat extends MagicData {
 		return true;
 	}
 	
-	private static boolean canCastSpell2(Player p, Entity target, int i, boolean fakeNPC) {
+	private static boolean canCastSpell2(Player p, Actor target, int i, boolean fakeNPC) {
 		// fakeNPC is used to keep location when autocasting.
 		if (fakeNPC) {
 			return !p.isDead();
@@ -658,7 +659,7 @@ public class MagicCombat extends MagicData {
 		return true;
 	}
 	
-	public static int spellEffect(Entity target, int i, int k) {
+	public static int spellEffect(Actor target, int i, int k) {
 		if (target instanceof NPC) {
 			return 0;
 		}
@@ -845,7 +846,7 @@ public class MagicCombat extends MagicData {
 		return 0;
 	}
 	
-	protected static void addMagicXp(Player p, Entity target, int hit, int index, boolean baseXp) {
+	protected static void addMagicXp(Player p, Actor target, int hit, int index, boolean baseXp) {
 		if (target instanceof NPC) {
 			double xp = 0;
 			switch(index) {
@@ -911,7 +912,7 @@ public class MagicCombat extends MagicData {
 		}
 	}
 	
-	public static void addDamage(Entity killer, Entity target, int damage) {
+	public static void addDamage(Actor killer, Actor target, int damage) {
 		if (!target.isDead()) {
 			target.addToHitCount(killer, damage);
 		}

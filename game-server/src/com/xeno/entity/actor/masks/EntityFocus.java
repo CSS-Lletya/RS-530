@@ -1,4 +1,4 @@
-package com.xeno.entity.masks;
+package com.xeno.entity.actor.masks;
 
 /**
  * @author Luke132

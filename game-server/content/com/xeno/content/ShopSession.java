@@ -2,10 +2,10 @@ package com.xeno.content;
 
 import java.text.NumberFormat;
 
-import com.xeno.entity.item.Item;
-import com.xeno.entity.item.ItemConstants;
-import com.xeno.entity.player.Inventory;
-import com.xeno.entity.player.Player;
+import com.xeno.entity.actor.item.Item;
+import com.xeno.entity.actor.item.ItemConstants;
+import com.xeno.entity.actor.player.Inventory;
+import com.xeno.entity.actor.player.Player;
 import com.xeno.net.definitions.ItemDefinition;
 import com.xeno.world.World;
 

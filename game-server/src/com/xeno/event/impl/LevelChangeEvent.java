@@ -1,7 +1,7 @@
 package com.xeno.event.impl;
 
-import com.xeno.entity.npc.NPC;
-import com.xeno.entity.player.Player;
+import com.xeno.entity.actor.npc.NPC;
+import com.xeno.entity.actor.player.Player;
 import com.xeno.event.Event;
 import com.xeno.model.player.skills.Skills;
 import com.xeno.world.World;

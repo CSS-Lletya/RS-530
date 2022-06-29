@@ -1,6 +1,6 @@
-package com.xeno.entity.masks;
+package com.xeno.entity.actor.masks;
 
-import com.xeno.entity.player.Player;
+import com.xeno.entity.actor.player.Player;
 
 public class ChatMessage {
 	

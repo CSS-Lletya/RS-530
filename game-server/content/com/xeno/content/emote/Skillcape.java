@@ -1,7 +1,7 @@
 package com.xeno.content.emote;
 
-import com.xeno.entity.item.Item;
-import com.xeno.entity.player.Player;
+import com.xeno.entity.actor.item.Item;
+import com.xeno.entity.actor.player.Player;
 
 /**
  * Handles skill cape emotes.

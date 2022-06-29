@@ -1,6 +1,6 @@
 package com.xeno.event;
 
-import com.xeno.entity.player.Player;
+import com.xeno.entity.actor.player.Player;
 import com.xeno.world.Location;
 
 public abstract class CoordinateEvent {

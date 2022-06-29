@@ -7,7 +7,7 @@ import org.apache.mina.filter.codec.ProtocolCodecFilter;
 
 import com.xeno.GameEngine;
 import com.xeno.GameLoader;
-import com.xeno.entity.player.Player;
+import com.xeno.entity.actor.player.Player;
 import com.xeno.net.codec.CodecFactory;
 import com.xeno.util.LogUtility;
 import com.xeno.util.LogUtility.LogType;

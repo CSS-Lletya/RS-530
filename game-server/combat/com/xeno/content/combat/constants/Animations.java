@@ -1,7 +1,7 @@
 package com.xeno.content.combat.constants;
 
-import com.xeno.entity.npc.NPC;
-import com.xeno.entity.player.Player;
+import com.xeno.entity.actor.npc.NPC;
+import com.xeno.entity.actor.player.Player;
 import com.xeno.net.definitions.ItemDefinition;
 
 public class Animations {

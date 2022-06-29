@@ -1,9 +1,9 @@
 package com.xeno.content.combat;
 
-import com.xeno.entity.Entity;
-import com.xeno.entity.item.GroundItem;
-import com.xeno.entity.npc.NPC;
-import com.xeno.entity.player.Player;
+import com.xeno.entity.actor.Actor;
+import com.xeno.entity.actor.item.GroundItem;
+import com.xeno.entity.actor.npc.NPC;
+import com.xeno.entity.actor.player.Player;
 import com.xeno.event.Event;
 import com.xeno.event.impl.PoisonEvent;
 import com.xeno.model.player.skills.prayer.PrayerData;
@@ -65,7 +65,7 @@ public class RangeCombat {
 		
 	}
 	
-	public static void rangeCombatLoop(final Entity killer, final Entity target) {
+	public static void rangeCombatLoop(final Actor killer, final Actor target) {
 		if (!hasValidBowArrow(killer)) {
 			killer.setTarget(null);
 			return;
@@ -150,7 +150,7 @@ public class RangeCombat {
 		}
 	}
 	
-	private static int getDamage(Player killer, Entity target, int usingBow, int usingArrows) {
+	private static int getDamage(Player killer, Actor target, int usingBow, int usingArrows) {
 		int damage = (int) CombatFormula.getRangeHit(killer, target, usingBow, usingArrows);
 		if (target instanceof Player) {
 			int prayerType = ((Player) target).getPrayers().getHeadIcon();
@@ -163,7 +163,7 @@ public class RangeCombat {
 		return damage;
 	}
 	
-	private static int applyBoltGraphic(Player killer, Entity target, int damage, int bolt) {
+	private static int applyBoltGraphic(Player killer, Actor target, int damage, int bolt) {
 		int hit = Utility.random(10);
 		if (hit != 0 || getBowType(killer) != 1) {
 			return damage;
@@ -307,7 +307,7 @@ public class RangeCombat {
 		return damage;
 	}
 	
-	static int getArrowType(Entity killer) {
+	static int getArrowType(Actor killer) {
 		int arrow = ((Player)killer).getEquipment().getItemInSlot(13);
 		int bowType = getBowType(killer);
 		if ((bowType >= 0 && bowType <= 2) || bowType == 5) {
@@ -316,7 +316,7 @@ public class RangeCombat {
 		return -1;
 	}
 
-	static int getHitDelay(Entity killer, Entity target) {
+	static int getHitDelay(Actor killer, Actor target) {
 		int distance = killer.getLocation().distanceToPoint(target.getLocation());
 		final int DELAYS1[] = {700, 700, 800, 1050, 1050, 1100, 1200, 1200, 1300, 1300};
 		final int DELAYS2[] = {450, 450, 400, 600, 600, 650, 700, 750, 800, 800};
@@ -327,7 +327,7 @@ public class RangeCombat {
 		return DELAYS[distance];
 	}
 
-	protected static void createGroundArrow(Entity killer, Entity target, int arrow) {
+	protected static void createGroundArrow(Actor killer, Actor target, int arrow) {
 		if (Utility.random(1) == 1) {
 			return;
 		}
@@ -339,7 +339,7 @@ public class RangeCombat {
 		}
 	}
 
-	public static boolean hasAmmo(Entity killer) {
+	public static boolean hasAmmo(Actor killer) {
 		if (killer instanceof NPC) {
 			return true;
 		}
@@ -398,7 +398,7 @@ public class RangeCombat {
 		return hasAmmo;
 	}
 
-	static void deductArrow(Entity killer) {
+	static void deductArrow(Actor killer) {
 		if (killer instanceof NPC) {
 			return;
 		}
@@ -431,7 +431,7 @@ public class RangeCombat {
 		((Player)killer).getActionSender().refreshEquipment();
 	}
 
-	private static void displayProjectile(final Entity killer, final Entity target) {
+	private static void displayProjectile(final Actor killer, final Actor target) {
 		int distance = killer.getLocation().distanceToPoint(target.getLocation());
 		int[] speed1 = {60, 60, 60, 63, 65, 67, 69, 69, 71, 73, 73, 73, 73, 73};
 		int[] speed2 = {35, 35, 35, 38, 41, 45, 47, 50, 53, 73, 73, 73, 73, 73};
@@ -444,7 +444,7 @@ public class RangeCombat {
 		}
 	}
 	
-	public static void displayDBSpecProjectile(final Entity killer, final Entity target) {
+	public static void displayDBSpecProjectile(final Actor killer, final Actor target) {
 		int distance = killer.getLocation().distanceToPoint(target.getLocation());
 		if (distance >= 10) {
 			return;
@@ -458,7 +458,7 @@ public class RangeCombat {
 		}
 	}
 	
-	public static void displayMSpecProjectile(final Entity killer, final Entity target) {
+	public static void displayMSpecProjectile(final Actor killer, final Actor target) {
 		int distance = killer.getLocation().distanceToPoint(target.getLocation());
 		int[] speed = {25, 25, 30, 33, 37, 39, 40, 41, 43, 46};
 		int finalSpeed = speed[distance] + 5;
@@ -469,7 +469,7 @@ public class RangeCombat {
 		}
 	}
 
-	private static int getStartingSpeed(Entity killer) {
+	private static int getStartingSpeed(Actor killer) {
 		if (killer instanceof Player) {
 			int bowType = getBowType(killer);
 			if (bowType == 0) {
@@ -487,7 +487,7 @@ public class RangeCombat {
 		return 50;
 	}
 
-	private static int getProjectileGfx(Entity killer) {
+	private static int getProjectileGfx(Actor killer) {
 		if (killer instanceof Player) {
 			int bowType = getBowType(killer);
 			if (bowType == 0) {
@@ -524,7 +524,7 @@ public class RangeCombat {
 		return -1;
 	}
 
-	private static int getBowType(Entity killer) {
+	private static int getBowType(Actor killer) {
 		for (int i = 0; i < NORMAL_BOWS.length; i++) {
 			if (((Player) killer).getEquipment().getItemInSlot(3) == NORMAL_BOWS[i]) {
 				return 0;
@@ -551,7 +551,7 @@ public class RangeCombat {
 		return -1;
 	}
 
-	static int getDrawbackGraphic(Entity killer) {
+	static int getDrawbackGraphic(Actor killer) {
 		if (killer instanceof Player) {
 			int bowType = getBowType(killer);
 			if (bowType == 0) {
@@ -582,7 +582,7 @@ public class RangeCombat {
 		return -1;
 	}
 
-	public static boolean isUsingRange(Entity killer) {
+	public static boolean isUsingRange(Actor killer) {
 		if (killer instanceof Player) {
 			int weapon = ((Player) killer).getEquipment().getItemInSlot(3);
 			for (int i = 0; i < RANGE_WEAPONS.length; i++) {
@@ -594,11 +594,11 @@ public class RangeCombat {
 		return false;
 	}
 	
-	private static void degradeCrystalBow(Entity killer) {
+	private static void degradeCrystalBow(Actor killer) {
 		// TODO crystal bow degrading
 	}
 	
-	public static boolean hasValidBowArrow(Entity killer) {
+	public static boolean hasValidBowArrow(Actor killer) {
 		if (killer instanceof NPC) {
 			return true;
 		}

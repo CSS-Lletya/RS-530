@@ -1,4 +1,4 @@
-package com.xeno.entity.player;
+package com.xeno.entity.actor.player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,21 +21,23 @@ import com.xeno.content.combat.constants.AttackVars.CombatSkill;
 import com.xeno.content.combat.constants.Bonuses;
 import com.xeno.content.emote.SkillCapes;
 import com.xeno.entity.Entity;
+import com.xeno.entity.EntityType;
 import com.xeno.entity.Follow;
 import com.xeno.entity.WalkingQueue;
-import com.xeno.entity.item.GroundItem;
-import com.xeno.entity.item.Item;
-import com.xeno.entity.masks.Animation;
-import com.xeno.entity.masks.Appearance;
-import com.xeno.entity.masks.ChatMessage;
-import com.xeno.entity.masks.EntityFocus;
-import com.xeno.entity.masks.FaceLocation;
-import com.xeno.entity.masks.ForceMovement;
-import com.xeno.entity.masks.ForceText;
-import com.xeno.entity.masks.Graphics;
-import com.xeno.entity.masks.Hits;
-import com.xeno.entity.masks.Hits.Hit;
-import com.xeno.entity.npc.NPC;
+import com.xeno.entity.actor.Actor;
+import com.xeno.entity.actor.item.GroundItem;
+import com.xeno.entity.actor.item.Item;
+import com.xeno.entity.actor.masks.Animation;
+import com.xeno.entity.actor.masks.Appearance;
+import com.xeno.entity.actor.masks.ChatMessage;
+import com.xeno.entity.actor.masks.EntityFocus;
+import com.xeno.entity.actor.masks.FaceLocation;
+import com.xeno.entity.actor.masks.ForceMovement;
+import com.xeno.entity.actor.masks.ForceText;
+import com.xeno.entity.actor.masks.Graphics;
+import com.xeno.entity.actor.masks.Hits;
+import com.xeno.entity.actor.masks.Hits.Hit;
+import com.xeno.entity.actor.npc.NPC;
 import com.xeno.event.impl.DeathEvent;
 import com.xeno.model.player.skills.Skills;
 import com.xeno.model.player.skills.prayer.PrayerData;
@@ -56,7 +58,7 @@ import com.xeno.world.World;
  * @author Graham
  *
  */
-public class Player extends Entity {
+public class Player extends Actor {
 	
 	private PlayerCredentials details;
 	private transient ActionSender actionSender;
@@ -119,7 +121,7 @@ public class Player extends Entity {
 	 * NOTE: other loaders should call this also.
 	 */
 	public Object readResolve() {
-		super.readResolve();
+		super.readResolve(EntityType.PLAYER);
 		actionSender = new ActionSender(this);
 		follow = new Follow(this);
 		queuedPackets = new LinkedList<Packet>();

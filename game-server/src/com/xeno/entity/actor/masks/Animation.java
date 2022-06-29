@@ -1,4 +1,4 @@
-package com.xeno.entity.masks;
+package com.xeno.entity.actor.masks;
 
 /**
  * Holds data for a single animation request.

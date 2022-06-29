@@ -2,7 +2,7 @@ package com.xeno.content.combat.constants;
 
 import com.xeno.content.combat.constants.AttackVars.CombatSkill;
 import com.xeno.content.combat.constants.AttackVars.CombatStyle;
-import com.xeno.entity.player.Player;
+import com.xeno.entity.actor.player.Player;
 
 public class AttackInterfaceConfig {
 

@@ -1,16 +1,16 @@
 package com.xeno.event.impl;
 
-import com.xeno.entity.Entity;
-import com.xeno.entity.masks.Hits;
-import com.xeno.entity.player.Player;
+import com.xeno.entity.actor.Actor;
+import com.xeno.entity.actor.masks.Hits;
+import com.xeno.entity.actor.player.Player;
 import com.xeno.event.Event;
 import com.xeno.util.Utility;
 
 public class PoisonEvent extends Event {
 
-	private Entity target;
+	private Actor target;
 	
-	public PoisonEvent(Entity target, int poisonAmount) {
+	public PoisonEvent(Actor target, int poisonAmount) {
 		super(30000 + Utility.random(30000));
 		this.target = target;
 		initialize(poisonAmount);

@@ -1,6 +1,6 @@
 package com.xeno.content.emote;
 
-import com.xeno.entity.player.Player;
+import com.xeno.entity.actor.player.Player;
 
 /**
  * Emotes helper class.

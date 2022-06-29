@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.xeno.entity.masks.ChatMessage;
-import com.xeno.entity.player.Player;
+import com.xeno.entity.actor.masks.ChatMessage;
+import com.xeno.entity.actor.player.Player;
 import com.xeno.event.Event;
 import com.xeno.net.Packet.Size;
 import com.xeno.packetbuilder.StaticPacketBuilder;

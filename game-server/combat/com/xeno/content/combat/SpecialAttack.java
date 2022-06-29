@@ -1,8 +1,8 @@
 package com.xeno.content.combat;
 
 import com.xeno.content.combat.constants.AttackVars.CombatSkill;
-import com.xeno.entity.Entity;
-import com.xeno.entity.player.Player;
+import com.xeno.entity.actor.Actor;
+import com.xeno.entity.actor.player.Player;
 import com.xeno.event.Event;
 import com.xeno.event.impl.PoisonEvent;
 import com.xeno.model.player.skills.prayer.PrayerData;
@@ -17,7 +17,7 @@ public class SpecialAttack {
 	private transient Player p;
 	
 	
-	public boolean doSpecialAttack(final Entity killer, final Entity target) {
+	public boolean doSpecialAttack(final Actor killer, final Actor target) {
 		int weapon = ((Player) killer).getEquipment().getItemInSlot(3);
 		int currentPower = specialAmount;
 		int neededPower = getRequiredAmount(weapon);

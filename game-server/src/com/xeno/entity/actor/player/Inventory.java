@@ -1,7 +1,7 @@
-package com.xeno.entity.player;
+package com.xeno.entity.actor.player;
 
-import com.xeno.entity.item.GroundItem;
-import com.xeno.entity.item.Item;
+import com.xeno.entity.actor.item.GroundItem;
+import com.xeno.entity.actor.item.Item;
 import com.xeno.net.definitions.ItemDefinition;
 import com.xeno.world.World;
 

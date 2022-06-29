@@ -3,7 +3,7 @@ package com.xeno.content;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.xeno.entity.player.Player;
+import com.xeno.entity.actor.player.Player;
 import com.xeno.event.AreaEvent;
 import com.xeno.event.CoordinateEvent;
 import com.xeno.event.Event;

@@ -1,6 +1,6 @@
 package com.xeno.entity;
 
-import com.xeno.entity.player.Player;
+import com.xeno.entity.actor.player.Player;
 import com.xeno.util.Utility;
 import com.xeno.world.Location;
 
@@ -100,7 +100,7 @@ public class WalkingQueue {
 	}
 	
 	public void getNextPlayerMovement() {
-		entity.getSprites().setSprites(-1, -1);
+		entity.getSprite().setSprites(-1, -1);
 		if(entity.getTeleportTo() != null) {
 			entity.setDistanceEvent(null);
 			reset();
@@ -161,7 +161,7 @@ public class WalkingQueue {
 				runDir = -1;
 				entity.setLocation(oldLocation);
 			}
-			entity.getSprites().setSprites(walkDir, runDir);
+			entity.getSprite().setSprites(walkDir, runDir);
 		}
 	}
 

@@ -33,6 +33,7 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok:1.18.20'
 	testCompileOnly 'org.projectlombok:lombok:1.18.20'
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
+	implementation group: 'io.vavr', name: 'vavr', version: '0.10.4'
 }
 
 /*

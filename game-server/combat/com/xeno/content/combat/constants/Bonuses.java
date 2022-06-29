@@ -1,6 +1,6 @@
 package com.xeno.content.combat.constants;
 
-import com.xeno.entity.player.Player;
+import com.xeno.entity.actor.player.Player;
 
 public class Bonuses {
 	

@@ -2,11 +2,11 @@ package com.xeno.content.combat;
 
 import com.xeno.content.combat.constants.AttackVars.CombatSkill;
 import com.xeno.content.combat.constants.AttackVars.CombatStyle;
-import com.xeno.entity.Entity;
-import com.xeno.entity.item.Item;
-import com.xeno.entity.masks.ForceText;
-import com.xeno.entity.npc.NPC;
-import com.xeno.entity.player.Player;
+import com.xeno.entity.actor.Actor;
+import com.xeno.entity.actor.item.Item;
+import com.xeno.entity.actor.masks.ForceText;
+import com.xeno.entity.actor.npc.NPC;
+import com.xeno.entity.actor.player.Player;
 import com.xeno.event.Event;
 import com.xeno.model.player.skills.prayer.Prayer;
 import com.xeno.model.player.skills.prayer.PrayerData;
@@ -27,7 +27,7 @@ public class Combat {
 		RANGE,
 	}
 	
-	public static void newAttack(Entity killer, Entity target) {
+	public static void newAttack(Actor killer, Actor target) {
 		if (killer.getLastAttack() > 0) {
 			/*if (System.currentTimeMillis() - killer.getLastAttack() >= (killer.getAttackSpeed() * 500)) {
 				killer.setCombatTurns(killer.getAttackSpeed());
@@ -41,7 +41,7 @@ public class Combat {
 		killer.setFaceLocation(target.getLocation());
 	}
 
-	private static void checkAutoCast(Entity killer, Entity target) {
+	private static void checkAutoCast(Actor killer, Actor target) {
 		if (killer instanceof NPC) {
 			return;
 		}
@@ -53,9 +53,9 @@ public class Combat {
 		}
 	}
 	
-	public static void combatLoop(final Entity killer) {
+	public static void combatLoop(final Actor killer) {
 		boolean usingRange = killer instanceof Player ? RangeCombat.isUsingRange(killer) : npcUsesRange(killer);
-		final Entity target = killer.getTarget();
+		final Actor target = killer.getTarget();
 		killer.incrementCombatTurns();
 		boolean autoCasting = killer instanceof NPC ? false : ((Player)killer).getTemporaryAttribute("autoCasting") != null;
 		boolean dragonfire = false;
@@ -80,7 +80,7 @@ public class Combat {
 		}
 		int distance = (killer instanceof Player && usingRange) ? 8 : killer instanceof NPC && usingRange ? getNpcAttackRange(killer) : getNPCSize(killer, target);
 		if (!usingRange && killer instanceof Player && target instanceof Player) {
-			if (((Player)target).getSprites().getPrimarySprite() != -1) {
+			if (((Player)target).getSprite().getPrimarySprite() != -1) {
 				distance = usingRange ? 11 : 3;
 			}
 		}
@@ -199,12 +199,12 @@ public class Combat {
 		}
 	}
 
-	private static boolean isDragon(Entity killer) {
+	private static boolean isDragon(Actor killer) {
 		int id = (((NPC)killer).getId());
 		return id == 53 || id == 54 || id == 55 || id == 941 || id == 1590 || id == 1591 || id == 1692 || id == 5362 || id == 5364;
 	}
 	
-	public static void doDragonfire(final Entity killer, final Entity target) {
+	public static void doDragonfire(final Actor killer, final Actor target) {
 		killer.animate(81);
 		killer.graphics(1, 0, 50);
 		World.getInstance().registerEvent(new Event(600) {
@@ -236,7 +236,7 @@ public class Combat {
 		});
 	}
 	
-	public static void checkIfWillDie(Entity target, int damage) {
+	public static void checkIfWillDie(Actor target, int damage) {
 		if (target instanceof NPC) {
 			return;
 		}
@@ -246,7 +246,7 @@ public class Combat {
 		}
 	}
 
-	public static int getNPCSize(Entity killer, Entity target) {
+	public static int getNPCSize(Actor killer, Actor target) {
 		if (killer instanceof Player && target instanceof Player) {
 			return 1;
 		}
@@ -272,14 +272,14 @@ public class Combat {
 		return 1;
 	}
 	
-	public static int getNpcAttackRange(Entity killer) {
+	public static int getNpcAttackRange(Actor killer) {
 		if (killer.getLocation().getX() >= 19000) {
 			return ((NPC)killer).getMaximumCoords().getX() - ((NPC)killer).getMinimumCoords().getX();
 		}
 		return 15;
 	}
 
-	public static boolean npcUsesRange(Entity killer) {
+	public static boolean npcUsesRange(Actor killer) {
 		if (killer instanceof Player) {
 			return false;
 		}
@@ -305,11 +305,11 @@ public class Combat {
 		return false;
 	}
 
-	public static boolean isXSecondsSinceCombat(Entity entity, long timeSinceHit, int time) {
+	public static boolean isXSecondsSinceCombat(Actor entity, long timeSinceHit, int time) {
 		return System.currentTimeMillis() - timeSinceHit > time;
 	}
 
-	public static void checkRecoil(Entity killer, Entity target, int damage) {
+	public static void checkRecoil(Actor killer, Actor target, int damage) {
 		if (target instanceof NPC) {
 			return;
 		}
@@ -332,7 +332,7 @@ public class Combat {
 		}
 	}
 
-	public static void checkSmite(Entity killer, Entity target, int damage) {
+	public static void checkSmite(Actor killer, Actor target, int damage) {
 		if (killer instanceof NPC || target instanceof NPC || damage <= 0) {
 			return;
 		}
@@ -348,7 +348,7 @@ public class Combat {
 		}
 	}
 
-	public static int getDamage(Entity killer, Entity target) {
+	public static int getDamage(Actor killer, Actor target) {
 		if (killer instanceof NPC) {
 			int maxDamage = killer.getMaxHit();
 			if (maxDamage > target.getHp()) {
@@ -383,7 +383,7 @@ public class Combat {
 		}
 	}
 	
-	public static void setSkull(Entity killer, Entity target) {
+	public static void setSkull(Actor killer, Actor target) {
 		if ((killer instanceof Player) && (target instanceof Player)) {
 			if (Area.inFightPits(killer.getLocation())) {
 				return;
@@ -391,7 +391,7 @@ public class Combat {
 		}
 	}
 
-	private static boolean canAttack(Entity killer, Entity target, boolean usingRange) {
+	private static boolean canAttack(Actor killer, Actor target, boolean usingRange) {
 		if (target.isDead() || killer.isDead() || target.isDestroyed() || killer.isDestroyed()) {
 			return false;
 		}
@@ -453,7 +453,7 @@ public class Combat {
 		return true;
 	}
 
-	public static void checkVengeance(Entity killer, Entity target, int damage) {
+	public static void checkVengeance(Actor killer, Actor target, int damage) {
 		if (target instanceof NPC || damage <= 0 || ((target.getHp() - damage) <= 0)) {
 			return;
 		}
@@ -471,7 +471,7 @@ public class Combat {
 		return;
 	}
 	
-	protected static void addXp(Entity killer, Entity target, int damage) {
+	protected static void addXp(Actor killer, Actor target, int damage) {
 		int xpRate = 230;
 		if ((killer instanceof Player) && (target instanceof NPC)) {
 			Player p = (Player) killer;
@@ -513,7 +513,7 @@ public class Combat {
 		target.addToHitCount(killer, damage);
 	}
 
-	public static void resetCombat(Entity killer, int type) {
+	public static void resetCombat(Actor killer, int type) {
 		if (killer != null) {
 			killer.setEntityFocus(65535);
 			killer.setTarget(null);

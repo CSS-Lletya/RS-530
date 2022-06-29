@@ -1,8 +1,8 @@
 package com.xeno.packetbuilder.packets.impl;
 
 import com.xeno.content.TradeSession;
-import com.xeno.entity.masks.FaceLocation;
-import com.xeno.entity.player.Player;
+import com.xeno.entity.actor.masks.FaceLocation;
+import com.xeno.entity.actor.player.Player;
 import com.xeno.event.AreaEvent;
 import com.xeno.net.Constants;
 import com.xeno.net.Packet;

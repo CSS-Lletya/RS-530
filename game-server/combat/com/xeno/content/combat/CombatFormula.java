@@ -2,8 +2,8 @@ package com.xeno.content.combat;
 
 import com.xeno.content.combat.constants.AttackVars.CombatStyle;
 import com.xeno.entity.Entity;
-import com.xeno.entity.npc.NPC;
-import com.xeno.entity.player.Player;
+import com.xeno.entity.actor.npc.NPC;
+import com.xeno.entity.actor.player.Player;
 import com.xeno.model.player.skills.prayer.PrayerData;
 import com.xeno.util.Utility;
 

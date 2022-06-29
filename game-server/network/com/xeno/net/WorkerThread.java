@@ -7,8 +7,8 @@ import org.apache.mina.common.IoFuture;
 import org.apache.mina.common.IoFutureListener;
 import org.apache.mina.common.WriteFuture;
 
-import com.xeno.entity.player.Player;
-import com.xeno.entity.player.PlayerCredentials;
+import com.xeno.entity.actor.player.Player;
+import com.xeno.entity.actor.player.PlayerCredentials;
 import com.xeno.io.PlayerLoadResult;
 import com.xeno.io.PlayerLoader;
 import com.xeno.packetbuilder.StaticPacketBuilder;

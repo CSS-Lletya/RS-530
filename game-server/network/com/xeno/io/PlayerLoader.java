@@ -1,7 +1,7 @@
 package com.xeno.io;
 
-import com.xeno.entity.player.Player;
-import com.xeno.entity.player.PlayerCredentials;
+import com.xeno.entity.actor.player.Player;
+import com.xeno.entity.actor.player.PlayerCredentials;
 
 /**
  * Player load/save interface.

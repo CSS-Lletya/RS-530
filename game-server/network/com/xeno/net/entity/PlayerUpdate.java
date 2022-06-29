@@ -1,10 +1,10 @@
 package com.xeno.net.entity;
 
-import com.xeno.entity.item.Item;
-import com.xeno.entity.item.ItemConstants;
-import com.xeno.entity.masks.Appearance;
-import com.xeno.entity.masks.ForceMovement;
-import com.xeno.entity.player.Player;
+import com.xeno.entity.actor.item.Item;
+import com.xeno.entity.actor.item.ItemConstants;
+import com.xeno.entity.actor.masks.Appearance;
+import com.xeno.entity.actor.masks.ForceMovement;
+import com.xeno.entity.actor.player.Player;
 import com.xeno.net.Constants;
 import com.xeno.net.Packet.Size;
 import com.xeno.packetbuilder.PacketBuilder;
@@ -106,24 +106,24 @@ public class PlayerUpdate implements PacketBuilder {
 	}
 
 	private static void updatePlayerMovement(Player player, StaticPacketBuilder mainPacket) {
-		if(player.getSprites().getPrimarySprite() == -1) {
+		if(player.getSprite().getPrimarySprite() == -1) {
 			if(player.getUpdateFlags().isUpdateRequired()) {
 				mainPacket.addBits(1, 1);
 				mainPacket.addBits(2, 0);
 			} else {
 				mainPacket.addBits(1, 0);
 			}
-		} else if(player.getSprites().getSecondarySprite() == -1) {
+		} else if(player.getSprite().getSecondarySprite() == -1) {
 			mainPacket.addBits(1, 1);
 			mainPacket.addBits(2, 1);
-			mainPacket.addBits(3, player.getSprites().getPrimarySprite());
+			mainPacket.addBits(3, player.getSprite().getPrimarySprite());
 			mainPacket.addBits(1, player.getUpdateFlags().isUpdateRequired() ? 1 : 0);
 		} else {
 			mainPacket.addBits(1, 1);
 			mainPacket.addBits(2, 2);
 			mainPacket.addBits(1, 1);
-			mainPacket.addBits(3, player.getSprites().getPrimarySprite());
-			mainPacket.addBits(3, player.getSprites().getSecondarySprite());
+			mainPacket.addBits(3, player.getSprite().getPrimarySprite());
+			mainPacket.addBits(3, player.getSprite().getSecondarySprite());
 			mainPacket.addBits(1, player.getUpdateFlags().isUpdateRequired() ? 1 : 0);
 		}
 	}
@@ -138,23 +138,23 @@ public class PlayerUpdate implements PacketBuilder {
 			mainPacket.addBits(1, p.getUpdateFlags().isUpdateRequired() ? 1 : 0);
 			mainPacket.addBits(7, p.getLocation().getLocalX(p.getUpdateFlags().getLastRegion()));
 		} else {
-			if(p.getSprites().getPrimarySprite() == -1) {
+			if(p.getSprite().getPrimarySprite() == -1) {
 				mainPacket.addBits(1, p.getUpdateFlags().isUpdateRequired() ? 1 : 0);
 				if(p.getUpdateFlags().isUpdateRequired()) {
 					mainPacket.addBits(2, 0);
 				}
 			} else {
-				if(p.getSprites().getSecondarySprite() != -1) {
+				if(p.getSprite().getSecondarySprite() != -1) {
 					mainPacket.addBits(1, 1);
 					mainPacket.addBits(2, 2);
 					mainPacket.addBits(1, 1);
-					mainPacket.addBits(3, p.getSprites().getPrimarySprite());
-					mainPacket.addBits(3, p.getSprites().getSecondarySprite());
+					mainPacket.addBits(3, p.getSprite().getPrimarySprite());
+					mainPacket.addBits(3, p.getSprite().getSecondarySprite());
 					mainPacket.addBits(1, p.getUpdateFlags().isUpdateRequired() ? 1 : 0);
 				} else {
 					mainPacket.addBits(1, 1);
 					mainPacket.addBits(2, 1);
-					mainPacket.addBits(3, p.getSprites().getPrimarySprite());
+					mainPacket.addBits(3, p.getSprite().getPrimarySprite());
 					mainPacket.addBits(1, p.getUpdateFlags().isUpdateRequired() ? 1 : 0);
 				}
 			}

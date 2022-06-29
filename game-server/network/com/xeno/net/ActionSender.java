@@ -10,11 +10,11 @@ import org.apache.mina.common.IoFutureListener;
 
 import com.xeno.content.Clan;
 import com.xeno.content.combat.Combat;
-import com.xeno.entity.Entity;
-import com.xeno.entity.item.GroundItem;
-import com.xeno.entity.item.Item;
-import com.xeno.entity.npc.NPC;
-import com.xeno.entity.player.Player;
+import com.xeno.entity.actor.Actor;
+import com.xeno.entity.actor.item.GroundItem;
+import com.xeno.entity.actor.item.Item;
+import com.xeno.entity.actor.npc.NPC;
+import com.xeno.entity.actor.player.Player;
 import com.xeno.model.player.skills.Skills;
 import com.xeno.net.Packet.Size;
 import com.xeno.packetbuilder.StaticPacketBuilder;
@@ -592,7 +592,7 @@ public class ActionSender {
 		player.getSession().write(spb.toPacket());
 	}
 	
-	public void followPlayer(Entity playerToFollow, int distance) {
+	public void followPlayer(Actor playerToFollow, int distance) {
 		StaticPacketBuilder spb = new StaticPacketBuilder().setId(17);
 		spb.addShortA(playerToFollow == null ? -1 : playerToFollow.getIndex());
 		spb.addShort(playerToFollow == null ? -1 : distance);
@@ -991,7 +991,7 @@ public class ActionSender {
 		player.getSession().write(packet.toPacket());
 	}
 	
-	public void sendProjectile(Location source, Location dest, int startSpeed, int gfx, int angle, int startHeight, int endHeight, int speed, Entity lockon) {
+	public void sendProjectile(Location source, Location dest, int startSpeed, int gfx, int angle, int startHeight, int endHeight, int speed, Actor lockon) {
 		sendProjectileCoords(source);
          StaticPacketBuilder spb = new StaticPacketBuilder().setId(16)
          .addByte((byte) ((byte) angle))
@@ -1008,7 +1008,7 @@ public class ActionSender {
          player.getSession().write(spb.toPacket());
 	}
 	
-	public void sendProjectile2(int offsetX, int offsetY, Location source, Location dest, int startSpeed, int gfx, int angle, int startHeight, int endHeight, int speed, Entity lockon) {
+	public void sendProjectile2(int offsetX, int offsetY, Location source, Location dest, int startSpeed, int gfx, int angle, int startHeight, int endHeight, int speed, Actor lockon) {
 		sendProjectileCoords2(source, offsetX, offsetY);
          StaticPacketBuilder spb = new StaticPacketBuilder().setId(16)
          .addByte((byte) ((byte) angle))
