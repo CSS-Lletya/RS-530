@@ -28,8 +28,8 @@ public final class DrainPrayerTask extends Task {
 			for(int i = 0; i < p.getPrayers().getPrayerActiveArray().length ; i++) {
 				if(p.getPrayers().isPrayerActive(i)) {
 					double drain = Prayer.DRAIN_RATE[i];
-					double bonus = (0.035 * p.getBonuses().getBonus(12));
-					drain = drain * (1 + bonus);
+//					double bonus = (0.035 * p.getBonuses().getBonus(12));
+					drain = drain * (1 + 0 ); //bonuses -> 0
 					drain = 0.6 / drain;
 					amountDrain += drain;
 				}

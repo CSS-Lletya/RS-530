@@ -1,6 +1,5 @@
 package com.xeno.entity.actor.player;
 
-import com.xeno.content.combat.constants.AttackInterfaceConfig;
 import com.xeno.entity.actor.item.Item;
 import com.xeno.entity.actor.item.ItemConstants;
 import com.xeno.model.player.skills.magic.AutoCast;
@@ -98,7 +97,7 @@ public class Equipment {
 			setWeapon();
 			AutoCast.cancel(p, true);
 		}
-		p.getBonuses().refresh();
+//		p.getBonuses().refresh();
 		p.setEntityFocus(65535);
 		return true;
 	}
@@ -115,7 +114,7 @@ public class Equipment {
 		setWeapon();
 		p.getActionSender().refreshEquipment();
 		p.getUpdateFlags().setAppearanceUpdateRequired(true);
-		p.getBonuses().refresh();
+//		p.getBonuses().refresh();
 	}
 	
 	public boolean unequipItem(int slot) {
@@ -127,7 +126,7 @@ public class Equipment {
 			slots[slot].setItemAmount(0);
 			p.getActionSender().refreshEquipment();
 			p.getUpdateFlags().setAppearanceUpdateRequired(true);
-			p.getBonuses().refresh();
+//			p.getBonuses().refresh();
 			p.setEntityFocus(65535);
 			if (slot == 3) {
 				setWeapon();
@@ -151,11 +150,10 @@ public class Equipment {
 		if(slots[3].getItemId() == -1) {
 			p.getInterfaceManager().sendTab(p.isHd() ? 93 : 83, 92);
 			p.getActionSender().modifyText("Unarmed", 92, 0);
-			AttackInterfaceConfig.setButtonForAttackStyle(p, 92);
 			return;
 		}
 		String weapon = slots[3].getDefinition().getName();
-		p.getSpecialAttack().setUsingSpecial(false);
+//		p.getSpecialAttack().setUsingSpecial(false);
 		p.setTarget(null);
 		int interfaceId = -1;
 		if(weapon.equals("Abyssal whip")) {
@@ -219,7 +217,6 @@ public class Equipment {
 			p.getActionSender().modifyText(weapon, 82, 0);
 			interfaceId = 82;
 		}
-		AttackInterfaceConfig.setButtonForAttackStyle(p, interfaceId);
 		setSpecials();
 	}
 	
@@ -266,7 +263,7 @@ public class Equipment {
 		} else if (weaponId == 1249 || weaponId == 13905) {
 			p.getActionSender().showChildInterface(85, 10, true);
 		}
-		p.getSpecialAttack().refreshBar();
+//		p.getSpecialAttack().refreshBar();
 	}
 	
 	public int getStandWalkAnimation() {
@@ -300,7 +297,7 @@ public class Equipment {
 		p.getActionSender().clearMapFlag();
 		Object[] opts = new Object[]{"", "", "", "", "Wear<col=ff9040>", -1, 0, 7, 4, 93, 43909120};
 		p.getInterfaceManager().displayInterface(667);
-		p.getBonuses().refresh();
+//		p.getBonuses().refresh();
 		p.getInterfaceManager().displayInventoryInterface(149);
 		p.getActionSender().sendClientScript2(172, 149, opts, "IviiiIsssss");
 		p.getActionSender().setRightClickOptions(1278, (667 * 65536) + 14, 0, 13);

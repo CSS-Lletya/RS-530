@@ -7,8 +7,6 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 import com.google.common.base.Preconditions;
-import com.xeno.content.combat.Combat.CombatType;
-import com.xeno.content.combat.constants.AttackVars;
 import com.xeno.entity.Entity;
 import com.xeno.entity.EntityType;
 import com.xeno.entity.Follow;
@@ -108,16 +106,6 @@ public abstract class Actor extends Entity {
 	 * Represents an instance of a Following Actor to Actor event.
 	 */
 	protected transient Follow follow;
-	
-	/**
-	 * Represents the last known combat swing type (mage, melee, range)
-	 */
-	protected transient CombatType lastCombatType;
-	
-	/**
-	 * Represents the Attack styles, etc..
-	 */
-	protected AttackVars attackVars;
 	
 	/**
 	 * Represents the last Attack style type used.

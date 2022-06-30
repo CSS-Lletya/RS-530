@@ -1,7 +1,5 @@
 package com.xeno.packetbuilder.packets.impl;
 
-import com.xeno.content.combat.Combat;
-import com.xeno.content.combat.MagicCombat;
 import com.xeno.entity.actor.npc.NPC;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.net.Constants;
@@ -65,7 +63,7 @@ public class NPCInteractionsPacket implements OutgoingPacket {
 			return;
 		}
 		System.out.println("NPC ID = " + npc.getId());
-		Combat.newAttack(player, npc);
+//		Combat.newAttack(player, npc);
 	}
 
 	private void handleSecondClickNPC(Player player, Packet packet) {
@@ -140,8 +138,7 @@ public class NPCInteractionsPacket implements OutgoingPacket {
 			return;
 		}
 		player.setTarget(npc);
-		MagicCombat.newMagicAttack(player, npc, childId, interfaceId == 193);
-		System.out.println(childId);
+//		MagicCombat.newMagicAttack(player, npc, childId, interfaceId == 193);
 	}
 
 	private void handleItemOnNPC(Player player, Packet packet) {

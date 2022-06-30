@@ -1,6 +1,5 @@
 package com.xeno.event;
 
-import com.xeno.content.combat.Combat;
 import com.xeno.entity.Location;
 import com.xeno.entity.actor.Actor;
 import com.xeno.entity.actor.npc.NPC;
@@ -43,17 +42,17 @@ public class DeathEvent extends Event {
 		if (entity.getFollow() != null) {
 			entity.getFollow().setFollowing(null);
 		}
-		if (entity.getTarget() != null) {
-			if (entity.getTarget().getAttacker() == null || entity.getTarget().getAttacker().equals(entity)) {
-				Combat.resetCombat(entity.getTarget(), 1);
-			}
-		}
-		if (entity.getAttacker() != null) {
-			if (entity.getAttacker().getTarget() == null || entity.getAttacker().getTarget().equals(entity)) {
-				Combat.resetCombat(entity.getAttacker(), 1);
-				entity.getAttacker().setEntityFocus(65535);
-			}
-		}
+//		if (entity.getTarget() != null) {
+//			if (entity.getTarget().getAttacker() == null || entity.getTarget().getAttacker().equals(entity)) {
+//				Combat.resetCombat(entity.getTarget(), 1);
+//			}
+//		}
+//		if (entity.getAttacker() != null) {
+//			if (entity.getAttacker().getTarget() == null || entity.getAttacker().getTarget().equals(entity)) {
+//				Combat.resetCombat(entity.getAttacker(), 1);
+//				entity.getAttacker().setEntityFocus(65535);
+//			}
+//		}
 		entity.setTarget(null);
 		entity.setAttacker(null);
 		if (entity.getKiller() != null) {
@@ -92,7 +91,7 @@ public class DeathEvent extends Event {
 	public void execute() {
 		if(entity instanceof NPC) {
 			if(!firstNpcStage) {
-				Combat.resetCombat(entity, 1);
+//				Combat.resetCombat(entity, 1);
 				entity.setHidden(true);
 				entity.dropLoot();
 				NPC n = (NPC) entity;
@@ -136,18 +135,9 @@ public class DeathEvent extends Event {
 				entity.setAttacker(null);
 				entity.setHp(entity.getMaxHp());
 				entity.teleport(Location.location(2341, 3162, 0));
-//				if (p.getInventory().getProtectedItems() != null) {
-//					for (int i = 0; i < p.getInventory().getProtectedItems().length; i++) {
-//						p.getInventory().addItem(p.getInventory().getProtectedItem(i));
-//					}
-//					p.getInventory().setProtectedItems(null);
-//				}
 				p.getPlayerDetails().setSkullCycles(0);
-				p.getSpecialAttack().resetSpecial();
-				p.getAttackVars().setDefault();
 				p.getEquipment().setWeapon();
 				entity.setLastOpponent(null);
-				Combat.resetCombat(entity, 1);
 				entity.setDead(false);
 				p.getPlayerDetails().setLastVengeanceTime(0);
 				p.getPlayerDetails().setVengeance(false);

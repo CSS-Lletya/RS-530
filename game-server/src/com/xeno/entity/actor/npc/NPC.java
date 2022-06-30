@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import com.xeno.content.combat.Combat;
-import com.xeno.content.combat.Combat.CombatType;
-import com.xeno.content.combat.constants.Animations;
 import com.xeno.entity.EntityType;
 import com.xeno.entity.Follow;
 import com.xeno.entity.Location;
@@ -14,7 +11,6 @@ import com.xeno.entity.actor.Actor;
 import com.xeno.entity.actor.item.GroundItem;
 import com.xeno.entity.actor.item.Item;
 import com.xeno.entity.actor.player.Player;
-import com.xeno.event.DeathEvent;
 import com.xeno.net.definitions.ItemDefinition;
 import com.xeno.net.definitions.NPCDefinition;
 import com.xeno.net.entity.masks.Animation;
@@ -57,13 +53,11 @@ public class NPC extends Actor {
     private Location minimumCoords = Location.location(0, 0, 0);
     private Location maximumCoords = Location.location(0, 0, 0);
     private int faceDirection = FaceDirection.NORTH;
-    private CombatType combatType;
 
     public NPC(int id) {
         this.id = id;
         this.definition = NPCDefinition.forId(id);
         this.setWalkType(WalkType.RANGE);
-        this.combatType = CombatType.MELEE;
         this.faceDirection = FaceDirection.NORTH;
     }
 
@@ -81,9 +75,6 @@ public class NPC extends Actor {
     public void tick() {
         getSprite().setSprites(-1, -1);
         int sprite = -1;
-        if (this.inCombat()) {
-            Combat.combatLoop(this);
-        }
         if (getFollow().getFollowing() != null && !isFrozen()) {
             getFollow().followEntity();
             return;
@@ -412,7 +403,8 @@ public class NPC extends Actor {
 
     @Override
     public int getHitDelay() {
-        return Animations.getNPCHitDelay(this);
+//        return Animations.getNPCHitDelay(this);
+    	return 1;
     }
 
     @Override
@@ -446,14 +438,6 @@ public class NPC extends Actor {
 
     public Location getSpawnLocation() {
         return spawnLocation;
-    }
-
-    public void setCombatType(CombatType combatType) {
-        this.combatType = combatType;
-    }
-
-    public CombatType getCombatType() {
-        return combatType;
     }
 
     public int getFaceDirection() {

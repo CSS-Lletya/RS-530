@@ -14,14 +14,6 @@ import org.apache.mina.common.IoSession;
 import com.xeno.content.Clan;
 import com.xeno.content.ShopSession;
 import com.xeno.content.TradeSession;
-import com.xeno.content.combat.Combat;
-import com.xeno.content.combat.Combat.CombatType;
-import com.xeno.content.combat.CombatFormula;
-import com.xeno.content.combat.SpecialAttack;
-import com.xeno.content.combat.constants.Animations;
-import com.xeno.content.combat.constants.AttackVars;
-import com.xeno.content.combat.constants.AttackVars.CombatSkill;
-import com.xeno.content.combat.constants.Bonuses;
 import com.xeno.content.emote.SkillCapes;
 import com.xeno.entity.Entity;
 import com.xeno.entity.EntityType;
@@ -117,7 +109,6 @@ public class Player extends Actor {
 	private transient List<Player> duelRequests;
 	private transient Clan clan;
 	private transient Prayers prayers;
-	private transient Bonuses bonuses;
 	private transient int lastWildLevel;
 	private transient boolean hd;
 	private transient Object distanceEvent;
@@ -128,7 +119,6 @@ public class Player extends Actor {
 	private Skills skills;
 	private Inventory inventory;
 	private Friends friends;
-	private SpecialAttack specialAttack;
     public int firstColumn = 1, secondColumn = 1, thirdColumn = 1;
     
     public InterfaceManager interfaceManager;
@@ -143,8 +133,6 @@ public class Player extends Actor {
 		this.playerDetails = new PlayerDetails();
 		this.bank = new Bank();
 		this.playerDetails.setDefaultSettings();
-		this.specialAttack = new SpecialAttack();
-		attackVars = new AttackVars();
 	}
 
     public Player() {
@@ -170,7 +158,6 @@ public class Player extends Actor {
 		localEntities = new LocalEntityList();
 		playerDetails.setPlayer(this);
 		prayers = new Prayers(this);
-		specialAttack.setPlayer(this);
 		temporaryAttributes = new HashMap<String, Object>();
 		lastChatMessage = null;
 		lastAnimation = null;
@@ -182,7 +169,6 @@ public class Player extends Actor {
 		tradeRequests = new ArrayList<Player>();
 		duelRequests = new ArrayList<Player>();
 		clan = null;
-		bonuses = new Bonuses(this);
 		lastWildLevel = -1;
 		playerCredentials.refreshLongName();
 		queuedHits = new LinkedList<Hit>();
@@ -193,13 +179,13 @@ public class Player extends Actor {
 	}
 
 	/**
-	 * Called roughly every 500ms.
+	 * Called roughly every 600ms.
 	 */
 	
 	public void tick() {
-		if (this.inCombat()) {
-			Combat.combatLoop(this);
-		}
+//		if (this.inCombat()) {
+//			Combat.combatLoop(this);
+//		}
 		if (getFollow().getFollowing() != null) {
 			getFollow().followEntity();
 		}
@@ -436,7 +422,7 @@ public class Player extends Actor {
 					equipment.getSlot(12).setItemAmount(0);
 					actionSender.refreshEquipment();
 					queuedHits.clear();
-					Combat.resetCombat(this, 1);
+//					Combat.resetCombat(this, 1);
 					return;
 				}
 			}
@@ -560,13 +546,6 @@ public class Player extends Actor {
 		return prayers;
 	}
 	
-	public SpecialAttack getSpecialAttack() {
-		return this.specialAttack;
-	}
-	
-	public CombatType getCombatType() {
-		return CombatType.MELEE;
-	}
 
 	@Override
 	public void dropLoot() {
@@ -656,15 +635,17 @@ public class Player extends Actor {
 
 	@Override
 	public int getAttackAnimation() {
-		return !this.appearance.isNpc() ? Animations.getAttackAnimation(this) : NPCDefinition.forId(this.appearance.getNpcId()).getAttackAnimation();
+//		return !this.appearance.isNpc() ? Animations.getAttackAnimation(this) : NPCDefinition.forId(this.appearance.getNpcId()).getAttackAnimation();
+		return 0;
 	}
 
 	@Override
 	public int getAttackSpeed() {
-		if (getMiasmicEffect() > 0) {
-			return Animations.getAttackSpeed(this) * 2;
-		}
-		return Animations.getAttackSpeed(this);
+//		if (getMiasmicEffect() > 0) {
+//			return Animations.getAttackSpeed(this) * 2;
+//		}
+//		return Animations.getAttackSpeed(this);
+		return 0;
 	}
 
 	@Override
@@ -674,12 +655,14 @@ public class Player extends Actor {
 
 	@Override
 	public int getDefenceAnimation() {
-		return !this.appearance.isNpc() ? Animations.getDefenceAnimation(this) : NPCDefinition.forId(this.appearance.getNpcId()).getDefenceAnimation();
+//		return !this.appearance.isNpc() ? Animations.getDefenceAnimation(this) : NPCDefinition.forId(this.appearance.getNpcId()).getDefenceAnimation();
+		return 0;
 	}
 
 	@Override
 	public int getHitDelay() {
-		return Animations.getPlayerHitDelay(this);
+//		return Animations.getPlayerHitDelay(this);
+		return 0;
 	}
 
 	@Override
@@ -689,85 +672,86 @@ public class Player extends Actor {
 
 	@Override
 	public int getMaxHit() {
-        // float effectiveStr = (float) Math.floor((skills.getLevel(2)) * 1/*prayer*/ * 1/*other*/ + 0/*style*/);
-        /*float baseDmg = 1.3F + (effectiveStr / 9.5F) + (bonuses.getBonus(11) / 8F) + ((effectiveStr * bonuses.getBonus(11)) / 64F);
-        return (int) baseDmg * bonuses.getBonus(11);*/
-		int a = skills.getLevel(2);
-		int b = bonuses.getBonus(11);
-		CombatSkill fightType = this.getAttackVars().getSkill();
-		double c = (double)a;
-		double d = (double)b;
-		double e = 0;
-		double f = 0;
-		double g = 0;
-		double gg = 0;
-		double h = 0;
-		int strPrayer = prayers.getStrengthPrayer();
-		if (strPrayer == 1) {
-			gg = 0.05;
-		} else if (strPrayer == 2) {
-			gg = 0.1;
-		} else if (strPrayer == 3) {
-			gg = 0.15;
-		} else if (prayers.getSuperPrayer() == 1) {
-			gg = 0.18;
-		} else if (prayers.getSuperPrayer() == 2) {
-			gg = 0.23;
-		}
-		e = c*(1+g+gg);
-		if(fightType.equals(CombatSkill.AGGRESSIVE)) {
-			e += 3;
-		}
-		if(fightType.equals(CombatSkill.CONTROLLED)) {
-			e += 1;
-		}
-		f = (d*0.00175)+0.1;
-		h = Math.floor(e*f);//2.05);
-		if (a >= 80) {
-			h -= 2.0;
-		} else {
-			h += 2.0;
-		}
-		if (CombatFormula.wearingMeleeVoid(this)) {
-			h *= 1.10;
-		}
-		return (int) h;
-
-		/*double maxHit = 0;
-		if(this.getCombatType().equals(CombatType.MELEE)) {
-			int strBonus = bonuses.getBonus(11);
-			int strength = skills.getLevel(2);
-			int fightType = this.getSettings().getAttackStyle();
-			if(fightType == 1 || fightType == 4) {
-				maxHit += (double) (1.05 + (double) ((double) (strBonus * strength) * 0.00175));
-			} else if(fightType == 2) {
-				maxHit += (double) (1.35 + (double) ((double) (strBonus) * 0.00525));
-			} else if(fightType == 3){
-				maxHit += (double) (1.15 + (double) ((double) (strBonus) * 0.00175));
-			}
-			int strPrayer = prayers.getStrengthPrayer();
-			if (strPrayer == 1) {
-				maxHit += (double) 0.05;
-			} else if (strPrayer == 2) {
-				maxHit += (double) 0.1;
-			} else if (strPrayer == 3) {
-				maxHit += (double) 0.15;
-			} else if (prayers.getSuperPrayer() == 1) {
-				maxHit += (double) 0.18;
-			} else if (prayers.getSuperPrayer() == 2) {
-				maxHit += (double) 0.23;
-			}
-			maxHit += (double)(strength * 0.1);
-			System.out.println("maxHit " + maxHit);
-		} else if(this.getCombatType().equals(CombatType.RANGE)) {
-			int range = skills.getLevel(4);
-			int rangeBonus = bonuses.getBonus(4);
-			double d = ((double) (rangeBonus * 0.00175D) + 0.1D);
-			maxHit += d * (double) range + 2.05D;
-		} else {
-			// Magic spells have a set max hit.
-		}
-		return ((int) (Math.ceil(maxHit)) + 1);*/
+//        // float effectiveStr = (float) Math.floor((skills.getLevel(2)) * 1/*prayer*/ * 1/*other*/ + 0/*style*/);
+//        /*float baseDmg = 1.3F + (effectiveStr / 9.5F) + (bonuses.getBonus(11) / 8F) + ((effectiveStr * bonuses.getBonus(11)) / 64F);
+//        return (int) baseDmg * bonuses.getBonus(11);*/
+//		int a = skills.getLevel(2);
+//		int b = bonuses.getBonus(11);
+//		CombatSkill fightType = this.getAttackVars().getSkill();
+//		double c = (double)a;
+//		double d = (double)b;
+//		double e = 0;
+//		double f = 0;
+//		double g = 0;
+//		double gg = 0;
+//		double h = 0;
+//		int strPrayer = prayers.getStrengthPrayer();
+//		if (strPrayer == 1) {
+//			gg = 0.05;
+//		} else if (strPrayer == 2) {
+//			gg = 0.1;
+//		} else if (strPrayer == 3) {
+//			gg = 0.15;
+//		} else if (prayers.getSuperPrayer() == 1) {
+//			gg = 0.18;
+//		} else if (prayers.getSuperPrayer() == 2) {
+//			gg = 0.23;
+//		}
+//		e = c*(1+g+gg);
+//		if(fightType.equals(CombatSkill.AGGRESSIVE)) {
+//			e += 3;
+//		}
+//		if(fightType.equals(CombatSkill.CONTROLLED)) {
+//			e += 1;
+//		}
+//		f = (d*0.00175)+0.1;
+//		h = Math.floor(e*f);//2.05);
+//		if (a >= 80) {
+//			h -= 2.0;
+//		} else {
+//			h += 2.0;
+//		}
+////		if (CombatFormula.wearingMeleeVoid(this)) {
+////			h *= 1.10;
+////		}
+//		return (int) h;
+//
+//		/*double maxHit = 0;
+//		if(this.getCombatType().equals(CombatType.MELEE)) {
+//			int strBonus = bonuses.getBonus(11);
+//			int strength = skills.getLevel(2);
+//			int fightType = this.getSettings().getAttackStyle();
+//			if(fightType == 1 || fightType == 4) {
+//				maxHit += (double) (1.05 + (double) ((double) (strBonus * strength) * 0.00175));
+//			} else if(fightType == 2) {
+//				maxHit += (double) (1.35 + (double) ((double) (strBonus) * 0.00525));
+//			} else if(fightType == 3){
+//				maxHit += (double) (1.15 + (double) ((double) (strBonus) * 0.00175));
+//			}
+//			int strPrayer = prayers.getStrengthPrayer();
+//			if (strPrayer == 1) {
+//				maxHit += (double) 0.05;
+//			} else if (strPrayer == 2) {
+//				maxHit += (double) 0.1;
+//			} else if (strPrayer == 3) {
+//				maxHit += (double) 0.15;
+//			} else if (prayers.getSuperPrayer() == 1) {
+//				maxHit += (double) 0.18;
+//			} else if (prayers.getSuperPrayer() == 2) {
+//				maxHit += (double) 0.23;
+//			}
+//			maxHit += (double)(strength * 0.1);
+//			System.out.println("maxHit " + maxHit);
+//		} else if(this.getCombatType().equals(CombatType.RANGE)) {
+//			int range = skills.getLevel(4);
+//			int rangeBonus = bonuses.getBonus(4);
+//			double d = ((double) (rangeBonus * 0.00175D) + 0.1D);
+//			maxHit += d * (double) range + 2.05D;
+//		} else {
+//			// Magic spells have a set max hit.
+//		}
+//		return ((int) (Math.ceil(maxHit)) + 1);*/
+		return 0;
 	}
 
 	@Override
@@ -823,30 +807,6 @@ public class Player extends Actor {
 		actionSender.sendSkillLevel(3);
 	}
 	
-	public Bonuses getBonuses() {
-		return this.bonuses;
-	}
-
-	public int getLastWildLevel() {
-		return lastWildLevel;
-	}
-
-	public void setLastwildLevel(int currentLevel) {
-		this.lastWildLevel = currentLevel;
-	}
-
-	public void setWalkingQueue(WalkingQueue wQ) {
-		this.walkingQueue = wQ;
-	}
-
-	public Object getDistanceEvent() {
-		return distanceEvent;
-	}
-	
-	public void setDistanceEvent(Object event) {
-		this.distanceEvent = event;
-	}
-	
 	public final boolean goodDistance(int objectX, int objectY, int playerX, int playerY, int distance) {
         int deltaX = objectX - playerX;
         int deltaY = objectY - playerY;
@@ -854,29 +814,15 @@ public class Player extends Actor {
         return trueDistance <= distance ? true : false;
 	}
 	
-	private int clickItem;
-	
-	public int getClickItem() {
-		return clickItem;
-	}
-	
-	public void setClickItem(int item) {
-		this.clickItem = item;
-	}
-	
-	public SkillCapes getSkillCapes() {
-		return this.skillCapes;
-	}
-	
 	public void logout() {
-		if (!Combat.isXSecondsSinceCombat(this, getLastAttacked(), 10000)) {
-			getActionSender().sendMessage("You must have been out of combat for 10 seconds before you may log out.");
-			return;
-		}
+//		if (!Combat.isXSecondsSinceCombat(this, getLastAttacked(), 10000)) {
+//			getActionSender().sendMessage("You must have been out of combat for 10 seconds before you may log out.");
+//			return;
+//		}
 		getSession().write(new StaticPacketBuilder().setId(86).toPacket()).addListener(new IoFutureListener() {
 			@Override
-			public void operationComplete(IoFuture arg0) {
-				arg0.getSession().close();
+			public void operationComplete(IoFuture current) {
+				current.getSession().close();
 			}
 		});
 	}
@@ -889,5 +835,4 @@ public class Player extends Actor {
 			}
 		});
 	}
-	
 }

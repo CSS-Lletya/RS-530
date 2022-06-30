@@ -9,7 +9,6 @@ import java.util.stream.Stream;
 import com.xeno.GameEngine;
 import com.xeno.content.ClanManager;
 import com.xeno.content.ShopManager;
-import com.xeno.content.combat.Combat;
 import com.xeno.entity.actor.Actor;
 import com.xeno.entity.actor.item.GroundItemManager;
 import com.xeno.entity.actor.npc.NPC;
@@ -338,9 +337,9 @@ public class World {
 			return;
 		}
 		
-		if (!Combat.isXSecondsSinceCombat(p, p.getLastAttacked(), 10000) || p.isDead() || p.getTemporaryAttribute("unmovable") != null) {
-			return;
-		}
+//		if (!Combat.isXSecondsSinceCombat(p, p.getLastAttacked(), 10000) || p.isDead() || p.getTemporaryAttribute("unmovable") != null) {
+//			return;
+//		}
 		removeAllPlayersNPCs(p);
 		clanManager.leaveChannel(p);
 		players.remove(p);

@@ -85,7 +85,7 @@ public class PlayerDetails {
 		if (achievementDiaryTab) {
 			player.getInterfaceManager().sendTab(player.isHd() ? 95 : 85, 259);
 		}
-		player.getSpecialAttack().setSpecialAmount(specialAmount);
+//		player.getSpecialAttack().setSpecialAmount(specialAmount);
 		player.setPoisonAmount(poisonAmount);
 		if (poisonAmount > 0) {
 			World.getInstance().submit(new PoisonTask((Actor) player, poisonAmount));
@@ -100,7 +100,7 @@ public class PlayerDetails {
 				});
 			}
 		}
-		player.getBonuses().refresh();
+//		player.getBonuses().refresh();
 		setSkullCycles(skullCycles); // This method updates the appearance, so have this last.
 	}
 	

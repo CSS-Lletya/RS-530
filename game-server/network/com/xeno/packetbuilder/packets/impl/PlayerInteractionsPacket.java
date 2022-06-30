@@ -2,8 +2,6 @@ package com.xeno.packetbuilder.packets.impl;
 
 import com.xeno.content.Trade;
 import com.xeno.content.TradeSession;
-import com.xeno.content.combat.Combat;
-import com.xeno.content.combat.MagicCombat;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.AreaTask;
 import com.xeno.net.Constants;
@@ -54,7 +52,7 @@ public class PlayerInteractionsPacket implements OutgoingPacket {
 		}
 		player.setFaceLocation(new FaceLocation(p2.getLocation()));
 		player.getInterfaceManager().closeInterfaces();
-		Combat.newAttack(player, p2);
+//		Combat.newAttack(player, p2);
 	}
 
 	private void handleFollowPlayer(Player player, Packet packet) {
@@ -147,6 +145,6 @@ public class PlayerInteractionsPacket implements OutgoingPacket {
 		}
 		player.getInterfaceManager().closeInterfaces();
 		player.setTarget(p2);
-		MagicCombat.newMagicAttack(player, p2, id, interfaceId == 193);
+//		MagicCombat.newMagicAttack(player, p2, id, interfaceId == 193);
 	}
 }

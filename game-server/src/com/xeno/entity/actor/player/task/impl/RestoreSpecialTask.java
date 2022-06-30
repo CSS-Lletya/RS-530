@@ -18,18 +18,18 @@ public final class RestoreSpecialTask extends Task {
 	@Override
 	@SneakyThrows(Throwable.class)
 	public void execute() {
-		for (Player p : World.getInstance().getPlayerList()) {
-			if (p == null) {
-				continue;
-			}
-			if (p.getSpecialAttack().getSpecialAmount() < 100) {
-				p.getSpecialAttack().setSpecialAmount(p.getSpecialAttack().getSpecialAmount() + 20);
-				if (p.getSpecialAttack().getSpecialAmount() > 100) {
-					p.getSpecialAttack().setSpecialAmount(100);
-				}
-				p.getPlayerDetails().setSpecialAmount(p.getSpecialAttack().getSpecialAmount());
-			}
-		}
+//		for (Player p : World.getInstance().getPlayerList()) {
+//			if (p == null) {
+//				continue;
+//			}
+//			if (p.getSpecialAttack().getSpecialAmount() < 100) {
+//				p.getSpecialAttack().setSpecialAmount(p.getSpecialAttack().getSpecialAmount() + 20);
+//				if (p.getSpecialAttack().getSpecialAmount() > 100) {
+//					p.getSpecialAttack().setSpecialAmount(100);
+//				}
+//				p.getPlayerDetails().setSpecialAmount(p.getSpecialAttack().getSpecialAmount());
+//			}
+//		}
 	}
 	
 	@Override
