@@ -18,7 +18,7 @@ public class Follow {
 	Location lastLoc = null;
 
 	public void followEntity() {
-		if (follower == null || entity.isDead() || follower.isDead() || follower.isDestroyed()) {
+		if (follower == null || entity.isDead() || follower.isDead() || follower.isValid()) {
 			follower = null;
 			return;
 		}

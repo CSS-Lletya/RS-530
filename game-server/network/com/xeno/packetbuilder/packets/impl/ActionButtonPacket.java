@@ -20,5 +20,6 @@ public class ActionButtonPacket implements OutgoingPacket {
 		if(buttonId2 == 65535) {
 			buttonId2 = 0;
 		}
+		System.out.println(buttonId);
 	}
 }

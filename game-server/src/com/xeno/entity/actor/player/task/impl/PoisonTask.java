@@ -47,10 +47,10 @@ public final class PoisonTask extends Task {
 	
 	private void initialize(int poisonAmount) { 
 		if (target instanceof Player) {
-			if (((Player)target).getPlayerDetails().getSuperAntipoisonCycles() > 0) {
-				stop();
-				return;
-			}
+//			if (((Player)target).getPlayerDetails().getSuperAntipoisonCycles() > 0) {
+//				stop();
+//				return;
+//			}
 			((Player)target).getActionSender().sendMessage("You have been poisoned!");
 		}
 		target.setPoisonAmount(poisonAmount);

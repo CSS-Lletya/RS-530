@@ -19,7 +19,6 @@ import com.xeno.entity.actor.player.task.Task;
 import com.xeno.entity.actor.player.task.TaskManager;
 import com.xeno.entity.actor.player.task.impl.AreaVariablesTask;
 import com.xeno.entity.actor.player.task.impl.LevelChangeTask;
-import com.xeno.entity.actor.player.task.impl.LowerPotionCyclesTask;
 import com.xeno.entity.actor.player.task.impl.RestoreSpecialTask;
 import com.xeno.entity.actor.player.task.impl.RunEnergyTask;
 import com.xeno.entity.actor.player.task.impl.SkullCycleTask;
@@ -51,12 +50,12 @@ public class World {
 	/**
 	 * Represents a valid Player check
 	 */
-	private final Predicate<Player> VALID_PLAYER = (player) -> player != null && !player.isDisconnected() && !player.isDestroyed();
+	private final Predicate<Player> VALID_PLAYER = (player) -> player != null && !player.isDisconnected() && !player.isValid();
 	
 	/**
 	 * Represents a valid NPC check
 	 */
-	private final Predicate<NPC> VALID_NPC = (npc) -> npc != null && !npc.isDestroyed();
+	private final Predicate<NPC> VALID_NPC = (npc) -> npc != null && !npc.isValid();
 	
 	/**
 	 * Represents a valid Actor check
@@ -138,7 +137,6 @@ public class World {
 	public void registerGlobalEvents() {
 		World.getInstance().submit(new AreaVariablesTask());
 		World.getInstance().submit(new LevelChangeTask());
-		World.getInstance().submit(new LowerPotionCyclesTask());
 		World.getInstance().submit(new RestoreSpecialTask());
 		World.getInstance().submit(new RunEnergyTask());
 		World.getInstance().submit(new SkullCycleTask());

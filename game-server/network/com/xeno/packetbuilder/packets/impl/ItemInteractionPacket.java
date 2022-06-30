@@ -144,7 +144,6 @@ public class ItemInteractionPacket implements OutgoingPacket {
 		int interfaceId = packet.readLEShort();
 		int child = packet.readShort();
 		int objectId = packet.readShortA();
-		player.setClickItem(item);
 		if (slot > 28 || slot < 0 || player.isDead() || player.getTemporaryAttribute("cantDoAnything") != null) {
 			return;
 		}
@@ -336,25 +335,7 @@ public class ItemInteractionPacket implements OutgoingPacket {
 		if (player.getInventory().getItemInSlot(slot) == item) {
 			player.getInterfaceManager().closeInterfaces();
 			switch (player.getInventory().getItemInSlot(slot)) {
-			case 5509: // Small pouch.
-				player.getActionSender().sendMessage("There is " + player.getPlayerDetails().getSmallPouchAmount()
-						+ " Pure essence in your small pouch. (holds 3).");
-				break;
-
-			case 5510: // Medium pouch.
-				player.getActionSender().sendMessage("There is " + player.getPlayerDetails().getMediumPouchAmount()
-						+ " Pure essence in your medium pouch. (holds 6).");
-				break;
-
-			case 5512: // Large pouch.
-				player.getActionSender().sendMessage("There is " + player.getPlayerDetails().getLargePouchAmount()
-						+ " Pure essence in your large pouch. (holds 9).");
-				break;
-
-			case 5514: // Giant pouch.
-				player.getActionSender().sendMessage("There is " + player.getPlayerDetails().getGiantPouchAmount()
-						+ " Pure essence in your giant pouch. (holds 12).");
-				break;
+			
 			}
 		}
 	}

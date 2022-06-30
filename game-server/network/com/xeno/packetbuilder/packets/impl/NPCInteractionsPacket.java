@@ -59,7 +59,7 @@ public class NPCInteractionsPacket implements OutgoingPacket {
 			return;
 		}
 		final NPC npc = World.getInstance().getNpcList().get(npcIndex);
-		if (npc == null || npc.isDestroyed()) {
+		if (npc == null || npc.isValid()) {
 			return;
 		}
 		System.out.println("NPC ID = " + npc.getId());
@@ -73,7 +73,7 @@ public class NPCInteractionsPacket implements OutgoingPacket {
 			return;
 		}
 		final NPC npc = World.getInstance().getNpcList().get(npcIndex);
-		if (npc == null || npc.isDestroyed()) {
+		if (npc == null || npc.isValid()) {
 			return;
 		}
 		System.out.println("Second click NPC " + npc.getId());
@@ -88,7 +88,7 @@ public class NPCInteractionsPacket implements OutgoingPacket {
 			return;
 		}
 		final NPC npc = World.getInstance().getNpcList().get(npcIndex);
-		if (npc == null || npc.isDestroyed()) {
+		if (npc == null || npc.isValid()) {
 			return;
 		}
 		System.out.println("Third click NPC " + npc.getId());
@@ -103,7 +103,7 @@ public class NPCInteractionsPacket implements OutgoingPacket {
 			return;
 		}
 		final NPC npc = World.getInstance().getNpcList().get(npcIndex);
-		if (npc == null || npc.isDestroyed()) {
+		if (npc == null || npc.isValid()) {
 			return;
 		}
 		System.out.println("Fourth click NPC " + npc.getId());
@@ -118,7 +118,7 @@ public class NPCInteractionsPacket implements OutgoingPacket {
 			return;
 		}
 		final NPC npc = World.getInstance().getNpcList().get(npcIndex);
-		if (npc == null || npc.isDestroyed()) {
+		if (npc == null || npc.isValid()) {
 			return;
 		}
 		System.out.println("Fifth click NPC " + npc.getId());
@@ -134,7 +134,7 @@ public class NPCInteractionsPacket implements OutgoingPacket {
 			return;
 		}
 		final NPC npc = World.getInstance().getNpcList().get(npcIndex);
-		if (npc == null || npc.isDestroyed()) {
+		if (npc == null || npc.isValid()) {
 			return;
 		}
 		player.setTarget(npc);
@@ -151,7 +151,7 @@ public class NPCInteractionsPacket implements OutgoingPacket {
 			return;
 		}
 		final NPC npc = World.getInstance().getNpcList().get(npcIndex);
-		if (npc == null || npc.isDestroyed()) {
+		if (npc == null || npc.isValid()) {
 			return;
 		}
 		player.getInterfaceManager().closeInterfaces();

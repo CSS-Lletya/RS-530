@@ -140,9 +140,6 @@ public class DeathEvent extends Event {
 				entity.setLastOpponent(null);
 				entity.setDead(false);
 				p.getPlayerDetails().setLastVengeanceTime(0);
-				p.getPlayerDetails().setVengeance(false);
-				p.getPlayerDetails().setAntifireCycles(0);
-				p.getPlayerDetails().setSuperAntipoisonCycles(0);
 				p.removeTemporaryAttribute("willDie");
 				p.setFrozen(false);
 				p.removeTemporaryAttribute("unmovable");
@@ -162,7 +159,7 @@ public class DeathEvent extends Event {
 		if (lastAttacker == null) {
 			return;
 		}
-		if (lastAttacker.isDead() || lastAttacker.isHidden() || lastAttacker.isDestroyed()) {
+		if (lastAttacker.isDead() || lastAttacker.isHidden() || lastAttacker.isValid()) {
 			return;
 		}
 		Location l = p.getLocation();

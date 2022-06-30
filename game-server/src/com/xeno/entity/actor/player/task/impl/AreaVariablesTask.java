@@ -48,7 +48,7 @@ public final class AreaVariablesTask extends Task {
 		int currentLevel = wildernessLevel(p.getLocation());
 		if (currentLevel != p.getLastWildLevel()) {
 			if (currentLevel > 0) {
-				p.setLastwildLevel(currentLevel);
+				p.setLastWildLevel(currentLevel);
 				if (p.getTemporaryAttribute("inWild") == null) {
 					p.getActionSender().sendPlayerOption("Attack", 1, 1);
 					p.getInterfaceManager().sendOverlay(381);
@@ -58,7 +58,7 @@ public final class AreaVariablesTask extends Task {
 				if (p.getTemporaryAttribute("inWild") != null) {
 					p.getActionSender().sendPlayerOption("null", 1, 1);
 					p.getInterfaceManager().sendRemoveOverlay();
-					p.setLastwildLevel(0);
+					p.setLastWildLevel(0);
 					p.removeTemporaryAttribute("inWild");
 				}
 			}

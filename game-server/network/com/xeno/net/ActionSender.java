@@ -815,4 +815,11 @@ public class ActionSender {
 		player.getSession().write(spb.toPacket());
 		return this;
 	}
+	
+	public ActionSender setLobbyIP() {
+		StaticPacketBuilder writer = new StaticPacketBuilder(172);
+		writer.addInt(0);//or 4 bytes
+		player.getSession().write(writer.toPacket());
+		return this;
+	}
 }

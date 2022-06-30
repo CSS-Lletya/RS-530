@@ -23,7 +23,7 @@ public class GroundItemManager {
 		synchronized(items) {
 			items.add(item);
 		}
-		if (item.getOwner() != null && !item.getOwner().isDestroyed()) {
+		if (item.getOwner() != null && !item.getOwner().isValid()) {
 			item.getOwner().getActionSender().createGroundItem(item);
 		}
 		World.getInstance().submit(new Task(60) {

@@ -1,6 +1,6 @@
 package com.xeno.entity.actor.player;
 
-import com.xeno.packetbuilder.StaticPacketBuilder;
+import com.xeno.GameConstants;
 
 public class InterfaceManager {
 
@@ -13,7 +13,7 @@ public class InterfaceManager {
 	public void sendLogin() {
 		player.getActionSender().sendWindowPane(player.isHd() ? 746 : 548);
 		player.getActionSender().sendSkillLevels();
-		player.getActionSender().sendMessage("Welcome to 2009Remade.");
+		player.getActionSender().sendMessage("Welcome to "+GameConstants.SERVER_NAME+".");
 		player.getActionSender().sendEnergy();
 		player.getActionSender().sendConfig(173, 0);
 		player.getActionSender().refreshInventory();
@@ -24,6 +24,7 @@ public class InterfaceManager {
 		player.getPlayerDetails().refresh();
 		player.getEquipment().setWeapon();
 		player.getActionSender().setPrivacyOptions();
+		setWelcome();
 	}
 
 	public void closeInterfaces() {
@@ -73,7 +74,8 @@ public class InterfaceManager {
 
 	public void configureGameScreen(int windowType) {
 		boolean resetVariables = false;
-		boolean achievementDiary = player.getPlayerDetails().isAchievementDiaryTab();
+//		boolean achievementDiary = player.getPlayerDetails().isAchievementDiaryTab();
+		boolean achievementDiary = false;
 		int magicInterface = player.getPlayerDetails().getMagicType() == 2 ? 193
 				: player.getPlayerDetails().getMagicType() == 3 ? 430 : 192;
 		int lastWindowType = (Integer) player.getTemporaryAttribute("lastWindowType") == null ? -1
@@ -206,5 +208,34 @@ public class InterfaceManager {
 			return;
 		}
 		player.getActionSender().sendInterface(0, 548, 80, childId);
+	}
+	
+	/**
+	 * The original login lobby screen.
+	 */
+	public void setWelcome() {
+		player.getActionSender().sendWindowPane(549);
+		player.getActionSender().sendInterface(1, 549, 2, 378);
+		player.getActionSender().sendInterface(1, 549, 3, 17); // can use 15 - string 0 and 4, 17 - string 0 and 3, and
+																// 447 - string 0, 1 and 2.
+		player.getActionSender().modifyText("Welcome to " + GameConstants.SERVER_NAME, 378, 115); // Server name at very top
+		player.getActionSender().modifyText(GameConstants.SERVER_NAME + " is currently in development.", 378, 116); // Just under main
+																									// title (in rs is
+																									// used for last
+																									// logged in from)
+		player.getActionSender().modifyText("0", 378, 39); // Message count
+		player.getActionSender().modifyText("No new messages", 378, 37); // under message icon
+		player.getActionSender().modifyText("Join our discord server to stay in touch!", 378, 38); // mesage at bottom of mesage
+																							// box
+		player.getActionSender().modifyText("0", 378, 96);// member credit remaining
+		player.getActionSender().modifyText("Unlimited", 378, 94);// under money icon
+		player.getActionSender().modifyText("Your membership will never expire. ", 378, 93);// message at bottom of
+																							// money box
+		player.getActionSender().modifyText("Welcome to " + GameConstants.SERVER_NAME, 378, 62); // next to
+																										// asterix icon
+		player.getActionSender().modifyText("Keep your account secure, update your details frequently!", 378, 56); // next to
+																											// lock icon
+		player.getActionSender().modifyText("Welcome to " + GameConstants.SERVER_NAME, 17, 0); // bottom red mesage
+		player.getActionSender().modifyText("We're currently in development, expect bugs!", 17, 3); // Under the red text
 	}
 }

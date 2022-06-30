@@ -102,26 +102,25 @@ public class Player extends Actor {
 	private transient ForceText forceText;
 	private transient FaceLocation faceLocation;
 	private transient ForceMovement forceMovement;
-	private transient Map<String, Object> temporaryAttributes;
 	private transient ShopSession shopSession;
-	private transient Queue<Hit> queuedHits;
-	private transient List<Player> tradeRequests;
-	private transient List<Player> duelRequests;
 	private transient Clan clan;
 	private transient Prayers prayers;
-	private transient int lastWildLevel;
-	private transient boolean hd;
-	private transient Object distanceEvent;
-	private SkillCapes skillCapes;
+	private transient SkillCapes skillCapes;
 	private Bank bank;
 	private Appearance appearance;
 	private Equipment equipment;
 	private Skills skills;
 	private Inventory inventory;
 	private Friends friends;
-    public int firstColumn = 1, secondColumn = 1, thirdColumn = 1;
     
-    public InterfaceManager interfaceManager;
+    public transient InterfaceManager interfaceManager;
+	private transient Queue<Hit> queuedHits;
+	private transient List<Player> tradeRequests;
+	private transient List<Player> duelRequests;
+	private transient Map<String, Object> temporaryAttributes;
+	private transient int lastWildLevel;
+	private transient boolean hd;
+	private transient Object distanceEvent;
 	
 	public Player(PlayerCredentials details) {
 		this.playerCredentials = details;
@@ -135,9 +134,6 @@ public class Player extends Actor {
 		this.playerDetails.setDefaultSettings();
 	}
 
-    public Player() {
-    }
-	
 	/**
 	 * Called when XStream loads us.
 	 * 
@@ -256,18 +252,9 @@ public class Player extends Actor {
 		return localEntities.playerListSize;
 	}
 
-	public void setPlayerList(Player[] playerList) {
-		localEntities.playerList = playerList;
-	}
-
 	public Player[] getPlayerList() {
 		return localEntities.playerList;
 	}
-	
-	public void setPlayersInList(byte[] playersInList) {
-		localEntities.playersInList = playersInList;
-	}
-
 	public byte[] getPlayersInList() {
 		return localEntities.playersInList;
 	}
@@ -288,40 +275,8 @@ public class Player extends Actor {
 		return localEntities.npcList;
 	}
 	
-	public void setNpcsInList(byte[]npcsInList) {
-		localEntities.npcsInList = npcsInList;
-	}
-
 	public byte[] getNpcsInList() {
 		return localEntities.npcsInList;
-	}
-
-	public Inventory getInventory() {
-		return inventory;
-	}
-	
-	public ChatMessage getLastChatMessage() {
-		return lastChatMessage;
-	}
-	
-	public void setLastChatMessage(ChatMessage msg) {
-		lastChatMessage = msg;
-	}
-	
-	public Friends getFriends() {
-		return friends;
-	}
-
-	public boolean isRebuildNpcList() {
-		return localEntities.rebuildNpcList;
-	}
-	
-	public Animation getLastAnimation() {
-		return lastAnimation;
-	}
-	
-	public void setLastAnimation(Animation lastAnimation) {
-		this.lastAnimation = lastAnimation;
 	}
 	
 	public void setEntityFocus(EntityFocus entityFocus) {
@@ -338,22 +293,10 @@ public class Player extends Actor {
 		this.forceText = forceText;
 		updateFlags.setForceTextUpdateRequired(true);
 	}
-
-	public ForceText getForceText() {
-		return forceText;
-	}
 	
 	public void setForceMovement(ForceMovement movement) {
 		this.forceMovement = movement;
 		updateFlags.setForceMovementRequired(true);
-	}
-	
-	public ForceMovement getForceMovement() {
-		return forceMovement;
-	}
-	
-	public Graphics getLastGraphics() {
-		return lastGraphics;
 	}
 	
 	public void setFaceLocation(FaceLocation faceLocation) {
@@ -361,16 +304,8 @@ public class Player extends Actor {
 		updateFlags.setFaceLocationUpdateRequired(true);
 	}
 
-	public FaceLocation getFaceLocation() {
-		return faceLocation;
-	}
-	
-	public void setLastGraphics(Graphics lastGraphics) {
-		this.lastGraphics = lastGraphics;
-	}
-
 	public void setRebuildNpcList(boolean b) {
-		this.localEntities.rebuildNpcList = true;
+		this.localEntities.rebuildNpcList = b;
 	}
 	
 	public void processQueuedHits() {
@@ -455,10 +390,6 @@ public class Player extends Actor {
 		}
 		actionSender.sendSkillLevel(3);
 	}
-	
-	public Bank getBank() {
-		return bank;
-	}
 
 	public void setHd(boolean b) {
 		this.hd = b;
@@ -467,26 +398,6 @@ public class Player extends Actor {
 	
 	public boolean isHd() {
 		return playerCredentials.isHd();
-	}
-
-	public TradeSession getTrade() {
-		return trade;
-	}
-	
-	public void setTrade(TradeSession ts) {
-		this.trade = ts;
-	}
-
-	public List<Player> getTradeRequests() {
-		return tradeRequests;
-	}
-
-	public ShopSession getShopSession() {
-		return shopSession;
-	}
-
-	public void setShopSession(ShopSession shopSession) {
-		this.shopSession = shopSession;
 	}
 	
 	public void setAppearance(Appearance newAppearance) {
@@ -512,10 +423,6 @@ public class Player extends Actor {
 		tradeRequests.add(p2);
 	}
 	
-	public List<Player> getDuelRequests() {
-		return duelRequests;
-	}
-	
 	public boolean wantsToDuel(Player p2) {
 		for (Player p : duelRequests) {
 			if (p != null) {
@@ -532,18 +439,6 @@ public class Player extends Actor {
 			return;
 		}
 		duelRequests.add(p2);
-	}
-
-	public void setClan(Clan clan) {
-		this.clan = clan;
-	}
-
-	public Clan getClan() {
-		return clan;
-	}
-	
-	public Prayers getPrayers() {
-		return prayers;
 	}
 	
 
@@ -781,11 +676,12 @@ public class Player extends Actor {
 
 	@Override
 	public boolean isAutoRetaliating() {
-		return playerDetails.isAutoRetaliate();
+//		return playerDetails.isAutoRetaliate();
+		return true;
 	}
 
 	@Override
-	public boolean isDestroyed() {
+	public boolean isValid() {
 		return !World.getInstance().getPlayerList().contains(this);
 	}
 
@@ -805,13 +701,6 @@ public class Player extends Actor {
 	public void setHp(int val) {
 		this.getSkills().setLevel(3, val);
 		actionSender.sendSkillLevel(3);
-	}
-	
-	public final boolean goodDistance(int objectX, int objectY, int playerX, int playerY, int distance) {
-        int deltaX = objectX - playerX;
-        int deltaY = objectY - playerY;
-        int trueDistance = ((int) Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2)));
-        return trueDistance <= distance ? true : false;
 	}
 	
 	public void logout() {

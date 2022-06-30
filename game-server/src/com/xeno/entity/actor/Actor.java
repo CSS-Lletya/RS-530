@@ -251,7 +251,7 @@ public abstract class Actor extends Entity {
 	 * Represents if an Actor is existent or not.
 	 * @return
 	 */
-	public abstract boolean isDestroyed();
+	public abstract boolean isValid();
 	
 	/**
 	 * Represents the amount of Hitpoints to heal an Actor.

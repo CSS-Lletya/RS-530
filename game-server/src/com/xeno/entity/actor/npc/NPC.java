@@ -408,7 +408,7 @@ public class NPC extends Actor {
     }
 
     @Override
-    public boolean isDestroyed() {
+    public boolean isValid() {
         return !World.getInstance().getNpcList().contains(this);
     }
 
