@@ -17,4 +17,15 @@ public interface GameConstants {
 	 * Represents a state of debug print outs for developmental purposes.
 	 */
 	public boolean DEBUG_MODE = true;
+	
+	/**
+	 * Represents the Networking connection states debug printing.
+	 * This gets spammed pretty heavily so we're adding a specific condition.
+	 */
+	public boolean NETWORK_DEBUG_MODE = false;
+	
+	/**
+	 * Represents the game servers world id.
+	 */
+	public int WORLD_ID = 1;
 }

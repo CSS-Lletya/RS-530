@@ -10,19 +10,19 @@ public class AutoCast extends MagicData {
 	
 	public static void configureSelectSpellInterface(Player p) {
 		p.removeTemporaryAttribute("autoCasting");
-		if (p.getSettings().getMagicType() == 1) {
+		if (p.getPlayerDetails().getMagicType() == 1) {
 			if (p.getEquipment().getItemInSlot(3) == 4170) { // Slayer staff.
-				p.getActionSender().sendTab(83, 310);
+				p.getInterfaceManager().sendTab(83, 310);
 				return;
 			} else if (p.getEquipment().getItemInSlot(3) == 8841) { // Void knight mace.
-				p.getActionSender().sendTab(83, 406);
+				p.getInterfaceManager().sendTab(83, 406);
 				return;
 			} else {
-				p.getActionSender().sendTab(83, 319);
+				p.getInterfaceManager().sendTab(83, 319);
 			}
-		} else if (p.getSettings().getMagicType() == 2) {
+		} else if (p.getPlayerDetails().getMagicType() == 2) {
 			if (p.getEquipment().getItemInSlot(3) == 4675) { // Ancient staff.
-				p.getActionSender().sendTab(83, 388);
+				p.getInterfaceManager().sendTab(83, 388);
 			} else {
 				p.getActionSender().sendMessage("You cannot autocast Ancient Magic with this staff.");
 			}
@@ -65,7 +65,7 @@ public class AutoCast extends MagicData {
 		p.getActionSender().showChildInterface(90, 83, false);
 		p.getActionSender().showChildInterface(90, AUTOCAST_CONFIG[spell], true);
 		p.getActionSender().sendConfig(43, 3);
-		p.getActionSender().sendTab(83, 90);
+		p.getInterfaceManager().sendTab(83, 90);
 		p.getActionSender().modifyText(p.getEquipment().getSlot(3).getDefinition().getName(), 90, 0);
 		p.setTemporaryAttribute("autoCastSpell", spellIndex);
 		p.setTemporaryAttribute("autoCastSpell2", spell);

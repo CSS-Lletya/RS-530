@@ -1,14 +1,14 @@
 package com.xeno.net.entity;
 
-import com.xeno.entity.actor.masks.Animation;
-import com.xeno.entity.actor.masks.EntityFocus;
-import com.xeno.entity.actor.masks.FaceLocation;
-import com.xeno.entity.actor.masks.ForceText;
-import com.xeno.entity.actor.masks.Graphics;
 import com.xeno.entity.actor.npc.NPC;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.net.Constants;
 import com.xeno.net.Packet.Size;
+import com.xeno.net.entity.masks.Animation;
+import com.xeno.net.entity.masks.EntityFocus;
+import com.xeno.net.entity.masks.FaceLocation;
+import com.xeno.net.entity.masks.ForceText;
+import com.xeno.net.entity.masks.Graphics;
 import com.xeno.packetbuilder.PacketBuilder;
 import com.xeno.packetbuilder.StaticPacketBuilder;
 import com.xeno.world.World;

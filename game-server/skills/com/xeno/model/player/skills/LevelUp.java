@@ -29,9 +29,9 @@ public class LevelUp {
 		if (player.getTemporaryAttribute("teleporting") == null) {
 			player.graphics(199, 0, 100);
 		}
-		player.getActionSender().sendMessage("You've just advanced a " + Utility.SKILL_NAME[skill] + " level! You have reached level " + player.getLevels().getLevelForXp(skill) + ".");
+		player.getActionSender().sendMessage("You've just advanced a " + Utility.SKILL_NAME[skill] + " level! You have reached level " + player.getSkills().getLevelForXp(skill) + ".");
 		player.getActionSender().modifyText(s + "Congratulations, you have just advanced a " + Utility.SKILL_NAME[skill] + " level!", 740, 0);
-		player.getActionSender().modifyText(s1 + "You have now reached level " + player.getLevels().getLevelForXp(skill) + ".", 740, 1);
+		player.getActionSender().modifyText(s1 + "You have now reached level " + player.getSkills().getLevelForXp(skill) + ".", 740, 1);
 		player.getActionSender().modifyText("", 740, 2);
 		player.getActionSender().sendConfig2(1179, SKILL_ICON[skill]);
 		player.getActionSender().sendConfig2(1179, SKILL_FLASH[skill]);

@@ -2,7 +2,7 @@ package com.xeno.model.player.skills.prayer;
 
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.Task;
-import com.xeno.entity.actor.player.task.impl.DrainPrayerEvent;
+import com.xeno.entity.actor.player.task.impl.DrainPrayerTask;
 import com.xeno.event.Event;
 import com.xeno.world.World;
 
@@ -36,7 +36,7 @@ public class Prayer extends PrayerData {
 		p.animate(BURY_ANIMATION);
 		p.task(1, bury -> {
 			if (bury.toPlayer().getInventory().deleteItem(BONES[i], slot, 1)) {
-				bury.toPlayer().getLevels().addXp(PRAYER, BURY_XP[i]);
+				bury.toPlayer().getSkills().addXp(PRAYER, BURY_XP[i]);
 				bury.toPlayer().setTemporaryAttribute("lastBury", System.currentTimeMillis());
 				bury.toPlayer().getActionSender().sendMessage("You bury the bones.");
 			}
@@ -47,21 +47,21 @@ public class Prayer extends PrayerData {
 		if (id < 5 || id > 57) {
 			return false;
 		}
-		if (p.getLevels().getLevel(5) <= 0) {
+		if (p.getSkills().getLevel(5) <= 0) {
 			return false;
 		}
 		int j = 0;
 		for (int i = 5 ; i <= 57; i += 2) {
 			if (id == i) {
 				if (i == 53) {
-					p.getActionSender().softCloseInterfaces();
+					p.getInterfaceManager().softCloseInterfaces();
 					p.getActionSender().modifyText("This prayer is currently unavailable.", 210, 1);
 					p.getActionSender().sendChatboxInterface(210);
 					p.getActionSender().sendConfig(1168, 0);
 					continue;
 				}
-				if (p.getLevels().getLevelForXp(PRAYER) < PRAYER_LVL[j]) {
-					p.getActionSender().softCloseInterfaces();
+				if (p.getSkills().getLevelForXp(PRAYER) < PRAYER_LVL[j]) {
+					p.getInterfaceManager().softCloseInterfaces();
 					p.getActionSender().modifyText("You need level " + PRAYER_LVL[j] + " Prayer to use " + PRAYER_NAME[j] + ".", 210, 1);
 					p.getActionSender().sendChatboxInterface(210);
 					return false;
@@ -157,11 +157,11 @@ public class Prayer extends PrayerData {
 		if (p.isDead()) {
 			return;
 		}
-		if (p.getLevels().getLevel(5) <= 0) {
+		if (p.getSkills().getLevel(5) <= 0) {
 			deactivateAllPrayers(p);
 			return;
 		}
-		p.getActionSender().softCloseInterfaces();
+		p.getInterfaceManager().softCloseInterfaces();
 		boolean usingPrayer = isPrayerActive(p);
 		switch(prayerType) {
 			case 1: // defence prayers
@@ -1034,7 +1034,7 @@ public class Prayer extends PrayerData {
 				break;
 			}
 			if (!usingPrayer && isPrayerActive(p)) { // we werent using a prayer but we are now
-				World.getInstance().submit(new DrainPrayerEvent());
+				World.getInstance().submit(new DrainPrayerTask());
 			}
 	}
 }

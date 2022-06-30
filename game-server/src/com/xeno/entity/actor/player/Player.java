@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
+import org.apache.mina.common.IoFuture;
+import org.apache.mina.common.IoFutureListener;
 import org.apache.mina.common.IoSession;
 
 import com.xeno.content.Clan;
@@ -17,6 +19,7 @@ import com.xeno.content.combat.Combat.CombatType;
 import com.xeno.content.combat.CombatFormula;
 import com.xeno.content.combat.SpecialAttack;
 import com.xeno.content.combat.constants.Animations;
+import com.xeno.content.combat.constants.AttackVars;
 import com.xeno.content.combat.constants.AttackVars.CombatSkill;
 import com.xeno.content.combat.constants.Bonuses;
 import com.xeno.content.emote.SkillCapes;
@@ -28,18 +31,7 @@ import com.xeno.entity.WalkingQueue;
 import com.xeno.entity.actor.Actor;
 import com.xeno.entity.actor.item.GroundItem;
 import com.xeno.entity.actor.item.Item;
-import com.xeno.entity.actor.masks.Animation;
-import com.xeno.entity.actor.masks.Appearance;
-import com.xeno.entity.actor.masks.ChatMessage;
-import com.xeno.entity.actor.masks.EntityFocus;
-import com.xeno.entity.actor.masks.FaceLocation;
-import com.xeno.entity.actor.masks.ForceMovement;
-import com.xeno.entity.actor.masks.ForceText;
-import com.xeno.entity.actor.masks.Graphics;
-import com.xeno.entity.actor.masks.Hits;
-import com.xeno.entity.actor.masks.Hits.Hit;
 import com.xeno.entity.actor.npc.NPC;
-import com.xeno.event.DeathEvent;
 import com.xeno.model.player.skills.Skills;
 import com.xeno.model.player.skills.prayer.PrayerData;
 import com.xeno.model.player.skills.prayer.Prayers;
@@ -49,22 +41,66 @@ import com.xeno.net.Packet;
 import com.xeno.net.definitions.NPCDefinition;
 import com.xeno.net.entity.LocalEntityList;
 import com.xeno.net.entity.PlayerUpdateFlags;
+import com.xeno.net.entity.masks.Animation;
+import com.xeno.net.entity.masks.Appearance;
+import com.xeno.net.entity.masks.ChatMessage;
+import com.xeno.net.entity.masks.EntityFocus;
+import com.xeno.net.entity.masks.FaceLocation;
+import com.xeno.net.entity.masks.ForceMovement;
+import com.xeno.net.entity.masks.ForceText;
+import com.xeno.net.entity.masks.Graphics;
+import com.xeno.net.entity.masks.Hits;
+import com.xeno.net.entity.masks.Hits.Hit;
+import com.xeno.packetbuilder.StaticPacketBuilder;
 import com.xeno.packetbuilder.packets.OutgoingPacketDispatcher;
 import com.xeno.utility.Utility;
 import com.xeno.world.World;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * Represents a connected player.
  * @author Graham
  *
  */
+@Data
+@EqualsAndHashCode(callSuper=false)
 public class Player extends Actor {
 	
-	private PlayerCredentials details;
+	/**
+	 * Represents a Players credentials.
+	 */
+	private PlayerCredentials playerCredentials;
+	
+	/**
+	 * Represents a Players personal details & attributes obtained overtime.
+	 */
+	public PlayerDetails playerDetails;
+	
+	/**
+	 * Represents a Players incoming packets & utility methods.
+	 */
 	private transient ActionSender actionSender;
+	
+	/**
+	 * Represents a collection of queued Packets.
+	 */
 	private transient Queue<Packet> queuedPackets;
+	
+	/**
+	 * Represents a Players Update Flags & respective conditions.
+	 */
 	private transient PlayerUpdateFlags updateFlags;
+	
+	/**
+	 * Represents a Players Trading Session.
+	 */
 	private transient TradeSession trade;
+	
+	/**
+	 * Represents a Players current Walking queue.
+	 */
 	private transient WalkingQueue walkingQueue;
 	private transient LocalEntityList localEntities;
 	private transient ChatMessage lastChatMessage;
@@ -74,7 +110,6 @@ public class Player extends Actor {
 	private transient ForceText forceText;
 	private transient FaceLocation faceLocation;
 	private transient ForceMovement forceMovement;
-	private transient int world;
 	private transient Map<String, Object> temporaryAttributes;
 	private transient ShopSession shopSession;
 	private transient Queue<Hit> queuedHits;
@@ -88,28 +123,28 @@ public class Player extends Actor {
 	private transient Object distanceEvent;
 	private SkillCapes skillCapes;
 	private Bank bank;
-	private PlayerDetails settings;
 	private Appearance appearance;
 	private Equipment equipment;
 	private Skills skills;
 	private Inventory inventory;
 	private Friends friends;
 	private SpecialAttack specialAttack;
-	private int rights = 0;
     public int firstColumn = 1, secondColumn = 1, thirdColumn = 1;
-	private int runEnergy = 100;
+    
+    public InterfaceManager interfaceManager;
 	
 	public Player(PlayerCredentials details) {
-		this.details = details;
+		this.playerCredentials = details;
 		this.appearance = new Appearance();
 		this.equipment = new Equipment();
 		this.skills = new Skills();
 		this.inventory = new Inventory();
 		this.friends = new Friends();
-		this.settings = new PlayerDetails();
+		this.playerDetails = new PlayerDetails();
 		this.bank = new Bank();
-		this.settings.setDefaultSettings();
+		this.playerDetails.setDefaultSettings();
 		this.specialAttack = new SpecialAttack();
+		attackVars = new AttackVars();
 	}
 
     public Player() {
@@ -133,7 +168,7 @@ public class Player extends Actor {
 		equipment.setPlayer(this);
 		friends.setPlayer(this);
 		localEntities = new LocalEntityList();
-		settings.setPlayer(this);
+		playerDetails.setPlayer(this);
 		prayers = new Prayers(this);
 		specialAttack.setPlayer(this);
 		temporaryAttributes = new HashMap<String, Object>();
@@ -148,12 +183,12 @@ public class Player extends Actor {
 		duelRequests = new ArrayList<Player>();
 		clan = null;
 		bonuses = new Bonuses(this);
-		world = 132;
 		lastWildLevel = -1;
-		details.refreshLongName();
+		playerCredentials.refreshLongName();
 		queuedHits = new LinkedList<Hit>();
 		hd = false;
 		skillCapes = new SkillCapes(this);
+		interfaceManager = new InterfaceManager(this);
 		return this;
 	}
 
@@ -181,58 +216,14 @@ public class Player extends Actor {
 	public void removeTemporaryAttribute(String attribute) {
 		temporaryAttributes.remove(attribute);
 	}
-	
-	public PlayerDetails getSettings() {
-		return this.settings;
-	}
-	
-	public PlayerCredentials getPlayerDetails() {
-		return this.details;
-	}
-	
-	public ActionSender getActionSender() {
-		return this.actionSender;
-	}
-	
+
 	public IoSession getSession() {
-		return this.details.getSession();
+		return this.playerCredentials.getSession();
 	}
 	
 	public String getUsername() {
-		return this.details.getUsername();
+		return this.playerCredentials.getUsername();
 	}
-	
-	public int getRights() {
-		return this.rights;
-	}
-	
-	public void setRights(int r) {
-		rights = r;
-	}
-
-    public int getFirstColumn() {
-        return this.firstColumn;
-    }
-
-    public int getSecondColumn() {
-        return this.secondColumn;
-    }
-
-    public int getThirdColumn() {
-        return this.thirdColumn;
-    }
-
-    public void setFirstColumn(int i) {
-        this.firstColumn = i;
-    }
-
-    public void setSecondColumn(int i) {
-        this.secondColumn = i;
-    }
-
-    public void setThirdColumn(int i) {
-        this.thirdColumn = i;
-    }
 	
 	public void processQueuedPackets() {
 		synchronized(queuedPackets) {
@@ -247,26 +238,6 @@ public class Player extends Actor {
 		synchronized(queuedPackets) {
 			queuedPackets.add(p);
 		}
-	}
-	
-	public PlayerUpdateFlags getUpdateFlags() {
-		return updateFlags;
-	}
-	
-	public Appearance getAppearance() {
-		return appearance;
-	}
-	
-	public Equipment getEquipment() {
-		return equipment;
-	}
-	
-	public WalkingQueue getWalkingQueue() {
-		return walkingQueue;
-	}
-	
-	public Skills getLevels() {
-		return skills;
 	}
 	
 	public void graphics(int id) {
@@ -351,10 +322,6 @@ public class Player extends Actor {
 		lastChatMessage = msg;
 	}
 	
-	public int getWorld() {
-		return world;
-	}
-
 	public Friends getFriends() {
 		return friends;
 	}
@@ -506,23 +473,14 @@ public class Player extends Actor {
 	public Bank getBank() {
 		return bank;
 	}
-	
-	public void setRunEnergy(int runEnergy) {
-		this.runEnergy = runEnergy;
-		actionSender.sendEnergy();
-	}
-	
-	public int getRunEnergy() {
-		return this.runEnergy;
-	}
 
 	public void setHd(boolean b) {
 		this.hd = b;
-		details.setHd(b);
+		playerCredentials.setHd(b);
 	}
 	
 	public boolean isHd() {
-		return details.isHd();
+		return playerCredentials.isHd();
 	}
 
 	public TradeSession getTrade() {
@@ -617,9 +575,9 @@ public class Player extends Actor {
 		if (klr == null) {
 			klr = this;
 		}
-		int amountToKeep = settings.isSkulled() ? 0 : 3;
+		int amountToKeep = playerDetails.isSkulled() ? 0 : 3;
 		if (prayers.isProtectItem()) {
-			amountToKeep = settings.isSkulled() ? 1 : 4;
+			amountToKeep = playerDetails.isSkulled() ? 1 : 4;
 		}
 		int[] protectedItems = new int[amountToKeep];
 		boolean[] saved = new boolean[amountToKeep];
@@ -726,7 +684,7 @@ public class Player extends Actor {
 
 	@Override
 	public int getHp() {
-		return this.getLevels().getLevel(3);
+		return this.getSkills().getLevel(3);
 	}
 
 	@Override
@@ -736,7 +694,7 @@ public class Player extends Actor {
         return (int) baseDmg * bonuses.getBonus(11);*/
 		int a = skills.getLevel(2);
 		int b = bonuses.getBonus(11);
-		CombatSkill fightType = this.getSettings().getAttackVars().getSkill();
+		CombatSkill fightType = this.getAttackVars().getSkill();
 		double c = (double)a;
 		double d = (double)b;
 		double e = 0;
@@ -814,7 +772,7 @@ public class Player extends Actor {
 
 	@Override
 	public int getMaxHp() {
-		return this.getLevels().getLevelForXp(3);
+		return this.getSkills().getLevelForXp(3);
 	}
 
 	@Override
@@ -839,7 +797,7 @@ public class Player extends Actor {
 
 	@Override
 	public boolean isAutoRetaliating() {
-		return settings.isAutoRetaliate();
+		return playerDetails.isAutoRetaliate();
 	}
 
 	@Override
@@ -861,7 +819,7 @@ public class Player extends Actor {
 
 	@Override
 	public void setHp(int val) {
-		this.getLevels().setLevel(3, val);
+		this.getSkills().setLevel(3, val);
 		actionSender.sendSkillLevel(3);
 	}
 	
@@ -908,6 +866,28 @@ public class Player extends Actor {
 	
 	public SkillCapes getSkillCapes() {
 		return this.skillCapes;
+	}
+	
+	public void logout() {
+		if (!Combat.isXSecondsSinceCombat(this, getLastAttacked(), 10000)) {
+			getActionSender().sendMessage("You must have been out of combat for 10 seconds before you may log out.");
+			return;
+		}
+		getSession().write(new StaticPacketBuilder().setId(86).toPacket()).addListener(new IoFutureListener() {
+			@Override
+			public void operationComplete(IoFuture arg0) {
+				arg0.getSession().close();
+			}
+		});
+	}
+
+	public void forceLogout() {
+		getSession().write(new StaticPacketBuilder().setId(86).toPacket()).addListener(new IoFutureListener() {
+			@Override
+			public void operationComplete(IoFuture arg0) {
+				arg0.getSession().close();
+			}
+		});
 	}
 	
 }

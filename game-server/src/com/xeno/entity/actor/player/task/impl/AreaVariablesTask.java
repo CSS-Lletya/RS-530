@@ -6,12 +6,12 @@ import com.xeno.entity.actor.player.task.Task;
 import com.xeno.utility.Area;
 import com.xeno.world.World;
 
-public final class AreaVariables extends Task {
+public final class AreaVariablesTask extends Task {
 	
 	/**
 	 * Creates a new {@link DrainPrayerTask}.
 	 */
-	public AreaVariables() {
+	public AreaVariablesTask() {
 		super(1, false);
 	}
 	
@@ -26,7 +26,7 @@ public final class AreaVariables extends Task {
 	
 	@Override
 	public void onCancel() {
-		World.getInstance().submit(new AreaVariables());
+		World.getInstance().submit(new AreaVariablesTask());
 	}
 	
 	public int wildernessLevel(Location l) {
@@ -51,13 +51,13 @@ public final class AreaVariables extends Task {
 				p.setLastwildLevel(currentLevel);
 				if (p.getTemporaryAttribute("inWild") == null) {
 					p.getActionSender().sendPlayerOption("Attack", 1, 1);
-					p.getActionSender().sendOverlay(381);
+					p.getInterfaceManager().sendOverlay(381);
 					p.setTemporaryAttribute("inWild", true);
 				}
 			} else {
 				if (p.getTemporaryAttribute("inWild") != null) {
 					p.getActionSender().sendPlayerOption("null", 1, 1);
-					p.getActionSender().sendRemoveOverlay();
+					p.getInterfaceManager().sendRemoveOverlay();
 					p.setLastwildLevel(0);
 					p.removeTemporaryAttribute("inWild");
 				}
@@ -65,12 +65,12 @@ public final class AreaVariables extends Task {
 		}
 		if (Area.inMultiCombat(p.getLocation())) {
 			if (p.getTemporaryAttribute("inMulti") == null) {
-				p.getActionSender().displayMultiIcon();
+				p.getInterfaceManager().displayMultiIcon();
 				p.setTemporaryAttribute("inMulti", true);
 			}
 		} else {
 			if (p.getTemporaryAttribute("inMulti") != null) {
-				p.getActionSender().removeMultiIcon();
+				p.getInterfaceManager().removeMultiIcon();
 				p.removeTemporaryAttribute("inMulti");
 			}
 		}

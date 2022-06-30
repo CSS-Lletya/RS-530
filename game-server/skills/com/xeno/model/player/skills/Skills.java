@@ -74,7 +74,7 @@ public class Skills {
 			level[skill] = 1;
 		}
 		if (skill == 5) {
-			player.getSettings().setPrayerPoints((int) lvl);
+			player.getPlayerDetails().setPrayerPoints((int) lvl);
 			if (level[5] <= 0 || lvl == 0) {
 				level[5] = 0;
 				player.getActionSender().sendMessage("You have run out of Prayer points, please recharge your prayer at an altar.");

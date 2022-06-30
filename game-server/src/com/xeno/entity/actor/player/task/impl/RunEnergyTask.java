@@ -6,12 +6,12 @@ import com.xeno.world.World;
 
 import lombok.SneakyThrows;
 
-public final class RunEnergyEvent extends Task {
+public final class RunEnergyTask extends Task {
 	
 	/**
-	 * Creates a new {@link RunEnergyEvent}.
+	 * Creates a new {@link RunEnergyTask}.
 	 */
-	public RunEnergyEvent() {
+	public RunEnergyTask() {
 		super(2);
 	}
 	
@@ -22,8 +22,8 @@ public final class RunEnergyEvent extends Task {
 			if((p.getWalkingQueue().isRunToggled() || p.getWalkingQueue().isRunning()) && p.getSprite().getSecondarySprite() != -1) {
 				continue;
 			} else {
-				if(p.getRunEnergy() < 100) {
-					p.setRunEnergy(p.getRunEnergy()+1);
+				if(p.playerDetails.getRunEnergy() < 100) {
+					p.playerDetails.setRunEnergy(p.playerDetails.getRunEnergy()+1);
 				}
 			}
 		}
@@ -31,6 +31,6 @@ public final class RunEnergyEvent extends Task {
 	
 	@Override
 	public void onCancel() {
-		World.getInstance().submit(new RunEnergyEvent());
+		World.getInstance().submit(new RunEnergyTask());
 	}
 }

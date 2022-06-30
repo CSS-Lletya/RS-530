@@ -46,10 +46,10 @@ public class CommandPluginDispatcher {
 	private static boolean hasPrivileges(Player player, Command command) {
 		Annotation annotation = command.getClass().getAnnotation(CommandSignature.class);
 		CommandSignature sig = (CommandSignature) annotation;
-		if (player.getRights() > 0) {
+		if (player.playerDetails.getRights() > 0) {
 			return true;
 		}
-		return Arrays.stream(sig.rights()).anyMatch(right -> player.getRights() == right);
+		return Arrays.stream(sig.rights()).anyMatch(right -> player.playerDetails.getRights() == right);
 	}
 	
 	public static void load() {

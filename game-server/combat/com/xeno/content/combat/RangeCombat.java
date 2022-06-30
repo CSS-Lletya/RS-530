@@ -6,7 +6,7 @@ import com.xeno.entity.actor.item.GroundItem;
 import com.xeno.entity.actor.npc.NPC;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.Task;
-import com.xeno.entity.actor.player.task.impl.PoisonEvent;
+import com.xeno.entity.actor.player.task.impl.PoisonTask;
 import com.xeno.event.Event;
 import com.xeno.model.player.skills.prayer.PrayerData;
 import com.xeno.net.definitions.ItemDefinition;
@@ -74,7 +74,7 @@ public class RangeCombat {
 		int hitDelay = getHitDelay(killer, target);
 		if (killer instanceof Player) {
 			((Player)killer).getWalkingQueue().reset();
-			((Player)killer).getActionSender().closeInterfaces();
+			((Player)killer).getInterfaceManager().closeInterfaces();
 			((Player)killer).getActionSender().clearMapFlag();
 			((Player) killer).setLastCombatType(Combat.CombatType.RANGE);
 		}
@@ -186,7 +186,7 @@ public class RangeCombat {
 			case 9239: // Topaz.
 				target.graphics(757, 0, 0);
 				if (target instanceof Player) {
-					int magicLevel = ((Player) target).getLevels().getLevel(6);
+					int magicLevel = ((Player) target).getSkills().getLevel(6);
 					if (magicLevel == 1) {
 						return maxDamage;
 					}
@@ -194,13 +194,13 @@ public class RangeCombat {
 					if (deduct == 0) {
 						deduct += 1;
 					}
-					if (deduct > ((Player) target).getLevels().getLevel(6)) {
-						deduct = ((Player) target).getLevels().getLevel(6);
+					if (deduct > ((Player) target).getSkills().getLevel(6)) {
+						deduct = ((Player) target).getSkills().getLevel(6);
 					}
 					String s = deduct == 1 ? "" : "s";
-					((Player) target).getLevels().setLevel(6, magicLevel - deduct);
-					if (((Player) target).getLevels().getLevel(6) <= 1) {
-						((Player) target).getLevels().setLevel(6, 1);
+					((Player) target).getSkills().setLevel(6, magicLevel - deduct);
+					if (((Player) target).getSkills().getLevel(6) <= 1) {
+						((Player) target).getSkills().setLevel(6, 1);
 						deduct--;
 					}
 					((Player) target).getActionSender().sendSkillLevel(6);
@@ -211,7 +211,7 @@ public class RangeCombat {
 			case 9240: // Sapphire.
 				target.graphics(751);
 				if (target instanceof Player) {
-					int prayer = ((Player) target).getLevels().getLevel(5);
+					int prayer = ((Player) target).getSkills().getLevel(5);
 					if (prayer == 1) {
 						return maxDamage;
 					}
@@ -219,21 +219,21 @@ public class RangeCombat {
 					if (deduct == 0) {
 						deduct += 1;
 					}
-					if (deduct > ((Player) target).getLevels().getLevel(5)) {
-						deduct = ((Player) target).getLevels().getLevel(5);
+					if (deduct > ((Player) target).getSkills().getLevel(5)) {
+						deduct = ((Player) target).getSkills().getLevel(5);
 					}
 					String s = deduct == 1 ? "" : "s";
-					((Player) target).getLevels().setLevel(5, prayer - deduct);
-					if (((Player) target).getLevels().getLevel(5) <= 1) {
-						((Player) target).getLevels().setLevel(5, 1);
+					((Player) target).getSkills().setLevel(5, prayer - deduct);
+					if (((Player) target).getSkills().getLevel(5) <= 1) {
+						((Player) target).getSkills().setLevel(5, 1);
 						deduct--;
 					}
 					((Player) target).getActionSender().sendSkillLevel(5);
 					((Player) target).getActionSender().sendMessage("Your Prayer level has been lowered by " + deduct + " level" + s + " !");
 					killer.getActionSender().sendMessage("You steal " + deduct + " Prayer point" + s + " from your opponent!");
-					killer.getLevels().setLevel(5, killer.getLevels().getLevel(5) + deduct);
-					if (killer.getLevels().getLevel(5) > killer.getLevels().getLevelForXp(5)) {
-						killer.getLevels().setLevel(5, killer.getLevels().getLevelForXp(5));
+					killer.getSkills().setLevel(5, killer.getSkills().getLevel(5) + deduct);
+					if (killer.getSkills().getLevel(5) > killer.getSkills().getLevelForXp(5)) {
+						killer.getSkills().setLevel(5, killer.getSkills().getLevelForXp(5));
 					}
 					killer.getActionSender().sendSkillLevel(5);
 				}
@@ -241,7 +241,7 @@ public class RangeCombat {
 				
 			case 9241: // Emerald.
 				if (!target.isPoisoned()) {
-					World.getInstance().submit(new PoisonEvent(target, 6));
+					World.getInstance().submit(new PoisonTask(target, 6));
 					target.graphics(752);
 				}
 				break;

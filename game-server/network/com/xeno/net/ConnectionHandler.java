@@ -5,8 +5,8 @@ import org.apache.mina.common.IoHandler;
 import org.apache.mina.common.IoSession;
 import org.apache.mina.filter.codec.ProtocolCodecFilter;
 
+import com.xeno.GameConstants;
 import com.xeno.GameEngine;
-import com.xeno.GameLoader;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.net.codec.CodecFactory;
 import com.xeno.utility.LogUtility;
@@ -35,8 +35,8 @@ public class ConnectionHandler implements IoHandler {
 
 	@Override
 	public void exceptionCaught(IoSession session, Throwable throwable) throws Exception {
-		//logger.error("Exception caught: " + session + ": " + throwable.getMessage() + ".");
-		//logger.stackTrace(throwable);
+		if (GameConstants.NETWORK_DEBUG_MODE)
+			LogUtility.log(LogType.ERROR, "Exception caught: " + session + ": " + throwable.getMessage() + ".");
 	}
 
 	@Override
@@ -47,16 +47,14 @@ public class ConnectionHandler implements IoHandler {
 	}
 
 	@Override
-	public void messageSent(IoSession session, Object data) throws Exception {
-	}
+	public void messageSent(IoSession session, Object data) throws Exception {}
 
 	@Override
 	public void sessionClosed(IoSession session) throws Exception {
-		if(session.getAttachment() != null) {
+		if(session.getAttachment() != null)
 			World.getInstance().unregister((Player) session.getAttachment());
-		}
-		LogUtility.log(LogType.INFO, "Session has been closed: " + session.getRemoteAddress().toString());
-		// TODO remove player from lists here
+		if (GameConstants.NETWORK_DEBUG_MODE)
+			LogUtility.log(LogType.INFO, "Session has been closed: " + session.getRemoteAddress().toString());
 	}
 
 	@Override
@@ -65,15 +63,16 @@ public class ConnectionHandler implements IoHandler {
 
 	@Override
 	public void sessionIdle(IoSession session, IdleStatus status) throws Exception {
-		LogUtility.log(LogType.INFO, "Session is now idle: " + session.getRemoteAddress().toString());
+		if (GameConstants.NETWORK_DEBUG_MODE)
+			LogUtility.log(LogType.INFO, "Session is now idle: " + session.getRemoteAddress().toString());
 		session.close();
 	}
 	
 	@Override
 	public void sessionOpened(IoSession session) throws Exception {
-		LogUtility.log(LogType.INFO, "New session from: " + session.getRemoteAddress().toString());
+		if (GameConstants.NETWORK_DEBUG_MODE)
+			LogUtility.log(LogType.INFO, "New session from: " + session.getRemoteAddress().toString());
 		session.setIdleTime(IdleStatus.BOTH_IDLE, Constants.SESSION_INITIAL_IDLE_TIME);
 		session.getFilterChain().addLast("protocolFilter", new ProtocolCodecFilter(new CodecFactory(engine.getLoader().getWorkerThread())));
 	}
-
 }

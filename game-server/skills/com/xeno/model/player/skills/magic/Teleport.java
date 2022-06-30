@@ -30,7 +30,7 @@ public class Teleport extends MagicData {
 			p.getActionSender().sendMessage("You cannot teleport above level 20 wilderness!");
 			return;
 		}
-		p.getActionSender().closeInterfaces();
+		p.getInterfaceManager().closeInterfaces();
 		p.setTemporaryAttribute("teleporting", true);
 		p.setTemporaryAttribute("homeTeleporting", true);
 		p.getWalkingQueue().reset();
@@ -70,14 +70,14 @@ public class Teleport extends MagicData {
 		p.removeTemporaryAttribute("autoCasting");
 		p.setTarget(null);
 		final boolean ancients = teleport > 6 ? true : false;
-		int playerMagicSet = p.getSettings().getMagicType();
+		int playerMagicSet = p.getPlayerDetails().getMagicType();
 		boolean correctMagicSet = (!ancients && playerMagicSet == 1) || (ancients && playerMagicSet == 2);
 		if (!correctMagicSet) {
 			return;
 		}
 		final int x = TELE_X[teleport] + Utility.random(TELE_EXTRA_X[teleport]);
 		final int y = TELE_Y[teleport] + Utility.random(TELE_EXTRA_Y[teleport]);
-		p.getActionSender().closeInterfaces();
+		p.getInterfaceManager().closeInterfaces();
 		p.animate(ancients ? 9599 : 8939, 0);
 		p.graphics(ancients ? 1681 : 1576, 0);
 		p.getActionSender().sendBlankClientScript(1297);
@@ -97,7 +97,7 @@ public class Teleport extends MagicData {
 
 					@Override
 					protected void execute() {
-						p.getLevels().addXp(MAGIC, TELEPORT_XP[teleport]);
+						p.getSkills().addXp(MAGIC, TELEPORT_XP[teleport]);
 						resetTeleport(p);
 						this.stop();
 					}
@@ -120,7 +120,7 @@ public class Teleport extends MagicData {
 		if (p.getTemporaryAttribute("unmovable") != null || p.getTemporaryAttribute("cantDoAnything") != null) {
 			return false;
 		}
-		if (p.getLevels().getLevel(MAGIC) < TELEPORT_LVL[teleport]) {
+		if (p.getSkills().getLevel(MAGIC) < TELEPORT_LVL[teleport]) {
 			p.getActionSender().sendMessage("You need a Magic level of " + TELEPORT_LVL[teleport] + " to use this teleport!");
 			return false;
 		}
@@ -169,7 +169,7 @@ public class Teleport extends MagicData {
 		}
 		final int x = TELE_X[index] + Utility.random(TELE_EXTRA_X[index]);
 		final int y = TELE_Y[index] + Utility.random(TELE_EXTRA_Y[index]);
-		p.getActionSender().closeInterfaces();
+		p.getInterfaceManager().closeInterfaces();
 		p.getActionSender().sendBlankClientScript(1297);
 		p.getWalkingQueue().reset();
 		p.getActionSender().clearMapFlag();

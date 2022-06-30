@@ -71,7 +71,7 @@ public class WorkerThread implements Runnable {
 						}
 						spb.addByte((byte) r.returnCode);
 						if(r.returnCode == 2) {
-							spb.addByte((byte) r.player.getRights()); // rights
+							spb.addByte((byte) r.player.playerDetails.getRights()); // rights
 							spb.addByte((byte) 0);
 							spb.addByte((byte) 0);//Flagged, will genrate mouse packets
 							spb.addByte((byte) 0);
@@ -105,9 +105,9 @@ public class WorkerThread implements Runnable {
 					while((p = playersToSave.poll()) != null) {
 						if(loader.save(p)) {
 							//sql.saveHighscores(p);
-							LogUtility.log(LogType.INFO, "Saved " + p.getPlayerDetails().getDisplayName() + "'s game.");
+							LogUtility.log(LogType.INFO, "Saved " + p.getPlayerCredentials().getDisplayName() + "'s game.");
 						} else {
-							LogUtility.log(LogType.WARN, "Could not save " + p.getPlayerDetails().getDisplayName() + "'s game.");
+							LogUtility.log(LogType.WARN, "Could not save " + p.getPlayerCredentials().getDisplayName() + "'s game.");
 						}
 					}
 					playersToSave.clear();
@@ -124,10 +124,10 @@ public class WorkerThread implements Runnable {
 		for(Player p : World.getInstance().getPlayerList()) {
 			total++;
 			if(loader.save(p)) {
-				LogUtility.log(LogType.INFO, "Saved " + p.getPlayerDetails().getDisplayName() + "'s game.");
+				LogUtility.log(LogType.INFO, "Saved " + p.getPlayerCredentials().getDisplayName() + "'s game.");
 				saved++;
 			} else {
-				LogUtility.log(LogType.INFO, "Could not save " + p.getPlayerDetails().getDisplayName() + "'s game.");
+				LogUtility.log(LogType.INFO, "Could not save " + p.getPlayerCredentials().getDisplayName() + "'s game.");
 			}
 		}
 		if(total == 0) {

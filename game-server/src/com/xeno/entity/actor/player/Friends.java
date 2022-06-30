@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.xeno.GameConstants;
 import com.xeno.content.Clan;
 import com.xeno.utility.Utility;
 import com.xeno.world.World;
@@ -68,8 +69,8 @@ public class Friends {
 	public int getWorld(Long friend) {
 		for(Player p : World.getInstance().getPlayerList()) {
 			if(p != null) {
-				if(p.getPlayerDetails().getUsernameAsLong() == friend) {
-					return p.getWorld();
+				if(p.getPlayerCredentials().getUsernameAsLong() == friend) {
+					return GameConstants.WORLD_ID;
 				}
 			}
 		}
@@ -88,7 +89,7 @@ public class Friends {
 		}
 		for(Player p : World.getInstance().getPlayerList()) {
 			if(p != null) {
-				if (p.getPlayerDetails().getUsernameAsLong() == name) {
+				if (p.getPlayerCredentials().getUsernameAsLong() == name) {
 					friend = p;
 				}
 			}
@@ -116,7 +117,7 @@ public class Friends {
 	}
 
 	private boolean isFriend(Player player) {
-		long n = player.getPlayerDetails().getUsernameAsLong();
+		long n = player.getPlayerCredentials().getUsernameAsLong();
 		if(friends.contains(n)) {
 			return true;
 		}
@@ -144,7 +145,7 @@ public class Friends {
 		Player friend = null;
 		for(Player p : World.getInstance().getPlayerList()) {
 			if(p != null) {
-				if (p.getPlayerDetails().getUsernameAsLong() == name) {
+				if (p.getPlayerCredentials().getUsernameAsLong() == name) {
 					friend = p;
 				}
 			}
@@ -185,7 +186,7 @@ public class Friends {
 	}
 
 	private void registered(Player p) {
-		long n = p.getPlayerDetails().getUsernameAsLong();
+		long n = p.getPlayerCredentials().getUsernameAsLong();
 		if(friends.contains(n)) {
 			player.getActionSender().sendFriend(n, getWorld(n));
 		}
@@ -200,7 +201,7 @@ public class Friends {
 	}
 
 	private void unregistered(Player p) {
-		long n = p.getPlayerDetails().getUsernameAsLong();
+		long n = p.getPlayerCredentials().getUsernameAsLong();
 		if(friends.contains(n)) {
 			player.getActionSender().sendFriend(n, 0);
 		}
@@ -209,12 +210,12 @@ public class Friends {
 	public void sendMessage(long name, String text, byte[] packed) {
 		for(Player p : World.getInstance().getPlayerList()) {
 			if(p != null && !p.equals(player)) {
-				if(p.getPlayerDetails().getUsernameAsLong() == name) {
+				if(p.getPlayerCredentials().getUsernameAsLong() == name) {
 					if (privateStatus == OFF) {
 						privateStatus = FRIENDS;
 						setPrivacyOption(publicStatus, privateStatus, tradeStatus);
 					}
-					p.getActionSender().sendReceivedPrivateMessage(player.getPlayerDetails().getUsernameAsLong(), player.getRights(), text, packed);
+					p.getActionSender().sendReceivedPrivateMessage(player.getPlayerCredentials().getUsernameAsLong(), player.playerDetails.getRights(), text, packed);
 					player.getActionSender().sendSentPrivateMessage(name, text, packed);
 					return;
 				}
@@ -229,7 +230,7 @@ public class Friends {
 		} else if (privateStatus == FRIENDS) {
 			for(Player p : World.getInstance().getPlayerList()) {
 				if(p != null) {
-					if (friends.contains(p.getPlayerDetails().getUsernameAsLong())) {
+					if (friends.contains(p.getPlayerCredentials().getUsernameAsLong())) {
 						p.getFriends().registered(player);
 					}
 				}
@@ -251,8 +252,8 @@ public class Friends {
 				if (privateStatus == ON) {
 					for(Player p : World.getInstance().getPlayerList()) {
 						if(p != null) {
-							if (p.getFriends().getFriendsList().contains(player.getPlayerDetails().getUsernameAsLong())) {
-								if (!friends.contains(p.getPlayerDetails().getUsernameAsLong())) {
+							if (p.getFriends().getFriendsList().contains(player.getPlayerCredentials().getUsernameAsLong())) {
+								if (!friends.contains(p.getPlayerCredentials().getUsernameAsLong())) {
 									p.getFriends().unregistered(player);
 								}
 							}
@@ -261,7 +262,7 @@ public class Friends {
 				} else if (privateStatus == OFF) {
 					for(Player p : World.getInstance().getPlayerList()) {
 						if(p != null) {
-							if (friends.contains(p.getPlayerDetails().getUsernameAsLong())) {
+							if (friends.contains(p.getPlayerCredentials().getUsernameAsLong())) {
 								p.getFriends().registered(player);
 							}
 						}

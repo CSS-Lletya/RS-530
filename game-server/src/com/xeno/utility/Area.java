@@ -1,11 +1,11 @@
 package com.xeno.utility;
 
 import com.xeno.entity.Location;
-import com.xeno.entity.actor.masks.ForceMovement;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.AreaTask;
 import com.xeno.entity.actor.player.task.Task;
 import com.xeno.event.Event;
+import com.xeno.net.entity.masks.ForceMovement;
 import com.xeno.world.World;
 
 public class Area {
@@ -74,7 +74,7 @@ public class Area {
 
 			@Override
 			public void run() {
-				p.getActionSender().closeInterfaces();
+				p.getInterfaceManager().closeInterfaces();
 				p.getWalkingQueue().reset();
 				p.setTemporaryAttribute("unmovable", true);
 				final int newY = p.getLocation().getY() >= 3523 ? p.getLocation().getY()-3 : p.getLocation().getY()+3;

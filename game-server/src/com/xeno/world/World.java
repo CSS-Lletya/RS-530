@@ -2,7 +2,6 @@ package com.xeno.world;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
@@ -19,13 +18,12 @@ import com.xeno.entity.actor.player.task.AreaTask;
 import com.xeno.entity.actor.player.task.CoordinateTask;
 import com.xeno.entity.actor.player.task.Task;
 import com.xeno.entity.actor.player.task.TaskManager;
-import com.xeno.entity.actor.player.task.impl.AreaVariables;
-import com.xeno.entity.actor.player.task.impl.LevelChangeEvent;
-import com.xeno.entity.actor.player.task.impl.LowerPotionCycles;
-import com.xeno.entity.actor.player.task.impl.RestoreSpecialEvent;
-import com.xeno.entity.actor.player.task.impl.RunEnergyEvent;
-import com.xeno.entity.actor.player.task.impl.SkullCycleEvent;
-import com.xeno.event.Event;
+import com.xeno.entity.actor.player.task.impl.AreaVariablesTask;
+import com.xeno.entity.actor.player.task.impl.LevelChangeTask;
+import com.xeno.entity.actor.player.task.impl.LowerPotionCyclesTask;
+import com.xeno.entity.actor.player.task.impl.RestoreSpecialTask;
+import com.xeno.entity.actor.player.task.impl.RunEnergyTask;
+import com.xeno.entity.actor.player.task.impl.SkullCycleTask;
 import com.xeno.net.Constants;
 import com.xeno.net.entity.EntityList;
 import com.xeno.net.entity.NPCUpdate;
@@ -139,12 +137,12 @@ public class World {
 	 * Register our global events.
 	 */
 	public void registerGlobalEvents() {
-		World.getInstance().submit(new AreaVariables());
-		World.getInstance().submit(new LevelChangeEvent());
-		World.getInstance().submit(new LowerPotionCycles());
-		World.getInstance().submit(new RestoreSpecialEvent());
-		World.getInstance().submit(new RunEnergyEvent());
-		World.getInstance().submit(new SkullCycleEvent());
+		World.getInstance().submit(new AreaVariablesTask());
+		World.getInstance().submit(new LevelChangeTask());
+		World.getInstance().submit(new LowerPotionCyclesTask());
+		World.getInstance().submit(new RestoreSpecialTask());
+		World.getInstance().submit(new RunEnergyTask());
+		World.getInstance().submit(new SkullCycleTask());
 	}
 	
 	/**
@@ -252,33 +250,32 @@ public class World {
 	 */
 	public void majorUpdate() {
 		getTaskManager().sequence();
-		for(Player p : players) {
-			p.tick();
-			p.processQueuedHits();
-			p.getWalkingQueue().getNextPlayerMovement();
-		}
-		for(NPC n : npcs) {
-			n.tick();
-			n.processQueuedHits();
-		}
-		for(Player p : players) {
-			// sometimes players aren't removed always: do that here
-			if(!p.getPlayerDetails().getSession().isConnected()) {
-				unregister(p);
+		players().forEach(player -> {
+			player.tick();
+			player.processQueuedHits();
+			player.getWalkingQueue().getNextPlayerMovement();
+		});
+		npcs().forEach(npc -> {
+			npc.tick();
+			npc.processQueuedHits();
+		});
+		players().forEach(player -> {
+			if(!player.getPlayerCredentials().getSession().isConnected()) {
+				unregister(player);
 			} else {
-				PlayerUpdate.update(p);
-				NPCUpdate.update(p);
+				PlayerUpdate.update(player);
+				NPCUpdate.update(player);
 			}
-		}
-		for(Player p : players) {
-			p.getUpdateFlags().clear();
-			p.getHits().clear();
-			p.setRebuildNpcList(false);
-		}
-		for(NPC n : npcs) {
-			n.getUpdateFlags().clear();
-			n.getHits().clear();
-		}
+		});
+		players().forEach(player -> {
+			player.getUpdateFlags().clear();
+			player.getHits().clear();
+			player.setRebuildNpcList(false);
+		});
+		npcs().forEach(npc -> {
+			npc.getUpdateFlags().clear();
+			npc.getHits().clear();
+		});
 	}
 	
 	/**
@@ -320,9 +317,9 @@ public class World {
 		players.add(p);
 		slot = p.getIndex();
 		if(slot != -1) {
-			LogUtility.log(LogType.INFO, "Registered " + p.getPlayerDetails().getDisplayName() + " [idx = "+slot+",online = "+players.size()+"]");
+			LogUtility.log(LogType.INFO, "Registered " + p.getPlayerCredentials().getDisplayName() + " [idx = "+slot+",online = "+players.size()+"]");
 		} else {
-			LogUtility.log(LogType.INFO, "Could not register " + p.getPlayerDetails().getDisplayName() + " - too many online [online = "+players.size()+"]");
+			LogUtility.log(LogType.INFO, "Could not register " + p.getPlayerCredentials().getDisplayName() + " - too many online [online = "+players.size()+"]");
 		}
 		return slot;
 	}
@@ -348,7 +345,7 @@ public class World {
 		clanManager.leaveChannel(p);
 		players.remove(p);
 		engine.getLoader().getWorkerThread().savePlayer(p);
-		LogUtility.log(LogType.INFO, "Unregistered " + p.getPlayerDetails().getDisplayName() + " [online = "+players.size()+"]");
+		LogUtility.log(LogType.INFO, "Unregistered " + p.getPlayerCredentials().getDisplayName() + " [online = "+players.size()+"]");
 		p.getFriends().unregistered();
 	}
 
@@ -421,7 +418,7 @@ public class World {
 	public boolean isOnline(String name) {
 		for(Player p : players) {
 			if(p != null) {
-				if(p.getPlayerDetails().getUsername().equalsIgnoreCase(name)) {
+				if(p.getPlayerCredentials().getUsername().equalsIgnoreCase(name)) {
 					return true;
 				}
 			}

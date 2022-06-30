@@ -62,7 +62,7 @@ public class WalkingPacket implements OutgoingPacket {
 				player.setEntityFocus(65535);
 			}
 		}
-		player.getActionSender().closeInterfaces();
+		player.getInterfaceManager().closeInterfaces();
 	}
 
 	private boolean canWalk(Player player, Packet packet, boolean following) {

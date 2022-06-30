@@ -51,8 +51,8 @@ public class ShopSession {
 		player.getActionSender().sendItems(-1, 64271, 31, shop.getStock());
 		player.getActionSender().showChildInterface(620, 34, shop.isGeneralStore());
 		player.getActionSender().modifyText(shop.getName(), 620, 22);
-		player.getActionSender().displayInterface(620);
-		player.getActionSender().displayInventoryInterface(621);
+		player.getInterfaceManager().displayInterface(620);
+		player.getInterfaceManager().displayInventoryInterface(621);
 		player.getActionSender().sendClientScript(150, invparams, "IviiiIsssssssss");
 		player.getActionSender().sendClientScript(150, shopparams, "IviiiIsssssssss");
 		player.getActionSender().setRightClickOptions(1278, (621 * 65536), 0, 27);

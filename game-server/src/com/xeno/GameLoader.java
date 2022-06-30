@@ -24,6 +24,12 @@ import com.xeno.utility.LogUtility.LogType;
 import lombok.Getter;
 import lombok.SneakyThrows;
 
+/**
+ * Represents a class that loads all core startup
+ * prerequisites for the game server to utilize.
+ * @author Dennis
+ *
+ */
 public class GameLoader {
 
 	/**
@@ -52,10 +58,16 @@ public class GameLoader {
 	@Getter
 	private final BlockingExecutorService backgroundLoader = new BlockingExecutorService(Executors.newCachedThreadPool());
 	
+	/**
+	 * Constructs the Game Loader class and loads the tasks inside.
+	 */
 	public GameLoader() {
 		loadTasks();
 	}
 	
+	/**
+	 * Loads the game server prerequisites and important data.
+	 */
     @SneakyThrows(IOException.class)
 	private void loadTasks() {
         final TimeStamp time = new TimeStamp();
@@ -94,6 +106,11 @@ public class GameLoader {
 		LogUtility.log(LogType.INFO, "Launched game server in " + time.duration(false, "") + " milliseconds.");
 	}
 	
+    /**
+     * Creates a new thread (simplified)
+     * @param name
+     * @param r
+     */
 	public void newThread(String name, Runnable r) {
 		new Thread(threads, r, name).start();
 	}

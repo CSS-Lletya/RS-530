@@ -43,8 +43,8 @@ public class SkillCapes {
 	
 	private int get99SkillCount() {
 		int skill99Count = 0;
-		for (int j = 0; j < player.getLevels().getLevel().length; j++) {
-			if (player.getLevels().getLevel()[j] >= 99) {
+		for (int j = 0; j < player.getSkills().getLevel().length; j++) {
+			if (player.getSkills().getLevel()[j] >= 99) {
 				skill99Count++;
 			}
 		}

@@ -10,12 +10,9 @@ import com.xeno.utility.Utility;
  *
  */
 public class PlayerCredentials {
-	/*
-	 * Corresponding forum group.
-	 */
 	
 	private String username;
-	private transient String displayName = null;
+	private transient String displayName;
 	private String password;
 	private transient IoSession session;
 	private transient boolean hd;

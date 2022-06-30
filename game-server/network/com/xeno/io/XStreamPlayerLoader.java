@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 import com.thoughtworks.xstream.XStream;
-import com.xeno.entity.EntityType;
+import com.xeno.entity.Location;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.PlayerCredentials;
 import com.xeno.net.Constants;
@@ -28,8 +28,8 @@ public class XStreamPlayerLoader implements PlayerLoader {
 		try {
 			Player player = (Player) xstream.fromXML(new FileInputStream("data/savedgames/"+p.getUsername()+".xml"));
 			// set the session
-			player.getPlayerDetails().setSession(p.getSession());
-			if(!player.getPlayerDetails().getPassword().equals(p.getPassword())) {
+			player.getPlayerCredentials().setSession(p.getSession());
+			if(!player.getPlayerCredentials().getPassword().equals(p.getPassword())) {
 				result.returnCode = Constants.ReturnCodes.INVALID_PASSWORD;
 			} else if (World.getInstance().isUpdateInProgress()) {
 				result.returnCode = Constants.ReturnCodes.UPDATE_IN_PROGRESS;
@@ -43,6 +43,7 @@ public class XStreamPlayerLoader implements PlayerLoader {
 			// no user with that name
 			result.returnCode = Constants.ReturnCodes.LOGIN_OK;
 			result.player = new Player(p);
+			result.player.setLocation(new Location(3222,3222,0));
 			result.player = (Player) result.player.readResolve();
 		}
 		return result;
@@ -55,8 +56,8 @@ public class XStreamPlayerLoader implements PlayerLoader {
 		//try {
 		//	Player player = (Player) xstream.fromXML(new FileInputStream("data/savedgames/"+uid+".xml"));
 			// set the session
-			//player.getPlayerDetails().setSession(details.getSession());
-			/*if(!player.getPlayerDetails().getPassword().equals(p.getPassword())) { // we already checked the password via SQL
+			//player.getPlayerCredentials().setSession(details.getSession());
+			/*if(!player.getPlayerCredentials().getPassword().equals(p.getPassword())) { // we already checked the password via SQL
 				result.returnCode = Constants.ReturnCodes.INVALID_PASSWORD;
 			} else if (World.getInstance().isUpdateInProgress()) {
 				result.returnCode = Constants.ReturnCodes.UPDATE_IN_PROGRESS;
@@ -76,7 +77,7 @@ public class XStreamPlayerLoader implements PlayerLoader {
 			//	result.player = (Player) result.player.readResolve();
 			//}
 		//}
-		//result.player.getPlayerDetails().setForumUID(uid);
+		//result.player.getPlayerCredentials().setForumUID(uid);
 		//int group = details.getForumGroup();
 		//if (group == 6) { // admin
 		//	result.player.setRights(2);

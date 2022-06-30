@@ -1,8 +1,8 @@
 package com.xeno.packetbuilder.packets.impl;
 
-import com.xeno.entity.actor.masks.ChatMessage;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.net.Packet;
+import com.xeno.net.entity.masks.ChatMessage;
 import com.xeno.packetbuilder.packets.OutgoingPacket;
 import com.xeno.packetbuilder.packets.OutgoingPacketSignature;
 import com.xeno.utility.Utility;

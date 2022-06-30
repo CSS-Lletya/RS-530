@@ -26,8 +26,8 @@ public class TradeSession {
 
 	private void openTrade() {
 		player.getActionSender().configureTrade();
-		player.getActionSender().modifyText("Trading with: "+p2.getPlayerDetails().getDisplayName(), 335, 15);
-		player.getActionSender().modifyText(p2.getPlayerDetails().getDisplayName()+" has " + p2.getInventory().getTotalFreeSlots() + " free inventory slots.", 335, 21);
+		player.getActionSender().modifyText("Trading with: "+p2.getPlayerCredentials().getDisplayName(), 335, 15);
+		player.getActionSender().modifyText(p2.getPlayerCredentials().getDisplayName()+" has " + p2.getInventory().getTotalFreeSlots() + " free inventory slots.", 335, 21);
 		player.getActionSender().modifyText("", 335, 36);
 		
 		refreshTrade();
@@ -216,8 +216,8 @@ public class TradeSession {
 			if (p2.getTrade().getStatus() == 4) {
 				completeTrade();
 				p2.getTrade().completeTrade();
-				player.getActionSender().closeInterfaces();
-				p2.getActionSender().closeInterfaces();
+				player.getInterfaceManager().closeInterfaces();
+				p2.getInterfaceManager().closeInterfaces();
 				player.getActionSender().sendMessage("You accept the trade.");
 				p2.getActionSender().sendMessage("You accept the trade.");
 			}
@@ -238,16 +238,16 @@ public class TradeSession {
 		p2.getActionSender().sendMessage("Other player declined the trade.");
 		giveBack();
 		p2.getTrade().giveBack();
-		player.getActionSender().closeInterfaces();
-		p2.getActionSender().closeInterfaces();
+		player.getInterfaceManager().closeInterfaces();
+		p2.getInterfaceManager().closeInterfaces();
 	}
 	
 	public void displayConfirmation() {
 		this.status = 3;
-		player.getActionSender().displayInterface(334);
+		player.getInterfaceManager().displayInterface(334);
 		player.getActionSender().showChildInterface(334, 37, true);
 		player.getActionSender().showChildInterface(334, 41, true);
-		player.getActionSender().modifyText("Trading with: <br>" + p2.getPlayerDetails().getDisplayName(), 334, 45);
+		player.getActionSender().modifyText("Trading with: <br>" + p2.getPlayerCredentials().getDisplayName(), 334, 45);
 		player.getActionSender().modifyText(getItemList(), 334, 37);
 		player.getActionSender().modifyText(p2.getTrade().getItemList(), 334, 41);
 		if (p2.getTrade().isTradeModified()) {

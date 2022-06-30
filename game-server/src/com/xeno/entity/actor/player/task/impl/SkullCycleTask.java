@@ -6,12 +6,12 @@ import com.xeno.world.World;
 
 import lombok.SneakyThrows;
 
-public final class SkullCycleEvent extends Task {
+public final class SkullCycleTask extends Task {
 	
 	/**
-	 * Creates a new {@link SkullCycleEvent}.
+	 * Creates a new {@link SkullCycleTask}.
 	 */
-	public SkullCycleEvent() {
+	public SkullCycleTask() {
 		super(6);
 	}
 	
@@ -20,8 +20,8 @@ public final class SkullCycleEvent extends Task {
 	public void execute() {
 		for (Player p : World.getInstance().getPlayerList()) {
 			if (p != null) {
-				if (p.getSettings().isSkulled() && !p.isDead()) {
-					p.getSettings().setSkullCycles(p.getSettings().getSkullCycles() - 1);
+				if (p.getPlayerDetails().isSkulled() && !p.isDead()) {
+					p.getPlayerDetails().setSkullCycles(p.getPlayerDetails().getSkullCycles() - 1);
 				}
 			}
 		}
@@ -29,6 +29,6 @@ public final class SkullCycleEvent extends Task {
 	
 	@Override
 	public void onCancel() {
-		World.getInstance().submit(new SkullCycleEvent());
+		World.getInstance().submit(new SkullCycleTask());
 	}
 }

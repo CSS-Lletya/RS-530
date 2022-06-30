@@ -96,7 +96,7 @@ public class LaddersAndStairs {
 								return;
 							}
 							p.animate(2140);
-							p.getActionSender().closeInterfaces();
+							p.getInterfaceManager().closeInterfaces();
 							p.setTemporaryAttribute("teleporting", true);
 							p.getWalkingQueue().reset();
 							p.getActionSender().clearMapFlag();

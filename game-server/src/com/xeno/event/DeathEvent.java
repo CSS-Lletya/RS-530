@@ -80,9 +80,9 @@ public class DeathEvent extends Event {
 					int id = Utility.random(DEATH_MESSAGES.length - 1);
 					String deathMessage = DEATH_MESSAGES[id];
 					if (id <= 4) {
-						killer.getActionSender().sendMessage(deathMessage + " " + ((Player) entity).getPlayerDetails().getDisplayName() + ".");
+						killer.getActionSender().sendMessage(deathMessage + " " + ((Player) entity).getPlayerCredentials().getDisplayName() + ".");
 					} else {
-						killer.getActionSender().sendMessage(((Player) entity).getPlayerDetails().getDisplayName() + " " + deathMessage + ".");
+						killer.getActionSender().sendMessage(((Player) entity).getPlayerCredentials().getDisplayName() + " " + deathMessage + ".");
 					}
 			}
 		}
@@ -136,32 +136,32 @@ public class DeathEvent extends Event {
 				entity.setAttacker(null);
 				entity.setHp(entity.getMaxHp());
 				entity.teleport(Location.location(2341, 3162, 0));
-				if (p.getInventory().getProtectedItems() != null) {
-					for (int i = 0; i < p.getInventory().getProtectedItems().length; i++) {
-						p.getInventory().addItem(p.getInventory().getProtectedItem(i));
-					}
-					p.getInventory().setProtectedItems(null);
-				}
-				p.getSettings().setSkullCycles(0);
+//				if (p.getInventory().getProtectedItems() != null) {
+//					for (int i = 0; i < p.getInventory().getProtectedItems().length; i++) {
+//						p.getInventory().addItem(p.getInventory().getProtectedItem(i));
+//					}
+//					p.getInventory().setProtectedItems(null);
+//				}
+				p.getPlayerDetails().setSkullCycles(0);
 				p.getSpecialAttack().resetSpecial();
-				p.getSettings().getAttackVars().setDefault();
+				p.getAttackVars().setDefault();
 				p.getEquipment().setWeapon();
 				entity.setLastOpponent(null);
 				Combat.resetCombat(entity, 1);
 				entity.setDead(false);
-				p.getSettings().setLastVengeanceTime(0);
-				p.getSettings().setVengeance(false);
-				p.getSettings().setAntifireCycles(0);
-				p.getSettings().setSuperAntipoisonCycles(0);
+				p.getPlayerDetails().setLastVengeanceTime(0);
+				p.getPlayerDetails().setVengeance(false);
+				p.getPlayerDetails().setAntifireCycles(0);
+				p.getPlayerDetails().setSuperAntipoisonCycles(0);
 				p.removeTemporaryAttribute("willDie");
 				p.setFrozen(false);
 				p.removeTemporaryAttribute("unmovable");
 				Prayer.deactivateAllPrayers(p);
-				p.getSettings().setTeleblockTime(0);
+				p.getPlayerDetails().setTeleblockTime(0);
 				p.removeTemporaryAttribute("teleblocked");
 				p.removeTemporaryAttribute("autoCastSpell");
 				for (int i = 0; i < 24; i++) {
-					p.getLevels().setLevel(i, p.getLevels().getLevelForXp(i));
+					p.getSkills().setLevel(i, p.getSkills().getLevelForXp(i));
 				}
 				p.getActionSender().sendSkillLevels();
 		}
@@ -176,7 +176,7 @@ public class DeathEvent extends Event {
 			return;
 		}
 		Location l = p.getLocation();
-		int maxHit = (int) (p.getLevels().getLevelForXp(5) * 0.25);
+		int maxHit = (int) (p.getSkills().getLevelForXp(5) * 0.25);
 		if (lastAttacker.getLocation().inArea(l.getX() - 1, l.getY() - 1, l.getX() + 1, l.getY() + 1)) {
 			int damage = Utility.random(maxHit);
 			if (damage > lastAttacker.getHp()) {
@@ -184,7 +184,7 @@ public class DeathEvent extends Event {
 			}
 			lastAttacker.hit(damage);
 		}
-		p.getLevels().setLevel(5, 0);
+		p.getSkills().setLevel(5, 0);
 		p.getActionSender().sendSkillLevel(5);
 	}
 

@@ -1,4 +1,4 @@
-package com.xeno.entity.actor.masks;
+package com.xeno.net.entity.masks;
 
 /**
  * Represents 'still graphics'.

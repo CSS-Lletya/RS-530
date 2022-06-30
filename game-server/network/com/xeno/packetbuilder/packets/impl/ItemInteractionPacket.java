@@ -92,7 +92,7 @@ public class ItemInteractionPacket implements OutgoingPacket {
 			return;
 		}
 		if (player.getInventory().getItemInSlot(slot) == item) {
-			// player.getActionSender().closeInterfaces();
+			// player.getInterfaceManager().closeInterfaces();
 			player.getEquipment().equipItem(player.getInventory().getItemInSlot(slot), slot);
 		}
 	}
@@ -108,7 +108,7 @@ public class ItemInteractionPacket implements OutgoingPacket {
 				|| player.getTemporaryAttribute("cantDoAnything") != null) {
 			return;
 		}
-		player.getActionSender().closeInterfaces();
+		player.getInterfaceManager().closeInterfaces();
 		if (player.getInventory().getSlot(itemSlot).getItemId() == itemUsed
 				&& player.getInventory().getSlot(withSlot).getItemId() == usedWith) {
 			player.getActionSender().sendMessage("Nothing interesting happens.");
@@ -125,7 +125,7 @@ public class ItemInteractionPacket implements OutgoingPacket {
 			return;
 		}
 		if (player.getInventory().getItemInSlot(slot) == item) {
-			player.getActionSender().closeInterfaces();
+			player.getInterfaceManager().closeInterfaces();
 			switch (item) {
 			case 952: // Spade
 				player.animate(830);
@@ -149,7 +149,7 @@ public class ItemInteractionPacket implements OutgoingPacket {
 			return;
 		}
 		System.out.println("Item on object = " + objectId + " " + objectX + " " + objectY);
-		player.getActionSender().closeInterfaces();
+		player.getInterfaceManager().closeInterfaces();
 //	player.setFaceLocation(new FaceLocation(objectX, objectY));
 		if (player.getInventory().getItemInSlot(slot) == item) {
 		}
@@ -190,7 +190,7 @@ public class ItemInteractionPacket implements OutgoingPacket {
 			return;
 		}
 		if (player.getEquipment().getItemInSlot(slot) == item) {
-			player.getActionSender().closeInterfaces();
+			player.getInterfaceManager().closeInterfaces();
 			if (slot == 1 && Skillcape.emote(player)) {
 				return;
 			}
@@ -207,7 +207,7 @@ public class ItemInteractionPacket implements OutgoingPacket {
 			return;
 		}
 		if (player.getInventory().getItemInSlot(slot) == item) {
-			player.getActionSender().closeInterfaces();
+			player.getInterfaceManager().closeInterfaces();
 			if (ItemConstants.isPlayerBound(player.getInventory().getItemInSlot(slot))) {
 				DestroyItem.displayInterface(player, player.getInventory().getItemInSlot(slot));
 				// return;
@@ -233,7 +233,7 @@ public class ItemInteractionPacket implements OutgoingPacket {
 				|| player.getTemporaryAttribute("cantDoAnything") != null) {
 			return;
 		}
-		player.getActionSender().closeInterfaces();
+		player.getInterfaceManager().closeInterfaces();
 		if (player.getLocation().equals(l)) {
 			World.getInstance().getGroundItems().pickupItem(player, id, player.getLocation());
 			return;
@@ -319,7 +319,7 @@ public class ItemInteractionPacket implements OutgoingPacket {
 			return;
 		}
 		if (player.getInventory().getItemInSlot(slot) == item) {
-			player.getActionSender().closeInterfaces();
+			player.getInterfaceManager().closeInterfaces();
 			if (interfaceId == 149 && childId == 0) {
 			}
 		}
@@ -334,25 +334,25 @@ public class ItemInteractionPacket implements OutgoingPacket {
 			return;
 		}
 		if (player.getInventory().getItemInSlot(slot) == item) {
-			player.getActionSender().closeInterfaces();
+			player.getInterfaceManager().closeInterfaces();
 			switch (player.getInventory().getItemInSlot(slot)) {
 			case 5509: // Small pouch.
-				player.getActionSender().sendMessage("There is " + player.getSettings().getSmallPouchAmount()
+				player.getActionSender().sendMessage("There is " + player.getPlayerDetails().getSmallPouchAmount()
 						+ " Pure essence in your small pouch. (holds 3).");
 				break;
 
 			case 5510: // Medium pouch.
-				player.getActionSender().sendMessage("There is " + player.getSettings().getMediumPouchAmount()
+				player.getActionSender().sendMessage("There is " + player.getPlayerDetails().getMediumPouchAmount()
 						+ " Pure essence in your medium pouch. (holds 6).");
 				break;
 
 			case 5512: // Large pouch.
-				player.getActionSender().sendMessage("There is " + player.getSettings().getLargePouchAmount()
+				player.getActionSender().sendMessage("There is " + player.getPlayerDetails().getLargePouchAmount()
 						+ " Pure essence in your large pouch. (holds 9).");
 				break;
 
 			case 5514: // Giant pouch.
-				player.getActionSender().sendMessage("There is " + player.getSettings().getGiantPouchAmount()
+				player.getActionSender().sendMessage("There is " + player.getPlayerDetails().getGiantPouchAmount()
 						+ " Pure essence in your giant pouch. (holds 12).");
 				break;
 			}

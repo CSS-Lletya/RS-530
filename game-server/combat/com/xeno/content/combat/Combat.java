@@ -4,7 +4,6 @@ import com.xeno.content.combat.constants.AttackVars.CombatSkill;
 import com.xeno.content.combat.constants.AttackVars.CombatStyle;
 import com.xeno.entity.actor.Actor;
 import com.xeno.entity.actor.item.Item;
-import com.xeno.entity.actor.masks.ForceText;
 import com.xeno.entity.actor.npc.NPC;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.Task;
@@ -12,6 +11,7 @@ import com.xeno.event.Event;
 import com.xeno.model.player.skills.prayer.Prayer;
 import com.xeno.model.player.skills.prayer.PrayerData;
 import com.xeno.net.definitions.NPCDefinition;
+import com.xeno.net.entity.masks.ForceText;
 import com.xeno.utility.Area;
 import com.xeno.utility.Utility;
 import com.xeno.world.World;
@@ -96,7 +96,7 @@ public class Combat {
 			if (killer instanceof Player) {
 				if (RangeCombat.hasAmmo(killer) && RangeCombat.hasValidBowArrow(killer)) {
 					((Player)killer).getWalkingQueue().reset();
-					((Player)killer).getActionSender().closeInterfaces();
+					((Player)killer).getInterfaceManager().closeInterfaces();
 					((Player)killer).getActionSender().clearMapFlag();
 				} else {
 					killer.setTarget(null);
@@ -140,7 +140,7 @@ public class Combat {
 				}
 			}
 			if (target instanceof Player) {
-				((Player) target).getActionSender().closeInterfaces();
+				((Player) target).getInterfaceManager().closeInterfaces();
 			}
 			if ((killer.getAttackAnimation() != 65535) && !dragonfire) {
 				killer.animate(killer.getAttackAnimation());
@@ -160,7 +160,7 @@ public class Combat {
 			setSkull(killer, target);
 			if (killer instanceof Player) {
 				((Player) killer).setLastCombatType(Combat.CombatType.MELEE);
-				((Player) killer).getActionSender().closeInterfaces();
+				((Player) killer).getInterfaceManager().closeInterfaces();
 				if (((Player) killer).getSpecialAttack().isUsingSpecial()) {
 					if (((Player) killer).getSpecialAttack().doSpecialAttack(killer, target)) {
 						return;
@@ -215,7 +215,7 @@ public class Combat {
 				String message = null;
 				int fireDamage = 55;
 				boolean wearingShield = ((Player)target).getEquipment().getItemInSlot(5) == 1540 || ((Player)target).getEquipment().getItemInSlot(5) == 11283 || ((Player)target).getEquipment().getItemInSlot(5) == 11284;
-				if (((Player)target).getSettings().getAntifireCycles() > 0) {
+				if (((Player)target).getPlayerDetails().getAntifireCycles() > 0) {
 					if (wearingShield) {
 						message = "Your shield and potion combine to fully protect you from the dragon's breath.";
 						fireDamage = 0;
@@ -239,7 +239,7 @@ public class Combat {
 		if (target instanceof NPC) {
 			return;
 		}
-		boolean willDie = ((Player)target).getLevels().getTempHealthLevel() - damage <= 0;
+		boolean willDie = ((Player)target).getSkills().getTempHealthLevel() - damage <= 0;
 		if (willDie) {
 			((Player)target).setTemporaryAttribute("willDie", true);
 		}
@@ -319,14 +319,14 @@ public class Combat {
 				return;
 			}
 			killer.hit(hit);
-			((Player) target).getSettings().setRecoilCharges((((Player) target).getSettings().getRecoilCharges() - 1));
-			if (((Player) target).getSettings().getRecoilCharges() <= 0) {
+			((Player) target).getPlayerDetails().setRecoilCharges((((Player) target).getPlayerDetails().getRecoilCharges() - 1));
+			if (((Player) target).getPlayerDetails().getRecoilCharges() <= 0) {
 				Item ringSlot = ((Player) target).getEquipment().getSlot(12);
 				ringSlot.setItemId(-1);
 				ringSlot.setItemAmount(0);
 				((Player) target).getActionSender().refreshEquipment();
 				((Player) target).getActionSender().sendMessage("Your Ring of recoil has shattered!");
-				((Player) target).getSettings().setRecoilCharges(40);
+				((Player) target).getPlayerDetails().setRecoilCharges(40);
 			}
 		}
 	}
@@ -335,11 +335,11 @@ public class Combat {
 		if (killer instanceof NPC || target instanceof NPC || damage <= 0) {
 			return;
 		}
-		if (((Player) target).getLevels().getLevel(5) > 0 && !((Player) target).isDead()) {
+		if (((Player) target).getSkills().getLevel(5) > 0 && !((Player) target).isDead()) {
 			if (((Player) killer).getPrayers().getHeadIcon() == PrayerData.SMITE) {
-				((Player) target).getLevels().setLevel(5, ((Player) target).getLevels().getLevel(5) - (damage / 4));
-				if (((Player) target).getLevels().getLevel(5) < 0) {
-					((Player) target).getLevels().setLevel(5, 0);
+				((Player) target).getSkills().setLevel(5, ((Player) target).getSkills().getLevel(5) - (damage / 4));
+				if (((Player) target).getSkills().getLevel(5) < 0) {
+					((Player) target).getSkills().setLevel(5, 0);
 					Prayer.deactivateAllPrayers((Player) target);
 				}
 				((Player) target).getActionSender().sendSkillLevel(5);
@@ -424,8 +424,8 @@ public class Combat {
 			}
 			byte killerWildLevel = (byte) ((Player)killer).getLastWildLevel();
 			byte targetWildLevel = (byte) ((Player)target).getLastWildLevel();
-			int killerCombatLevel = ((Player)killer).getLevels().getCombatLevel();
-			int targetCombatLevel = ((Player)target).getLevels().getCombatLevel();
+			int killerCombatLevel = ((Player)killer).getSkills().getCombatLevel();
+			int targetCombatLevel = ((Player)target).getSkills().getCombatLevel();
 			int highest = killerCombatLevel > targetCombatLevel ? killerCombatLevel : targetCombatLevel;
 			int lowest = highest == killerCombatLevel ? targetCombatLevel : killerCombatLevel;
 			int difference = (highest - lowest);
@@ -456,15 +456,15 @@ public class Combat {
 		if (target instanceof NPC || damage <= 0 || ((target.getHp() - damage) <= 0)) {
 			return;
 		}
-		if (((Player) target).getSettings().hasVengeance()) {
-			if (System.currentTimeMillis() - ((Player) target).getSettings().getLastVengeanceTime() <= 600) {
+		if (((Player) target).getPlayerDetails().isVengeance()) {
+			if (System.currentTimeMillis() - ((Player) target).getPlayerDetails().getLastVengeanceTime() <= 600) {
 				return;
 			}
 			int vengDamage = Utility.random((int) (damage * 0.75));
 			((Player) target).setForceText(new ForceText("Taste vengeance!"));
-			((Player) target).getSettings().setVengeance(false);
+			((Player) target).getPlayerDetails().setVengeance(false);
 			killer.hit(vengDamage);
-			((Player) killer).getSettings().setLastVengeanceTime(System.currentTimeMillis());
+			((Player) killer).getPlayerDetails().setLastVengeanceTime(System.currentTimeMillis());
 			return;
 		}
 		return;
@@ -475,8 +475,8 @@ public class Combat {
 		if ((killer instanceof Player) && (target instanceof NPC)) {
 			Player p = (Player) killer;
 			CombatType type = p.getLastCombatType();
-			CombatSkill fightType = p.getSettings().getAttackVars().getSkill();
-			CombatStyle fightStyle = p.getSettings().getAttackVars().getStyle();
+			CombatSkill fightType = p.getAttackVars().getSkill();
+			CombatStyle fightStyle = p.getAttackVars().getStyle();
 			if(type == CombatType.MELEE) {
 				if(!fightType.equals(CombatSkill.CONTROLLED)) {
 					int skill = 0;
@@ -489,24 +489,24 @@ public class Combat {
 					}
 					double exp = (double) (xpRate * damage);
 					double hpExp = (double) (xpRate * 0.30);
-					p.getLevels().addXp(skill, exp);
-					p.getLevels().addXp(HP, hpExp);
+					p.getSkills().addXp(skill, exp);
+					p.getSkills().addXp(HP, hpExp);
 				} else {
 					double exp = (double) ((xpRate * 0.30) * damage); 
 					double hpExp = (double) (0.25 * damage);
-					p.getLevels().addXp(ATTACK, exp);
-					p.getLevels().addXp(DEFENCE, exp);
-					p.getLevels().addXp(STRENGTH, exp);
-					p.getLevels().addXp(HP, hpExp);
+					p.getSkills().addXp(ATTACK, exp);
+					p.getSkills().addXp(DEFENCE, exp);
+					p.getSkills().addXp(STRENGTH, exp);
+					p.getSkills().addXp(HP, hpExp);
 				}
 			} else {
 				if(fightStyle.equals(CombatStyle.RANGE_ACCURATE) || fightStyle.equals(CombatStyle.RANGE_RAPID)) {
-					p.getLevels().addXp(RANGE, (xpRate * damage));
+					p.getSkills().addXp(RANGE, (xpRate * damage));
 				} else if (fightStyle.equals(CombatStyle.RANGE_DEFENSIVE)) {
-					p.getLevels().addXp(RANGE, ((xpRate * 0.50) * damage));
-					p.getLevels().addXp(DEFENCE, ((xpRate * 0.50) * damage));
+					p.getSkills().addXp(RANGE, ((xpRate * 0.50) * damage));
+					p.getSkills().addXp(DEFENCE, ((xpRate * 0.50) * damage));
 				}
-				p.getLevels().addXp(HP, ((xpRate * 0.30) * damage));
+				p.getSkills().addXp(HP, ((xpRate * 0.30) * damage));
 			}
 		}
 		target.addToHitCount(killer, damage);

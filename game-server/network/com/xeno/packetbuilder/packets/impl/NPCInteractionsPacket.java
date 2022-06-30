@@ -157,7 +157,7 @@ public class NPCInteractionsPacket implements OutgoingPacket {
 		if (npc == null || npc.isDestroyed()) {
 			return;
 		}
-		player.getActionSender().closeInterfaces();
+		player.getInterfaceManager().closeInterfaces();
 		System.out.println("Item on NPC " + npc.getId());
 		if (player.getInventory().getItemInSlot(slot) == item) {
 			switch (npc.getId()) {

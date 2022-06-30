@@ -78,7 +78,7 @@ public abstract class ActorDeathTask<T extends Actor> extends Task {
 		e.printStackTrace();
 		if(getActor().isPlayer()) {
 			Player player = (Player) getActor();
-			player.getActionSender().logout();
+			player.logout();
 		} else {
 			World.getInstance().removeNPC((NPC) getActor());
 		}

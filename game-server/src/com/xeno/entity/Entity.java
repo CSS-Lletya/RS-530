@@ -1,7 +1,6 @@
 package com.xeno.entity;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
  * Represents an Entity within the game server.
@@ -9,7 +8,6 @@ import lombok.EqualsAndHashCode;
  *
  */
 @Data
-@EqualsAndHashCode(callSuper=false)
 public abstract class Entity {
 	
 	/**

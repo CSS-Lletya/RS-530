@@ -6,12 +6,12 @@ import com.xeno.world.World;
 
 import lombok.SneakyThrows;
 
-public final class RestoreSpecialEvent extends Task {
+public final class RestoreSpecialTask extends Task {
 	
 	/**
-	 * Creates a new {@link RestoreSpecialEvent}.
+	 * Creates a new {@link RestoreSpecialTask}.
 	 */
-	public RestoreSpecialEvent() {
+	public RestoreSpecialTask() {
 		super(5);
 	}
 	
@@ -27,13 +27,13 @@ public final class RestoreSpecialEvent extends Task {
 				if (p.getSpecialAttack().getSpecialAmount() > 100) {
 					p.getSpecialAttack().setSpecialAmount(100);
 				}
-				p.getSettings().setSpecialAmount(p.getSpecialAttack().getSpecialAmount());
+				p.getPlayerDetails().setSpecialAmount(p.getSpecialAttack().getSpecialAmount());
 			}
 		}
 	}
 	
 	@Override
 	public void onCancel() {
-		World.getInstance().submit(new RestoreSpecialEvent());
+		World.getInstance().submit(new RestoreSpecialTask());
 	}
 }

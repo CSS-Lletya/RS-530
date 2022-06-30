@@ -20,15 +20,15 @@ public class CombatFormula {
         double attack = getMeleeAttack(p) * getSpecialAttackBonus(weapon);
         int hit = (int) (Math.random() * p.getMaxHit());
         if (Utility.random((int) attack) < Utility.random((int) p2Defence)) {
-            p.getSettings().setLastHit(0);
+            p.getPlayerDetails().setLastHit(0);
             return 0;
         }
         if (hit < (p.getMaxHit() * 0.50)) {
-            if (p.getSettings().getLastHit() == 0) {
+            if (p.getPlayerDetails().getLastHit() == 0) {
                 if (Utility.random(6) == 0) {
                     hit = (int) ((p.getMaxHit() * 0.50) + Utility.random((int) (p.getMaxHit() * 0.50)));
                 }
-            } else if (p.getSettings().getLastHit() > Utility.random(6)) {
+            } else if (p.getPlayerDetails().getLastHit() > Utility.random(6)) {
                 if (Utility.random(6) == 0) {
                     hit = (int) ((p.getMaxHit() * 0.50) + Utility.random((int) (p.getMaxHit() * 0.50)));
                 }
@@ -49,8 +49,8 @@ public class CombatFormula {
     public static int getMeleeHit(Player p, Entity target) {
         if (target instanceof Player) {
             Player playerTarget = (Player) target;
-            float atkLevel = (float) p.getLevels().getLevel(0);
-            float defLevel = (float) playerTarget.getLevels().getLevel(1);
+            float atkLevel = (float) p.getSkills().getLevel(0);
+            float defLevel = (float) playerTarget.getSkills().getLevel(1);
 
             float atkLevelBonus = (atkLevel / defLevel) / 4F;
 
@@ -73,21 +73,21 @@ public class CombatFormula {
         double attack = getMeleeAttack(p);
         int hit = (int) (Math.random() * p.getMaxHit());
         if (Utility.random((int) attack) < Utility.random((int) p2Defence)) {
-            p.getSettings().setLastHit(0);
+            p.getPlayerDetails().setLastHit(0);
             return 0;
         }
         if (hit < (p.getMaxHit() * 0.50)) {
-            if (p.getSettings().getLastHit() == 0) {
+            if (p.getPlayerDetails().getLastHit() == 0) {
                 if (Utility.random(6) == 0) {
                     hit = (int) ((p.getMaxHit() * 0.50) + Utility.random((int) (p.getMaxHit() * 0.50)));
                 }
-            } else if (p.getSettings().getLastHit() > Utility.random(6)) {
+            } else if (p.getPlayerDetails().getLastHit() > Utility.random(6)) {
                 if (Utility.random(6) == 0) {
                     hit = (int) ((p.getMaxHit() * 0.50) + Utility.random((int) (p.getMaxHit() * 0.50)));
                 }
             }
         }
-        p.getSettings().setLastHit(hit);
+        p.getPlayerDetails().setLastHit(hit);
         return hit;
     }
 
@@ -97,7 +97,7 @@ public class CombatFormula {
         }
         Player target = (Player) e;
         int defBonus = getHighestDefBonus(target);
-        int defLevel = target.getLevels().getLevel(1);
+        int defLevel = target.getSkills().getLevel(1);
         double power = (defLevel + defBonus) * 0.0085; // was 0.0095
         double amount = 1.160;
         if (defBonus > 180) {
@@ -124,7 +124,7 @@ public class CombatFormula {
 
     public static double getMeleeAttack(Player p) {
         int attBonus = getHighestAttBonus(p);
-        int attLevel = p.getLevels().getLevel(0);
+        int attLevel = p.getSkills().getLevel(0);
         double power = (attLevel + attBonus) * 0.01365;
         double amount = 1.260;
         power *= (attLevel * (power * 0.12)) + (attBonus * amount) * (power * 0.009);
@@ -158,8 +158,8 @@ public class CombatFormula {
         }
         Player p = (Player) e;
         int magicBonus = p.getBonuses().getBonus(8);
-        int magicLevel = p.getLevels().getLevel(6);
-        int defenceLevel = p.getLevels().getLevel(1);
+        int magicLevel = p.getSkills().getLevel(6);
+        int defenceLevel = p.getSkills().getLevel(1);
         double power = 1.100;
         double amount = 0.0210;
         if (magicBonus >= 90) {
@@ -197,7 +197,7 @@ public class CombatFormula {
 
     private static double getMagicAttack(Player p) {
         int magicBonus = p.getBonuses().getBonus(3);
-        int magicLevel = p.getLevels().getLevel(6);
+        int magicLevel = p.getSkills().getLevel(6);
         double power = 1.800;
         double amount = 0.0205;
         if (magicBonus >= 80) { // equivalent of max mage w/ zerker+whip
@@ -255,7 +255,7 @@ public class CombatFormula {
 
     public static double getRangeMaxHit(Player p, int bow, int arrow) {
         double hit = 0;
-        double a = p.getLevels().getLevel(4);
+        double a = p.getSkills().getLevel(4);
         double b = 1.00;
         double c = 0;
         int d = getRangeStrength(p);
@@ -271,7 +271,7 @@ public class CombatFormula {
             b *= 1.15;
         }
         c = (a * b);
-        if (p.getSettings().getAttackVars().getStyle().equals(CombatStyle.RANGE_ACCURATE)) {
+        if (p.getAttackVars().getStyle().equals(CombatStyle.RANGE_ACCURATE)) {
             c += 3.00;
         }
         hit = ((c + 8) * (d + 64) / 640);

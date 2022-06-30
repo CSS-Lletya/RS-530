@@ -23,7 +23,7 @@ public class ClanUser {
 
 	public void setClanRights(int rights) {
 		if (rights == Clan.NO_RANK) {
-			if (clan.getOwnerFriends().contains(p.getPlayerDetails().getUsernameAsLong())) {
+			if (clan.getOwnerFriends().contains(p.getPlayerCredentials().getUsernameAsLong())) {
 				rights = Clan.FRIEND;
 			}
 		} else {

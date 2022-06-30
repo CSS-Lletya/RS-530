@@ -16,7 +16,7 @@ public class ClientActionsPacket implements OutgoingPacket {
 			int windowWidth = packet.readShort();
 			int windowHeight = packet.readShort();
 			int junk = packet.readByte() & 0xff;
-			player.getActionSender().configureGameScreen(windowType);
+			player.getInterfaceManager().configureGameScreen(windowType);
 		}
 	}
 	/*

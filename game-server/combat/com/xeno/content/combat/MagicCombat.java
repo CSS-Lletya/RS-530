@@ -151,9 +151,9 @@ public class MagicCombat extends MagicData {
 			p.graphics(HANDS_GFX[index], 0, getStartingGraphicHeight(index));
 		}
 		p.animate(SPELL_ANIM[index]);
-		p.getActionSender().closeInterfaces();
+		p.getInterfaceManager().closeInterfaces();
 		if (target instanceof Player) {
-			((Player) target).getActionSender().closeInterfaces();
+			((Player) target).getInterfaceManager().closeInterfaces();
 		}
 		target.setAttacker(p);
 		p.setTarget(target);
@@ -318,14 +318,14 @@ public class MagicCombat extends MagicData {
 			time = 150000;
 		}
 		target.setTemporaryAttribute("teleblocked", true);
-		target.getSettings().setTeleblockTime(System.currentTimeMillis() + time);
+		target.getPlayerDetails().setTeleblockTime(System.currentTimeMillis() + time);
 		World.getInstance().submit(new Task(30, true) {
 			@Override
 			protected void execute() {
 				this.stop();
 				if (target != null) {
 					target.removeTemporaryAttribute("teleblocked");
-					target.getSettings().setTeleblockTime(0);
+					target.getPlayerDetails().setTeleblockTime(0);
 				}
 			}
 		});
@@ -496,7 +496,7 @@ public class MagicCombat extends MagicData {
 
 	public static void castCharge(final Player p) {
 		p.removeTemporaryAttribute("autoCasting");
-		if (p.getLevels().getLevel(MAGIC) < 80) {
+		if (p.getSkills().getLevel(MAGIC) < 80) {
 			p.getActionSender().sendMessage("You need a Magic level of 80 to cast Charge.");
 			return;
 		}
@@ -594,8 +594,8 @@ public class MagicCombat extends MagicData {
 			}
 			byte killerWildLevel = (byte) p.getLastWildLevel();
 			byte targetWildLevel = (byte) ((Player) target).getLastWildLevel();
-			int killerCombatLevel = p.getLevels().getCombatLevel();
-			int targetCombatLevel = ((Player) target).getLevels().getCombatLevel();
+			int killerCombatLevel = p.getSkills().getCombatLevel();
+			int targetCombatLevel = ((Player) target).getSkills().getCombatLevel();
 			int highest = killerCombatLevel > targetCombatLevel ? killerCombatLevel : targetCombatLevel;
 			int lowest = highest == killerCombatLevel ? targetCombatLevel : killerCombatLevel;
 			int difference = (highest - lowest);
@@ -616,7 +616,7 @@ public class MagicCombat extends MagicData {
 				return false;
 			}
 		}
-		if (p.getLevels().getLevel(MAGIC) < SPELL_LEVEL[i]) {
+		if (p.getSkills().getLevel(MAGIC) < SPELL_LEVEL[i]) {
 			p.getActionSender().sendMessage("You need a Magic level of " + SPELL_LEVEL[i] + " to cast that spell.");
 			return false;
 		}
@@ -677,8 +677,8 @@ public class MagicCombat extends MagicData {
 			}
 			byte killerWildLevel = (byte) p.getLastWildLevel();
 			byte targetWildLevel = (byte) ((Player) target).getLastWildLevel();
-			int killerCombatLevel = p.getLevels().getCombatLevel();
-			int targetCombatLevel = ((Player) target).getLevels().getCombatLevel();
+			int killerCombatLevel = p.getSkills().getCombatLevel();
+			int targetCombatLevel = ((Player) target).getSkills().getCombatLevel();
 			int highest = killerCombatLevel > targetCombatLevel ? killerCombatLevel : targetCombatLevel;
 			int lowest = highest == killerCombatLevel ? targetCombatLevel : killerCombatLevel;
 			int difference = (highest - lowest);
@@ -693,13 +693,13 @@ public class MagicCombat extends MagicData {
 		if (target instanceof NPC) {
 			return 0;
 		}
-		int affectedLevel = ((Player) target).getLevels().getLevel(i);
+		int affectedLevel = ((Player) target).getSkills().getLevel(i);
 		return affectedLevel - affectedLevel % k;
 	}
 
 	public static int getSpellIndex(Player p, int id, boolean ancients) {
 		if (!ancients) {
-			if (p.getSettings().getMagicType() != 1) {
+			if (p.getPlayerDetails().getMagicType() != 1) {
 				return -1;
 			}
 			switch (id) {
@@ -769,7 +769,7 @@ public class MagicCombat extends MagicData {
 				return 47; // Teleblock.
 			}
 		} else {
-			if (p.getSettings().getMagicType() != 2) {
+			if (p.getPlayerDetails().getMagicType() != 2) {
 				return -1;
 			}
 			switch (id) {
@@ -1092,8 +1092,8 @@ public class MagicCombat extends MagicData {
 				xp = 54.0; // Miasmic barrage.
 			}
 			double finalXp = baseXp ? (xp + (hit * 2)) : (hit * 2);
-			p.getLevels().addXp(6, finalXp);
-			p.getLevels().addXp(3, hit * 1.33);
+			p.getSkills().addXp(6, finalXp);
+			p.getSkills().addXp(3, hit * 1.33);
 			target.addToHitCount(p, hit);
 		} else if (target != null) {
 			target.addToHitCount(p, hit);

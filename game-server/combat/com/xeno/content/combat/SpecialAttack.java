@@ -4,7 +4,7 @@ import com.xeno.content.combat.constants.AttackVars.CombatSkill;
 import com.xeno.entity.actor.Actor;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.Task;
-import com.xeno.entity.actor.player.task.impl.PoisonEvent;
+import com.xeno.entity.actor.player.task.impl.PoisonTask;
 import com.xeno.event.Event;
 import com.xeno.model.player.skills.prayer.PrayerData;
 import com.xeno.utility.Utility;
@@ -128,9 +128,9 @@ public class SpecialAttack {
 				newPrayer = 5;
 			}
 			((Player) killer).heal(newHp);
-			((Player) killer).getLevels().setLevel(5, ((Player) killer).getLevels().getLevel(5) + newPrayer);
-			if (((Player) killer).getLevels().getLevel(5) > ((Player) killer).getLevels().getLevelForXp(5)) {
-				((Player) killer).getLevels().setLevel(5, ((Player) killer).getLevels().getLevelForXp(5));
+			((Player) killer).getSkills().setLevel(5, ((Player) killer).getSkills().getLevel(5) + newPrayer);
+			if (((Player) killer).getSkills().getLevel(5) > ((Player) killer).getSkills().getLevelForXp(5)) {
+				((Player) killer).getSkills().setLevel(5, ((Player) killer).getSkills().getLevelForXp(5));
 			}
 			break;
 
@@ -229,12 +229,12 @@ public class SpecialAttack {
 			killer.graphics(1840);
 			damage += killer.getMaxHit() * 0.25;
 			if (target instanceof Player) {
-				int defenceLevel = ((Player) target).getLevels().getLevel(1);
-				int newDefence = (int) (((Player) target).getLevels().getLevel(1) * 0.30);
+				int defenceLevel = ((Player) target).getSkills().getLevel(1);
+				int newDefence = (int) (((Player) target).getSkills().getLevel(1) * 0.30);
 				if (newDefence < 1) {
 					newDefence = 1;
 				}
-				((Player) target).getLevels().setLevel(1, defenceLevel - newDefence);
+				((Player) target).getSkills().setLevel(1, defenceLevel - newDefence);
 				((Player) target).getActionSender().sendSkillLevel(1);
 			}
 			break;
@@ -414,7 +414,7 @@ public class SpecialAttack {
 			break;
 		}
 		specialAmount -= neededPower;
-		p.getSettings().setSpecialAmount(specialAmount);
+		p.getPlayerDetails().setSpecialAmount(specialAmount);
 		usingSpecial = false;
 		refreshBar();
 		killer.resetCombatTurns();
@@ -438,7 +438,7 @@ public class SpecialAttack {
 		final int d4 = damage4; // only used for d claws
 		if (canPoison(weapon)) {
 			if (!target.isPoisoned() && Utility.random(5) == 0 && (hitDouble ? (d2 > 0 || d > 0) : d > 0)) {
-				World.getInstance().submit(new PoisonEvent(target, POISON_AMOUNT));
+				World.getInstance().submit(new PoisonTask(target, POISON_AMOUNT));
 			}
 		}
 		final int hhitDelay = hitDelay;
@@ -480,7 +480,7 @@ public class SpecialAttack {
 			return;
 		}
 		specialAmount -= neededPower;
-		p.getSettings().setSpecialAmount(specialAmount);
+		p.getPlayerDetails().setSpecialAmount(specialAmount);
 		usingSpecial = false;
 		refreshBar();
 		p.animate(1056);
@@ -589,9 +589,9 @@ public class SpecialAttack {
 	}
 
 	public int getMaxHit(int strBonusIncrease) {
-		int a = p.getLevels().getLevel(2);
+		int a = p.getSkills().getLevel(2);
 		int b = p.getBonuses().getBonus(11) + strBonusIncrease;
-		CombatSkill fightType = p.getSettings().getAttackVars().getSkill();
+		CombatSkill fightType = p.getAttackVars().getSkill();
 		double c = (double) a;
 		double d = (double) b;
 		double e = 0;

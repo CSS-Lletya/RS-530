@@ -7,6 +7,7 @@ import org.apache.mina.filter.codec.CumulativeProtocolDecoder;
 import org.apache.mina.filter.codec.ProtocolCodecFilter;
 import org.apache.mina.filter.codec.ProtocolDecoderOutput;
 
+import com.xeno.GameConstants;
 import com.xeno.entity.actor.player.PlayerCredentials;
 import com.xeno.net.Constants;
 import com.xeno.net.Packet;
@@ -47,7 +48,8 @@ public class RS2LoginProtocolDecoder extends CumulativeProtocolDecoder {
 			if(loginStageObj != null) {
 				loginStage = (Integer)loginStageObj;
 			}
-			System.out.println("recv login packet, stage: "+loginStage);
+			if (GameConstants.NETWORK_DEBUG_MODE)
+				LogUtility.log(LogType.INFO, "recv login packet, stage: "+loginStage);
 			switch(loginStage) {
 			case -3:
 				StaticPacketBuilder worldList = new StaticPacketBuilder();

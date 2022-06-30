@@ -251,7 +251,7 @@ public class Skillcape {
 			didEmote = false;
 			break;
 		}
-		if(skill == -1 || player.getLevels().getLevelForXp(skill) == 99) {
+		if(skill == -1 || player.getSkills().getLevelForXp(skill) == 99) {
 			player.animate(skillcapeAnimation);
 			player.graphics(skillcapeGraphic);
 		} else {

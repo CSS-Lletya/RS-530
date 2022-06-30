@@ -245,9 +245,9 @@ public class ProtectedItems {
 	}
 	
 	public static void displayItemsInterface(Player p) {
-		int amountToKeep = p.getSettings().isSkulled() ? 0 : 3;
+		int amountToKeep = p.getPlayerDetails().isSkulled() ? 0 : 3;
 		if (p.getPrayers().isProtectItem()) {
-			amountToKeep = p.getSettings().isSkulled() ? 1 : 4;
+			amountToKeep = p.getPlayerDetails().isSkulled() ? 1 : 4;
 		}
 		int item1 = getProtectedItem1(p)[0];
 		int item2 = getProtectedItem2(p)[0];
@@ -265,7 +265,7 @@ public class ProtectedItems {
 			item4 = 65535;
 		}
 		Object[] opts = new Object[]{17598720, 20221838, "You're marked with a <col=ff3333>skull<col=ff981f>.", 0, 1, item4, item1, item2, item3, /* Items to keep */ amountToKeep /* Items to keep */, 0};
-		p.getActionSender().displayInterface(102);
+		p.getInterfaceManager().displayInterface(102);
 		p.getActionSender().sendClientScript2(204, 118, opts, "iiooooiisii");
 		p.getActionSender().setRightClickOptions(1278, (102 * 65536) + 21, 0, 40);
 		p.getActionSender().setRightClickOptions(1278, (102 * 65536) + 18, 0, 4);

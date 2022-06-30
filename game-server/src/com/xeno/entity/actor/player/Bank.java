@@ -62,8 +62,8 @@ public class Bank {
 			p.getActionSender().sendConfig(1249, lastXAmount);
 			p.getActionSender().sendBankOptions();
 			refreshBank();
-			p.getActionSender().displayInventoryInterface(763);
-			p.getActionSender().displayInterface(762);
+			p.getInterfaceManager().displayInventoryInterface(763);
+			p.getInterfaceManager().displayInterface(762);
 			p.getActionSender().showChildInterface(762, 18, false);
 			p.getActionSender().showChildInterface(762, 19, false);
 			p.getActionSender().showChildInterface(762, 23, false);
@@ -256,7 +256,7 @@ public class Bank {
 			p.getActionSender().showChildInterface(14, 61, true);
 		}
 		p.getActionSender().modifyText(recoveryDelay + " days", 14, 71);
-		p.getActionSender().displayInterface(14);
+		p.getInterfaceManager().displayInterface(14);
 	}
 	
 	public void handleEnterPin(int buttonId) {
@@ -311,7 +311,7 @@ public class Bank {
 			if (pinStatus == 4) {
 				for (int i = 0; i < tempPin1.length; i++) {
 					if (tempPin1[i] != bankPin[i]) {
-						p.getActionSender().closeInterfaces();
+						p.getInterfaceManager().closeInterfaces();
 						p.getActionSender().modifyText("The PIN number you entered was incorrect.", 210, 1);
 						p.getActionSender().sendChatboxInterface2(210);
 						return;
@@ -376,7 +376,7 @@ public class Bank {
 			p.getActionSender().modifyText("A PIN will be set on your account in another " + i + " days.", 14, 73);
 			p.getActionSender().modifyText("Yes, I asked for this. I want this PIN.", 14, 89);
 			p.getActionSender().modifyText("No, I didn't ask for this. Cancel it.", 14, 91);
-			p.getActionSender().displayInterface(14);
+			p.getInterfaceManager().displayInterface(14);
 			return;
 		}
 		pinCorrect = true;
@@ -402,10 +402,10 @@ public class Bank {
 			int i = recoveryDelay -  Utility.getDaysFromMillis(lastDeletionRequest);
 			p.getActionSender().modifyText("Your Bank PIN will be deleted in another " + i + " days.", 13, 31);
 		} else {
-			p.getActionSender().modifyText("Bank of " + p.getPlayerDetails().getDisplayName(), 13, 31);
+			p.getActionSender().modifyText("Bank of " + p.getPlayerCredentials().getDisplayName(), 13, 31);
 		}
 		scrambleNumbers();
-		p.getActionSender().displayInterface(13);
+		p.getInterfaceManager().displayInterface(13);
 	}
 	
 	public void changePinDelay() {
@@ -464,7 +464,7 @@ public class Bank {
 	
 	public void forgotPin() {
 		int i = recoveryDelay -  Utility.getDaysFromMillis(lastDeletionRequest);
-		p.getActionSender().closeInterfaces();
+		p.getInterfaceManager().closeInterfaces();
 		if (lastDeletionRequest == 0) {
 			lastDeletionRequest = System.currentTimeMillis();
 			i = recoveryDelay -  Utility.getDaysFromMillis(lastDeletionRequest);

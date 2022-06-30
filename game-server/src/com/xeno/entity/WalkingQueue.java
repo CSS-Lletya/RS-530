@@ -120,10 +120,11 @@ public class WalkingQueue {
 			int walkDir = getNextWalkingDirection();
 			int runDir  = -1;
 			if(isRunning || isRunToggled) {
-				if(entity.getRunEnergy() > 0) {
+				if(entity.playerDetails.getRunEnergy() > 0) {
 					runDir = getNextWalkingDirection();
 					if(runDir != -1) {
-						//entity.setRunEnergy(entity.getRunEnergy() - 1);
+						entity.playerDetails.setRunEnergy(entity.playerDetails.getRunEnergy() - 1);
+						entity.getActionSender().sendEnergy();
 					}
 				} else {
 					if(isRunToggled) {

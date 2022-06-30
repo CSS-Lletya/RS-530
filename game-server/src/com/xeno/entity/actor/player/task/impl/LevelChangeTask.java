@@ -6,14 +6,14 @@ import com.xeno.entity.actor.player.task.Task;
 import com.xeno.model.player.skills.Skills;
 import com.xeno.world.World;
 
-public final class LevelChangeEvent extends Task {
+public final class LevelChangeTask extends Task {
 	
 	private static int status;
 	
 	/**
-	 * Creates a new {@link LevelChangeEvent}.
+	 * Creates a new {@link LevelChangeTask}.
 	 */
-	public LevelChangeEvent() {
+	public LevelChangeTask() {
 		super(2, false);
 		status = 0;
 	}
@@ -35,11 +35,11 @@ public final class LevelChangeEvent extends Task {
 						continue;
 					}
 				}
-				if (p.getLevels().getLevel(i) < p.getLevels().getLevelForXp(i)) {
-					p.getLevels().setLevel(i, p.getLevels().getLevel(i) + 1);
+				if (p.getSkills().getLevel(i) < p.getSkills().getLevelForXp(i)) {
+					p.getSkills().setLevel(i, p.getSkills().getLevel(i) + 1);
 					updated = true;
-				} else if (p.getLevels().getLevel(i) > p.getLevels().getLevelForXp(i) && i != 3 && status == 1) { // status == 1 so stats DONT go down 2x faster.
-					p.getLevels().setLevel(i, p.getLevels().getLevel(i) - 1);
+				} else if (p.getSkills().getLevel(i) > p.getSkills().getLevelForXp(i) && i != 3 && status == 1) { // status == 1 so stats DONT go down 2x faster.
+					p.getSkills().setLevel(i, p.getSkills().getLevel(i) - 1);
 					updated = true;
 				}
 			}
@@ -48,11 +48,7 @@ public final class LevelChangeEvent extends Task {
 			}
 		}
 		if (status == 1) {
-			for (NPC n : World.getInstance().getNpcList()) {
-				if (n.getHp() < n.getMaxHp() && !n.isDead() && !n.inCombat()) {
-					n.heal(1);
-				}
-			}
+			World.getInstance().npcs().filter(n -> n.getHp() < n.getMaxHp() && !n.isDead() && !n.inCombat()).forEach(n -> n.heal(1));
 		}
 		status = status == 0 ? 1 : 0;
 	}
@@ -60,6 +56,6 @@ public final class LevelChangeEvent extends Task {
 	
 	@Override
 	public void onCancel() {
-		World.getInstance().submit(new LevelChangeEvent());
+		World.getInstance().submit(new LevelChangeTask());
 	}
 }

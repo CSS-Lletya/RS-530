@@ -1,7 +1,7 @@
 package com.xeno.content;
 
-import com.xeno.entity.actor.masks.Appearance;
 import com.xeno.entity.actor.player.Player;
+import com.xeno.net.entity.masks.Appearance;
 
 public class ConfigureAppearance {
 	
@@ -22,7 +22,7 @@ public class ConfigureAppearance {
 	}
 	
 	public static void openInterface(Player p) {
-		p.getActionSender().displayInterface(771);
+		p.getInterfaceManager().displayInterface(771);
 		p.getActionSender().sendPlayerHead(771, 79);
 		p.getActionSender().animateInterface(9804, 771, 79);
 		p.getActionSender().sendConfig2(1262, p.getAppearance().getGender() == 2 ? 1 : 8);
@@ -37,7 +37,7 @@ public class ConfigureAppearance {
 		Appearance temp = p.getAppearance().getTemporaryAppearance();
 		if (button == 362) {
 			p.setAppearance(p.getAppearance().getTemporaryAppearance());
-			p.getActionSender().closeInterfaces();
+			p.getInterfaceManager().closeInterfaces();
 			return;
 		}
 		if ((button == 52 && temp.getGender() == 1) || (button == 49 && temp.getGender() == 0)) {

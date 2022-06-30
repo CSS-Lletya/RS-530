@@ -23,7 +23,7 @@ public class SkillMenu {
 		int j = 0;
 		for (int i = 125; i < 149; i++) {
 			if (buttonId == i) {
-				player.getActionSender().displayInterface(499);
+				player.getInterfaceManager().displayInterface(499);
 				player.getActionSender().sendConfig2(965, MENU_ID[j]);
 				player.setTemporaryAttribute("SkillMenu", (Integer) MENU_ID[j]);
 				break;

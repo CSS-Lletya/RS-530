@@ -3,11 +3,11 @@ package com.xeno.net.entity;
 import com.xeno.entity.Location;
 import com.xeno.entity.actor.item.Item;
 import com.xeno.entity.actor.item.ItemConstants;
-import com.xeno.entity.actor.masks.Appearance;
-import com.xeno.entity.actor.masks.ForceMovement;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.net.Constants;
 import com.xeno.net.Packet.Size;
+import com.xeno.net.entity.masks.Appearance;
+import com.xeno.net.entity.masks.ForceMovement;
 import com.xeno.packetbuilder.PacketBuilder;
 import com.xeno.packetbuilder.StaticPacketBuilder;
 import com.xeno.utility.Utility;
@@ -287,9 +287,9 @@ public class PlayerUpdate implements PacketBuilder {
 	}
 
 	private static void appendHitUpdate(Player p, StaticPacketBuilder updateBlock) {
-		int ratio =  p.getLevels().getLevel(3) * 255 / p.getLevels().getLevelForXp(3);
-		if (p.getLevels().getLevel(3) > p.getLevels().getLevelForXp(3)) {
-			ratio = p.getLevels().getLevelForXp(3) * 255 / p.getLevels().getLevelForXp(3);
+		int ratio =  p.getSkills().getLevel(3) * 255 / p.getSkills().getLevelForXp(3);
+		if (p.getSkills().getLevel(3) > p.getSkills().getLevelForXp(3)) {
+			ratio = p.getSkills().getLevelForXp(3) * 255 / p.getSkills().getLevelForXp(3);
 		}
 		updateBlock.addByte((byte) p.getHits().getHitDamage1());
 		updateBlock.addByteA((byte) p.getHits().getHitType1());
@@ -308,7 +308,7 @@ public class PlayerUpdate implements PacketBuilder {
 
 	private static void appendChatTextUpdate(Player p, StaticPacketBuilder updateBlock) {
 		updateBlock.addLEShort((p.getLastChatMessage().getColour() << 8) + p.getLastChatMessage().getEffect());
-		updateBlock.addByte((byte) p.getRights());
+		updateBlock.addByte((byte) p.playerDetails.getRights());
 		byte[] chatStr = p.getLastChatMessage().getPacked();
 		//chatStr[0] = (byte) p.getLastChatMessage().getChatText().length();
 		//int offset = 1+Misc.method251(chatStr, 0, 1, p.getLastChatMessage().getChatText().length(), p.getLastChatMessage().getChatText().getBytes());
@@ -407,8 +407,8 @@ public class PlayerUpdate implements PacketBuilder {
 			playerProps.addByte((byte) colour);
 		}
 		playerProps.addShort(p.getEquipment().getStandWalkAnimation());
-		playerProps.addLong(Utility.stringToLong(p.getPlayerDetails().getUsername()));
-		playerProps.addByte((byte) p.getLevels().getCombatLevel());
+		playerProps.addLong(Utility.stringToLong(p.getPlayerCredentials().getUsername()));
+		playerProps.addByte((byte) p.getSkills().getCombatLevel());
 		playerProps.addShort(0);
 		playerProps.addByte((byte) 0);
 		updateBlock.addByteA((byte) (playerProps.getLength() & 0xFF));

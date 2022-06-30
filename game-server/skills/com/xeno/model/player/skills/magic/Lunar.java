@@ -1,8 +1,6 @@
 package com.xeno.model.player.skills.magic;
 
 import com.xeno.entity.actor.player.Player;
-import com.xeno.event.Event;
-import com.xeno.world.World;
 
 public class Lunar {
 
@@ -11,7 +9,7 @@ public class Lunar {
 	}
 	
 	public static void castLunarSpell(Player p, int id) {
-		if (p.getSettings().getMagicType() != 3) {
+		if (p.getPlayerDetails().getMagicType() != 3) {
 			return;
 		}
 		switch(id) {
@@ -27,11 +25,11 @@ public class Lunar {
 				p.getActionSender().sendMessage("You do not have enough runes to cast Vengeance!");
 				return;
 			}
-			if (p.getSettings().hasVengeance()) {
+			if (p.getPlayerDetails().isVengeance()) {
 				p.getActionSender().sendMessage("You have already filled yourself with vengeance.");
 				return;
 			} else {
-				if (System.currentTimeMillis() - p.getSettings().getLastVengeanceTime() <= 30000) {
+				if (System.currentTimeMillis() - p.getPlayerDetails().getLastVengeanceTime() <= 30000) {
 					p.getActionSender().sendMessage("You cannot cast this spell yet.");
 					return;
 				}
@@ -41,8 +39,8 @@ public class Lunar {
 			p.getInventory().deleteItem(9075, 4);
 			p.animate(4410);
 			p.graphics(726, 0, 80);
-			p.getSettings().setLastVengeanceTime(System.currentTimeMillis());
-			p.getSettings().setVengeance(true);
+			p.getPlayerDetails().setLastVengeanceTime(System.currentTimeMillis());
+			p.getPlayerDetails().setVengeance(true);
 		}
 	}
 }

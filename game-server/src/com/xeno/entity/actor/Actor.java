@@ -13,72 +13,269 @@ import com.xeno.entity.Entity;
 import com.xeno.entity.EntityType;
 import com.xeno.entity.Follow;
 import com.xeno.entity.Location;
-import com.xeno.entity.actor.masks.EntityFocus;
-import com.xeno.entity.actor.masks.Hits;
-import com.xeno.entity.actor.masks.Sprite;
 import com.xeno.entity.actor.npc.NPC;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.Task;
-import com.xeno.utility.Utility;
+import com.xeno.net.entity.masks.EntityFocus;
+import com.xeno.net.entity.masks.Hits;
+import com.xeno.net.entity.masks.Hits.HitType;
+import com.xeno.net.entity.masks.Sprite;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
+/**
+ * Represents an Actor (Player/NPC) which inherits the Entity class.
+ * @author Dennis
+ *
+ */
 @Data
 @EqualsAndHashCode(callSuper=false)
 public abstract class Actor extends Entity {
 	
-	public Actor() {
-		this.location = Location.location(2322 + Utility.random(1), 3171 + Utility.random(5), 0);
-	}
-	
+	/**
+	 * Represents a client Sprite.
+	 * Not sure if this'll be here for long perhaps.
+	 */
 	protected transient Sprite sprite;
+	
+	/**
+	 * Represents a future Location tile.
+	 */
 	protected transient Location teleportTo = null;
+	
+	/**
+	 * Represents a Hit & type of hits.
+	 */
 	protected transient Hits hits;
+	
+	/**
+	 * Represents if the Actor is infact dead.
+	 */
 	protected transient boolean dead;
+	
+	/**
+	 * Represents if the Actor is hidden from game server conditions.
+	 */
 	protected transient boolean hidden;
+	
+	//this'll be removed if/when combat is redone.
 	protected transient int combatTurns;
+	
+	/**
+	 * Represents an Actor set as a target.
+	 */
 	protected transient Actor target;
+	
+	/**
+	 * Represents an Actor set as the attacker.
+	 */
 	protected transient Actor attacker;
+	
+	/**
+	 * Represents the last Actor's previous opponent.
+	 */
 	protected transient Actor lastOpponent;
+	
+	/**
+	 * Represents the time duration of the last known attack.
+	 */
 	protected transient long lastAttack;
+	
+	/**
+	 * Represents the time duration of the last known attacked upon.
+	 */
 	protected transient long lastAttacked;
+	
+	/**
+	 * Represents the poison amount.
+	 */
 	protected transient int poisonAmount;
+	
+	/**
+	 * Represents the time duration of the last known magic-based attack.
+	 */
 	protected transient long lastMagicAttack;
+	
+	/**
+	 * A collection of previous killers that attacked an Actor.
+	 * Then gets determined who's the highest hitter for loot, such.
+	 */
 	protected transient Map<Actor, Integer> killers;
+	
+	/**
+	 * Represents an instance of a Following Actor to Actor event.
+	 */
 	protected transient Follow follow;
+	
+	/**
+	 * Represents the last known combat swing type (mage, melee, range)
+	 */
 	protected transient CombatType lastCombatType;
+	
+	/**
+	 * Represents the Attack styles, etc..
+	 */
 	protected AttackVars attackVars;
+	
+	/**
+	 * Represents the last Attack style type used.
+	 */
 	protected transient int lastAttackType;
+	
+	/**
+	 * Represents the miasmic spell effect.
+	 */
 	protected transient int miasmicEffect;
+	
+	/**
+	 * Represents the Frozen state of an Actor from combat.
+	 */
 	protected transient boolean frozen;
 	
+	/**
+	 * Represents a standard Hit to an Actor.
+	 * @param damage
+	 */
 	public abstract void hit(int damage);
-	public abstract void hit(int damage, Hits.HitType type);
+	
+	/**
+	 * Represents a specific Hit to an Actor.
+	 * @param damage
+	 */
+	public abstract void hit(int damage, HitType type);
+	
+	/**
+	 * Represents the Max Hitpoints of an Actor.
+	 * @return
+	 */
 	public abstract int getMaxHp();
+	
+	/**
+	 * Represents the current Hitpoints of an Actor.
+	 * @return
+	 */
 	public abstract int getHp();
+	
+	/**
+	 * Sets the current Hitpoints of an Actor to the specified amount.
+	 * @param val
+	 */
 	public abstract void setHp(int val);
+	
+	/**
+	 * Represents a standard Graphic for an Actor to perform.
+	 * @param id
+	 */
 	public abstract void graphics(int id);
+	
+	/**
+	 * Represents a standard Graphic for an Actor to perform with a delay.
+	 * @param id
+	 */
 	public abstract void graphics(int id, int delay);
+	
+	/**
+	 * Represents a standard Graphic for an Actor to perform with a delay and specified height level.
+	 * @param id
+	 */
 	public abstract void graphics(int id, int delay, int height);
-	public abstract void animate(int id);
+	
+	/**
+	 * Represents the Entity focus value based on the value given.
+	 * @param id
+	 */
 	public abstract void setEntityFocus(int id);
+	
+	/**
+	 * Represents an Actors face Location/Tile direction.
+	 * @param loc
+	 */
 	public abstract void setFaceLocation(Location loc);
+	
+	/**
+	 * Represents the Acots Entity focus.
+	 * @return
+	 */
 	public abstract EntityFocus getEntityFocus();
+	
+	/**
+	 * Represents an Animation an Actor to perform.
+	 * @param id
+	 */
+	public abstract void animate(int id);
+	
+	/**
+	 * Represents an Animation an Actor to perform with a delay.
+	 * @param id
+	 */
 	public abstract void animate(int id, int delay);
+	
+	/**
+	 * Represents if an Actor is auto retaliating during a combat event sequence.
+	 * @return
+	 */
 	public abstract boolean isAutoRetaliating();
+	
+	/**
+	 * Represents an Actors Attack animation.
+	 * @return
+	 */
 	public abstract int getAttackAnimation();
+	
+	/**
+	 * Represents an Actors Attack speed.
+	 * @return
+	 */
 	public abstract int getAttackSpeed();
+	
+	/**
+	 * Represents an Actors Hit delay.
+	 * @return
+	 */
 	public abstract int getHitDelay();
+	
+	/**
+	 * Represents an Actors Max Hit.
+	 * @return
+	 */
 	public abstract int getMaxHit();
+	
+	/**
+	 * Represents an Actors Defence Animation.
+	 * @return
+	 */
 	public abstract int getDefenceAnimation();
+	
+	/**
+	 * Represents an Actors Death Animation.
+	 * @return
+	 */
 	public abstract int getDeathAnimation();
+	
+	/**
+	 * Represents an Actors Dropped Items event on death.
+	 */
 	public abstract void dropLoot();
+	
+	/**
+	 * Represents if an Actor is existent or not.
+	 * @return
+	 */
 	public abstract boolean isDestroyed();
+	
+	/**
+	 * Represents the amount of Hitpoints to heal an Actor.
+	 */
 	public abstract void heal(int amt);
 
-	public Object readResolve(EntityType type) {
+	/**
+	 * Defines an Actors attributes.
+	 * @param type
+	 * @return actor
+	 */
+	public Actor readResolve(EntityType type) {
 		this.type = requireNonNull(type);
 		hits = new Hits();
 		hidden = false;
@@ -229,7 +426,7 @@ public abstract class Actor extends Entity {
 			amt = 0;
 		}
 		if (this instanceof Player) {
-			((Player) this).getSettings().setPoisonAmount(amt);
+			((Player) this).playerDetails.setPoisonAmount(amt);
 		}
 		this.poisonAmount = amt;
 	}

@@ -13,6 +13,6 @@ public class CloseInterfacePacket implements OutgoingPacket {
 		if (player.getTrade() != null) {
 			player.getTrade().decline();
 		}
-		player.getActionSender().closeInterfaces();
+		player.getInterfaceManager().closeInterfaces();
 	}
 }

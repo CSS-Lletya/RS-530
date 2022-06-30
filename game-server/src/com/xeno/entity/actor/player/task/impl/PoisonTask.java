@@ -1,22 +1,22 @@
 package com.xeno.entity.actor.player.task.impl;
 
 import com.xeno.entity.actor.Actor;
-import com.xeno.entity.actor.masks.Hits;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.Task;
+import com.xeno.net.entity.masks.Hits;
 import com.xeno.utility.Utility;
 import com.xeno.world.World;
 
 import lombok.SneakyThrows;
 
-public final class PoisonEvent extends Task {
+public final class PoisonTask extends Task {
 	
 	private Actor target;
 	private int poisonAmount;
 	/**
-	 * Creates a new {@link PoisonEvent}.
+	 * Creates a new {@link PoisonTask}.
 	 */
-	public PoisonEvent(Actor target, int poisonAmount) {
+	public PoisonTask(Actor target, int poisonAmount) {
 		super(30);
 		this.target = target;
 		this.poisonAmount = poisonAmount;
@@ -31,7 +31,7 @@ public final class PoisonEvent extends Task {
 			return;
 		}
 		if (target instanceof Player) {
-			((Player) target).getActionSender().closeInterfaces();
+			((Player) target).getInterfaceManager().closeInterfaces();
 		}
 		target.hit(target.getPoisonAmount(), Hits.HitType.POISON_DAMAGE);
 		if (Utility.random(200) >= 100) {
@@ -47,7 +47,7 @@ public final class PoisonEvent extends Task {
 	
 	private void initialize(int poisonAmount) { 
 		if (target instanceof Player) {
-			if (((Player)target).getSettings().getSuperAntipoisonCycles() > 0) {
+			if (((Player)target).getPlayerDetails().getSuperAntipoisonCycles() > 0) {
 				stop();
 				return;
 			}
@@ -59,6 +59,6 @@ public final class PoisonEvent extends Task {
 	
 	@Override
 	public void onCancel() {
-		World.getInstance().submit(new PoisonEvent(target, poisonAmount));
+		World.getInstance().submit(new PoisonTask(target, poisonAmount));
 	}
 }

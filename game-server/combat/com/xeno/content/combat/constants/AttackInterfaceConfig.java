@@ -11,7 +11,7 @@ public class AttackInterfaceConfig {
 	}
 	
 	public static void configureButton(Player p, int interfaceId, int button) {
-		AttackVars av = p.getSettings().getAttackVars();
+		AttackVars av = p.getAttackVars();
 		switch(interfaceId) {
 			case 92: // Unarmed attack interface.
 				switch(button) {
@@ -341,7 +341,7 @@ public class AttackInterfaceConfig {
 		if (interfaceId == -1) {
 			return;
 		}
-		AttackVars av = p.getSettings().getAttackVars();
+		AttackVars av = p.getAttackVars();
 		CombatSkill type = av.getSkill();
 		CombatStyle type2 = av.getStyle();
 		int slot = av.getSlot();

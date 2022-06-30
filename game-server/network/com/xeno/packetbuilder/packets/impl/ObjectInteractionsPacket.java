@@ -5,9 +5,9 @@ import com.rs.plugin.eventbus.ObjectClickEvent;
 import com.xeno.content.LaddersAndStairs;
 import com.xeno.content.WildernessObelisks;
 import com.xeno.entity.Location;
-import com.xeno.entity.actor.masks.FaceLocation;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.net.Packet;
+import com.xeno.net.entity.masks.FaceLocation;
 import com.xeno.packetbuilder.packets.OutgoingPacket;
 import com.xeno.packetbuilder.packets.OutgoingPacketSignature;
 import com.xeno.utility.LogUtility;
@@ -56,7 +56,7 @@ public class ObjectInteractionsPacket implements OutgoingPacket {
 		
 		object = new WorldObject(objectId, new Location(objectX, objectY, player.getLocation().getZ()));
 		
-		player.getActionSender().closeInterfaces();
+		player.getInterfaceManager().closeInterfaces();
 		player.setFaceLocation(new FaceLocation(objectX, objectY));
 		switch (packet.getId()) {
 		case FIRST_CLICK:

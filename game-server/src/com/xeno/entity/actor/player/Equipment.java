@@ -149,7 +149,7 @@ public class Equipment {
 	
 	public void setWeapon() {
 		if(slots[3].getItemId() == -1) {
-			p.getActionSender().sendTab(p.isHd() ? 93 : 83, 92);
+			p.getInterfaceManager().sendTab(p.isHd() ? 93 : 83, 92);
 			p.getActionSender().modifyText("Unarmed", 92, 0);
 			AttackInterfaceConfig.setButtonForAttackStyle(p, 92);
 			return;
@@ -159,63 +159,63 @@ public class Equipment {
 		p.setTarget(null);
 		int interfaceId = -1;
 		if(weapon.equals("Abyssal whip")) {
-			p.getActionSender().sendTab(p.isHd() ? 93 : 83, 93);
+			p.getInterfaceManager().sendTab(p.isHd() ? 93 : 83, 93);
 			p.getActionSender().modifyText(weapon, 93, 0);
 			interfaceId = 93;
 		} else if (weapon.equals("Granite maul") || weapon.equals("Tzhaar-ket-om") || weapon.equals("Torags hammers")) {
-			p.getActionSender().sendTab(p.isHd() ? 93 : 83, 76);
+			p.getInterfaceManager().sendTab(p.isHd() ? 93 : 83, 76);
 			p.getActionSender().modifyText(weapon, 76, 0);
 			interfaceId = 76;
 		} else if(weapon.equals("Veracs flail") || (weapon.endsWith("mace") && !weapon.equals("Void knight mace"))) {
-			p.getActionSender().sendTab(p.isHd() ? 93 : 83, 88);
+			p.getInterfaceManager().sendTab(p.isHd() ? 93 : 83, 88);
 			p.getActionSender().modifyText(weapon, 88, 0);
 			interfaceId = 88;
 		} else if(weapon.endsWith("crossbow") || weapon.endsWith(" c'bow")) {
-			p.getActionSender().sendTab(p.isHd() ? 93 : 83, 79);
+			p.getInterfaceManager().sendTab(p.isHd() ? 93 : 83, 79);
 			p.getActionSender().modifyText(weapon, 79, 0);
 			interfaceId = 79;
 		} else if(weapon.endsWith("bow") || weapon.endsWith("bow full") || weapon.equals("Seercull")) {
-			p.getActionSender().sendTab(p.isHd() ? 93 : 83, 77);
+			p.getInterfaceManager().sendTab(p.isHd() ? 93 : 83, 77);
 			p.getActionSender().modifyText(weapon, 77, 0);
 			interfaceId = 77;
 		} else if(weapon.startsWith("Staff") || weapon.endsWith("staff") || weapon.equals("Toktz-mej-tal") || weapon.equals("Void knight mace")) {
-			p.getActionSender().sendTab(p.isHd() ? 93 : 83, 90);
+			p.getInterfaceManager().sendTab(p.isHd() ? 93 : 83, 90);
 			p.getActionSender().modifyText(weapon, 90, 0);
 			interfaceId = 90;
 		} else if(weapon.endsWith("dart") || weapon.endsWith("knife") || weapon.endsWith("javelin") || weapon.endsWith("thrownaxe") || weapon.equals("Toktz-xil-ul")) {
-			p.getActionSender().sendTab(p.isHd() ? 93 : 83, 91);
+			p.getInterfaceManager().sendTab(p.isHd() ? 93 : 83, 91);
 			p.getActionSender().modifyText(weapon, 91, 0);
 			interfaceId = 91;
 		} else if(weapon.endsWith("dagger") || weapon.endsWith("dagger(s)") || weapon.endsWith("dagger(+)") || weapon.endsWith("dagger(p)")  || weapon.endsWith("dagger(p++)")) {
-			p.getActionSender().sendTab(p.isHd() ? 93 : 83, 89);
+			p.getInterfaceManager().sendTab(p.isHd() ? 93 : 83, 89);
 			p.getActionSender().modifyText(weapon, 89, 0);
 			interfaceId = 89;
 		} else if(weapon.endsWith("pickaxe")) {
-			p.getActionSender().sendTab(p.isHd() ? 93 : 83, 83);
+			p.getInterfaceManager().sendTab(p.isHd() ? 93 : 83, 83);
 			p.getActionSender().modifyText(weapon, 83, 0);
 			interfaceId = 83;
 		} else if(weapon.endsWith("axe") || weapon.endsWith("battleaxe") || weapon.endsWith("adze")) {
-			p.getActionSender().sendTab(p.isHd() ? 93 : 83, 75);
+			p.getInterfaceManager().sendTab(p.isHd() ? 93 : 83, 75);
 			p.getActionSender().modifyText(weapon, 75, 0);
 			interfaceId = 75;
 		} else if(weapon.endsWith("halberd")) {
-			p.getActionSender().sendTab(p.isHd() ? 93 : 83, 84);
+			p.getInterfaceManager().sendTab(p.isHd() ? 93 : 83, 84);
 			p.getActionSender().modifyText(weapon, 84, 0);
 			interfaceId = 84;
 		} else if(weapon.endsWith("spear") || weapon.equals("Guthans warspear")) {
-			p.getActionSender().sendTab(p.isHd() ? 93 : 83, 85);
+			p.getInterfaceManager().sendTab(p.isHd() ? 93 : 83, 85);
 			p.getActionSender().modifyText(weapon, 85, 0);
 			interfaceId = 85;
 		} else if(weapon.endsWith("claws")) {
-			p.getActionSender().sendTab(p.isHd() ? 93 : 83, 78);
+			p.getInterfaceManager().sendTab(p.isHd() ? 93 : 83, 78);
 			p.getActionSender().modifyText(weapon, 78, 0);
 			interfaceId = 78;
 		} else if(weapon.endsWith("2h sword") || weapon.endsWith("godsword") || weapon.equals("Saradomin sword")) {
-			p.getActionSender().sendTab(p.isHd() ? 93 : 83, 81);
+			p.getInterfaceManager().sendTab(p.isHd() ? 93 : 83, 81);
 			p.getActionSender().modifyText(weapon, 81, 0);
 			interfaceId = 81;
 		} else {
-			p.getActionSender().sendTab(p.isHd() ? 93 : 83, 82);
+			p.getInterfaceManager().sendTab(p.isHd() ? 93 : 83, 82);
 			p.getActionSender().modifyText(weapon, 82, 0);
 			interfaceId = 82;
 		}
@@ -299,9 +299,9 @@ public class Equipment {
 		p.getWalkingQueue().reset();
 		p.getActionSender().clearMapFlag();
 		Object[] opts = new Object[]{"", "", "", "", "Wear<col=ff9040>", -1, 0, 7, 4, 93, 43909120};
-		p.getActionSender().displayInterface(667);
+		p.getInterfaceManager().displayInterface(667);
 		p.getBonuses().refresh();
-		p.getActionSender().displayInventoryInterface(149);
+		p.getInterfaceManager().displayInventoryInterface(149);
 		p.getActionSender().sendClientScript2(172, 149, opts, "IviiiIsssss");
 		p.getActionSender().setRightClickOptions(1278, (667 * 65536) + 14, 0, 13);
 	}

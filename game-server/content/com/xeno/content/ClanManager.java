@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.xeno.entity.actor.masks.ChatMessage;
+import com.xeno.GameConstants;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.Task;
 import com.xeno.event.Event;
 import com.xeno.net.Packet.Size;
+import com.xeno.net.entity.masks.ChatMessage;
 import com.xeno.packetbuilder.StaticPacketBuilder;
 import com.xeno.utility.Utility;
 import com.xeno.world.World;
@@ -104,10 +105,10 @@ public class ClanManager {
 				for (ClanUser list: c.getUserList()) {
 					Player p = list.getClanMember();
 					spb.addLong(Utility.playerNameToLong(p.getUsername()));
-					spb.addShort(p.getWorld());
+					spb.addShort(GameConstants.WORLD_ID);
 					int rights = list.getClanRights() == -1 ? -1 : list.getClanRights();
 					spb.addByte((byte) rights);
-					spb.addString("Server " + p.getWorld());
+					spb.addString("Server " + GameConstants.WORLD_ID);
 				}
 				cu.getClanMember().getSession().write(spb.toPacket());
 		}
@@ -118,7 +119,7 @@ public class ClanManager {
 		 if (!c.getClanOwner().equals(p.getUsername())) {
 				if (c.getTalkRights() > -1) {
 					if (c.getTalkRights() == 0) {
-						if (!c.isFriendOfOwner(p) && !c.userHasRank(Utility.longToPlayerName(p.getPlayerDetails().getUsernameAsLong()))) {
+						if (!c.isFriendOfOwner(p) && !c.userHasRank(Utility.longToPlayerName(p.getPlayerCredentials().getUsernameAsLong()))) {
 							p.getActionSender().sendMessage("You do not have a high enough rank to talk in this clan chat.");
 							return;
 						}
@@ -148,7 +149,7 @@ public class ClanManager {
 			chatStr[0] = (byte) message.length();
 			int offset = 1 + Utility.encryptPlayerChat(chatStr, 0, 1, message.length(), message.getBytes());
 			spb.addBytes(new byte[] { (byte) ((messageCounter << 16) & 0xFF), (byte) ((messageCounter << 8) & 0xFF), (byte) (messageCounter & 0xFF)} );
-			spb.addByte((byte) m.getPlayer().getRights());
+			spb.addByte((byte) m.getPlayer().playerDetails.getRights());
 			spb.addBytes(chatStr, 0, offset);
 			player.getSession().write(spb.toPacket());
 		 }
@@ -162,7 +163,7 @@ public class ClanManager {
 	}
 	
 	public void openClanSetup(Player p) {
-		p.getActionSender().displayInterface(590);
+		p.getInterfaceManager().displayInterface(590);
 		Clan clan = getClanByOwner(p, p.getUsername());
 		if (clan == null) {
 			Clan newClan = new Clan(p, "Clan name", p.getUsername());

@@ -40,7 +40,7 @@ public class Clan {
 			user.setClanRights(OWNER);
 			own = p;
 		}
-		if (ownerFriends.contains(p.getPlayerDetails().getUsernameAsLong())) {
+		if (ownerFriends.contains(p.getPlayerCredentials().getUsernameAsLong())) {
 			if (user.getClanRights() == -1) {
 				user.setClanRights(FRIEND);
 			}
@@ -116,7 +116,7 @@ public class Clan {
 	}
 	
 	public boolean isFriendOfOwner(Player p) {
-		return ownerFriends.contains(p.getPlayerDetails().getUsernameAsLong());
+		return ownerFriends.contains(p.getPlayerCredentials().getUsernameAsLong());
 	}
 	
 	public String getClanName() {

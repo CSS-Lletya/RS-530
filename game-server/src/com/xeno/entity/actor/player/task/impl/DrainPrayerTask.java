@@ -7,12 +7,12 @@ import com.xeno.world.World;
 
 import lombok.SneakyThrows;
 
-public final class DrainPrayerEvent extends Task {
+public final class DrainPrayerTask extends Task {
 	
 	/**
-	 * Creates a new {@link DrainPrayerEvent}.
+	 * Creates a new {@link DrainPrayerTask}.
 	 */
-	public DrainPrayerEvent() {
+	public DrainPrayerTask() {
 		super(1);
 	}
 	
@@ -34,8 +34,8 @@ public final class DrainPrayerEvent extends Task {
 					amountDrain += drain;
 				}
 			}
-			p.getSettings().decreasePrayerPoints(amountDrain);
-			if(p.getSettings().getPrayerPoints() <= 0) {
+			p.getPlayerDetails().decreasePrayerPoints(amountDrain);
+			if(p.getPlayerDetails().getPrayerPoints() <= 0) {
 				this.stop();
 			}
 		}
@@ -43,6 +43,6 @@ public final class DrainPrayerEvent extends Task {
 	
 	@Override
 	public void onCancel() {
-		World.getInstance().submit(new DrainPrayerEvent());
+		World.getInstance().submit(new DrainPrayerTask());
 	}
 }
