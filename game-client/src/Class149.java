@@ -4,6 +4,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+import javax.swing.SwingUtilities;
+
 final class Class149 implements MouseListener, MouseMotionListener, FocusListener {
 
    static float[] aFloatArray1919 = new float[4];
@@ -100,27 +102,40 @@ final class Class149 implements MouseListener, MouseMotionListener, FocusListene
       }
    }
 
-   public final synchronized void mouseDragged(MouseEvent var1) {
+   private int mouseWheelX;
+   private int mouseWheelY;
+   private boolean mouseWheelDown;
+   
+   public final synchronized void mouseDragged(MouseEvent mouseevent) {
       try {
          if(null != Class3_Sub28_Sub7_Sub1.aClass149_4047) {
             Class3_Sub28_Sub7_Sub1.anInt4045 = 0;
-            Class3_Sub21.anInt2493 = var1.getX();
-            Class95.anInt1340 = var1.getY();
+            Class3_Sub21.anInt2493 = mouseevent.getX();
+            Class95.anInt1340 = mouseevent.getY();
          }
-         /*if(SwingUtilities.isMiddleMouseButton(var1)){
-         Class151_Sub1.anIntArray2952[Class3_Sub13.anInt2384] = 96;
-         Class3_Sub13.anInt2384 = 127 & Class3_Sub13.anInt2384 - -1;      
-     }*/
+         if (this.mouseWheelDown) {
+ 			int dx = this.mouseWheelX - mouseevent.getY();
+ 			int dy = this.mouseWheelY - mouseevent.getX();
+ 			this.mouseWheelDragged(dx, -dy);
+ 			this.mouseWheelX = mouseevent.getY();
+ 			this.mouseWheelY = mouseevent.getX();
+ 		}
       } catch (RuntimeException var3) {
-         throw Class44.method1067(var3, "ug.mouseDragged(" + (var1 != null?"{...}":"null") + ')');
+         throw Class44.method1067(var3, "ug.mouseDragged(" + (mouseevent != null?"{...}":"null") + ')');
       }
    }
+   
+	private void mouseWheelDragged(int dx, int ndy) {
+		Class3_Sub9.anInt2309 += dx ;
+		Class28.anInt531 += (ndy);
+	}
 
    public final synchronized void mouseReleased(MouseEvent var1) {
       try {
          if(null != Class3_Sub28_Sub7_Sub1.aClass149_4047) {
             Class3_Sub28_Sub7_Sub1.anInt4045 = 0;
             Class28.anInt549 = 0;
+            this.mouseWheelDown = false;
             int var2 = var1.getModifiers();
             if(0 == (16 & var2)) {
                ;
@@ -174,14 +189,20 @@ final class Class149 implements MouseListener, MouseMotionListener, FocusListene
       }
    }
 
-   public final synchronized void mousePressed(MouseEvent var1) {
+   public final synchronized void mousePressed(MouseEvent mouseevent) {
       try {
          if(Class3_Sub28_Sub7_Sub1.aClass149_4047 != null) {
             Class3_Sub28_Sub7_Sub1.anInt4045 = 0;
-            Class16.anInt362 = var1.getX();
-            Class3_Sub13_Sub32.anInt3389 = var1.getY();
+            Class16.anInt362 = mouseevent.getX();
+            Class3_Sub13_Sub32.anInt3389 = mouseevent.getY();
             Class140_Sub6.aLong2926 = Class5.method830((byte)-55);
-            if(!var1.isMetaDown()) {
+            if (SwingUtilities.isMiddleMouseButton(mouseevent)) {
+				this.mouseWheelDown = true;
+				this.mouseWheelX = mouseevent.getX();
+				this.mouseWheelY = mouseevent.getY();
+				return;
+			}
+            if(!mouseevent.isMetaDown()) {
                Class140_Sub3.anInt2743 = 1;
                Class28.anInt549 = 1;
             } else {
@@ -189,7 +210,7 @@ final class Class149 implements MouseListener, MouseMotionListener, FocusListene
                Class28.anInt549 = 2;
             }
 
-            int var2 = var1.getModifiers();
+            int var2 = mouseevent.getModifiers();
             if((var2 & 16) == 0) {
                ;
             }
@@ -203,12 +224,12 @@ final class Class149 implements MouseListener, MouseMotionListener, FocusListene
             }
          }
 
-         if(var1.isPopupTrigger()) {
-            var1.consume();
+         if(mouseevent.isPopupTrigger()) {
+            mouseevent.consume();
          }
 
       } catch (RuntimeException var3) {
-         throw Class44.method1067(var3, "ug.mousePressed(" + (var1 != null?"{...}":"null") + ')');
+         throw Class44.method1067(var3, "ug.mousePressed(" + (mouseevent != null?"{...}":"null") + ')');
       }
    }
 
