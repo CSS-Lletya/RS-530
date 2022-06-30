@@ -12,7 +12,7 @@ import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.Task;
 import com.xeno.utility.LogUtility;
 import com.xeno.utility.LogUtility.LogType;
-import com.xeno.utility.Utility;
+import com.xeno.utility.RandomUtils;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 
@@ -36,7 +36,7 @@ public class ObjectManager {
 			addObjectToList(originalId, location);
 		}
 		if (object.getOriginalId() == 733) { // Web
-			if (Utility.random(6) == 0) {
+			if (RandomUtils.random(6) == 0) {
 				changeObject(object);
 			}
 			return;
@@ -63,7 +63,7 @@ public class ObjectManager {
 					}
 				}
 			}
-			int delay = object.isFire() ? (60000 + Utility.random(90000)) : object.getRestoreDelay(); 
+			int delay = object.isFire() ? (60000 + RandomUtils.random(90000)) : object.getRestoreDelay(); 
 			World.getInstance().submit(new Task(delay) {//doesn't seem right, circle back!
 				@Override
 				protected void execute() {
@@ -204,13 +204,13 @@ public class ObjectManager {
 		int random = 1;
 		switch(originalId) {
 		case 733: // Wilderness web
-			return Utility.random(10);
+			return RandomUtils.random(10);
 		/*
 		 * Oak trees
 		 */
 		case 1281: // Normal Oak tree
 		case 3037: // Oak tree dark stump
-			return 4 + Utility.random(18);
+			return 4 + RandomUtils.random(18);
 		/*
 		 * Willow trees
 		 */
@@ -218,41 +218,41 @@ public class ObjectManager {
 		case 5551: // Normal Willow tree
 		case 5552: // Normal Willow tree
 		case 5553: // Normal Willow tree
-			return 12 + Utility.random(20);
+			return 12 + RandomUtils.random(20);
 		/*
 		 * Teak trees
 		 */
 		case 9036: // Normal Teak tree
 		case 15062: // Normal Teak tree (same as above?)
-			return 20 + Utility.random(15);
+			return 20 + RandomUtils.random(15);
 		/*
 		 * Maple trees
 		 */
 		case 1307: // Normal Maple tree
 		case 4674:// Exactly same as above
-			return 10 + Utility.random(7);
+			return 10 + RandomUtils.random(7);
 		/*
 		 * Hollow trees
 		 */
 		case 2289: // Normal Hollow tree
 		case 4060: // Normal Hollow tree (bigger than above)
-			return 5 + Utility.random(9);
+			return 5 + RandomUtils.random(9);
 			
 		case 9034: // Normal Mahogany tree
-			return 25 + Utility.random(13);
+			return 25 + RandomUtils.random(13);
 		/*
 		 * Eucalyptus trees	
 		 */
 		case 28951: // Normal Eucalyptus tree
 		case 28952: // Normal Eucalyptus tree (smaller)
 		case 28953: // Normal Eucalyptus tree (smallest)
-			return 7 + Utility.random(10);
+			return 7 + RandomUtils.random(10);
 			
 		case 1309: // Yew tree
-			return 17 + Utility.random(20);
+			return 17 + RandomUtils.random(20);
 			
 		case 1306: // Normal Magic tree
-			return 20 + Utility.random(15);
+			return 20 + RandomUtils.random(15);
 			/*
 			 * Coal rocks
 			 */
@@ -265,7 +265,7 @@ public class ObjectManager {
 			case 31068:
 			case 31069:
 			case 31070:
-				random = Utility.random(10);
+				random = RandomUtils.random(10);
 				if (random == 0) {
 					random = 1;
 				}

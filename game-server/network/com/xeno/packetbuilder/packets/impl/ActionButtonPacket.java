@@ -26,6 +26,6 @@ public class ActionButtonPacket implements OutgoingPacket {
 		}
 		if (GameConstants.DEBUG_MODE)
 			LogUtility.log(LogType.INFO, "Inter: "+ interfaceId + " - button: " + buttonId + " button type 2: " + buttonId2);
-		RSInterfacePluginDispatcher.execute(player, interfaceId, buttonId);
+		RSInterfacePluginDispatcher.execute(player, interfaceId, buttonId, buttonId2);
 	}
 }

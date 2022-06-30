@@ -32,9 +32,9 @@ public final class RSInterfacePluginDispatcher {
 	 * @param player the player executing the interface.
 	 * @param parts  the string which represents a interface.
 	 */
-	public static void execute(Player player, int interfaceId, int componentId) {
+	public static void execute(Player player, int interfaceId, int button, int button2) {
 		getRSInterface(interfaceId).ifPresent(inter -> {
-			Try.run(() -> inter.execute(player, interfaceId, componentId));
+			Try.run(() -> inter.execute(player, interfaceId, button, button2));
 		});
 	}
 

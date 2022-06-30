@@ -16,5 +16,5 @@ public interface RSInterface {
 	 * @param componentId
 	 * @throws Exception
 	 */
-	public void execute(Player player, int interfaceId, int button) throws Exception;
+	public void execute(Player player, int interfaceId, int button, int button2) throws Exception;
 }

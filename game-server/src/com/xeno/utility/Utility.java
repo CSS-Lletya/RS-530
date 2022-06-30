@@ -75,10 +75,6 @@ public class Utility {
 		return l;
 	}
 
-	public static int random(int range) {
-		return (int) (java.lang.Math.random() * (range + 1));
-	}
-
 	/**
 	 * Valid characters.
 	 */

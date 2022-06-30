@@ -19,7 +19,7 @@ public class PlayerDetails {
 	private int rights = 0;
 	private transient Player player;
 	
-	private boolean chat, split, mouse, aid;
+	private boolean chat, split, mouse, aid, achievementDiaryTab;
 	private long teleblockTime, lastVengeanceTime;
 	private double prayerPoints;
 	private int poisonAmount, specialAmount, skullCycles, magicType;
@@ -35,6 +35,7 @@ public class PlayerDetails {
 		skullCycles = 0;
 		prayerPoints = 1;
 		teleblockTime = 0;
+		achievementDiaryTab = false;
 	}
 
 	public void refresh() {

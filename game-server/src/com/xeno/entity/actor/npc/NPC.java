@@ -20,6 +20,7 @@ import com.xeno.net.entity.masks.ForceText;
 import com.xeno.net.entity.masks.Graphics;
 import com.xeno.net.entity.masks.Hits;
 import com.xeno.net.entity.masks.Hits.Hit;
+import com.xeno.utility.RandomUtils;
 import com.xeno.utility.Utility;
 import com.xeno.world.World;
 
@@ -109,22 +110,22 @@ public class NPC extends Actor {
         if (drop != null) {
             try {
                 ArrayList<Item> drops = new ArrayList<Item>();
-                int random = Utility.random(100);
+                int random = RandomUtils.random(100);
                 int random2 = 100 - random;
                 if (random2 == 0) {
                     random2++;
                 }
                 if (random2 < 25) { // 25% - semi rare
                     if (drop.getUncommonDrops() != null) {
-                        drops.add(drop.getUncommonDrops().get(Utility.random(drop.getUncommonDrops().size() - 1)));
+                        drops.add(drop.getUncommonDrops().get(RandomUtils.random(drop.getUncommonDrops().size() - 1)));
                     }
                 } else if (random2 >= 25 && random2 < 95) { // 65%  common
                     if (drop.getCommonDrops() != null) {
-                        drops.add(drop.getCommonDrops().get(Utility.random(drop.getCommonDrops().size() - 1)));
+                        drops.add(drop.getCommonDrops().get(RandomUtils.random(drop.getCommonDrops().size() - 1)));
                     }
                 } else if (random2 >= 95) { // 5% - rare
                     if (drop.getRareDrops() != null) {
-                        drops.add(drop.getRareDrops().get(Utility.random(drop.getRareDrops().size() - 1)));
+                        drops.add(drop.getRareDrops().get(RandomUtils.random(drop.getRareDrops().size() - 1)));
                     }
                 } else {
 
@@ -139,7 +140,7 @@ public class NPC extends Actor {
                     int amount = randomItem.getItemAmount();
                     int itemId = randomItem.getItemId();
                     if (amount < 0) {
-                        amount = Utility.random((amount - (amount * 2)));
+                        amount = RandomUtils.random((amount - (amount * 2)));
                         if (amount == 0) {
                             amount = 1;
                         }

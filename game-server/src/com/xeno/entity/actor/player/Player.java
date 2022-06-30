@@ -43,7 +43,7 @@ import com.xeno.net.entity.masks.Hits;
 import com.xeno.net.entity.masks.Hits.Hit;
 import com.xeno.packetbuilder.StaticPacketBuilder;
 import com.xeno.packetbuilder.packets.OutgoingPacketDispatcher;
-import com.xeno.utility.Utility;
+import com.xeno.utility.RandomUtils;
 import com.xeno.world.World;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
@@ -354,7 +354,7 @@ public class Player extends Actor {
 		}
 			if (newHp >= 1 && newHp <= maxHp * 0.10 && !redemption) {
 				if (equipment.getItemInSlot(12) == 2570) {
-					teleport(Location.location(3221 + Utility.random(1), 3217 + Utility.random(3), 0));
+					teleport(Location.location(3221 + RandomUtils.random(1), 3217 + RandomUtils.random(3), 0));
 					actionSender.sendMessage("Your ring of life shatters whilst teleporting you to safety.");
 					equipment.getSlot(12).setItemId(-1);
 					equipment.getSlot(12).setItemAmount(0);

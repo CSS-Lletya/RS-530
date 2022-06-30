@@ -4,7 +4,7 @@ import com.xeno.entity.Location;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.AreaTask;
 import com.xeno.entity.actor.player.task.Task;
-import com.xeno.utility.Utility;
+import com.xeno.utility.RandomUtils;
 import com.xeno.world.World;
 import com.xeno.world.WorldObject;
 
@@ -72,7 +72,7 @@ public class WildernessObelisks {
 			}
 		}
 		obeliskActivated[index] = true;
-		World.getInstance().submit(new Task(4 + (Utility.random(4))) {
+		World.getInstance().submit(new Task(4 + (RandomUtils.random(4))) {
 			@Override
 			protected void execute() {
 				this.stop();
@@ -93,7 +93,7 @@ public class WildernessObelisks {
 								@Override
 								protected void execute() {
 									this.stop();
-									p2.teleport(Location.location((OBELISK_LOCATIONS[random][0] - 1) + Utility.random(2), (OBELISK_LOCATIONS[random][1] - 1) + Utility.random(2), 0));
+									p2.teleport(Location.location((OBELISK_LOCATIONS[random][0] - 1) + RandomUtils.random(2), (OBELISK_LOCATIONS[random][1] - 1) + RandomUtils.random(2), 0));
 									World.getInstance().submit(new Task(2) {
 										@Override
 										protected void execute() {

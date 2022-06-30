@@ -4,6 +4,7 @@ import com.xeno.entity.actor.item.Item;
 import com.xeno.entity.actor.item.ItemConstants;
 import com.xeno.entity.actor.player.task.AreaTask;
 import com.xeno.net.definitions.ItemDefinition;
+import com.xeno.utility.RandomUtils;
 import com.xeno.utility.Utility;
 import com.xeno.world.World;
 
@@ -439,7 +440,7 @@ public class Bank {
 		for (int i = 0; i <= 9; i++) {
 			int num = -1;
 			for (; ;) {
-				num = Utility.random(numbers.length - 1);
+				num = RandomUtils.random(numbers.length - 1);
 				if (numbers[num] == -1) {
 					continue;
 				} else {

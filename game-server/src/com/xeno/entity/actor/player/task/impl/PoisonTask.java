@@ -4,7 +4,7 @@ import com.xeno.entity.actor.Actor;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.Task;
 import com.xeno.net.entity.masks.Hits;
-import com.xeno.utility.Utility;
+import com.xeno.utility.RandomUtils;
 import com.xeno.world.World;
 
 import lombok.SneakyThrows;
@@ -34,10 +34,10 @@ public final class PoisonTask extends Task {
 			((Player) target).getInterfaceManager().closeInterfaces();
 		}
 		target.hit(target.getPoisonAmount(), Hits.HitType.POISON_DAMAGE);
-		if (Utility.random(200) >= 100) {
+		if (RandomUtils.random(200) >= 100) {
 			target.setPoisonAmount(target.getPoisonAmount() - 1);
 		}
-		if (Utility.random(10) == 0) {
+		if (RandomUtils.random(10) == 0) {
 			target.setPoisonAmount(0);
 			stop();
 			return;

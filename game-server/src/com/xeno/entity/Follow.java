@@ -3,7 +3,7 @@ package com.xeno.entity;
 import com.xeno.entity.actor.Actor;
 import com.xeno.entity.actor.npc.NPC;
 import com.xeno.entity.actor.player.Player;
-import com.xeno.utility.Utility;
+import com.xeno.utility.RandomUtils;
 
 public class Follow {
 
@@ -54,13 +54,13 @@ public class Follow {
 				return;
 			}
 			if (sameCoordWait == 2) {
-				if (Utility.random(3) == 0) {
+				if (RandomUtils.random(3) == 0) {
 					newY--;
-				} else if (Utility.random(3) == 1) {
+				} else if (RandomUtils.random(3) == 1) {
 					newY++;
-				} else if (Utility.random(3) == 2) {
+				} else if (RandomUtils.random(3) == 2) {
 					newX--;
-				} else if (Utility.random(3) == 3) {
+				} else if (RandomUtils.random(3) == 3) {
 					newX++;
 				}
 				sameCoords = true;

@@ -4,7 +4,7 @@ import com.xeno.entity.Location;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.Task;
 import com.xeno.utility.Area;
-import com.xeno.utility.Utility;
+import com.xeno.utility.RandomUtils;
 import com.xeno.world.World;
 
 public class Teleport extends MagicData {
@@ -48,7 +48,7 @@ public class Teleport extends MagicData {
 				}
 				if (this.currentStage++ >= 16) {
 					resetTeleport(p);
-					p.teleport(Location.location(HOME_TELE[0] + Utility.random(HOME_TELE[2]), HOME_TELE[1] + Utility.random(HOME_TELE[3]), 0));
+					p.teleport(Location.location(HOME_TELE[0] + RandomUtils.random(HOME_TELE[2]), HOME_TELE[1] + RandomUtils.random(HOME_TELE[3]), 0));
 					this.stop();
 					return;
 				}
@@ -74,8 +74,8 @@ public class Teleport extends MagicData {
 		if (!correctMagicSet) {
 			return;
 		}
-		final int x = TELE_X[teleport] + Utility.random(TELE_EXTRA_X[teleport]);
-		final int y = TELE_Y[teleport] + Utility.random(TELE_EXTRA_Y[teleport]);
+		final int x = TELE_X[teleport] + RandomUtils.random(TELE_EXTRA_X[teleport]);
+		final int y = TELE_Y[teleport] + RandomUtils.random(TELE_EXTRA_Y[teleport]);
 		p.getInterfaceManager().closeInterfaces();
 		p.animate(ancients ? 9599 : 8939, 0);
 		p.graphics(ancients ? 1681 : 1576, 0);
@@ -166,8 +166,8 @@ public class Teleport extends MagicData {
 			p.getActionSender().sendMessage("You cannot teleport above level 20 wilderness!");
 			return false;
 		}
-		final int x = TELE_X[index] + Utility.random(TELE_EXTRA_X[index]);
-		final int y = TELE_Y[index] + Utility.random(TELE_EXTRA_Y[index]);
+		final int x = TELE_X[index] + RandomUtils.random(TELE_EXTRA_X[index]);
+		final int y = TELE_Y[index] + RandomUtils.random(TELE_EXTRA_Y[index]);
 		p.getInterfaceManager().closeInterfaces();
 		p.getActionSender().sendBlankClientScript(1297);
 		p.getWalkingQueue().reset();

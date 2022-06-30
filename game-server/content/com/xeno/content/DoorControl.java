@@ -11,7 +11,7 @@ import com.xeno.entity.actor.player.task.AreaTask;
 import com.xeno.entity.actor.player.task.Task;
 import com.xeno.utility.LogUtility;
 import com.xeno.utility.LogUtility.LogType;
-import com.xeno.utility.Utility;
+import com.xeno.utility.RandomUtils;
 import com.xeno.utility.XStreamUtil;
 import com.xeno.world.World;
 
@@ -32,7 +32,7 @@ public class DoorControl {
 			protected void execute() {
 				for (Door door: doors) {
 					if (door != null) {
-						if (door.isDoorOpen() && !door.isInstantClose() && Utility.random(1) == 0) {
+						if (door.isDoorOpen() && !door.isInstantClose() && RandomUtils.random(1) == 0) {
 							changeDoor(door);
 						}
 					}
