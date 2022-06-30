@@ -3,8 +3,6 @@ package com.xeno;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.Executors;
 
 import com.rs.plugin.PluginManager;
@@ -18,9 +16,10 @@ import com.xeno.net.definitions.NPCDefinition;
 import com.xeno.packetbuilder.packets.OutgoingPacketDispatcher;
 import com.xeno.utility.BlockingExecutorService;
 import com.xeno.utility.LogUtility;
-import com.xeno.utility.TimeStamp;
 import com.xeno.utility.LogUtility.LogType;
+import com.xeno.utility.TimeStamp;
 
+import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import lombok.Getter;
 import lombok.SneakyThrows;
 
@@ -40,7 +39,7 @@ public class GameLoader {
 	/**
 	 * This makes you wish that Java supported typedefs.
 	 */
-	private Map<Integer, int[]> mapData;
+	private Object2ObjectArrayMap<Integer, int[]> mapData;
 	
 	/**
 	 * Our worker thread.
@@ -77,7 +76,7 @@ public class GameLoader {
 		if(!packedFile.exists()) {
 			MapDataPacker.pack("data/mapdata/unpacked/", "data/mapdata/packed.dat");
 		}
-		mapData = new HashMap<Integer, int[]>();
+		mapData = new Object2ObjectArrayMap<Integer, int[]>();
 		MapDataLoader.load(mapData);
 		getBackgroundLoader().submit(() -> {
 			LogUtility.log(LogType.INFO, "Loading item definitions...");

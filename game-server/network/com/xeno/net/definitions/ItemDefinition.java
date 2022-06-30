@@ -5,12 +5,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 import com.xeno.entity.actor.item.ItemConstants;
 import com.xeno.utility.LogUtility;
 import com.xeno.utility.LogUtility.LogType;
+
+import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import lombok.Cleanup;
 
 /**
  * Item Definition class
@@ -20,7 +22,7 @@ import com.xeno.utility.LogUtility.LogType;
  */
 public class ItemDefinition {
 	
-	private static Map<Integer, ItemDefinition> definitions = null;
+	private static Object2ObjectArrayMap<Integer, ItemDefinition> definitions = new Object2ObjectArrayMap<Integer, ItemDefinition>();;
 	
 	public static void load() throws IOException {
 		String line = "";
@@ -30,6 +32,7 @@ public class ItemDefinition {
 		String[] token3 = new String[10];
 		boolean EndOfFile = false;
 		int ReadMode = 0;
+		@Cleanup
 		BufferedReader characterfile = null;
 
 		try {
@@ -43,7 +46,6 @@ public class ItemDefinition {
 		} catch (IOException ioexception) {
 			return;
 		}
-		definitions = new HashMap<Integer, ItemDefinition>();
 		while (EndOfFile == false && line != null) {
 			line = line.trim();
 			int spot = line.indexOf("=");
@@ -105,9 +107,6 @@ public class ItemDefinition {
 				EndOfFile = true;
 			}
 		}
-		try {
-			characterfile.close();
-		} catch (IOException ioexception) {}
 		return;
 	}
 	
@@ -119,6 +118,7 @@ public class ItemDefinition {
 		String[] token3 = new String[10];
 		boolean EndOfFile = false;
 		int ReadMode = 0;
+		@Cleanup
 		BufferedReader characterfile = null;
 
 		try {
@@ -163,9 +163,6 @@ public class ItemDefinition {
 				
 			} else {
 				if (line.equals("[ENDOFLIST]")) {
-					try {
-						characterfile.close();
-					} catch (IOException ioexception) {}
 					return;
 				}
 			}
@@ -175,9 +172,6 @@ public class ItemDefinition {
 				EndOfFile = true;
 			}
 		}
-		try {
-			characterfile.close();
-		} catch (IOException ioexception) {}
 		return;
 	}
 

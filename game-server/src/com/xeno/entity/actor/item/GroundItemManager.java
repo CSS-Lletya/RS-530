@@ -1,22 +1,20 @@
 package com.xeno.entity.actor.item;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.xeno.entity.Location;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.Task;
-import com.xeno.event.Event;
 import com.xeno.net.definitions.ItemDefinition;
 import com.xeno.utility.Area;
 import com.xeno.world.World;
 
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+
 public class GroundItemManager {
 
-	private List<GroundItem> items;
+	private ObjectArrayList<GroundItem> items;
 	
 	public GroundItemManager() {
-		items = new ArrayList<GroundItem>();
+		items = new ObjectArrayList<GroundItem>();
 	}
 	
 	public void newEntityDrop(final GroundItem item) {

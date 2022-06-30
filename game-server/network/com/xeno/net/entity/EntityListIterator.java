@@ -18,9 +18,9 @@ package com.xeno.net.entity;
 import java.util.Iterator;
 import java.util.Set;
 
-import com.xeno.entity.Entity;
+import com.xeno.entity.actor.Actor;
 
-public class EntityListIterator<E extends Entity> implements Iterator<E> {
+public class EntityListIterator<E extends Actor> implements Iterator<E> {
 	private Integer[] indicies;
 	private Object[] entities;
 	@SuppressWarnings("unchecked")

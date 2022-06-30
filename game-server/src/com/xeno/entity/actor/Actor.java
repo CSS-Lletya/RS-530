@@ -2,7 +2,6 @@ package com.xeno.entity.actor;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
@@ -19,6 +18,7 @@ import com.xeno.net.entity.masks.Hits;
 import com.xeno.net.entity.masks.Hits.HitType;
 import com.xeno.net.entity.masks.Sprite;
 
+import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -100,7 +100,7 @@ public abstract class Actor extends Entity {
 	 * A collection of previous killers that attacked an Actor.
 	 * Then gets determined who's the highest hitter for loot, such.
 	 */
-	protected transient Map<Actor, Integer> killers;
+	protected transient Object2ObjectArrayMap<Actor, Integer> killers;
 	
 	/**
 	 * Represents an instance of a Following Actor to Actor event.
@@ -272,7 +272,7 @@ public abstract class Actor extends Entity {
 		attacker = null;
 		combatTurns = 0;
 		poisonAmount = 0;
-		killers = new HashMap<Actor, Integer>();
+		killers = new Object2ObjectArrayMap<Actor, Integer>();
 		sprite = new Sprite();
 		return this;
 	}

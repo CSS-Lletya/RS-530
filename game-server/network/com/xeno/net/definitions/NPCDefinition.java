@@ -2,14 +2,14 @@ package com.xeno.net.definitions;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.xeno.entity.actor.npc.NPCDrop;
 import com.xeno.utility.LogUtility;
-import com.xeno.utility.XStreamUtil;
 import com.xeno.utility.LogUtility.LogType;
+import com.xeno.utility.XStreamUtil;
+
+import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 
 /**
  * Represents a type of NPC.
@@ -22,12 +22,12 @@ public class NPCDefinition {
 	public static final int RANGE = 1;
 	public static final int MAGIC = 2;
 	
-	private static Map<Integer, NPCDefinition> definitions;
+	private static Object2ObjectArrayMap<Integer, NPCDefinition> definitions;
 
 	@SuppressWarnings("unchecked")
 	public static void load() throws FileNotFoundException {
 		List<NPCDefinition> defs = (List<NPCDefinition>) XStreamUtil.getXStream().fromXML(new FileInputStream("data/npcDefinitions.xml"));
-		definitions = new HashMap<Integer, NPCDefinition>();
+		definitions = new Object2ObjectArrayMap<Integer, NPCDefinition>();
 		for(NPCDefinition def : defs) {
 			definitions.put(def.getId(), def);
 		}

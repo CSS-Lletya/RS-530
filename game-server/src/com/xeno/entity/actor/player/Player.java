@@ -1,10 +1,8 @@
 package com.xeno.entity.actor.player;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Queue;
 
 import org.apache.mina.common.IoFuture;
@@ -48,6 +46,7 @@ import com.xeno.packetbuilder.packets.OutgoingPacketDispatcher;
 import com.xeno.utility.Utility;
 import com.xeno.world.World;
 
+import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -117,7 +116,7 @@ public class Player extends Actor {
 	private transient Queue<Hit> queuedHits;
 	private transient List<Player> tradeRequests;
 	private transient List<Player> duelRequests;
-	private transient Map<String, Object> temporaryAttributes;
+	private transient Object2ObjectArrayMap<String, Object> temporaryAttributes;
 	private transient int lastWildLevel;
 	private transient boolean hd;
 	private transient Object distanceEvent;
@@ -154,7 +153,7 @@ public class Player extends Actor {
 		localEntities = new LocalEntityList();
 		playerDetails.setPlayer(this);
 		prayers = new Prayers(this);
-		temporaryAttributes = new HashMap<String, Object>();
+		temporaryAttributes = new Object2ObjectArrayMap<String, Object>();
 		lastChatMessage = null;
 		lastAnimation = null;
 		lastGraphics = null;

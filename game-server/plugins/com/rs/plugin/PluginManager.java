@@ -6,23 +6,22 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import com.rs.plugin.annotations.PluginEventHandler;
 import com.rs.plugin.handler.PluginHandler;
 import com.xeno.utility.LogUtility;
-import com.xeno.utility.Utility;
 import com.xeno.utility.LogUtility.LogType;
+import com.xeno.utility.Utility;
+
+import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 
 public class PluginManager {
 
-    private static final Map<String, HashSet<PluginHandler<PluginEvent>>> UNMAPPED_HANDLERS = new HashMap<>();
-    private static final List<Method> STARTUP_HOOKS = new ArrayList<>();
+    private static final Object2ObjectArrayMap<String, HashSet<PluginHandler<PluginEvent>>> UNMAPPED_HANDLERS = new Object2ObjectArrayMap<>();
+    private static final ObjectArrayList<Method> STARTUP_HOOKS = new ObjectArrayList<>();
     private static final PluginMethodRepository REPOSITORY = new PluginMethodRepository();
 
     private static void addUnmappedHandler(String type, PluginHandler<PluginEvent> method) {
@@ -39,8 +38,8 @@ public class PluginManager {
         try {
             long start = System.currentTimeMillis();
             LogUtility.log(LogType.INFO,"PluginManager - Loading new plugins...");
-            ArrayList<Class<?>> eventTypes = Utility.getClassesArray("com.rs.plugin.eventbus");
-            ArrayList<Class<?>> classes = Utility.getClassesWithAnnotation("com.rs", PluginEventHandler.class);
+            ObjectArrayList<Class<?>> eventTypes = Utility.getClassesArray("com.rs.plugin.eventbus");
+            ObjectArrayList<Class<?>> classes = Utility.getClassesWithAnnotation("com.rs", PluginEventHandler.class);
             Set<Method> visitedMethods = new HashSet<>();
             Set<Field> visitedFields = new HashSet<>();
             LogUtility.log(LogType.INFO, "PluginManager - Loading " + eventTypes.size() + " event types and " + classes.size() + " plugin enabled classes.");

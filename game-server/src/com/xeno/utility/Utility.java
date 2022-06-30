@@ -4,10 +4,11 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
-import java.util.List;
 
 import com.google.common.reflect.ClassPath;
 import com.xeno.net.Packet;
+
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 
 /**
  * A collection of miscellaneous methods and constants.
@@ -1222,10 +1223,10 @@ public class Utility {
 		}
 	}
 
-	public static ArrayList<Class<?>> getClassesWithAnnotation(String packageName,
+	public static ObjectArrayList<Class<?>> getClassesWithAnnotation(String packageName,
 			Class<? extends Annotation> annotation) throws ClassNotFoundException, IOException {
 		ClassPath cp = ClassPath.from(Thread.currentThread().getContextClassLoader());
-		ArrayList<Class<?>> classes = new ArrayList<Class<?>>();
+		ObjectArrayList<Class<?>> classes = new ObjectArrayList<Class<?>>();
 		for (ClassPath.ClassInfo info : cp.getTopLevelClassesRecursive(packageName)) {
 			if (!Class.forName(info.getName()).isAnnotationPresent(annotation))
 				continue;
@@ -1234,9 +1235,9 @@ public class Utility {
 		return classes;
 	}
 
-	public static ArrayList<Class<?>> getClassesArray(String packageName) throws ClassNotFoundException, IOException {
+	public static ObjectArrayList<Class<?>> getClassesArray(String packageName) throws ClassNotFoundException, IOException {
 		ClassPath cp = ClassPath.from(Thread.currentThread().getContextClassLoader());
-		ArrayList<Class<?>> classes = new ArrayList<Class<?>>();
+		ObjectArrayList<Class<?>> classes = new ObjectArrayList<Class<?>>();
 		for (ClassPath.ClassInfo info : cp.getTopLevelClassesRecursive(packageName)) {
 			classes.add(Class.forName(info.getName()));
 		}
@@ -1249,8 +1250,8 @@ public class Utility {
 	 * @param directory The directory to iterate through
 	 * @return The list of classes
 	 */
-	public static List<Object> getClassesInDirectory(String directory) {
-		List<Object> classes = new ArrayList<>();
+	public static ObjectArrayList<Object> getClassesInDirectory(String directory) {
+		ObjectArrayList<Object> classes = new ObjectArrayList<>();
 		for (File file : new File("./bin/main/" + directory.replace(".", "/")).listFiles()) {
 			if (file.getName().contains("$")) {
 				continue;

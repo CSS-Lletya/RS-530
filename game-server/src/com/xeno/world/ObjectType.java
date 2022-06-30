@@ -1,7 +1,6 @@
 package com.xeno.world;
 
-import java.util.HashMap;
-import java.util.Map;
+import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 
 public enum ObjectType {
     WALL_STRAIGHT(0, 0),
@@ -28,7 +27,7 @@ public enum ObjectType {
     STRAIGHT_BOTTOM_EDGE_CONNECT_CORNER_ROOF(21, 2),
     GROUND_DECORATION(22, 3);
 
-    private static Map<Integer, ObjectType> MAP = new HashMap<>();
+    private static Object2ObjectArrayMap<Integer, ObjectType> MAP = new Object2ObjectArrayMap<>();
 
     static {
         for (ObjectType t : ObjectType.values())

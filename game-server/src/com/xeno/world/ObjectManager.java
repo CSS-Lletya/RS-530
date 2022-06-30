@@ -4,28 +4,27 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.xeno.content.DoorControl;
 import com.xeno.entity.Location;
 import com.xeno.entity.actor.item.GroundItem;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.Task;
-import com.xeno.event.Event;
 import com.xeno.utility.LogUtility;
 import com.xeno.utility.LogUtility.LogType;
 import com.xeno.utility.Utility;
 
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+
 
 public class ObjectManager {
 
-	private List<WorldObject> objects;
+	private ObjectArrayList<WorldObject> objects;
 	private static final int FIRE = 1;
 	private DoorControl doors;
 	
 	public ObjectManager() {
-		objects = new ArrayList<WorldObject>();
+		objects = new ObjectArrayList<WorldObject>();
 		doors = new DoorControl();
 		loadSpawnedObjects();
 		loadDeletedObjects();

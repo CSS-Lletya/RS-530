@@ -2,7 +2,6 @@ package com.xeno.packetbuilder.packets.impl;
 
 import com.rs.plugin.PluginManager;
 import com.rs.plugin.eventbus.ObjectClickEvent;
-import com.xeno.content.LaddersAndStairs;
 import com.xeno.content.WildernessObelisks;
 import com.xeno.entity.Location;
 import com.xeno.entity.actor.player.Player;
@@ -79,9 +78,6 @@ public class ObjectInteractionsPacket implements OutgoingPacket {
 		if (World.getInstance().getGlobalObjects().getDoors().useDoor(player, object.getId(), objectX, objectY,
 				player.getLocation().getZ())) {
 			return;
-		} else if (LaddersAndStairs.getInstance().useObject(player, object.getId(),
-				Location.location(objectX, objectY, player.getLocation().getZ()), 1)) {
-			return;
 		} else if (WildernessObelisks.useWildernessObelisk(player, object.getId(),
 				Location.location(objectX, objectY, player.getLocation().getZ()))) {
 			return;
@@ -91,10 +87,6 @@ public class ObjectInteractionsPacket implements OutgoingPacket {
 
 	private void handleSecondClickObject(Player player, Packet packet) {
 		LogUtility.log(LogType.INFO, "Object Click: 2 [id: "+object.getId()+" - x: "+ objectX +", y: "+objectY+"]");
-		if (LaddersAndStairs.getInstance().useObject(player, object.getId(),
-				Location.location(objectX, objectY, player.getLocation().getZ()), 2)) {
-			return;
-		}
 		PluginManager.handle(new ObjectClickEvent(player, object, 2));
 	}
 

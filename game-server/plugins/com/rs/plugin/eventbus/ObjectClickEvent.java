@@ -12,6 +12,8 @@ import com.xeno.entity.Location;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.world.WorldObject;
 
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+
 public class ObjectClickEvent implements PluginEvent {
 
     private static Map<Object, Map<Integer, List<ObjectClickHandler>>> METHODS = new HashMap<>();
@@ -79,8 +81,8 @@ public class ObjectClickEvent implements PluginEvent {
     }
 
     @Override
-    public List<PluginHandler<? extends PluginEvent>> getMethods() {
-        List<PluginHandler<? extends PluginEvent>> valids = new ArrayList<>();
+    public ObjectArrayList<PluginHandler<? extends PluginEvent>> getMethods() {
+    	ObjectArrayList<PluginHandler<? extends PluginEvent>> valids = new ObjectArrayList<>();
         Map<Integer, List<ObjectClickHandler>> methodMapping = METHODS.get(getObject().id);
         if (methodMapping == null)
             return null;

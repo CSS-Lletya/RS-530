@@ -3,15 +3,15 @@ package com.xeno.entity.actor.npc;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.xeno.entity.actor.item.Item;
 import com.xeno.net.definitions.NPCDefinition;
 import com.xeno.utility.LogUtility;
-import com.xeno.utility.XStreamUtil;
 import com.xeno.utility.LogUtility.LogType;
+import com.xeno.utility.XStreamUtil;
+
+import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 
 /**
  * @author Graham
@@ -21,7 +21,7 @@ public class NPCDrop {
 
     public NPCDrop(){};
 	
-	public static Map<Integer, NPCDrop> npcDrops = new HashMap<Integer, NPCDrop>();
+	public static Object2ObjectArrayMap<Integer, NPCDrop> npcDrops = new Object2ObjectArrayMap<Integer, NPCDrop>();
 	@SuppressWarnings("unchecked")
 	public static void load() throws FileNotFoundException {
 		List<NPCDrop> list = (List<NPCDrop>) XStreamUtil.getXStream().fromXML(new FileInputStream("data/npcDrops.xml"));

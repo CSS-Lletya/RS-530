@@ -5,9 +5,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import com.xeno.entity.Entity;
+import com.xeno.entity.actor.Actor;
 
-public class EntityList<T extends Entity> extends AbstractCollection<T> {
+public class EntityList<T extends Actor> extends AbstractCollection<T> {
 	private static final int DEFAULT_CAPACITY = 1600, MIN_VALUE = 1;
 	public Object[] entities;
 	public Set<Integer> indicies = new HashSet<Integer>();

@@ -4,18 +4,18 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.xeno.entity.Location;
 import com.xeno.entity.actor.player.Player;
 
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+
 public class ObjectLocations {
 
-	private List<WorldObject> objects;
+	private ObjectArrayList<WorldObject> objects;
 	
 	public ObjectLocations() {
-		objects = new ArrayList<WorldObject>();
+		objects = new ObjectArrayList<WorldObject>();
 		loadObjects();
 	}
 	

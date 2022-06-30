@@ -7,6 +7,8 @@ import com.rs.plugin.handler.PluginHandler;
 import com.xeno.utility.LogUtility;
 import com.xeno.utility.LogUtility.LogType;
 
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+
 public class PluginMethodRepository {
 
     public void addMappedHandler(Class<?> eventType, PluginHandler<? extends PluginEvent> method) {
@@ -30,7 +32,7 @@ public class PluginMethodRepository {
                 return false;
             }
         } else {
-            List<PluginHandler<? extends PluginEvent>> methods = event.getMethods();
+        	ObjectArrayList<PluginHandler<? extends PluginEvent>> methods = event.getMethods();
             if (methods == null || methods.size() <= 0)
                 return false;
             for (PluginHandler<? extends PluginEvent> m : methods) {
@@ -60,7 +62,7 @@ public class PluginMethodRepository {
                 return null;
             }
         } else {
-            List<PluginHandler<? extends PluginEvent>> methods = event.getMethods();
+        	ObjectArrayList<PluginHandler<? extends PluginEvent>> methods = event.getMethods();
             if (methods == null || methods.size() <= 0)
                 return null;
             for (PluginHandler<? extends PluginEvent> m : methods) {

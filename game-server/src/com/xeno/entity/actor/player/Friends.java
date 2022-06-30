@@ -1,14 +1,14 @@
 package com.xeno.entity.actor.player;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.xeno.GameConstants;
 import com.xeno.content.Clan;
 import com.xeno.utility.Utility;
 import com.xeno.world.World;
+
+import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 
 /**
  * Manages friends and ignores.
@@ -22,7 +22,7 @@ public class Friends {
 	
 	private List<Long> friends;
 	private List<Long> ignores;
-	private Map<Long, Integer> clanRanks;
+	private Object2ObjectArrayMap<Long, Integer> clanRanks;
 	private int publicStatus = ON;
 	private int privateStatus = ON;
 	private int tradeStatus = ON;
@@ -34,7 +34,7 @@ public class Friends {
 	public Friends() {
 		friends = new ArrayList<Long>(200);
 		ignores = new ArrayList<Long>(100);
-		clanRanks = new HashMap<Long, Integer>(100);
+		clanRanks = new Object2ObjectArrayMap<Long, Integer>(100);
 		publicStatus = privateStatus = tradeStatus = 0;
 	}
 	

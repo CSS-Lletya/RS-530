@@ -1,12 +1,11 @@
 package com.xeno.net.codec.js5;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import org.apache.mina.common.ByteBuffer;
 import org.apache.mina.common.IoSession;
 import org.apache.mina.filter.codec.CumulativeProtocolDecoder;
 import org.apache.mina.filter.codec.ProtocolDecoderOutput;
+
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 
 /**
  * 
@@ -15,7 +14,7 @@ import org.apache.mina.filter.codec.ProtocolDecoderOutput;
  */
 public class Js5Decoder extends CumulativeProtocolDecoder {
 
-	private final List<Js5FileRequest> lowPri = new LinkedList<Js5FileRequest>();
+	private final ObjectArrayList<Js5FileRequest> lowPri = new ObjectArrayList<Js5FileRequest>();
 
 	@Override
 	protected boolean doDecode(IoSession session, ByteBuffer in, ProtocolDecoderOutput out) throws Exception {

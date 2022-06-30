@@ -4,7 +4,6 @@ import com.xeno.entity.Location;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.AreaTask;
 import com.xeno.entity.actor.player.task.Task;
-import com.xeno.event.Event;
 import com.xeno.net.entity.masks.ForceMovement;
 import com.xeno.world.World;
 

@@ -7,7 +7,6 @@ import java.util.Map;
 import com.xeno.GameConstants;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.Task;
-import com.xeno.event.Event;
 import com.xeno.net.Packet.Size;
 import com.xeno.net.entity.masks.ChatMessage;
 import com.xeno.packetbuilder.StaticPacketBuilder;

@@ -3,7 +3,6 @@ package com.xeno.model.player.skills.magic;
 import com.xeno.entity.Location;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.Task;
-import com.xeno.event.Event;
 import com.xeno.utility.Area;
 import com.xeno.utility.Utility;
 import com.xeno.world.World;

@@ -1,8 +1,8 @@
 package com.rs.plugin;
 
-import java.util.List;
-
 import com.rs.plugin.handler.PluginHandler;
+
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 
 public interface PluginEvent {
 
@@ -10,7 +10,7 @@ public interface PluginEvent {
         return null;
     }
 
-    public default List<PluginHandler<? extends PluginEvent>> getMethods() {
+    public default ObjectArrayList<PluginHandler<? extends PluginEvent>> getMethods() {
         return null;
     }
 }
