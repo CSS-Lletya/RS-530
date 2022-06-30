@@ -1,9 +1,13 @@
 package com.xeno.packetbuilder.packets.impl;
 
+import com.rs.plugin.standard.RSInterfacePluginDispatcher;
+import com.xeno.GameConstants;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.net.Packet;
 import com.xeno.packetbuilder.packets.OutgoingPacket;
 import com.xeno.packetbuilder.packets.OutgoingPacketSignature;
+import com.xeno.utility.LogUtility;
+import com.xeno.utility.LogUtility.LogType;
 
 @OutgoingPacketSignature(packetId = {155, 132, 10}, description = "An Action Button Type 1,2,3 event")
 public class ActionButtonPacket implements OutgoingPacket {
@@ -20,6 +24,8 @@ public class ActionButtonPacket implements OutgoingPacket {
 		if(buttonId2 == 65535) {
 			buttonId2 = 0;
 		}
-		System.out.println(buttonId);
+		if (GameConstants.DEBUG_MODE)
+			LogUtility.log(LogType.INFO, "Inter: "+ interfaceId + " - button: " + buttonId + " button type 2: " + buttonId2);
+		RSInterfacePluginDispatcher.execute(player, interfaceId, buttonId);
 	}
 }

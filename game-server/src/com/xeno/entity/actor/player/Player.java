@@ -203,6 +203,10 @@ public class Player extends Actor {
 	}
 	
 	public String getUsername() {
+		return this.playerCredentials.getDisplayName();
+	}
+	
+	public String getBaseUsername() {
 		return this.playerCredentials.getUsername();
 	}
 	
