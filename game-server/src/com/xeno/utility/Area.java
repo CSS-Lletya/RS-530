@@ -4,6 +4,7 @@ import com.xeno.entity.Location;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.AreaTask;
 import com.xeno.entity.actor.player.task.Task;
+import com.xeno.net.entity.masks.Animation;
 import com.xeno.net.entity.masks.ForceMovement;
 import com.xeno.world.World;
 
@@ -83,7 +84,7 @@ public class Area {
 				World.getInstance().submit(new Task(1) {
 					@Override
 					protected void execute() {
-						p.animate(6132);
+						p.setNextAnimation(new Animation(6132));
 						int regionX = p.getUpdateFlags().getLastRegion().getRegionX();
 						int regionY = p.getUpdateFlags().getLastRegion().getRegionY();
 						int lX = (p.getLocation().getX() - ((regionX - 6) * 8));

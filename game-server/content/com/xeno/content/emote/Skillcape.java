@@ -2,6 +2,8 @@ package com.xeno.content.emote;
 
 import com.xeno.entity.actor.item.Item;
 import com.xeno.entity.actor.player.Player;
+import com.xeno.net.entity.masks.Animation;
+import com.xeno.net.entity.masks.Graphics;
 
 /**
  * Handles skill cape emotes.
@@ -252,8 +254,8 @@ public class Skillcape {
 			break;
 		}
 		if(skill == -1 || player.getSkills().getLevelForXp(skill) == 99) {
-			player.animate(skillcapeAnimation);
-			player.graphics(skillcapeGraphic);
+			player.setNextAnimation(new Animation(skillcapeAnimation));
+			player.setNextGraphic(new Graphics(skillcapeGraphic));
 		} else {
 			didEmote = false;
 		}

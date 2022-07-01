@@ -9,6 +9,7 @@ import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.CoordinateTask;
 import com.xeno.net.Packet;
 import com.xeno.net.definitions.ItemDefinition;
+import com.xeno.net.entity.masks.Animation;
 import com.xeno.packetbuilder.packets.OutgoingPacket;
 import com.xeno.packetbuilder.packets.OutgoingPacketSignature;
 import com.xeno.utility.LogUtility;
@@ -128,7 +129,7 @@ public class ItemInteractionPacket implements OutgoingPacket {
 			player.getInterfaceManager().closeInterfaces();
 			switch (item) {
 			case 952: // Spade
-				player.animate(830);
+				player.setNextAnimation(new Animation(830));
 
 				player.getActionSender().sendMessage("You find nothing.");
 				break;

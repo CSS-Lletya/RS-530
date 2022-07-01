@@ -226,35 +226,35 @@ public class NPC extends Actor {
         }
     }
 
-    @Override
-    public void graphics(int id) {
-        this.lastGraphics = new Graphics(id, 0);
-        updateFlags.setGraphicsUpdateRequired(true);
-    }
+//    @Override
+//    public void graphics(int id) {
+//        this.lastGraphics = new Graphics(id, 0);
+//        updateFlags.setGraphicsUpdateRequired(true);
+//    }
+//
+//    @Override
+//    public void graphics(int id, int delay, int height) {
+//        this.lastGraphics = new Graphics(id, delay, height);
+//        updateFlags.setGraphicsUpdateRequired(true);
+//    }
+//
+//    @Override
+//    public void graphics(int id, int delay) {
+//        this.lastGraphics = new Graphics(id, delay);
+//        updateFlags.setGraphicsUpdateRequired(true);
+//    }
 
-    @Override
-    public void graphics(int id, int delay, int height) {
-        this.lastGraphics = new Graphics(id, delay, height);
-        updateFlags.setGraphicsUpdateRequired(true);
-    }
-
-    @Override
-    public void graphics(int id, int delay) {
-        this.lastGraphics = new Graphics(id, delay);
-        updateFlags.setGraphicsUpdateRequired(true);
-    }
-
-    @Override
-    public void animate(int id) {
-        this.lastAnimation = new Animation(id, 0);
-        updateFlags.setAnimationUpdateRequired(true);
-    }
-
-    @Override
-    public void animate(int id, int delay) {
-        this.lastAnimation = new Animation(id, delay);
-        updateFlags.setAnimationUpdateRequired(true);
-    }
+//    @Override
+//    public void animate(int id) {
+//        this.lastAnimation = new Animation(id, 0);
+//        updateFlags.setAnimationUpdateRequired(true);
+//    }
+//
+//    @Override
+//    public void animate(int id, int delay) {
+//        this.lastAnimation = new Animation(id, delay);
+//        updateFlags.setAnimationUpdateRequired(true);
+//    }
 
     public Animation getLastAnimation() {
         return lastAnimation;

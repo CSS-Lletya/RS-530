@@ -15,6 +15,12 @@ public class Graphics {
 		this.height = 0;
 	}
 	
+	public Graphics(int id) {
+		this.id = id;
+		this.delay = 0;
+		this.height = 0;
+	}
+	
 	public Graphics(int id, int delay, int height) {
 		this.id = id;
 		this.delay = delay;

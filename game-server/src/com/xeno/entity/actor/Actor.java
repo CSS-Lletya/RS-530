@@ -13,6 +13,7 @@ import com.xeno.entity.Location;
 import com.xeno.entity.actor.npc.NPC;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.Task;
+import com.xeno.net.entity.masks.Animation;
 import com.xeno.net.entity.masks.EntityFocus;
 import com.xeno.net.entity.masks.Hits;
 import com.xeno.net.entity.masks.Hits.HitType;
@@ -152,23 +153,23 @@ public abstract class Actor extends Entity {
 	 */
 	public abstract void setHp(int val);
 	
-	/**
-	 * Represents a standard Graphic for an Actor to perform.
-	 * @param id
-	 */
-	public abstract void graphics(int id);
+//	/**
+//	 * Represents a standard Graphic for an Actor to perform.
+//	 * @param id
+//	 */
+//	public abstract void graphics(int id);
+//	
+//	/**
+//	 * Represents a standard Graphic for an Actor to perform with a delay.
+//	 * @param id
+//	 */
+//	public abstract void graphics(int id, int delay);
 	
-	/**
-	 * Represents a standard Graphic for an Actor to perform with a delay.
-	 * @param id
-	 */
-	public abstract void graphics(int id, int delay);
-	
-	/**
-	 * Represents a standard Graphic for an Actor to perform with a delay and specified height level.
-	 * @param id
-	 */
-	public abstract void graphics(int id, int delay, int height);
+//	/**
+//	 * Represents a standard Graphic for an Actor to perform with a delay and specified height level.
+//	 * @param id
+//	 */
+//	public abstract void graphics(int id, int delay, int height);
 	
 	/**
 	 * Represents the Entity focus value based on the value given.
@@ -188,17 +189,17 @@ public abstract class Actor extends Entity {
 	 */
 	public abstract EntityFocus getEntityFocus();
 	
-	/**
-	 * Represents an Animation an Actor to perform.
-	 * @param id
-	 */
-	public abstract void animate(int id);
+//	/**
+//	 * Represents an Animation an Actor to perform.
+//	 * @param id
+//	 */
+//	public abstract void animate(int id);
 	
-	/**
-	 * Represents an Animation an Actor to perform with a delay.
-	 * @param id
-	 */
-	public abstract void animate(int id, int delay);
+//	/**
+//	 * Represents an Animation an Actor to perform with a delay.
+//	 * @param id
+//	 */
+//	public abstract void animate(int id, int delay);
 	
 	/**
 	 * Represents if an Actor is auto retaliating during a combat event sequence.

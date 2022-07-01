@@ -47,6 +47,7 @@ import com.xeno.utility.RandomUtils;
 import com.xeno.world.World;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
+import it.unimi.dsi.fastutil.objects.ObjectArrayFIFOQueue;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -77,7 +78,7 @@ public class Player extends Actor {
 	/**
 	 * Represents a collection of queued Packets.
 	 */
-	private transient Queue<Packet> queuedPackets;
+	private transient ObjectArrayFIFOQueue<Packet> queuedPackets;
 	
 	/**
 	 * Represents a Players Update Flags & respective conditions.
@@ -142,7 +143,7 @@ public class Player extends Actor {
 		super.readResolve(EntityType.PLAYER);
 		actionSender = new ActionSender(this);
 		follow = new Follow(this);
-		queuedPackets = new LinkedList<Packet>();
+		queuedPackets = new ObjectArrayFIFOQueue<Packet>();
 		updateFlags = new PlayerUpdateFlags();
 		walkingQueue = new WalkingQueue(this);
 		skills.setPlayer(this);
@@ -212,35 +213,18 @@ public class Player extends Actor {
 	
 	public void processQueuedPackets() {
 		synchronized(queuedPackets) {
-			Packet p = null;
-			while((p = queuedPackets.poll()) != null) {
-				OutgoingPacketDispatcher.execute(this, p, p.getId());
+			ObjectArrayFIFOQueue<Packet> packet = null;
+			while(!queuedPackets.isEmpty() && (packet = queuedPackets) != null) {
+				OutgoingPacketDispatcher.execute(this, packet.first(), packet.first().getId());
+				packet.dequeue();
 			}
 		}
 	}
 	
-	public void addPacketToQueue(Packet p) {
+	public void addPacketToQueue(Packet packet) {
 		synchronized(queuedPackets) {
-			queuedPackets.add(p);
+			queuedPackets.enqueue(packet);
 		}
-	}
-	
-	public void graphics(int id) {
-		graphics(id, 0);
-	}
-	
-	public void graphics(int id, int delay) {
-		lastGraphics = new Graphics(id, delay);
-		updateFlags.setGraphicsUpdateRequired(true);
-	}
-	
-	public void animate(int id) {
-		animate(id, 0);
-	}
-	
-	public void animate(int id, int delay) {
-		lastAnimation = new Animation(id, delay);
-		updateFlags.setAnimationUpdateRequired(true);
 	}
 
 	public boolean isDisconnected() {
@@ -345,7 +329,7 @@ public class Player extends Actor {
 		byte newHp = (byte) (getHp() - damage);
 		if (redemption) {
 			if (newHp >= 1 && newHp <= maxHp * 0.10) {
-				graphics(436, 0, 0);
+				setNextGraphic(new Graphics(436, 0, 0));
 				actionSender.sendMessage("Using your prayer skill, you heal yourself.");
 				skills.setLevel(5, 0);
 				actionSender.sendSkillLevel(5);
@@ -658,12 +642,6 @@ public class Player extends Actor {
 	}
 
 	@Override
-	public void graphics(int id, int delay, int height) {
-		this.lastGraphics = new Graphics(id, delay, height);
-		updateFlags.setGraphicsUpdateRequired(true);
-	}
-
-	@Override
 	public void heal(int amount) {
 		if (isDead()) {
 			return;
@@ -726,5 +704,15 @@ public class Player extends Actor {
 				arg0.getSession().close();
 			}
 		});
+	}
+	
+	public void setNextAnimation(Animation animation) {
+		setLastAnimation(animation);
+		getUpdateFlags().setAnimationUpdateRequired(true);
+	}
+	
+	public void setNextGraphic(Graphics graphic) {
+		setLastGraphics(graphic);
+		getUpdateFlags().setGraphicsUpdateRequired(true);
 	}
 }

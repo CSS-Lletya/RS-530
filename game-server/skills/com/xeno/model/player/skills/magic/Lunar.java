@@ -1,6 +1,8 @@
 package com.xeno.model.player.skills.magic;
 
 import com.xeno.entity.actor.player.Player;
+import com.xeno.net.entity.masks.Animation;
+import com.xeno.net.entity.masks.Graphics;
 
 public class Lunar {
 
@@ -37,8 +39,8 @@ public class Lunar {
 			p.getInventory().deleteItem(560, 2);
 			p.getInventory().deleteItem(557, 10);
 			p.getInventory().deleteItem(9075, 4);
-			p.animate(4410);
-			p.graphics(726, 0, 80);
+			p.setNextAnimation(new Animation(1410));
+			p.setNextGraphic(new Graphics(726, 0, 80));
 			p.getPlayerDetails().setLastVengeanceTime(System.currentTimeMillis());
 //			p.getPlayerDetails().setVengeance(true);
 		}

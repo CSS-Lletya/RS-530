@@ -3,6 +3,8 @@ package com.xeno.model.player.skills.magic;
 import com.xeno.entity.Location;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.Task;
+import com.xeno.net.entity.masks.Animation;
+import com.xeno.net.entity.masks.Graphics;
 import com.xeno.utility.Area;
 import com.xeno.utility.RandomUtils;
 import com.xeno.world.World;
@@ -40,8 +42,8 @@ public class Teleport extends MagicData {
 			@Override
 			protected void execute() {
 				if (p.getTemporaryAttribute("homeTeleporting") == null) {
-					p.animate(65535, 0);
-					p.graphics(65535, 0);
+					p.setNextAnimation(new Animation(65535));
+					p.setNextGraphic(new Graphics(65535));
 					resetTeleport(p);
 					this.stop();
 					return;
@@ -52,8 +54,8 @@ public class Teleport extends MagicData {
 					this.stop();
 					return;
 				}
-				p.animate(HOME_ANIMATIONS[currentStage], 0);
-				p.graphics(HOME_GRAPHICS[currentStage], 0);
+				p.setNextAnimation(new Animation(HOME_ANIMATIONS[currentStage]));
+				p.setNextGraphic(new Graphics(HOME_GRAPHICS[currentStage]));
 			}
 		});
 	}
@@ -77,8 +79,8 @@ public class Teleport extends MagicData {
 		final int x = TELE_X[teleport] + RandomUtils.random(TELE_EXTRA_X[teleport]);
 		final int y = TELE_Y[teleport] + RandomUtils.random(TELE_EXTRA_Y[teleport]);
 		p.getInterfaceManager().closeInterfaces();
-		p.animate(ancients ? 9599 : 8939, 0);
-		p.graphics(ancients ? 1681 : 1576, 0);
+		p.setNextAnimation(new Animation(ancients ? 9599 : 8939, 0));
+		p.setNextGraphic(new Graphics(ancients ? 1681 : 1576));
 		p.getActionSender().sendBlankClientScript(1297);
 		p.getWalkingQueue().reset();
 		p.getActionSender().clearMapFlag();
@@ -89,8 +91,8 @@ public class Teleport extends MagicData {
 			protected void execute() {
 				p.teleport(Location.location(x, y, 0));
 				if (!ancients) {
-					p.animate(8941, 0);
-					p.graphics(1577, 0);
+					p.setNextAnimation(new Animation(8941, 0));
+					p.setNextGraphic(new Graphics(1577));
 				}
 				World.getInstance().submit(new Task(ancients ? 2 : 1) {
 
@@ -175,18 +177,18 @@ public class Teleport extends MagicData {
 		if (p.getInventory().deleteItem(item, slot, 1)) {
 			p.setTemporaryAttribute("unmovable", true);
 			p.setTemporaryAttribute("teleporting", true);
-			p.animate(9597);
-			p.graphics(1680,0,0);
-			//p.graphics(678, 0, 0); // blue gfx
+			p.setNextAnimation(new Animation(9597));
+			p.setNextGraphic(new Graphics(1680));
+			//p.setNextGraphics(678, 0, 0); // blue gfx
 			World.getInstance().submit(new Task(1) {
 				int i = 0;
 				@Override
 				protected void execute() {
 					if (i == 0) {
-						p.animate(4071);
+						p.setNextAnimation(new Animation(4071));
 						i++;
 					} else {
-						p.animate(65535);
+						p.setNextAnimation(new Animation(65535));
 						p.removeTemporaryAttribute("unmovable");
 						p.teleport(Location.location(x, y, 0));
 						resetTeleport(p);

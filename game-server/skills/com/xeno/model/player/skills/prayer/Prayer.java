@@ -2,6 +2,7 @@ package com.xeno.model.player.skills.prayer;
 
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.impl.DrainPrayerTask;
+import com.xeno.net.entity.masks.Animation;
 import com.xeno.world.World;
 
 public class Prayer extends PrayerData {
@@ -31,7 +32,7 @@ public class Prayer extends PrayerData {
 		p.getWalkingQueue().reset();
 		p.getActionSender().clearMapFlag();
 		p.getActionSender().sendMessage("You dig a hole in the ground...");
-		p.animate(BURY_ANIMATION);
+		p.setNextAnimation(new Animation(BURY_ANIMATION));
 		p.task(1, bury -> {
 			if (bury.toPlayer().getInventory().deleteItem(BONES[i], slot, 1)) {
 				bury.toPlayer().getSkills().addXp(PRAYER, BURY_XP[i]);

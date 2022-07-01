@@ -4,6 +4,8 @@ import com.xeno.entity.Location;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.AreaTask;
 import com.xeno.entity.actor.player.task.Task;
+import com.xeno.net.entity.masks.Animation;
+import com.xeno.net.entity.masks.Graphics;
 import com.xeno.utility.RandomUtils;
 import com.xeno.world.World;
 import com.xeno.world.WorldObject;
@@ -86,8 +88,8 @@ public class WildernessObelisks {
 					if (p != null) {
 						if (p.getLocation().inArea(OBELISK_LOCATIONS[index][0] - 2, OBELISK_LOCATIONS[index][1] - 2, OBELISK_LOCATIONS[index][0] + 2, OBELISK_LOCATIONS[index][1] + 2)) {
 							// TODO get the big purple graphic
-							p.graphics(1690);
-							p.animate(8939);
+							p.setNextGraphic(new Graphics(1690));
+							p.setNextAnimation(new Animation(8939));
 							final Player p2 = p;
 							World.getInstance().submit(new Task(2) {
 								@Override
@@ -98,7 +100,7 @@ public class WildernessObelisks {
 										@Override
 										protected void execute() {
 											this.stop();
-											p2.animate(8941);
+											p2.setNextAnimation(new Animation(8941));
 										}
 									});
 								}
