@@ -4,16 +4,17 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Map;
 import java.util.function.Consumer;
+import java.util.jar.Attributes;
 
 import com.google.common.base.Preconditions;
 import com.xeno.entity.Entity;
 import com.xeno.entity.EntityType;
 import com.xeno.entity.Follow;
 import com.xeno.entity.Location;
+import com.xeno.entity.actor.attribute.AttributeMap;
 import com.xeno.entity.actor.npc.NPC;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.Task;
-import com.xeno.net.entity.masks.Animation;
 import com.xeno.net.entity.masks.EntityFocus;
 import com.xeno.net.entity.masks.Hits;
 import com.xeno.net.entity.masks.Hits.HitType;
@@ -124,6 +125,11 @@ public abstract class Actor extends Entity {
 	protected transient boolean frozen;
 	
 	/**
+	 * An {@link AttributeMap} instance assigned to this {@code Actor}.
+	 */
+	protected AttributeMap attributes = new AttributeMap();
+	
+	/**
 	 * Represents a standard Hit to an Actor.
 	 * @param damage
 	 */
@@ -152,24 +158,7 @@ public abstract class Actor extends Entity {
 	 * @param val
 	 */
 	public abstract void setHp(int val);
-	
-//	/**
-//	 * Represents a standard Graphic for an Actor to perform.
-//	 * @param id
-//	 */
-//	public abstract void graphics(int id);
-//	
-//	/**
-//	 * Represents a standard Graphic for an Actor to perform with a delay.
-//	 * @param id
-//	 */
-//	public abstract void graphics(int id, int delay);
-	
-//	/**
-//	 * Represents a standard Graphic for an Actor to perform with a delay and specified height level.
-//	 * @param id
-//	 */
-//	public abstract void graphics(int id, int delay, int height);
+
 	
 	/**
 	 * Represents the Entity focus value based on the value given.
@@ -188,18 +177,6 @@ public abstract class Actor extends Entity {
 	 * @return
 	 */
 	public abstract EntityFocus getEntityFocus();
-	
-//	/**
-//	 * Represents an Animation an Actor to perform.
-//	 * @param id
-//	 */
-//	public abstract void animate(int id);
-	
-//	/**
-//	 * Represents an Animation an Actor to perform with a delay.
-//	 * @param id
-//	 */
-//	public abstract void animate(int id, int delay);
 	
 	/**
 	 * Represents if an Actor is auto retaliating during a combat event sequence.
@@ -275,6 +252,7 @@ public abstract class Actor extends Entity {
 		poisonAmount = 0;
 		killers = new Object2ObjectArrayMap<Actor, Integer>();
 		sprite = new Sprite();
+		attributes = new AttributeMap();
 		return this;
 	}
 	

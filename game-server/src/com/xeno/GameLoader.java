@@ -8,6 +8,8 @@ import java.util.concurrent.Executors;
 import com.rs.plugin.PluginManager;
 import com.rs.plugin.standard.CommandPluginDispatcher;
 import com.rs.plugin.standard.RSInterfacePluginDispatcher;
+import com.xeno.entity.actor.attribute.AttributeKey;
+import com.xeno.entity.actor.attribute.AttributeMap;
 import com.xeno.io.MapDataLoader;
 import com.xeno.io.MapDataPacker;
 import com.xeno.io.XStreamPlayerLoader;
@@ -94,6 +96,9 @@ public class GameLoader {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+		getBackgroundLoader().submit(() -> {
+			AttributeKey.init();
+		});
 		getBackgroundLoader().submit(() -> {
 			OutgoingPacketDispatcher.load();
 			CommandPluginDispatcher.load();
