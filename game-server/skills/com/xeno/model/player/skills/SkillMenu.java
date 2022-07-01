@@ -1,5 +1,6 @@
 package com.xeno.model.player.skills;
 
+import com.xeno.entity.actor.attribute.Attribute;
 import com.xeno.entity.actor.player.Player;
 
 public class SkillMenu {
@@ -25,7 +26,7 @@ public class SkillMenu {
 			if (buttonId == i) {
 				player.getInterfaceManager().displayInterface(499);
 				player.getActionSender().sendConfig2(965, MENU_ID[j]);
-				player.setTemporaryAttribute("SkillMenu", (Integer) MENU_ID[j]);
+				player.getAttributes().get(Attribute.SKILL_MENU).set((Integer) MENU_ID[j]);
 				break;
 			}
 			j++;
@@ -33,7 +34,7 @@ public class SkillMenu {
 	}
 	
 	public static void subMenu(Player player, int buttonId) {
-		int menu = (Integer) player.getTemporaryAttribute("SkillMenu"); 
+		int menu = player.getAttributes().get(Attribute.SKILL_MENU).getInt(); 
 		player.getActionSender().sendConfig2(965, SUB_CONFIG[buttonId - 10] + menu);
 	}
 

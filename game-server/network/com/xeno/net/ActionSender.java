@@ -4,6 +4,7 @@ import com.xeno.GameConstants;
 import com.xeno.content.Clan;
 import com.xeno.entity.Location;
 import com.xeno.entity.actor.Actor;
+import com.xeno.entity.actor.attribute.Attribute;
 import com.xeno.entity.actor.item.GroundItem;
 import com.xeno.entity.actor.item.Item;
 import com.xeno.entity.actor.npc.NPC;
@@ -60,7 +61,7 @@ public class ActionSender {
 
 	public ActionSender sendMapRegion() {
 		player.getUpdateFlags().setLastRegion(player.getLocation());
-		if (player.getLocation().getX() >= 19000 && player.getTemporaryAttribute("sendLogin") != null) {
+		if (player.getLocation().getX() >= 19000 && player.getAttributes().exist(Attribute.SEND_LOGIN)) {
 			sendFightCaveMapdata();
 		}
 		StaticPacketBuilder spb = new StaticPacketBuilder().setId(162).setSize(Packet.Size.VariableShort);

@@ -1,6 +1,7 @@
 package com.xeno.entity.actor.player;
 
 import com.xeno.GameConstants;
+import com.xeno.entity.actor.attribute.Attribute;
 
 public class InterfaceManager {
 
@@ -44,8 +45,6 @@ public class InterfaceManager {
 		player.getBank().setBanking(false);
 		player.setShopSession(null);// weird stuff lol circle back
 		player.setTrade(null);
-		player.removeTemporaryAttribute("dialogue");
-		player.removeTemporaryAttribute("jewelleryTeleport");
 	}
 
 	public void softCloseInterfaces() {
@@ -63,7 +62,6 @@ public class InterfaceManager {
 			player.getActionSender().sendCloseInterface(548, 11); // Main
 			player.getActionSender().sendCloseInterface(548, 80); // Inventory
 		}
-		player.removeTemporaryAttribute("dialogue");
 	}
 
 	public void closeChatboxInterface() {
@@ -78,8 +76,9 @@ public class InterfaceManager {
 		boolean achievementDiary = false;
 		int magicInterface = player.getPlayerDetails().getMagicType() == 2 ? 193
 				: player.getPlayerDetails().getMagicType() == 3 ? 430 : 192;
-		int lastWindowType = (Integer) player.getTemporaryAttribute("lastWindowType") == null ? -1
-				: (Integer) player.getTemporaryAttribute("lastWindowType");
+		
+		int lastWindowType = !player.getAttributes().exist(Attribute.LAST_WINDOW_TYPE) ? -1
+				: player.getAttributes().get(Attribute.LAST_WINDOW_TYPE).getInt();
 		if (lastWindowType == windowType) {
 			return;
 		}
@@ -136,20 +135,15 @@ public class InterfaceManager {
 			sendTab(107, 182); // Logout tab
 			sendTab(71, 754); // PM split chat
 		}
-		player.setTemporaryAttribute("lastWindowType", windowType);
+			
+		player.getAttributes().get(Attribute.LAST_WINDOW_TYPE).set(windowType);
 		if (resetVariables) {
-			player.removeTemporaryAttribute("inMulti");
-			player.removeTemporaryAttribute("atDuelArea");
-			player.removeTemporaryAttribute("atBarrows");
-			player.removeTemporaryAttribute("inWild");
-			player.removeTemporaryAttribute("atGodwars");
-			player.removeTemporaryAttribute("atAgilityArena");
-			player.removeTemporaryAttribute("snowInterface");
+			//reset any attributes
 			player.getEquipment().setWeapon();
 		}
-		if (player.getTemporaryAttribute("sendLogin") == null) {
+		if (!player.getAttributes().exist(Attribute.SEND_LOGIN)) {
 			player.getInterfaceManager().sendLogin();
-			player.setTemporaryAttribute("sendLogin", true);
+			player.getAttributes().get(Attribute.SEND_LOGIN).set(true);
 		}
 	}
 

@@ -1,5 +1,8 @@
 package com.xeno.packetbuilder.packets.impl;
 
+import org.w3c.dom.Attr;
+
+import com.xeno.entity.actor.attribute.Attribute;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.net.Packet;
 import com.xeno.packetbuilder.packets.OutgoingPacket;
@@ -39,8 +42,8 @@ public class WalkingPacket implements OutgoingPacket {
 		if (!following) {
 			player.getFollow().setFollowing(null);
 		}
-		if (player.getTemporaryAttribute("homeTeleporting") != null) {
-			player.removeTemporaryAttribute("homeTeleporting");
+		if (player.getAttributes().exist(Attribute.HOME_TELEPORTING)) {
+			player.getAttributes().get(Attribute.HOME_TELEPORTING).set(false);
 		}
 		if (player.getTrade() != null) {
 			player.getTrade().decline();
@@ -54,7 +57,6 @@ public class WalkingPacket implements OutgoingPacket {
 			}
 			if (!following) {
 				player.setTarget(null);
-				player.removeTemporaryAttribute("autoCasting");
 			}
 		}
 		if (player.getEntityFocus() != null && !following) {
@@ -66,16 +68,15 @@ public class WalkingPacket implements OutgoingPacket {
 	}
 
 	private boolean canWalk(Player player, Packet packet, boolean following) {
-		if (player.getTemporaryAttribute("teleporting") != null
-				&& player.getTemporaryAttribute("homeTeleporting") == null) {
+		if (player.getAttributes().exist(Attribute.TELEPORTING)
+				&& !player.getAttributes().exist(Attribute.HOME_TELEPORTING)) {
 			return false;
 		} else if (player.isFrozen()) {
 			if (packet.getId() != 218 && !following) {
 				player.getActionSender().sendMessage("A magic force prevents you from moving!");
 			}
 			return false;
-		} else if (player.getTemporaryAttribute("unmovable") != null
-				|| player.getTemporaryAttribute("cantDoAnything") != null) {
+		} else if (player.getAttributes().exist(Attribute.LOCKED)) {
 			return false;
 		} else if (player.isDead()) {
 			return false;

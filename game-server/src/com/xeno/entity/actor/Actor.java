@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Map;
 import java.util.function.Consumer;
-import java.util.jar.Attributes;
 
 import com.google.common.base.Preconditions;
 import com.xeno.entity.Entity;
@@ -43,7 +42,7 @@ public abstract class Actor extends Entity {
 	/**
 	 * Represents a future Location tile.
 	 */
-	protected transient Location teleportTo = null;
+	protected transient Location teleportTo;
 	
 	/**
 	 * Represents a Hit & type of hits.
@@ -59,9 +58,6 @@ public abstract class Actor extends Entity {
 	 * Represents if the Actor is hidden from game server conditions.
 	 */
 	protected transient boolean hidden;
-	
-	//this'll be removed if/when combat is redone.
-	protected transient int combatTurns;
 	
 	/**
 	 * Represents an Actor set as a target.
@@ -248,7 +244,6 @@ public abstract class Actor extends Entity {
 		dead = false;
 		target = null;
 		attacker = null;
-		combatTurns = 0;
 		poisonAmount = 0;
 		killers = new Object2ObjectArrayMap<Actor, Integer>();
 		sprite = new Sprite();
@@ -376,14 +371,6 @@ public abstract class Actor extends Entity {
 		return true;
 	}
 	
-	public void resetCombatTurns() {
-		combatTurns = 0;
-	}
-	
-	public void incrementCombatTurns() {
-		combatTurns++;
-	}
-
 	public boolean isPoisoned() {
 		return poisonAmount > 0;
 	}

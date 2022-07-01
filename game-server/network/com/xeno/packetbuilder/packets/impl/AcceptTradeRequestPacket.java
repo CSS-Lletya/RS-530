@@ -2,6 +2,7 @@ package com.xeno.packetbuilder.packets.impl;
 
 import com.xeno.content.Trade;
 import com.xeno.content.TradeSession;
+import com.xeno.entity.actor.attribute.Attribute;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.AreaTask;
 import com.xeno.net.Constants;
@@ -17,7 +18,7 @@ public class AcceptTradeRequestPacket implements OutgoingPacket {
 	@Override
 	public void execute(Player player, Packet packet) {
 		int index = packet.readLEShortA();
-		if(index < 0 || index >= Constants.PLAYER_CAP || player.isDead() || player.getTemporaryAttribute("cantDoAnything") != null) {
+		if(index < 0 || index >= Constants.PLAYER_CAP || player.isDead() || player.getAttributes().exist(Attribute.LOCKED)) {
 			return;
 		}
 		final Player p2 = World.getInstance().getPlayerList().get(index);

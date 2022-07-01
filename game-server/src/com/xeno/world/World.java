@@ -10,6 +10,7 @@ import com.xeno.GameEngine;
 import com.xeno.content.ClanManager;
 import com.xeno.content.ShopManager;
 import com.xeno.entity.actor.Actor;
+import com.xeno.entity.actor.attribute.Attribute;
 import com.xeno.entity.actor.item.GroundItemManager;
 import com.xeno.entity.actor.npc.NPC;
 import com.xeno.entity.actor.player.Player;
@@ -330,12 +331,11 @@ public class World {
 			p.getTrade().decline();
 			p.setTrade(null);
 		}
-		if (p.getTemporaryAttribute("cantDoAnything") != null && Area.inFightPits(p.getLocation())) {
-		
+		if (Area.inFightPits(p.getLocation())) {//seems odd
 			return;
 		}
 		
-//		if (!Combat.isXSecondsSinceCombat(p, p.getLastAttacked(), 10000) || p.isDead() || p.getTemporaryAttribute("unmovable") != null) {
+//		if (!Combat.isXSecondsSinceCombat(p, p.getLastAttacked(), 10000) || p.isDead() || p.getTemporaryAttribute(Attribute.LOCKED) != null) {
 //			return;
 //		}
 		removeAllPlayersNPCs(p);

@@ -20,7 +20,7 @@ public class PlayerDetails {
 	private transient Player player;
 	
 	private boolean chat, split, mouse, aid, achievementDiaryTab;
-	private long teleblockTime, lastVengeanceTime;
+	private long lastVengeanceTime;
 	private double prayerPoints;
 	private int poisonAmount, specialAmount, skullCycles, magicType;
 	
@@ -34,7 +34,6 @@ public class PlayerDetails {
 		specialAmount = 100;
 		skullCycles = 0;
 		prayerPoints = 1;
-		teleblockTime = 0;
 		achievementDiaryTab = false;
 	}
 
@@ -58,16 +57,6 @@ public class PlayerDetails {
 		player.setPoisonAmount(poisonAmount);
 		if (poisonAmount > 0) {
 			World.getInstance().submit(new PoisonTask((Actor) player, poisonAmount));
-		}
-		if (teleblockTime > 0) {
-			if (teleblockTime > System.currentTimeMillis()) {
-				long delay = teleblockTime - System.currentTimeMillis();
-				player.setTemporaryAttribute("teleblocked", true);
-				player.task((int) delay, p -> {
-					player.removeTemporaryAttribute("teleblocked");
-					teleblockTime = 0;
-				});
-			}
 		}
 //		player.getBonuses().refresh();
 		setSkullCycles(skullCycles); // This method updates the appearance, so have this last.

@@ -1,24 +1,28 @@
 <player>
   <location>
     <x>3222</x>
-    <y>3221</y>
+    <y>3220</y>
     <z>0</z>
   </location>
-  <attr>
+  <attributes>
     <attributes serialization="custom">
       <it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap>
         <default>
-          <size>1</size>
+          <size>2</size>
         </default>
-        <string>LOCKED</string>
+        <string>lastWindowType</string>
+        <com.xeno.entity.actor.attribute.AttributeValue>
+          <value class="int">1</value>
+        </com.xeno.entity.actor.attribute.AttributeValue>
+        <string>sendLogin</string>
         <com.xeno.entity.actor.attribute.AttributeValue>
           <value class="boolean">true</value>
         </com.xeno.entity.actor.attribute.AttributeValue>
       </it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap>
     </attributes>
-    <lastKey>LOCKED</lastKey>
-    <lastValue reference="../attributes/it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap/com.xeno.entity.actor.attribute.AttributeValue"/>
-  </attr>
+    <lastKey>sendLogin</lastKey>
+    <lastValue reference="../attributes/it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap/com.xeno.entity.actor.attribute.AttributeValue[2]"/>
+  </attributes>
   <type>PLAYER</type>
   <playerCredentials>
     <username>zed</username>
@@ -32,7 +36,6 @@
     <mouse>true</mouse>
     <aid>false</aid>
     <achievementDiaryTab>false</achievementDiaryTab>
-    <teleblockTime>0</teleblockTime>
     <lastVengeanceTime>0</lastVengeanceTime>
     <prayerPoints>1.0</prayerPoints>
     <poisonAmount>0</poisonAmount>

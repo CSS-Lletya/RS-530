@@ -4,6 +4,7 @@ import com.rs.plugin.PluginManager;
 import com.rs.plugin.eventbus.ObjectClickEvent;
 import com.xeno.content.WildernessObelisks;
 import com.xeno.entity.Location;
+import com.xeno.entity.actor.attribute.Attribute;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.net.Packet;
 import com.xeno.net.entity.masks.FaceLocation;
@@ -47,9 +48,8 @@ public class ObjectInteractionsPacket implements OutgoingPacket {
 		int objectId = packet.readShortA();
 		objectY = packet.readShort();
 		
-		if (objectX < 1000 || objectY < 1000 || player.isDead()
-				|| player.getTemporaryAttribute("cantDoAnything") != null
-				|| player.getTemporaryAttribute("unmovable") != null) {
+		if (objectX < 1000 || objectY < 1000 || player.isDead() ||
+				player.getAttributes().exist(Attribute.LOCKED)) {
 			return;
 		}
 		

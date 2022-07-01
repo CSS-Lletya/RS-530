@@ -22,13 +22,8 @@ public class Prayer extends PrayerData {
 	}
 
 	private static void buryBone(final Player p, final int i, final int slot) {
+		//prayer needs rework, skipping attribute, such for now.
 		long lastBury = 0;
-		if (p.getTemporaryAttribute("lastBury") != null) {
-			lastBury = (Long) p.getTemporaryAttribute("lastBury");
-		}
-		if (System.currentTimeMillis() - lastBury < 400) {
-			return;
-		}
 		p.getWalkingQueue().reset();
 		p.getActionSender().clearMapFlag();
 		p.getActionSender().sendMessage("You dig a hole in the ground...");
@@ -36,7 +31,6 @@ public class Prayer extends PrayerData {
 		p.task(1, bury -> {
 			if (bury.toPlayer().getInventory().deleteItem(BONES[i], slot, 1)) {
 				bury.toPlayer().getSkills().addXp(PRAYER, BURY_XP[i]);
-				bury.toPlayer().setTemporaryAttribute("lastBury", System.currentTimeMillis());
 				bury.toPlayer().getActionSender().sendMessage("You bury the bones.");
 			}
 		});

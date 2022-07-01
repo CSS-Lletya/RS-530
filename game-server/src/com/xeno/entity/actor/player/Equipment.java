@@ -2,7 +2,6 @@ package com.xeno.entity.actor.player;
 
 import com.xeno.entity.actor.item.Item;
 import com.xeno.entity.actor.item.ItemConstants;
-import com.xeno.model.player.skills.magic.AutoCast;
 import com.xeno.net.definitions.ItemDefinition;
 
 public class Equipment {
@@ -95,7 +94,7 @@ public class Equipment {
 		}
 		if (s == 3) {
 			setWeapon();
-			AutoCast.cancel(p, true);
+//			AutoCast.cancel(p, true);
 		}
 //		p.getBonuses().refresh();
 		p.setEntityFocus(65535);
@@ -130,7 +129,7 @@ public class Equipment {
 			p.setEntityFocus(65535);
 			if (slot == 3) {
 				setWeapon();
-				AutoCast.cancel(p, true);
+//				AutoCast.cancel(p, true);
 			}
 			return true;
 		}

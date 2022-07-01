@@ -1,5 +1,6 @@
 package com.xeno.entity.actor.player;
 
+import com.xeno.entity.actor.attribute.Attribute;
 import com.xeno.entity.actor.item.Item;
 import com.xeno.entity.actor.item.ItemConstants;
 import com.xeno.entity.actor.player.task.AreaTask;
@@ -504,17 +505,16 @@ public class Bank {
 	}*/
 	
 	public void asNote() {
-		if (p.getTemporaryAttribute("withdrawNote") == null) {
-			p.setTemporaryAttribute("withdrawNote", (Boolean) true);
+		if (!p.getAttributes().exist(Attribute.WITHDRAW_ITEM_AS_NOTE)) {
+			p.getAttributes().get(Attribute.WITHDRAW_ITEM_AS_NOTE).set(true);
 			asNote = true;
 			return;
 		}
-		if ((Boolean) p.getTemporaryAttribute("withdrawNote")) {
-			p.setTemporaryAttribute("withdrawNote", (Boolean) false);
-		} else {
-			p.setTemporaryAttribute("withdrawNote", (Boolean) true);
+		if (p.getAttributes().exist(Attribute.WITHDRAW_ITEM_AS_NOTE)) {
+			p.getAttributes().get(Attribute.WITHDRAW_ITEM_AS_NOTE).set(false);
+			asNote = false;
+			return;
 		}
-		asNote = (Boolean) p.getTemporaryAttribute("withdrawNote");
 	}
 	
 	public void deposit(int invenSlot, int amount) {

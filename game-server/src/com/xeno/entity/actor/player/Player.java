@@ -117,7 +117,6 @@ public class Player extends Actor {
 	private transient Queue<Hit> queuedHits;
 	private transient List<Player> tradeRequests;
 	private transient List<Player> duelRequests;
-	private transient Object2ObjectArrayMap<String, Object> temporaryAttributes;
 	private transient int lastWildLevel;
 	private transient boolean hd;
 	private transient Object distanceEvent;
@@ -154,7 +153,6 @@ public class Player extends Actor {
 		localEntities = new LocalEntityList();
 		playerDetails.setPlayer(this);
 		prayers = new Prayers(this);
-		temporaryAttributes = new Object2ObjectArrayMap<String, Object>();
 		lastChatMessage = null;
 		lastAnimation = null;
 		lastGraphics = null;
@@ -187,18 +185,6 @@ public class Player extends Actor {
 		}
 	}
 	
-	public void setTemporaryAttribute(String attribute, Object value) {
-		temporaryAttributes.put(attribute, value);
-	}
-	
-	public Object getTemporaryAttribute(String attribute) {
-		return temporaryAttributes.get(attribute);
-	}
-	
-	public void removeTemporaryAttribute(String attribute) {
-		temporaryAttributes.remove(attribute);
-	}
-
 	public IoSession getSession() {
 		return this.playerCredentials.getSession();
 	}

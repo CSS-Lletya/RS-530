@@ -19,6 +19,7 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
  * allowed.
  * @param <T> The {@link Object} type represented by this key.
  * @author lare96 <http://github.org/lare96>
+ * @author Dennis
  */
 public final class AttributeKey<T> {
 	
@@ -37,6 +38,16 @@ public final class AttributeKey<T> {
 //		AttributeKey.forTransient("", false);//doesn't save
 		
 		AttributeKey.forPersistent(Attribute.LOCKED, false);
+		AttributeKey.forPersistent(Attribute.LAST_WINDOW_TYPE, false);
+		
+		AttributeKey.forTransient(Attribute.WITHDRAW_ITEM_AS_NOTE, false);
+		AttributeKey.forTransient(Attribute.SEND_LOGIN, false);
+		AttributeKey.forTransient(Attribute.IN_WILDERNESS, false);
+		AttributeKey.forTransient(Attribute.HAIR_TOGGLE, false);
+		AttributeKey.forTransient(Attribute.IN_MULTI_ZONE, false);
+		AttributeKey.forTransient(Attribute.HOME_TELEPORTING, false);
+		AttributeKey.forTransient(Attribute.TELEPORTING, false);
+		AttributeKey.forTransient(Attribute.SKILL_MENU, false);
 	}
 	
 	/**

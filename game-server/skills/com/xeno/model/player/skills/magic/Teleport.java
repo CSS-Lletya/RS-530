@@ -1,6 +1,7 @@
 package com.xeno.model.player.skills.magic;
 
 import com.xeno.entity.Location;
+import com.xeno.entity.actor.attribute.Attribute;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.Task;
 import com.xeno.net.entity.masks.Animation;
@@ -16,14 +17,14 @@ public class Teleport extends MagicData {
 	}
 	
 	public static void homeTeleport(final Player p) {
-		if (p.getTemporaryAttribute("teleporting") != null || p.getTemporaryAttribute("homeTeleporting") != null || p.getTemporaryAttribute("unmovable") != null || p.getTemporaryAttribute("cantDoAnything") != null) {
+		if (p.getAttributes().exist(Attribute.TELEPORTING) || p.getAttributes().exist(Attribute.HOME_TELEPORTING) || p.getAttributes().exist(Attribute.LOCKED)) {
 			return;
 		}
 		if (Area.inFightPits(p.getLocation())) {
 			p.getActionSender().sendMessage("You are unable to teleport from the fight pits.");
 			return;
 		}
-		if (p.getTemporaryAttribute("teleblocked") != null) {
+		if (p.getAttributes().exist("teleblocked")) {
 			p.getActionSender().sendMessage("A magical force prevents you from teleporting!");
 			return;
 		}
@@ -32,8 +33,8 @@ public class Teleport extends MagicData {
 			return;
 		}
 		p.getInterfaceManager().closeInterfaces();
-		p.setTemporaryAttribute("teleporting", true);
-		p.setTemporaryAttribute("homeTeleporting", true);
+		p.getAttributes().get(Attribute.TELEPORTING).set(true);
+		p.getAttributes().get(Attribute.HOME_TELEPORTING).set(true);
 		p.getWalkingQueue().reset();
 		p.getActionSender().clearMapFlag();
 		World.getInstance().submit(new Task(1) {
@@ -41,7 +42,7 @@ public class Teleport extends MagicData {
 			
 			@Override
 			protected void execute() {
-				if (p.getTemporaryAttribute("homeTeleporting") == null) {
+				if (p.getAttributes().exist(Attribute.HOME_TELEPORTING)) {
 					p.setNextAnimation(new Animation(65535));
 					p.setNextGraphic(new Graphics(65535));
 					resetTeleport(p);
@@ -67,8 +68,6 @@ public class Teleport extends MagicData {
 		if (!RuneManager.deleteRunes(p, TELEPORT_RUNES[teleport], TELEPORT_RUNES_AMOUNT[teleport])) {
 		//	return;
 		}
-		p.removeTemporaryAttribute("lootedBarrowChest"); // so it resets instantly.
-		p.removeTemporaryAttribute("autoCasting");
 		p.setTarget(null);
 		final boolean ancients = teleport > 6 ? true : false;
 		int playerMagicSet = p.getPlayerDetails().getMagicType();
@@ -84,7 +83,7 @@ public class Teleport extends MagicData {
 		p.getActionSender().sendBlankClientScript(1297);
 		p.getWalkingQueue().reset();
 		p.getActionSender().clearMapFlag();
-		p.setTemporaryAttribute("teleporting", true);
+		p.getAttributes().get(Attribute.TELEPORTING).set(true);
 		
 		World.getInstance().submit(new Task(ancients ? 3 : 2) {
 			@Override
@@ -111,14 +110,7 @@ public class Teleport extends MagicData {
 	}
 
 	private static boolean canTeleport(Player p, int teleport) {
-		if (p.getTemporaryAttribute("teleporting") != null) {
-			return false;
-		}
-		if (p.getTemporaryAttribute("teleblocked") != null) {
-			p.getActionSender().sendMessage("A magical force prevents you from teleporting!");
-			return false;
-		}
-		if (p.getTemporaryAttribute("unmovable") != null || p.getTemporaryAttribute("cantDoAnything") != null) {
+		if (p.getAttributes().exist(Attribute.TELEPORTING) || p.getAttributes().exist(Attribute.LOCKED)) {
 			return false;
 		}
 		if (p.getSkills().getLevel(MAGIC) < TELEPORT_LVL[teleport]) {
@@ -153,11 +145,7 @@ public class Teleport extends MagicData {
 		if (index == -1) {
 			return false;
 		}
-		if (p.getTemporaryAttribute("teleporting") != null || p.getTemporaryAttribute("homeTeleporting") != null || p.getTemporaryAttribute("unmovable") != null || p.getTemporaryAttribute("cantDoAnything") != null) {
-			return false;
-		}
-		if (p.getTemporaryAttribute("teleblocked") != null) {
-			p.getActionSender().sendMessage("A magical force prevents you from teleporting!");
+		if (p.getAttributes().exist(Attribute.TELEPORTING) || p.getAttributes().exist(Attribute.HOME_TELEPORTING) || p.getAttributes().exist(Attribute.LOCKED)) {
 			return false;
 		}
 		if (Area.inFightPits(p.getLocation())) {
@@ -175,8 +163,8 @@ public class Teleport extends MagicData {
 		p.getWalkingQueue().reset();
 		p.getActionSender().clearMapFlag();
 		if (p.getInventory().deleteItem(item, slot, 1)) {
-			p.setTemporaryAttribute("unmovable", true);
-			p.setTemporaryAttribute("teleporting", true);
+			p.getAttributes().get(Attribute.LOCKED).set(true);
+			p.getAttributes().get(Attribute.TELEPORTING).set(true);
 			p.setNextAnimation(new Animation(9597));
 			p.setNextGraphic(new Graphics(1680));
 			//p.setNextGraphics(678, 0, 0); // blue gfx
@@ -189,7 +177,7 @@ public class Teleport extends MagicData {
 						i++;
 					} else {
 						p.setNextAnimation(new Animation(65535));
-						p.removeTemporaryAttribute("unmovable");
+						p.getAttributes().get(Attribute.LOCKED).set(false);
 						p.teleport(Location.location(x, y, 0));
 						resetTeleport(p);
 						this.stop();
@@ -202,7 +190,7 @@ public class Teleport extends MagicData {
 	}
 	
 	public static void resetTeleport(Player p) {
-		p.removeTemporaryAttribute("teleporting");
-		p.removeTemporaryAttribute("homeTeleporting");
+		p.getAttributes().get(Attribute.TELEPORTING).set(false);
+		p.getAttributes().get(Attribute.HOME_TELEPORTING).set(false);
 	}
 }

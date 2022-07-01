@@ -1,6 +1,7 @@
 package com.xeno.utility;
 
 import com.xeno.entity.Location;
+import com.xeno.entity.actor.attribute.Attribute;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.AreaTask;
 import com.xeno.entity.actor.player.task.Task;
@@ -67,7 +68,7 @@ public class Area {
 	}
 
 	public static void crossDitch(final Player p, final int x, final int y) {
-		if (p.getTemporaryAttribute("unmovable") != null) {
+		if (p.getAttributes().exist(Attribute.LOCKED)) {
 			return;
 		}
 		World.getInstance().registerCoordinateEvent(new AreaTask(p, x, y - 1, x, y + 2) {
@@ -76,7 +77,7 @@ public class Area {
 			public void run() {
 				p.getInterfaceManager().closeInterfaces();
 				p.getWalkingQueue().reset();
-				p.setTemporaryAttribute("unmovable", true);
+				p.getAttributes().get(Attribute.LOCKED).set(true);
 				final int newY = p.getLocation().getY() >= 3523 ? p.getLocation().getY()-3 : p.getLocation().getY()+3;
 				final int dir = newY == 3 ? 0 : 4;
 				Location faceLocation = Location.location(p.getLocation().getX(), dir == 3 ? 3523 : 3520, 0);
@@ -100,7 +101,7 @@ public class Area {
 								int playerY = p.getLocation().getY();
 								int nY = playerY >= 3523 ? 3520 : 3523;
 								p.teleport(Location.location(p.getLocation().getX(), nY, 0));
-								p.removeTemporaryAttribute("unmovable");
+								p.getAttributes().get(Attribute.LOCKED).set(false);
 							}
 						});
 					}

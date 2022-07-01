@@ -1,5 +1,6 @@
 package com.xeno.content;
 
+import com.xeno.entity.actor.attribute.Attribute;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.net.entity.masks.Appearance;
 
@@ -30,7 +31,7 @@ public class ConfigureAppearance {
 		p.getAppearance().getTemporaryAppearance().setColoursArray(p.getAppearance().getColoursArray());
 		p.getAppearance().getTemporaryAppearance().setLookArray(p.getAppearance().getLookArray());
 		p.getAppearance().getTemporaryAppearance().setGender(p.getAppearance().getGender());
-		p.removeTemporaryAttribute("hairToggle");
+		p.getAttributes().get(Attribute.HAIR_TOGGLE).set(false);;
 	}
 	
 	public static void sortButton(Player p, int button) {
@@ -66,11 +67,11 @@ public class ConfigureAppearance {
 	private static int getHairStyle(Player p, boolean decrease) {
 		int oldHair = p.getAppearance().getLook(0);
 		int newHair = oldHair;
-		if (p.getTemporaryAttribute("hairToggle") == null) {
-			p.setTemporaryAttribute("hairToggle", 0);
+		if (p.getAttributes().exist(Attribute.HAIR_TOGGLE)) {
+			p.getAttributes().get(Attribute.HAIR_TOGGLE).set(0);
 			return 0;
 		}
-		newHair = (Integer) p.getTemporaryAttribute("hairToggle");
+		newHair = p.getAttributes().get(Attribute.HAIR_TOGGLE).getInt();
 		newHair = decrease ? -1 : +1;
 		if (newHair == 11) {
 			newHair = 186;//
@@ -88,7 +89,7 @@ public class ConfigureAppearance {
 			//17 to 25 dump from rs
 		}
 		
-		p.setTemporaryAttribute("hairToggle", newHair);
+		p.getAttributes().get(Attribute.HAIR_TOGGLE).set(newHair);
 		return newHair;
 	}
 	

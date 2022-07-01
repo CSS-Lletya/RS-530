@@ -1,5 +1,6 @@
 package com.xeno.packetbuilder.packets.impl;
 
+import com.xeno.entity.actor.attribute.Attribute;
 import com.xeno.entity.actor.npc.NPC;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.net.Constants;
@@ -55,7 +56,7 @@ public class NPCInteractionsPacket implements OutgoingPacket {
 	private void handleFirstClickNPC(Player player, Packet packet) {
 		int npcIndex = packet.readLEShortA();
 		if (npcIndex < 0 || npcIndex > Constants.NPC_CAP || player.isDead()
-				|| player.getTemporaryAttribute("cantDoAnything") != null) {
+				|| player.getAttributes().exist(Attribute.LOCKED)) {
 			return;
 		}
 		final NPC npc = World.getInstance().getNpcList().get(npcIndex);
@@ -69,7 +70,7 @@ public class NPCInteractionsPacket implements OutgoingPacket {
 	private void handleSecondClickNPC(Player player, Packet packet) {
 		int npcIndex = packet.readLEShort();
 		if (npcIndex < 0 || npcIndex > Constants.NPC_CAP || player.isDead()
-				|| player.getTemporaryAttribute("cantDoAnything") != null) {
+				|| player.getAttributes().exist(Attribute.LOCKED)) {
 			return;
 		}
 		final NPC npc = World.getInstance().getNpcList().get(npcIndex);
@@ -84,7 +85,7 @@ public class NPCInteractionsPacket implements OutgoingPacket {
 	private void handleThirdClickNPC(Player player, Packet packet) {
 		int npcIndex = packet.readShortA();
 		if (npcIndex < 0 || npcIndex > Constants.NPC_CAP || player.isDead()
-				|| player.getTemporaryAttribute("cantDoAnything") != null) {
+				|| player.getAttributes().exist(Attribute.LOCKED)) {
 			return;
 		}
 		final NPC npc = World.getInstance().getNpcList().get(npcIndex);
@@ -99,7 +100,7 @@ public class NPCInteractionsPacket implements OutgoingPacket {
 	private void handleFourthClickNPC(Player player, Packet packet) {
 		int npcIndex = packet.readShort();
 		if (npcIndex < 0 || npcIndex > Constants.NPC_CAP || player.isDead()
-				|| player.getTemporaryAttribute("cantDoAnything") != null) {
+				|| player.getAttributes().exist(Attribute.LOCKED)) {
 			return;
 		}
 		final NPC npc = World.getInstance().getNpcList().get(npcIndex);
@@ -114,7 +115,7 @@ public class NPCInteractionsPacket implements OutgoingPacket {
 	private void handleFifthClickNPC(Player player, Packet packet) {
 		int npcIndex = packet.readLEShort();
 		if (npcIndex < 0 || npcIndex > Constants.NPC_CAP || player.isDead()
-				|| player.getTemporaryAttribute("cantDoAnything") != null) {
+				|| player.getAttributes().exist(Attribute.LOCKED)) {
 			return;
 		}
 		final NPC npc = World.getInstance().getNpcList().get(npcIndex);
@@ -130,7 +131,7 @@ public class NPCInteractionsPacket implements OutgoingPacket {
 		int junk = packet.readShortA();
 		int npcIndex = packet.readLEShortA();
 		if (npcIndex < 0 || npcIndex > Constants.NPC_CAP || player.isDead()
-				|| player.getTemporaryAttribute("cantDoAnything") != null) {
+				|| player.getAttributes().exist(Attribute.LOCKED)) {
 			return;
 		}
 		final NPC npc = World.getInstance().getNpcList().get(npcIndex);
@@ -147,7 +148,7 @@ public class NPCInteractionsPacket implements OutgoingPacket {
 		int npcIndex = packet.readLEShort();
 		int item = packet.readLEShortA();
 		if (npcIndex < 0 || npcIndex > Constants.NPC_CAP || player.isDead()
-				|| player.getTemporaryAttribute("cantDoAnything") != null) {
+				|| player.getAttributes().exist(Attribute.LOCKED)) {
 			return;
 		}
 		final NPC npc = World.getInstance().getNpcList().get(npcIndex);

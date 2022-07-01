@@ -1,6 +1,7 @@
 package com.xeno.entity.actor.player.task.impl;
 
 import com.xeno.entity.Location;
+import com.xeno.entity.actor.attribute.Attribute;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.Task;
 import com.xeno.utility.Area;
@@ -49,29 +50,29 @@ public final class AreaVariablesTask extends Task {
 		if (currentLevel != p.getLastWildLevel()) {
 			if (currentLevel > 0) {
 				p.setLastWildLevel(currentLevel);
-				if (p.getTemporaryAttribute("inWild") == null) {
+				if (!p.getAttributes().exist(Attribute.IN_WILDERNESS)) {
 					p.getActionSender().sendPlayerOption("Attack", 1, 1);
 					p.getInterfaceManager().sendOverlay(381);
-					p.setTemporaryAttribute("inWild", true);
+					p.getAttributes().get(Attribute.IN_WILDERNESS).set(true);
 				}
 			} else {
-				if (p.getTemporaryAttribute("inWild") != null) {
+				if (p.getAttributes().exist(Attribute.IN_WILDERNESS)) {
 					p.getActionSender().sendPlayerOption("null", 1, 1);
 					p.getInterfaceManager().sendRemoveOverlay();
 					p.setLastWildLevel(0);
-					p.removeTemporaryAttribute("inWild");
+					p.getAttributes().get(Attribute.IN_WILDERNESS).set(false);
 				}
 			}
 		}
 		if (Area.inMultiCombat(p.getLocation())) {
-			if (p.getTemporaryAttribute("inMulti") == null) {
+			if (!p.getAttributes().exist(Attribute.IN_MULTI_ZONE)) {
 				p.getInterfaceManager().displayMultiIcon();
-				p.setTemporaryAttribute("inMulti", true);
+				p.getAttributes().get(Attribute.IN_MULTI_ZONE).set(true);
 			}
 		} else {
-			if (p.getTemporaryAttribute("inMulti") != null) {
+			if (p.getAttributes().exist(Attribute.IN_MULTI_ZONE)) {
 				p.getInterfaceManager().removeMultiIcon();
-				p.removeTemporaryAttribute("inMulti");
+				p.getAttributes().get(Attribute.IN_MULTI_ZONE).set(false);
 			}
 		}
 	}

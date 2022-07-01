@@ -2,6 +2,7 @@ package com.xeno.packetbuilder.packets.impl;
 
 import com.rs.plugin.standard.RSInterfacePluginDispatcher;
 import com.xeno.GameConstants;
+import com.xeno.entity.actor.attribute.Attribute;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.net.Packet;
 import com.xeno.packetbuilder.packets.OutgoingPacket;
@@ -26,6 +27,8 @@ public class ActionButtonPacket implements OutgoingPacket {
 		}
 		if (GameConstants.DEBUG_MODE)
 			LogUtility.log(LogType.INFO, "Inter: "+ interfaceId + " - button: " + buttonId + " button type 2: " + buttonId2);
+		if (player.getAttributes().exist(Attribute.LOCKED))
+			return;
 		RSInterfacePluginDispatcher.execute(player, interfaceId, buttonId, buttonId2);
 	}
 }

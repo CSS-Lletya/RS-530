@@ -1,5 +1,6 @@
 package com.xeno.model.player.skills;
 
+import com.xeno.entity.actor.attribute.Attribute;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.net.entity.masks.Graphics;
 import com.xeno.utility.Utility;
@@ -27,7 +28,7 @@ public class LevelUp {
 	public static void levelUp(Player player, int skill) {
 		String s = "<br><br><br>";
 		String s1 = "<br><br><br><br>";
-		if (player.getTemporaryAttribute("teleporting") == null) {
+		if (!player.getAttributes().exist(Attribute.TELEPORTING)) {
 			player.setNextGraphic(new Graphics(199, 0, 100));
 		}
 		player.getActionSender().sendMessage("You've just advanced a " + Utility.SKILL_NAME[skill] + " level! You have reached level " + player.getSkills().getLevelForXp(skill) + ".");
