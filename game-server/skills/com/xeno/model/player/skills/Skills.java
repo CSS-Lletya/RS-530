@@ -1,37 +1,62 @@
 package com.xeno.model.player.skills;
 
+import java.util.stream.IntStream;
+
 import com.xeno.entity.actor.player.Player;
 import com.xeno.model.player.skills.prayer.Prayer;
+
+import lombok.Data;
 
 /**
  * Manages the player's skills.
  * @author Graham
  *
  */
+@Data
 public class Skills {
-	
-	public static final int SKILL_COUNT = 24;
 	
 	private transient Player player;
 	
 	public static final double MAXIMUM_EXP = 200000000;
+	
+	/**
+	 * Simple Skill name with value constants
+	 */
+	public static final int ATTACK = 0, DEFENCE = 1, STRENGTH = 2, HITPOINTS = 3, RANGE = 4, PRAYER = 5, MAGIC = 6,
+			COOKING = 7, WOODCUTTING = 8, FLETCHING = 9, FISHING = 10, FIREMAKING = 11, CRAFTING = 12, SMITHING = 13,
+			MINING = 14, HERBLORE = 15, AGILITY = 16, THIEVING = 17, SLAYER = 18, FARMING = 19, RUNECRAFTING = 20,
+			CONSTRUCTION = 22, HUNTER = 21, SUMMONING = 23, DUNGEONEERING = 24;
+
+	/**
+	 * Simple Skill names
+	 */
+	public static final String[] SKILL_NAME = { "Attack", "Defence", "Strength", "Constitution", "Ranging", "Prayer",
+			"Magic", "Cooking", "Woodcutting", "Fletching", "Fishing", "Firemaking", "Crafting", "Smithing", "Mining",
+			"Herblore", "Agility", "Thieving", "Slayer", "Farming", "Runecrafting", "Hunter", "Construction",
+			"Summoning", "Dungeoneering" };
+	
+	public static final int SKILL_COUNT = 24;
 	
 	private int level[] = new int[SKILL_COUNT];
 	private double xp[] = new double[SKILL_COUNT];
 	private transient int tempHealthLevel;
 	
 	public Skills() {
-		for(int i = 0; i < SKILL_COUNT; i++) {
-			level[i] = 1;
-			xp[i] = 0;
-		}
-		level[3] = 10;
-		xp[3] = 1184;
+		IntStream.range(0, 24).forEach(skill -> {
+			level[skill] = 1;
+			xp[skill] = 0;
+		});
+		level[HITPOINTS] = 10;
+		xp[HITPOINTS] = 1184;
 	}
 	
 	public Object readResolve() {
 		tempHealthLevel = level[3];
 		return this;
+	}
+	
+	public double getXp(int skill) {
+		return xp[skill];
 	}
 	
 	public int getCombatLevel() {
@@ -51,23 +76,7 @@ public class Skills {
 
 		return (int) (combatLevel + Math.max(warrior, Math.max(ranger, mage)));
 	}
-	
-	public void setPlayer(Player player) {
-		this.player = player;
-	}
-	
-	public int getLevel(int skill) {
-		return level[skill];
-	}
-	
-	public int[] getLevel() {
-		return level;
-	}
-	
-	public double getXp(int skill) {
-		return xp[skill];
-	}
-	
+
 	public void setLevel(int skill, int lvl) {
 		level[skill] = lvl;
 		if (level[skill] <= 1 && skill != 3 && skill != 5) {
@@ -162,11 +171,16 @@ public class Skills {
 		return total;
 	}
 
-	public int getTempHealthLevel() {
-		return tempHealthLevel;
-	}
-
-	public void setTempHealth(int i) {
-		this.tempHealthLevel = i;
+	public void increasePrayerPoints(double modification) {
+		int prayerPoints = (int) player.getPlayerDetails().getPrayerPoints();
+		int lvlBefore = (int) Math.ceil(prayerPoints);
+		if(prayerPoints >= 0) {
+			prayerPoints = (int) (prayerPoints + modification == 0 ? 0 : prayerPoints + modification);
+		}
+		int lvlAfter = (int) Math.ceil(prayerPoints);
+		if (lvlBefore - lvlAfter >= 1) {
+			player.getSkills().setLevel(5, lvlAfter);
+			player.getActionSender().sendSkillLevel(5);
+		}
 	}
 }

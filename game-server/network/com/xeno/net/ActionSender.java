@@ -51,7 +51,7 @@ public class ActionSender {
 		if (skill == 5) {
 			spb.addByteA((byte) Math.ceil(player.getPlayerDetails().getPrayerPoints()));
 		} else {
-			spb.addByteA((byte) player.getSkills().getLevel(skill));
+			spb.addByteA((byte) player.getSkills().getLevelForXp(skill));
 		}
 		spb.addInt1((int) player.getSkills().getXp(skill));
 		spb.addByte((byte) skill);

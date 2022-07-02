@@ -1,5 +1,7 @@
 package com.xeno.packetbuilder.packets.impl;
 
+import java.util.stream.IntStream;
+
 import com.rs.plugin.standard.RSInterfacePluginDispatcher;
 import com.xeno.GameConstants;
 import com.xeno.entity.actor.attribute.Attribute;
@@ -29,6 +31,8 @@ public class ActionButtonPacket implements OutgoingPacket {
 			LogUtility.log(LogType.INFO, "Inter: "+ interfaceId + " - button: " + buttonId + " button type 2: " + buttonId2);
 		if (player.getAttributes().exist(Attribute.LOCKED))
 			return;
+		if (IntStream.of(3).anyMatch(id -> id == interfaceId))
+			player.getInterfaceManager().closeChatboxInterface();
 		RSInterfacePluginDispatcher.execute(player, interfaceId, buttonId, buttonId2);
 	}
 }

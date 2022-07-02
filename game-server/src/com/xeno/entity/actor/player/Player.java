@@ -276,8 +276,8 @@ public class Player extends Actor {
 				}
 			}
 		boolean damageOverZero = damage > 0;
-		if(damage > skills.getLevel(3)) {
-			damage = skills.getLevel(3);
+		if(damage > skills.getLevelForXp(3)) {
+			damage = skills.getLevelForXp(3);
 		}
 		if (damageOverZero && damage == 0) {
 			type = Hits.HitType.NO_DAMAGE;
@@ -294,8 +294,8 @@ public class Player extends Actor {
 				return;
 			}
 		}
-		skills.setLevel(3, skills.getLevel(3) - damage);
-		if(skills.getLevel(3) <= 0) {
+		skills.setLevel(3, skills.getLevelForXp(3) - damage);
+		if(skills.getLevelForXp(3) <= 0) {
 			skills.setLevel(3, 0);
 			if(!getAttributes().exist(Attribute.DEAD)) {
 //				World.getInstance().registerEvent(new DeathEvent(this));//TODO: Finish converting
@@ -466,15 +466,15 @@ public class Player extends Actor {
 
 	@Override
 	public int getHp() {
-		return this.getSkills().getLevel(3);
+		return this.getSkills().getLevelForXp(3);
 	}
 
 	@Override
 	public int getMaxHit() {
-//        // float effectiveStr = (float) Math.floor((skills.getLevel(2)) * 1/*prayer*/ * 1/*other*/ + 0/*style*/);
+//        // float effectiveStr = (float) Math.floor((skills.getLevelForXp(2)) * 1/*prayer*/ * 1/*other*/ + 0/*style*/);
 //        /*float baseDmg = 1.3F + (effectiveStr / 9.5F) + (bonuses.getBonus(11) / 8F) + ((effectiveStr * bonuses.getBonus(11)) / 64F);
 //        return (int) baseDmg * bonuses.getBonus(11);*/
-//		int a = skills.getLevel(2);
+//		int a = skills.getLevelForXp(2);
 //		int b = bonuses.getBonus(11);
 //		CombatSkill fightType = this.getAttackVars().getSkill();
 //		double c = (double)a;
@@ -518,7 +518,7 @@ public class Player extends Actor {
 //		/*double maxHit = 0;
 //		if(this.getCombatType().equals(CombatType.MELEE)) {
 //			int strBonus = bonuses.getBonus(11);
-//			int strength = skills.getLevel(2);
+//			int strength = skills.getLevelForXp(2);
 //			int fightType = this.getSettings().getAttackStyle();
 //			if(fightType == 1 || fightType == 4) {
 //				maxHit += (double) (1.05 + (double) ((double) (strBonus * strength) * 0.00175));
@@ -542,7 +542,7 @@ public class Player extends Actor {
 //			maxHit += (double)(strength * 0.1);
 //			System.out.println("maxHit " + maxHit);
 //		} else if(this.getCombatType().equals(CombatType.RANGE)) {
-//			int range = skills.getLevel(4);
+//			int range = skills.getLevelForXp(4);
 //			int rangeBonus = bonuses.getBonus(4);
 //			double d = ((double) (rangeBonus * 0.00175D) + 0.1D);
 //			maxHit += d * (double) range + 2.05D;
@@ -563,12 +563,12 @@ public class Player extends Actor {
 		if (getAttributes().exist(Attribute.DEAD)) {
 			return;
 		}
-		if ((skills.getLevel(3) + amount) > (skills.getLevelForXp(3))) {
+		if ((skills.getLevelForXp(3) + amount) > (skills.getLevelForXp(3))) {
 			skills.setLevel(3, skills.getLevelForXp(3));
 			actionSender.sendSkillLevel(3);
 			return;
 		}
-		skills.setLevel(3, skills.getLevel(3) + amount);
+		skills.setLevel(3, skills.getLevelForXp(3) + amount);
 		actionSender.sendSkillLevel(3);
 	}
 

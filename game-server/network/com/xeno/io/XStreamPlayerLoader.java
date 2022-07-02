@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 import com.thoughtworks.xstream.XStream;
+import com.xeno.GameConstants;
 import com.xeno.entity.Location;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.PlayerCredentials;
@@ -43,7 +44,7 @@ public class XStreamPlayerLoader implements PlayerLoader {
 			// no user with that name
 			result.returnCode = Constants.ReturnCodes.LOGIN_OK;
 			result.player = new Player(p);
-			result.player.setLocation(new Location(3222,3222,0));
+			result.player.setLocation(GameConstants.RESPAWN_LOCATION);
 			result.player = (Player) result.player.readResolve();
 		}
 		return result;

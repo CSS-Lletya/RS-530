@@ -41,7 +41,8 @@ public class Prayer extends PrayerData {
 		if (id < 5 || id > 57) {
 			return false;
 		}
-		if (p.getSkills().getLevel(5) <= 0) {
+		if (p.getSkills().getLevelForXp(5) <= 0) {
+			System.out.println("cant use");
 			return false;
 		}
 		int j = 0;
@@ -151,7 +152,7 @@ public class Prayer extends PrayerData {
 		if (p.getAttributes().exist(Attribute.DEAD)) {
 			return;
 		}
-		if (p.getSkills().getLevel(5) <= 0) {
+		if (p.getSkills().getLevelForXp(5) <= 0) {
 			deactivateAllPrayers(p);
 			return;
 		}

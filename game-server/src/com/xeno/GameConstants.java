@@ -1,5 +1,7 @@
 package com.xeno;
 
+import com.xeno.entity.Location;
+
 /**
  * A generic interface containing generic data for the game server to utilize.
  * @author Dennis
@@ -28,4 +30,9 @@ public interface GameConstants {
 	 * Represents the game servers world id.
 	 */
 	public int WORLD_ID = 1;
+	
+	/**
+	 * Represents the location to respawn after death, teleport, etc..
+	 */
+	public Location RESPAWN_LOCATION = new Location(3222, 3222, 0);
 }
