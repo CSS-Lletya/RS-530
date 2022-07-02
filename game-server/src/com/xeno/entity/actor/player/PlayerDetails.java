@@ -19,6 +19,7 @@ public class PlayerDetails {
 	private int rights = 0;
 	private transient Player player;
 	
+	private boolean recievedStarter = false;
 	private boolean chat, split, mouse, aid, achievementDiaryTab;
 	private long lastVengeanceTime;
 	private double prayerPoints;

@@ -23,6 +23,12 @@ public class Item {
 		this.itemDefinition = ItemDefinition.forId(id);
 	}
 	
+	public Item(int id) {
+		this.itemId = id;
+		this.itemAmount = 1;
+		this.itemDefinition = ItemDefinition.forId(id);
+	}
+	
 	public ItemDefinition getDefinition() {
 		return itemDefinition;
 	}

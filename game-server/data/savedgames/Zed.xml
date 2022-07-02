@@ -12,7 +12,7 @@
         </default>
         <string>lastWindowType</string>
         <com.xeno.entity.actor.attribute.AttributeValue>
-          <value class="int">1</value>
+          <value class="int">0</value>
         </com.xeno.entity.actor.attribute.AttributeValue>
         <string>sendLogin</string>
         <com.xeno.entity.actor.attribute.AttributeValue>
@@ -31,6 +31,7 @@
   <playerDetails>
     <runEnergy>100</runEnergy>
     <rights>0</rights>
+    <recievedStarter>true</recievedStarter>
     <chat>true</chat>
     <split>false</split>
     <mouse>true</mouse>
@@ -2071,8 +2072,8 @@
         <itemAmount>0</itemAmount>
       </item>
       <item>
-        <itemId>-1</itemId>
-        <itemAmount>0</itemAmount>
+        <itemId>841</itemId>
+        <itemAmount>1</itemAmount>
       </item>
       <item>
         <itemId>-1</itemId>
@@ -2111,8 +2112,8 @@
         <itemAmount>0</itemAmount>
       </item>
       <item>
-        <itemId>-1</itemId>
-        <itemAmount>0</itemAmount>
+        <itemId>882</itemId>
+        <itemAmount>25</itemAmount>
       </item>
     </slots>
   </equipment>
@@ -2173,80 +2174,80 @@
   <inventory>
     <slots>
       <item>
-        <itemId>-1</itemId>
-        <itemAmount>0</itemAmount>
+        <itemId>995</itemId>
+        <itemAmount>25</itemAmount>
       </item>
       <item>
         <itemId>-1</itemId>
         <itemAmount>0</itemAmount>
       </item>
       <item>
-        <itemId>-1</itemId>
-        <itemAmount>0</itemAmount>
+        <itemId>590</itemId>
+        <itemAmount>1</itemAmount>
+      </item>
+      <item>
+        <itemId>303</itemId>
+        <itemAmount>1</itemAmount>
+      </item>
+      <item>
+        <itemId>315</itemId>
+        <itemAmount>1</itemAmount>
+      </item>
+      <item>
+        <itemId>1925</itemId>
+        <itemAmount>1</itemAmount>
+      </item>
+      <item>
+        <itemId>1931</itemId>
+        <itemAmount>1</itemAmount>
+      </item>
+      <item>
+        <itemId>2309</itemId>
+        <itemAmount>1</itemAmount>
+      </item>
+      <item>
+        <itemId>1277</itemId>
+        <itemAmount>1</itemAmount>
+      </item>
+      <item>
+        <itemId>1205</itemId>
+        <itemAmount>1</itemAmount>
+      </item>
+      <item>
+        <itemId>1265</itemId>
+        <itemAmount>1</itemAmount>
+      </item>
+      <item>
+        <itemId>1171</itemId>
+        <itemAmount>1</itemAmount>
+      </item>
+      <item>
+        <itemId>1351</itemId>
+        <itemAmount>1</itemAmount>
       </item>
       <item>
         <itemId>-1</itemId>
         <itemAmount>0</itemAmount>
       </item>
       <item>
-        <itemId>-1</itemId>
-        <itemAmount>0</itemAmount>
+        <itemId>556</itemId>
+        <itemAmount>25</itemAmount>
       </item>
       <item>
-        <itemId>-1</itemId>
-        <itemAmount>0</itemAmount>
+        <itemId>558</itemId>
+        <itemAmount>12</itemAmount>
       </item>
       <item>
-        <itemId>-1</itemId>
-        <itemAmount>0</itemAmount>
+        <itemId>555</itemId>
+        <itemAmount>6</itemAmount>
       </item>
       <item>
-        <itemId>-1</itemId>
-        <itemAmount>0</itemAmount>
+        <itemId>557</itemId>
+        <itemAmount>4</itemAmount>
       </item>
       <item>
-        <itemId>-1</itemId>
-        <itemAmount>0</itemAmount>
-      </item>
-      <item>
-        <itemId>-1</itemId>
-        <itemAmount>0</itemAmount>
-      </item>
-      <item>
-        <itemId>-1</itemId>
-        <itemAmount>0</itemAmount>
-      </item>
-      <item>
-        <itemId>-1</itemId>
-        <itemAmount>0</itemAmount>
-      </item>
-      <item>
-        <itemId>-1</itemId>
-        <itemAmount>0</itemAmount>
-      </item>
-      <item>
-        <itemId>-1</itemId>
-        <itemAmount>0</itemAmount>
-      </item>
-      <item>
-        <itemId>-1</itemId>
-        <itemAmount>0</itemAmount>
-      </item>
-      <item>
-        <itemId>-1</itemId>
-        <itemAmount>0</itemAmount>
-      </item>
-      <item>
-        <itemId>-1</itemId>
-        <itemAmount>0</itemAmount>
-      </item>
-      <item>
-        <itemId>-1</itemId>
-        <itemAmount>0</itemAmount>
-      </item>
-      <item>
-        <itemId>-1</itemId>
-        <itemAmount>0</itemAmount>
+        <itemId>559</itemId>
+        <itemAmount>2</itemAmount>
       </item>
       <item>
         <itemId>-1</itemId>

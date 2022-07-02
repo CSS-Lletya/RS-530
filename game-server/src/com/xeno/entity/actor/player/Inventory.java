@@ -135,6 +135,10 @@ public class Inventory {
 		return addItem(item, 1, findFreeSlot());
 	}
 	
+	public void addItem(Item item) {
+		addItem(item.getItemId(), item.getItemAmount(), findFreeSlot());
+	}
+	
 	public boolean addItem(int item, int amount) {
 		return addItem(item, amount, findFreeSlot());
 	}

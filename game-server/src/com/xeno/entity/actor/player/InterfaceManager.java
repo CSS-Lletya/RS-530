@@ -3,6 +3,11 @@ package com.xeno.entity.actor.player;
 import com.xeno.GameConstants;
 import com.xeno.entity.actor.attribute.Attribute;
 
+/**
+ * A collection of methods related to Interface operations enclosed in a simple to find class.
+ * @author Dennis
+ *
+ */
 public class InterfaceManager {
 
 	private transient Player player;
@@ -14,6 +19,10 @@ public class InterfaceManager {
 	public void sendLogin() {
 		player.getActionSender().sendWindowPane(player.getPlayerCredentials().isResized() ? 746 : 548);
 		player.getActionSender().sendSkillLevels();
+		if (!player.getPlayerDetails().isRecievedStarter()) {
+			player.getPlayerDetails().setRecievedStarter(true);
+			GameConstants.STARTER.forEach(player.getInventory()::addItem);
+		}
 		player.getActionSender().sendMessage("Welcome to "+GameConstants.SERVER_NAME+".");
 		player.getActionSender().sendEnergy();
 		player.getActionSender().sendConfig(173, 0);
