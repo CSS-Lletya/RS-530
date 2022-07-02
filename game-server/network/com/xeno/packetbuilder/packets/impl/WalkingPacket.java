@@ -71,14 +71,14 @@ public class WalkingPacket implements OutgoingPacket {
 		if (player.getAttributes().exist(Attribute.TELEPORTING)
 				&& !player.getAttributes().exist(Attribute.HOME_TELEPORTING)) {
 			return false;
-		} else if (player.isFrozen()) {
+		} else if (player.getAttributes().exist(Attribute.FROZEN)) {
 			if (packet.getId() != 218 && !following) {
 				player.getActionSender().sendMessage("A magic force prevents you from moving!");
 			}
 			return false;
 		} else if (player.getAttributes().exist(Attribute.LOCKED)) {
 			return false;
-		} else if (player.isDead()) {
+		} else if (player.getAttributes().exist(Attribute.DEAD)) {
 			return false;
 		} else if (player.getTeleportTo() != null) {
 			return false;

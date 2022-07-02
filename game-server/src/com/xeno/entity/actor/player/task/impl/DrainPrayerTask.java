@@ -1,5 +1,6 @@
 package com.xeno.entity.actor.player.task.impl;
 
+import com.xeno.entity.actor.attribute.Attribute;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.Task;
 import com.xeno.model.player.skills.prayer.Prayer;
@@ -20,7 +21,7 @@ public final class DrainPrayerTask extends Task {
 	@SneakyThrows(Throwable.class)
 	public void execute() {
 		for (Player p : World.getInstance().getPlayerList()) {
-			if (p == null || p.isDead() || !Prayer.isPrayerActive(p)) {
+			if (p == null || p.getAttributes().exist(Attribute.DEAD) || !Prayer.isPrayerActive(p)) {
 				this.stop();
 				return;
 			}

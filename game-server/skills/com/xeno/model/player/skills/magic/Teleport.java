@@ -28,7 +28,7 @@ public class Teleport extends MagicData {
 			p.getActionSender().sendMessage("A magical force prevents you from teleporting!");
 			return;
 		}
-		if (Area.inWilderness(p.getLocation()) && p.getLastWildLevel() >= 20) {
+		if (Area.inWilderness(p.getLocation()) && Area.getWildLevel(p) >= 20) {
 			p.getActionSender().sendMessage("You cannot teleport above level 20 wilderness!");
 			return;
 		}
@@ -125,11 +125,11 @@ public class Teleport extends MagicData {
 			p.getActionSender().sendMessage("You are unable to teleport from the fight pits.");
 			return false;
 		}
-		if (Area.inWilderness(p.getLocation()) && p.getLastWildLevel() >= 20) {
+		if (Area.inWilderness(p.getLocation()) && Area.getWildLevel(p) >= 20) {
 			p.getActionSender().sendMessage("You cannot teleport above level 20 wilderness!");
 			return false;
 		}
-		if (p.isDead()){
+		if (p.getAttributes().exist(Attribute.DEAD)){
 			return false;
 		}
 		return true;
@@ -152,7 +152,7 @@ public class Teleport extends MagicData {
 			p.getActionSender().sendMessage("You are unable to teleport from the fight pits.");
 			return false;
 		}
-		if (Area.inWilderness(p.getLocation()) && p.getLastWildLevel() >= 20) {
+		if (Area.inWilderness(p.getLocation()) && Area.getWildLevel(p) >= 20) {
 			p.getActionSender().sendMessage("You cannot teleport above level 20 wilderness!");
 			return false;
 		}

@@ -1,6 +1,7 @@
 package com.xeno.entity.actor.player.task.impl;
 
 import com.xeno.entity.actor.Actor;
+import com.xeno.entity.actor.attribute.Attribute;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.Task;
 import com.xeno.net.entity.masks.Hits;
@@ -26,7 +27,7 @@ public final class PoisonTask extends Task {
 	@Override
 	@SneakyThrows(Throwable.class)
 	public void execute() {
-		if (!target.isPoisoned() || target.isDead()) {
+		if (!target.isPoisoned() || target.getAttributes().exist(Attribute.DEAD)) {
 			stop();
 			return;
 		}

@@ -48,6 +48,9 @@ public final class AttributeKey<T> {
 		AttributeKey.forTransient(Attribute.HOME_TELEPORTING, false);
 		AttributeKey.forTransient(Attribute.TELEPORTING, false);
 		AttributeKey.forTransient(Attribute.SKILL_MENU, false);
+		AttributeKey.forTransient(Attribute.FROZEN, false);
+		AttributeKey.forTransient(Attribute.HIDDEN, false);
+		AttributeKey.forTransient(Attribute.DEAD, false);
 	}
 	
 	/**

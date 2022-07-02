@@ -8,6 +8,7 @@ import com.xeno.entity.EntityType;
 import com.xeno.entity.Follow;
 import com.xeno.entity.Location;
 import com.xeno.entity.actor.Actor;
+import com.xeno.entity.actor.attribute.Attribute;
 import com.xeno.entity.actor.item.GroundItem;
 import com.xeno.entity.actor.item.Item;
 import com.xeno.entity.actor.player.Player;
@@ -76,11 +77,11 @@ public class NPC extends Actor {
     public void tick() {
         getSprite().setSprites(-1, -1);
         int sprite = -1;
-        if (getFollow().getFollowing() != null && !isFrozen()) {
+        if (getFollow().getFollowing() != null && !getAttributes().exist(Attribute.FROZEN)) {
             getFollow().followEntity();
             return;
         }
-        if (Math.random() > 0.8 && walkType == WalkType.RANGE && !this.inCombat() && !this.isDead() && !isFrozen() && id != 0) {
+        if (Math.random() > 0.8 && walkType == WalkType.RANGE && !this.inCombat() && !getAttributes().exist(Attribute.DEAD) && !getAttributes().exist(Attribute.FROZEN) && id != 0) {
             int moveX = (int) (Math.floor((Math.random() * 3)) - 1);
             int moveY = (int) (Math.floor((Math.random() * 3)) - 1);
             int tgtX = this.getLocation().getX() + moveX;
@@ -183,7 +184,7 @@ public class NPC extends Actor {
     }
 
     public void hit(int damage) {
-        if (isDead()) {
+        if (getAttributes().exist(Attribute.DEAD)) {
             damage = 0;
         }
         hit(damage, damage <= 0 ? Hits.HitType.NO_DAMAGE : Hits.HitType.NORMAL_DAMAGE);
@@ -211,9 +212,8 @@ public class NPC extends Actor {
         hp -= damage;
         if (hp <= 0) {
             hp = 0;
-            if (!isDead()) {
+            if (!getAttributes().exist(Attribute.DEAD)) {
 //                World.getInstance().registerEvent(new DeathEvent(this)); //TODO: Convert this
-                setDead(true);
             }
         }
     }
@@ -346,9 +346,9 @@ public class NPC extends Actor {
 
     @Override
     public int getAttackSpeed() {
-        if (getMiasmicEffect() > 0) {
-            return NPCDefinition.forId(id).getAttackSpeed() * 2;
-        }
+//        if (getMiasmicEffect() > 0) {
+//            return NPCDefinition.forId(id).getAttackSpeed() * 2;
+//        }
         return NPCDefinition.forId(id).getAttackSpeed();
     }
 

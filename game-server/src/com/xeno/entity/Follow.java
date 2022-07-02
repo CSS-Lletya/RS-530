@@ -1,6 +1,7 @@
 package com.xeno.entity;
 
 import com.xeno.entity.actor.Actor;
+import com.xeno.entity.actor.attribute.Attribute;
 import com.xeno.entity.actor.npc.NPC;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.utility.RandomUtils;
@@ -18,7 +19,7 @@ public class Follow {
 	Location lastLoc = null;
 
 	public void followEntity() {
-		if (follower == null || entity.isDead() || follower.isDead() || follower.isValid()) {
+		if (follower == null || entity.getAttributes().exist(Attribute.DEAD) || follower.getAttributes().exist(Attribute.DEAD) || follower.isValid()) {
 			follower = null;
 			return;
 		}

@@ -1,6 +1,7 @@
 package com.xeno.entity.actor.player.task.impl;
 
 import com.xeno.entity.actor.Actor;
+import com.xeno.entity.actor.attribute.Attribute;
 import com.xeno.entity.actor.npc.NPC;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.Task;
@@ -61,13 +62,13 @@ public abstract class ActorDeathTask<T extends Actor> extends Task {
 		switch(counter++) {
 			case 1:
 				preDeath();
-				getActor().setDead(true);
+				getActor().getAttributes().get(Attribute.DEAD).set(true);
 			case 2:
 				death();
 				break;
 			case 4:
 				postDeath();
-				getActor().setDead(false);
+				getActor().getAttributes().get(Attribute.DEAD).set(false);
 				this.stop();
 				break;
 		}

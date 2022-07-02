@@ -56,4 +56,19 @@ public interface Attribute {
 	 * Represents the Skill Menu state check.
 	 */
 	public String SKILL_MENU = "skillMenu";
+	
+	/**
+	 * Represents a state of an Actor being Frozen from combat, not to be confused for the {@link #LOCKED}.
+	 */
+	public String FROZEN = "frozen";
+	
+	/**
+	 * Represents a state where an Actor is hidden from the active game server and from specific events.
+	 */
+	public String HIDDEN = "hidden";
+	
+	/**
+	 * Represents if an Actor is dead.
+	 */
+	public String DEAD = "dead";
 }

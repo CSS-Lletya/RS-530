@@ -20,6 +20,12 @@ public class Area {
 	public static boolean inWilderness(Location l) {
 		return l.inArea(2945, 3524, 3391, 3975);
 	}
+	
+	public static int getWildLevel(Player player) {
+		if (player.getLocation().getY() > 9900)
+			return (player.getLocation().getY() - 9912) / 8 + 1;
+		return (player.getLocation().getY() - 3520) / 8 + 1;
+	}
 
 	public static boolean atDuelArena(Location l) {
 		return l.inArea(3318, 3247, 3327, 3247) ||

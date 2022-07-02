@@ -14,7 +14,7 @@ public class CloseInterfacePacket implements OutgoingPacket {
 			player.getTrade().decline();
 		}
 		player.getInterfaceManager().closeInterfaces();
-		if(player.isHd()) {
+		if(player.getPlayerCredentials().isResized()) {
 			player.getActionSender().sendWindowPane(746);
 		} else {
 			player.getActionSender().sendWindowPane(548);

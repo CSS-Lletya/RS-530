@@ -1,5 +1,6 @@
 package com.xeno.model.player.skills.prayer;
 
+import com.xeno.entity.actor.attribute.Attribute;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.impl.DrainPrayerTask;
 import com.xeno.net.entity.masks.Animation;
@@ -147,7 +148,7 @@ public class Prayer extends PrayerData {
 	}
 
 	public static void togglePrayer(Player p, int prayerType, int prayerID) {
-		if (p.isDead()) {
+		if (p.getAttributes().exist(Attribute.DEAD)) {
 			return;
 		}
 		if (p.getSkills().getLevel(5) <= 0) {

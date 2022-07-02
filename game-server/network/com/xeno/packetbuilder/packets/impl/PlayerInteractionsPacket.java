@@ -43,7 +43,7 @@ public class PlayerInteractionsPacket implements OutgoingPacket {
 
 	private void handleAttackPlayer(final Player player, Packet packet) {
 		int index = packet.readLEShortA();
-		if (index < 0 || index >= Constants.PLAYER_CAP || player.isDead()
+		if (index < 0 || index >= Constants.PLAYER_CAP || player.getAttributes().exist(Attribute.DEAD)
 				|| player.getAttributes().exist(Attribute.LOCKED)) {
 			return;
 		}
@@ -58,7 +58,7 @@ public class PlayerInteractionsPacket implements OutgoingPacket {
 
 	private void handleFollowPlayer(Player player, Packet packet) {
 		int index = packet.readLEShortA();
-		if (index < 0 || index >= Constants.PLAYER_CAP || player.isDead()
+		if (index < 0 || index >= Constants.PLAYER_CAP || player.getAttributes().exist(Attribute.DEAD)
 				|| player.getAttributes().exist(Attribute.LOCKED)) {
 			return;
 		}
@@ -71,7 +71,7 @@ public class PlayerInteractionsPacket implements OutgoingPacket {
 
 	private void handleTradePlayer(final Player player, Packet packet) {
 		int index = packet.readLEShortA();
-		if (index < 0 || index >= Constants.PLAYER_CAP || player.isDead()
+		if (index < 0 || index >= Constants.PLAYER_CAP || player.getAttributes().exist(Attribute.DEAD)
 				|| player.getAttributes().exist(Attribute.LOCKED)) {
 			return;
 		}
@@ -136,7 +136,7 @@ public class PlayerInteractionsPacket implements OutgoingPacket {
 		int id = packet.readLEShort();
 		int interfaceId = packet.readLEShort();
 		int index = packet.readLEShortA();
-		if (index < 0 || index >= Constants.PLAYER_CAP || player.isDead()
+		if (index < 0 || index >= Constants.PLAYER_CAP || player.getAttributes().exist(Attribute.DEAD)
 				|| player.getAttributes().exist(Attribute.LOCKED)) {
 			return;
 		}

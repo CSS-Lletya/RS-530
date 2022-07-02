@@ -50,16 +50,6 @@ public abstract class Actor extends Entity {
 	protected transient Hits hits;
 	
 	/**
-	 * Represents if the Actor is infact dead.
-	 */
-	protected transient boolean dead;
-	
-	/**
-	 * Represents if the Actor is hidden from game server conditions.
-	 */
-	protected transient boolean hidden;
-	
-	/**
 	 * Represents an Actor set as a target.
 	 */
 	protected transient Actor target;
@@ -90,11 +80,6 @@ public abstract class Actor extends Entity {
 	protected transient int poisonAmount;
 	
 	/**
-	 * Represents the time duration of the last known magic-based attack.
-	 */
-	protected transient long lastMagicAttack;
-	
-	/**
 	 * A collection of previous killers that attacked an Actor.
 	 * Then gets determined who's the highest hitter for loot, such.
 	 */
@@ -104,21 +89,6 @@ public abstract class Actor extends Entity {
 	 * Represents an instance of a Following Actor to Actor event.
 	 */
 	protected transient Follow follow;
-	
-	/**
-	 * Represents the last Attack style type used.
-	 */
-	protected transient int lastAttackType;
-	
-	/**
-	 * Represents the miasmic spell effect.
-	 */
-	protected transient int miasmicEffect;
-	
-	/**
-	 * Represents the Frozen state of an Actor from combat.
-	 */
-	protected transient boolean frozen;
 	
 	/**
 	 * An {@link AttributeMap} instance assigned to this {@code Actor}.
@@ -240,8 +210,6 @@ public abstract class Actor extends Entity {
 	public Actor readResolve(EntityType type) {
 		this.type = requireNonNull(type);
 		hits = new Hits();
-		hidden = false;
-		dead = false;
 		target = null;
 		attacker = null;
 		poisonAmount = 0;
@@ -347,9 +315,7 @@ public abstract class Actor extends Entity {
 	
 	public void teleport(Location location) {
 		this.teleportTo = location;
-		if (this instanceof Player) {
-			((Player) this).getWalkingQueue().reset();
-		}
+		ifPlayer(p -> p.getWalkingQueue().reset());
 	}
 	
 	public void resetTeleportTo() {

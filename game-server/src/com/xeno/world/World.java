@@ -250,7 +250,6 @@ public class World {
 		getTaskManager().sequence();
 		players().forEach(player -> {
 			player.tick();
-			player.processQueuedHits();
 			player.getWalkingQueue().getNextPlayerMovement();
 		});
 		npcs().forEach(npc -> {
@@ -354,7 +353,7 @@ public class World {
 			if (n != null) {
 				if (n.getOwner() != null) {
 					if (n.getOwner().equals(p)) {
-						n.setHidden(true);
+						n.getAttributes().get(Attribute.HIDDEN).set(true);
 						npcs.remove(n);
 					}
 				}
@@ -365,7 +364,7 @@ public class World {
 	public void removeNPC(NPC npc) {
 		for (NPC n : npcs) {
 			if (n != null && npc == n) {
-				n.setHidden(true);
+				n.getAttributes().get(Attribute.HIDDEN).set(true);
 				npcs.remove(n);
 			}
 		}

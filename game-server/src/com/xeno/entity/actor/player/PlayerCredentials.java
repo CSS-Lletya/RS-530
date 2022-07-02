@@ -4,45 +4,31 @@ import org.apache.mina.common.IoSession;
 
 import com.xeno.utility.Utility;
 
+import lombok.Data;
+
 /**
  * Contains a player's name and password.
  * @author Graham
+ * @author Dennis
  *
  */
+@Data
 public class PlayerCredentials {
 	
-	private String username;
+	private final String username;
 	private transient String displayName;
 	private String password;
 	private transient IoSession session;
-	private transient boolean hd;
+	private transient boolean resized;
 	private transient long longName;
 	
-	public PlayerCredentials(String username, String password, IoSession session, boolean hd) {
+	public PlayerCredentials(String username, String password, IoSession session, boolean resized) {
 		this.username = Utility.formatPlayerNameForProtocol(username);
 		this.displayName = Utility.formatPlayerNameForDisplay(username);
 		this.password = password;
 		this.session = session;
 		this.longName = Utility.playerNameToLong(username);
-		this.hd = hd;
-	}
-
-    public PlayerCredentials() {}
-	
-	public boolean isHd() {
-		return hd;
-	}
-	
-	public void refreshLongName() {
-		this.longName = Utility.playerNameToLong(username);
-	}
-	
-	public long getUsernameAsLong() {
-		return longName;
-	}
-	
-	public String getUsername() {
-		return username;
+		this.resized = resized;
 	}
 	
 	public String getDisplayName() {
@@ -52,19 +38,11 @@ public class PlayerCredentials {
 		return displayName;
 	}
 	
-	public String getPassword() {
-		return password;
+	public void refreshLongName() {
+		this.longName = Utility.playerNameToLong(username);
 	}
 	
-	public IoSession getSession() {
-		return session;
-	}
-
-	public void setSession(IoSession session) {
-		this.session = session;
-	}
-
-	public void setHd(boolean b) {
-		this.hd = b;
+	public long getUsernameAsLong() {
+		return longName;
 	}
 }

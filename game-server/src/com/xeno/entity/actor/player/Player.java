@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.function.Consumer;
 
 import org.apache.mina.common.IoFuture;
 import org.apache.mina.common.IoFutureListener;
@@ -19,10 +20,13 @@ import com.xeno.entity.Follow;
 import com.xeno.entity.Location;
 import com.xeno.entity.WalkingQueue;
 import com.xeno.entity.actor.Actor;
+import com.xeno.entity.actor.attribute.Attribute;
 import com.xeno.entity.actor.item.GroundItem;
 import com.xeno.entity.actor.item.Item;
 import com.xeno.entity.actor.npc.NPC;
+import com.xeno.entity.actor.player.task.LinkedTaskSequence;
 import com.xeno.model.player.skills.Skills;
+import com.xeno.model.player.skills.magic.TeleportType;
 import com.xeno.model.player.skills.prayer.PrayerData;
 import com.xeno.model.player.skills.prayer.Prayers;
 import com.xeno.model.player.skills.prayer.ProtectedItems;
@@ -46,7 +50,6 @@ import com.xeno.packetbuilder.packets.OutgoingPacketDispatcher;
 import com.xeno.utility.RandomUtils;
 import com.xeno.world.World;
 
-import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayFIFOQueue;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -117,8 +120,6 @@ public class Player extends Actor {
 	private transient Queue<Hit> queuedHits;
 	private transient List<Player> tradeRequests;
 	private transient List<Player> duelRequests;
-	private transient int lastWildLevel;
-	private transient boolean hd;
 	private transient Object distanceEvent;
 	
 	public Player(PlayerCredentials details) {
@@ -153,20 +154,10 @@ public class Player extends Actor {
 		localEntities = new LocalEntityList();
 		playerDetails.setPlayer(this);
 		prayers = new Prayers(this);
-		lastChatMessage = null;
-		lastAnimation = null;
-		lastGraphics = null;
-		entityFocus = null;
-		forceText = null;
-		faceLocation = null;
-		forceMovement = null;
 		tradeRequests = new ArrayList<Player>();
 		duelRequests = new ArrayList<Player>();
-		clan = null;
-		lastWildLevel = -1;
 		playerCredentials.refreshLongName();
 		queuedHits = new LinkedList<Hit>();
-		hd = false;
 		skillCapes = new SkillCapes(this);
 		interfaceManager = new InterfaceManager(this);
 		return this;
@@ -216,41 +207,6 @@ public class Player extends Actor {
 	public boolean isDisconnected() {
 		return !getSession().isConnected();
 	}
-
-	public void setPlayerListSize(int playerListSize) {
-		localEntities.playerListSize = playerListSize;
-	}
-
-	public int getPlayerListSize() {
-		return localEntities.playerListSize;
-	}
-
-	public Player[] getPlayerList() {
-		return localEntities.playerList;
-	}
-	public byte[] getPlayersInList() {
-		return localEntities.playersInList;
-	}
-	
-	public void setNpcListSize(int npcListSize) {
-		localEntities.npcListSize = npcListSize;
-	}
-
-	public int getNpcListSize() {
-		return localEntities.npcListSize;
-	}
-
-	public void setNpcList(NPC[] npcList) {
-		localEntities.npcList = npcList;
-	}
-
-	public NPC[] getNpcList() {
-		return localEntities.npcList;
-	}
-	
-	public byte[] getNpcsInList() {
-		return localEntities.npcsInList;
-	}
 	
 	public void setEntityFocus(EntityFocus entityFocus) {
 		this.entityFocus = entityFocus;
@@ -281,21 +237,6 @@ public class Player extends Actor {
 		this.localEntities.rebuildNpcList = b;
 	}
 	
-	public void processQueuedHits() {
-		if(!updateFlags.isHitUpdateRequired()) {
-			if(queuedHits.size() > 0) {
-				Hit h = queuedHits.poll();
-				hit(h.getDamage(), h.getType());
-			}
-		}
-		if(!updateFlags.isHit2UpdateRequired()) {
-			if(queuedHits.size() > 0) {
-				Hit h = queuedHits.poll();
-				hit(h.getDamage(), h.getType());
-			}
-		}
-	}
-	
 	public void forceChat(String message) {
 		setForceText(new ForceText(message));
 		updateFlags.setForceTextUpdateRequired(true);
@@ -306,7 +247,7 @@ public class Player extends Actor {
 	}
 	
 	public void hit(int damage, Hits.HitType type) {
-		if (isDead()) {
+		if (getAttributes().exist(Attribute.DEAD)) {
 			damage = 0;
 			type = Hits.HitType.NO_DAMAGE;
 		}
@@ -356,21 +297,11 @@ public class Player extends Actor {
 		skills.setLevel(3, skills.getLevel(3) - damage);
 		if(skills.getLevel(3) <= 0) {
 			skills.setLevel(3, 0);
-			if(!isDead()) {
+			if(!getAttributes().exist(Attribute.DEAD)) {
 //				World.getInstance().registerEvent(new DeathEvent(this));//TODO: Finish converting
-				setDead(true);
 			}
 		}
 		actionSender.sendSkillLevel(3);
-	}
-
-	public void setHd(boolean b) {
-		this.hd = b;
-		playerCredentials.setHd(b);
-	}
-	
-	public boolean isHd() {
-		return playerCredentials.isHd();
 	}
 	
 	public void setAppearance(Appearance newAppearance) {
@@ -629,7 +560,7 @@ public class Player extends Actor {
 
 	@Override
 	public void heal(int amount) {
-		if (isDead()) {
+		if (getAttributes().exist(Attribute.DEAD)) {
 			return;
 		}
 		if ((skills.getLevel(3) + amount) > (skills.getLevelForXp(3))) {
@@ -700,5 +631,54 @@ public class Player extends Actor {
 	public void setNextGraphic(Graphics graphic) {
 		setLastGraphics(graphic);
 		getUpdateFlags().setGraphicsUpdateRequired(true);
+	}
+	
+	/**
+	 * Queue Teleport type handling with Consumer support
+	 * @param destination
+	 * @param type
+	 * @param player
+	 */
+	public void move(Location destination, TeleportType type, Consumer<Player> onFinish) {
+		move((byte) 0, destination, type, onFinish);
+	}
+	
+	public void move(byte delay, Location destination, TeleportType type, Consumer<Player> onFinish) {
+		getAttributes().get(Attribute.LOCKED).set(true);
+		LinkedTaskSequence seq = new LinkedTaskSequence(delay, true);
+		seq.connect(1, () -> {
+			type.getStartAnimation().ifPresent(this::setNextAnimation);
+			type.getStartGraphic().ifPresent(this::setNextGraphic);
+		}).connect(type.getEndDelay(), () -> {
+			type.getEndAnimation().ifPresent(this::setNextAnimation);
+			type.getEndGraphic().ifPresent(this::setNextGraphic);
+			teleport(destination);
+			onFinish.accept(this);
+			getAttributes().get(Attribute.LOCKED).set(false);
+		}).start();
+	}
+	
+	/**
+	 * Queue Teleport type handling
+	 * @param destination
+	 * @param type
+	 * @param entity
+	 */
+	public void move(Location destination, TeleportType type) {
+		move((byte) 0, destination, type);
+	}
+	
+	public void move(byte delay, Location location, TeleportType type) {
+		getAttributes().get(Attribute.LOCKED).set(true);
+		LinkedTaskSequence seq = new LinkedTaskSequence(delay, true);
+		seq.connect(1, () -> {
+			type.getStartAnimation().ifPresent(this::setNextAnimation);
+			type.getStartGraphic().ifPresent(this::setNextGraphic);
+		}).connect(type.getEndDelay(), () -> {
+			type.getEndAnimation().ifPresent(this::setNextAnimation);
+			type.getEndGraphic().ifPresent(this::setNextGraphic);
+			teleport(location);
+			getAttributes().get(Attribute.LOCKED).set(false);
+		}).start();
 	}
 }

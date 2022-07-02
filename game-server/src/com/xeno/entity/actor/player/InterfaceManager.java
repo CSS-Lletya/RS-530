@@ -12,7 +12,7 @@ public class InterfaceManager {
 	}
 
 	public void sendLogin() {
-		player.getActionSender().sendWindowPane(player.isHd() ? 746 : 548);
+		player.getActionSender().sendWindowPane(player.getPlayerCredentials().isResized() ? 746 : 548);
 		player.getActionSender().sendSkillLevels();
 		player.getActionSender().sendMessage("Welcome to "+GameConstants.SERVER_NAME+".");
 		player.getActionSender().sendEnergy();
@@ -29,7 +29,7 @@ public class InterfaceManager {
 	}
 
 	public void closeInterfaces() {
-		if (player.isHd()) {
+		if (player.getPlayerCredentials().isResized()) {
 			player.getActionSender().sendCloseInterface(746, 6); // Main
 			player.getActionSender().sendCloseInterface(746, 5); // Main
 			player.getActionSender().sendCloseInterface(752, 12); // Chatbox1
@@ -48,7 +48,7 @@ public class InterfaceManager {
 	}
 
 	public void softCloseInterfaces() {
-		if (player.isHd()) {
+		if (player.getPlayerCredentials().isResized()) {
 			player.getActionSender().sendCloseInterface(746, 6); // Main
 			player.getActionSender().sendCloseInterface(746, 5); // Main
 			player.getActionSender().sendCloseInterface(752, 12); // Chatbox1
@@ -83,9 +83,9 @@ public class InterfaceManager {
 			return;
 		}
 		if (windowType == 0 || windowType == 1) {
-			resetVariables = player.isHd();
-			player.setHd(false);
-			player.getActionSender().sendWindowPane(player.isHd() ? 746 : 548);
+			resetVariables = player.getPlayerCredentials().isResized();
+			player.getPlayerCredentials().setResized(false);
+			player.getActionSender().sendWindowPane(resetVariables ? 746 : 548);
 			sendTab(14, 751); // Chat options
 			sendTab(75, 752); // Chatbox
 			sendTab(70, 748); // HP bar
@@ -109,8 +109,8 @@ public class InterfaceManager {
 			sendTab(97, 182); // Logout tab
 			sendTab(10, 754); // PM split chat
 		} else if (windowType == 2 || windowType == 3) {
-			resetVariables = !player.isHd();
-			player.setHd(true);
+			resetVariables = !player.getPlayerCredentials().isResized();
+			player.getPlayerCredentials().setResized(true);
 			player.getActionSender().sendWindowPane(746);
 			sendTab(23, 751); // Chat options
 			sendTab(70, 752); // Chatbox
@@ -148,7 +148,7 @@ public class InterfaceManager {
 	}
 
 	public void sendTab(int tabId, int childId) {
-		if (player.isHd()) {
+		if (player.getPlayerCredentials().isResized()) {
 			player.getActionSender().sendInterface(1, childId == 137 ? 752 : 746, tabId, childId);
 			return;
 		}
@@ -156,7 +156,7 @@ public class InterfaceManager {
 	}
 
 	public void displayInterface(int id) {
-		if (player.isHd()) {
+		if (player.getPlayerCredentials().isResized()) {
 			player.getActionSender().sendInterface(0, 746, id == 499 ? 5 : 6, id);
 			return;
 		}
@@ -164,7 +164,7 @@ public class InterfaceManager {
 	}
 
 	public void sendOverlay(int i) {
-		if (player.isHd()) {
+		if (player.getPlayerCredentials().isResized()) {
 			player.getActionSender().sendInterface(1, 746, 3, i);
 			return;
 		}
@@ -172,7 +172,7 @@ public class InterfaceManager {
 	}
 
 	public void sendRemoveOverlay() {
-		if (player.isHd()) {
+		if (player.getPlayerCredentials().isResized()) {
 			player.getActionSender().sendCloseInterface(746, 3);
 			return;
 		}
@@ -180,7 +180,7 @@ public class InterfaceManager {
 	}
 
 	public void displayMultiIcon() {
-		if (player.isHd()) {
+		if (player.getPlayerCredentials().isResized()) {
 			player.getActionSender().sendInterface(1, 746, 17, 745);
 		} else {
 			player.getActionSender().sendInterface(1, 548, 7, 745);
@@ -189,7 +189,7 @@ public class InterfaceManager {
 	}
 
 	public void removeMultiIcon() {
-		if (player.isHd()) {
+		if (player.getPlayerCredentials().isResized()) {
 			player.getActionSender().sendCloseInterface(746, 17);
 			return;
 		}
@@ -197,7 +197,7 @@ public class InterfaceManager {
 	}
 
 	public void displayInventoryInterface(int childId) {
-		if (player.isHd()) {
+		if (player.getPlayerCredentials().isResized()) {
 			player.getActionSender().sendInterface(0, 746, 76, childId);
 			return;
 		}

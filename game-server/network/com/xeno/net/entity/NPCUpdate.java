@@ -1,5 +1,6 @@
 package com.xeno.net.entity;
 
+import com.xeno.entity.actor.attribute.Attribute;
 import com.xeno.entity.actor.npc.NPC;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.net.Constants;
@@ -34,29 +35,29 @@ public class NPCUpdate implements PacketBuilder {
 	public static void update(Player p) {
 		StaticPacketBuilder mainPacket = new StaticPacketBuilder().setId(32).setSize(Size.VariableShort).initBitAccess();
 		StaticPacketBuilder updateBlock = new StaticPacketBuilder().setBare(true);
-		mainPacket.addBits(8, p.getNpcListSize());
-		int size = p.getNpcListSize();
-		p.setNpcListSize(0);
+		mainPacket.addBits(8, p.getLocalEntities().npcListSize);
+		int size = p.getLocalEntities().npcListSize;
+		p.getLocalEntities().npcListSize = 0;
         boolean[] newNpc = new boolean[Constants.NPC_CAP];
 		for(int i = 0; i < size; i++) {
-			if(p.getNpcList()[i] == null || !p.getNpcList()[i].getLocation().withinDistance(p.getLocation()) || p.getUpdateFlags().didTeleport()  || p.getNpcList()[i].isHidden()) {
-				if(p.getNpcList()[i] != null) {
-					p.getNpcsInList()[p.getNpcList()[i].getIndex()] = 0;
-				//	p.getNpcList()[i] = null;
+			if(p.getLocalEntities().npcList[i] == null || !p.getLocalEntities().npcList[i].getLocation().withinDistance(p.getLocation()) || p.getUpdateFlags().didTeleport() || p.getLocalEntities().npcList[i].getAttributes().exist(Attribute.HIDDEN)) {
+				if(p.getLocalEntities().npcList[i] != null) {
+					p.getLocalEntities().npcsInList[p.getLocalEntities().npcList[i].getIndex()] = 0;
+				//	p.getLocalEntities().npcList[i] = null;
 				}
 				mainPacket.addBits(1, 1);
 				mainPacket.addBits(2, 3);
 			} else {
-				updateNpcMovement(p.getNpcList()[i], mainPacket);
-				if(p.getNpcList()[i].getUpdateFlags().isUpdateRequired()) {
-					appendUpdateBlock(p.getNpcList()[i], updateBlock);
+				updateNpcMovement(p.getLocalEntities().npcList[i], mainPacket);
+				if(p.getLocalEntities().npcList[i].getUpdateFlags().isUpdateRequired()) {
+					appendUpdateBlock(p.getLocalEntities().npcList[i], updateBlock);
 				}
-				p.getNpcList()[p.getNpcListSize()] = p.getNpcList()[i];
-				p.setNpcListSize(p.getNpcListSize()+1);
+				p.getLocalEntities().npcList[p.getLocalEntities().npcListSize] = p.getLocalEntities().npcList[i];
+				p.getLocalEntities().npcListSize = (p.getLocalEntities().npcListSize+1);
 			}
 		}
 		for(NPC npc : World.getInstance().getNpcList()) {
-			if(npc == null || p.getNpcsInList()[npc.getIndex()] == 1 || !npc.getLocation().withinDistance(p.getLocation()) || npc.isHidden()) {
+			if(npc == null || p.getLocalEntities().npcsInList[npc.getIndex()] == 1 || !npc.getLocation().withinDistance(p.getLocation()) || npc.getAttributes().exist(Attribute.HIDDEN)) {
 				continue;
 			}
 			addNewNpc(p, npc, mainPacket);
@@ -74,9 +75,9 @@ public class NPCUpdate implements PacketBuilder {
 	}
 
 	private static void addNewNpc(Player p, NPC npc, StaticPacketBuilder mainPacket) {
-		p.getNpcsInList()[npc.getIndex()] = 1;
-		p.getNpcList()[p.getNpcListSize()] = npc;
-		p.setNpcListSize(p.getNpcListSize()+1);
+		p.getLocalEntities().npcsInList[npc.getIndex()] = 1;
+		p.getLocalEntities().npcList[p.getLocalEntities().npcListSize] = npc;
+		p.getLocalEntities().npcListSize = (p.getLocalEntities().npcListSize+1);
 		int y = npc.getLocation().getY() - p.getLocation().getY();
 		if(y < 0) {
 			y += 32;

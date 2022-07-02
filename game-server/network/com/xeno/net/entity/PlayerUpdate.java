@@ -39,39 +39,39 @@ public class PlayerUpdate implements PacketBuilder {
 		if(p.getUpdateFlags().isUpdateRequired()) {
 			appendUpdateBlock(p, p, updateBlock, false);
 		}
-		mainPacket.addBits(8, p.getPlayerListSize());
-        int size = p.getPlayerListSize();
-        p.setPlayerListSize(0);
+		mainPacket.addBits(8, p.getLocalEntities().playerListSize);
+        int size = p.getLocalEntities().playerListSize;
+        p.getLocalEntities().playerListSize = 0;
         boolean[] newPlayer = new boolean[Constants.PLAYER_CAP];
 		for(int i = 0; i < size; i++) {
-			if(p.getPlayerList()[i] == null || p.getPlayerList()[i].isDisconnected() || !p.getPlayerList()[i].getLocation().withinDistance(p.getLocation()) || p.getPlayerList()[i].getUpdateFlags().didTeleport()) {
-				if(p.getPlayerList()[i] != null) {
-					p.getPlayersInList()[p.getPlayerList()[i].getIndex()] = 0;
+			if(p.getLocalEntities().playerList[i] == null || p.getLocalEntities().playerList[i].isDisconnected() || !p.getLocalEntities().playerList[i].getLocation().withinDistance(p.getLocation()) || p.getLocalEntities().playerList[i].getUpdateFlags().didTeleport()) {
+				if(p.getLocalEntities().playerList[i] != null) {
+					p.getLocalEntities().playersInList[p.getLocalEntities().playerList[i].getIndex()] = 0;
 				}
 				mainPacket.addBits(1, 1);
 				mainPacket.addBits(2, 3);
 			} else {
-				updatePlayerMovement(p.getPlayerList()[i], mainPacket);
-				p.getPlayerList()[p.getPlayerListSize()] = p.getPlayerList()[i];
-				p.setPlayerListSize(p.getPlayerListSize()+1);
+				updatePlayerMovement(p.getLocalEntities().playerList[i], mainPacket);
+				p.getLocalEntities().playerList[p.getLocalEntities().playerListSize] = p.getLocalEntities().playerList[i];
+				p.getLocalEntities().playerListSize = (p.getLocalEntities().playerListSize+1);
 			}
 		}
 		for(Player p2 : World.getInstance().getPlayerList()) {
 			if(p2 == null || p2.getIndex() == p.getIndex()) {
 				continue;
 			}
-			if(p.getPlayersInList()[p2.getIndex()] == 1 || !p2.getLocation().withinDistance(p.getLocation())) {
+			if(p.getLocalEntities().playersInList[p2.getIndex()] == 1 || !p2.getLocation().withinDistance(p.getLocation())) {
 				continue;
 			}
-			newPlayer[p.getPlayerListSize()] = true;
+			newPlayer[p.getLocalEntities().playerListSize] = true;
 			addNewPlayer(p, p2, mainPacket);
 		}
-		for(int i = 0; i < p.getPlayerListSize(); i++) {
+		for(int i = 0; i < p.getLocalEntities().playerListSize; i++) {
 			if(newPlayer[i]) {
-				appendUpdateBlock(p.getPlayerList()[i], p, updateBlock, true);
+				appendUpdateBlock(p.getLocalEntities().playerList[i], p, updateBlock, true);
 			} else {
-				if(p.getPlayerList()[i].getUpdateFlags().isUpdateRequired()) {
-					appendUpdateBlock(p.getPlayerList()[i], p, updateBlock, false);
+				if(p.getLocalEntities().playerList[i].getUpdateFlags().isUpdateRequired()) {
+					appendUpdateBlock(p.getLocalEntities().playerList[i], p, updateBlock, false);
 				}
 			}
 		}
@@ -86,9 +86,9 @@ public class PlayerUpdate implements PacketBuilder {
 	}
 
 	private static void addNewPlayer(Player p, Player p2, StaticPacketBuilder updateBlock) {
-		p.getPlayersInList()[p2.getIndex()] = 1;
-		p.getPlayerList()[p.getPlayerListSize()] = p2;
-		p.setPlayerListSize(p.getPlayerListSize()+1);
+		p.getLocalEntities().playersInList[p2.getIndex()] = 1;
+		p.getLocalEntities().playerList[p.getLocalEntities().playerListSize] = p2;
+		p.getLocalEntities().playerListSize = (p.getLocalEntities().playerListSize+1);
 		updateBlock.addBits(11, p2.getIndex());
 		int yPos = p2.getLocation().getY() - p.getLocation().getY();
 		if(yPos < 0) {
