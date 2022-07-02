@@ -5,7 +5,6 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.util.zip.CRC32;
 
@@ -16,6 +15,7 @@ import java.util.zip.CRC32;
  */
 public class Cache {
 
+	@SuppressWarnings("unused")
 	private static Cache cache;
 	private final FileInfomationTable[] fileInfomationTable;
 	private final FileSystem fileSystem;

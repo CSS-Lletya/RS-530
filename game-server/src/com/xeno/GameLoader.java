@@ -9,18 +9,19 @@ import com.rs.plugin.PluginManager;
 import com.rs.plugin.standard.CommandPluginDispatcher;
 import com.rs.plugin.standard.RSInterfacePluginDispatcher;
 import com.xeno.entity.actor.attribute.AttributeKey;
-import com.xeno.entity.actor.attribute.AttributeMap;
 import com.xeno.io.MapDataLoader;
 import com.xeno.io.MapDataPacker;
 import com.xeno.io.XStreamPlayerLoader;
 import com.xeno.net.WorkerThread;
 import com.xeno.net.definitions.ItemDefinition;
 import com.xeno.net.definitions.NPCDefinition;
+import com.xeno.net.definitions.ObjectDefinitions;
 import com.xeno.packetbuilder.packets.OutgoingPacketDispatcher;
 import com.xeno.utility.BlockingExecutorService;
 import com.xeno.utility.LogUtility;
 import com.xeno.utility.LogUtility.LogType;
 import com.xeno.utility.TimeStamp;
+import com.xeno.world.Region;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import lombok.Getter;
@@ -81,23 +82,22 @@ public class GameLoader {
 		}
 		mapData = new Object2ObjectArrayMap<Integer, int[]>();
 		MapDataLoader.load(mapData);
+		Region.load();
 		getBackgroundLoader().submit(() -> {
-			LogUtility.log(LogType.INFO, "Loading item definitions...");
 			try {
+				LogUtility.log(LogType.INFO, "Loading item definitions...");
 				ItemDefinition.load();
+				LogUtility.log(LogType.INFO, "Loading object definitions...");
+				ObjectDefinitions.loadConfig();
+				LogUtility.log(LogType.INFO, "Loading npc definitions...");
+				NPCDefinition.load();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
 		});
-		LogUtility.log(LogType.INFO, "Loading npc definitions...");
-		try {
-			NPCDefinition.load();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
 		getBackgroundLoader().submit(() -> {
 			AttributeKey.init();
+			
 		});
 		getBackgroundLoader().submit(() -> {
 			OutgoingPacketDispatcher.load();

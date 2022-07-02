@@ -7,6 +7,7 @@ import com.xeno.entity.Location;
 import com.xeno.entity.actor.attribute.Attribute;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.net.Packet;
+import com.xeno.net.definitions.ObjectDefinitions;
 import com.xeno.net.entity.masks.FaceLocation;
 import com.xeno.packetbuilder.packets.OutgoingPacket;
 import com.xeno.packetbuilder.packets.OutgoingPacketSignature;
@@ -47,7 +48,11 @@ public class ObjectInteractionsPacket implements OutgoingPacket {
 		objectX = packet.readLEShort();
 		int objectId = packet.readShortA();
 		objectY = packet.readShort();
-		
+		ObjectDefinitions def = ObjectDefinitions.objectOf(objectId);
+        if (def == null) {
+            return;
+        }
+        System.out.println(def.name);
 		if (objectX < 1000 || objectY < 1000 || player.getAttributes().exist(Attribute.DEAD) ||
 				player.getAttributes().exist(Attribute.LOCKED)) {
 			return;
