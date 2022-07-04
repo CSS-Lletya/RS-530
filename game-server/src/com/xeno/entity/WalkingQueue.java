@@ -91,6 +91,9 @@ public class WalkingQueue {
 		if (wQueueWritePtr >= SIZE) {
 			return;
 		}
+		if (!entity.toPlayer().getMapZoneManager().execute(entity.toPlayer(), zone -> zone.canMove(entity.toPlayer(), dir))){
+			return;
+		}
 		if (dir != -1) {
 			walkingQueue[wQueueWritePtr].x = x;
 			walkingQueue[wQueueWritePtr].y = y;
@@ -99,6 +102,7 @@ public class WalkingQueue {
 	}
 	
 	public void getNextPlayerMovement() {
+		entity.toPlayer().getMapZoneManager().executeVoid(entity.toPlayer(), zone -> zone.moved(entity.toPlayer()));
 		entity.getSprite().setSprites(-1, -1);
 		if(entity.getTeleportTo() != null) {
 			entity.setDistanceEvent(null);

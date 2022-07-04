@@ -1,6 +1,7 @@
 package com.xeno.packetbuilder.packets.impl;
 
 import com.xeno.entity.actor.attribute.Attribute;
+import com.xeno.entity.actor.item.Item;
 import com.xeno.entity.actor.npc.NPC;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.net.Constants;
@@ -63,6 +64,8 @@ public class NPCInteractionsPacket implements OutgoingPacket {
 		if (npc == null || npc.isValid()) {
 			return;
 		}
+		if (!player.getMapZoneManager().execute(player, zone -> zone.processNPCClick1(player, npc)))
+			return;
 		System.out.println("NPC ID = " + npc.getId());
 //		Combat.newAttack(player, npc);
 	}
@@ -77,9 +80,9 @@ public class NPCInteractionsPacket implements OutgoingPacket {
 		if (npc == null || npc.isValid()) {
 			return;
 		}
+		if (!player.getMapZoneManager().execute(player, zone -> zone.processNPCClick2(player, npc)))
+			return;
 		System.out.println("Second click NPC " + npc.getId());
-		switch (npc.getId()) {
-		}
 	}
 
 	private void handleThirdClickNPC(Player player, Packet packet) {
@@ -92,9 +95,9 @@ public class NPCInteractionsPacket implements OutgoingPacket {
 		if (npc == null || npc.isValid()) {
 			return;
 		}
+		if (!player.getMapZoneManager().execute(player, zone -> zone.processNPCClick3(player, npc)))
+			return;
 		System.out.println("Third click NPC " + npc.getId());
-		switch (npc.getId()) {
-		}
 	}
 
 	private void handleFourthClickNPC(Player player, Packet packet) {
@@ -107,11 +110,13 @@ public class NPCInteractionsPacket implements OutgoingPacket {
 		if (npc == null || npc.isValid()) {
 			return;
 		}
+		if (!player.getMapZoneManager().execute(player, zone -> zone.processNPCClick4(player, npc)))
+			return;
 		System.out.println("Fourth click NPC " + npc.getId());
-		switch (npc.getId()) {
-		}
 	}
 
+	//don't think we'll ever use this
+	@Deprecated
 	private void handleFifthClickNPC(Player player, Packet packet) {
 		int npcIndex = packet.readLEShort();
 		if (npcIndex < 0 || npcIndex > Constants.NPC_CAP || player.getAttributes().exist(Attribute.DEAD)
@@ -155,6 +160,8 @@ public class NPCInteractionsPacket implements OutgoingPacket {
 		if (npc == null || npc.isValid()) {
 			return;
 		}
+		if (!player.getMapZoneManager().execute(player, zone -> zone.processItemOnNPC(player, npc, new Item(item))))
+			return;
 		player.getInterfaceManager().closeInterfaces();
 		System.out.println("Item on NPC " + npc.getId());
 		if (player.getInventory().getItemInSlot(slot) == item) {

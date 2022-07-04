@@ -3,6 +3,7 @@ package com.xeno.entity.actor.player;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Queue;
 import java.util.function.Consumer;
 
@@ -14,6 +15,8 @@ import com.xeno.content.Clan;
 import com.xeno.content.ShopSession;
 import com.xeno.content.TradeSession;
 import com.xeno.content.emote.SkillCapes;
+import com.xeno.content.mapzone.MapZone;
+import com.xeno.content.mapzone.MapZoneManager;
 import com.xeno.entity.Entity;
 import com.xeno.entity.EntityType;
 import com.xeno.entity.Follow;
@@ -115,6 +118,8 @@ public class Player extends Actor {
 	private Skills skills;
 	private Inventory inventory;
 	private Friends friends;
+	private transient MapZoneManager mapZoneManager;
+	private Optional<MapZone> currentMapZone = Optional.empty();
     
     public transient InterfaceManager interfaceManager;
 	private transient Queue<Hit> queuedHits;
@@ -160,6 +165,7 @@ public class Player extends Actor {
 		queuedHits = new LinkedList<Hit>();
 		skillCapes = new SkillCapes(this);
 		interfaceManager = new InterfaceManager(this);
+		mapZoneManager = new MapZoneManager();
 		return this;
 	}
 
@@ -171,6 +177,7 @@ public class Player extends Actor {
 //		if (this.inCombat()) {
 //			Combat.combatLoop(this);
 //		}
+		getMapZoneManager().executeVoid(this, zone -> zone.process(this));
 		if (getFollow().getFollowing() != null) {
 			getFollow().followEntity();
 		}
@@ -583,6 +590,7 @@ public class Player extends Actor {
 		return !World.getInstance().getPlayerList().contains(this);
 	}
 
+	//seems weird but okay
 	@Override
 	public void setEntityFocus(int id) {
 		this.entityFocus = new EntityFocus(id);
@@ -606,6 +614,7 @@ public class Player extends Actor {
 //			getActionSender().sendMessage("You must have been out of combat for 10 seconds before you may log out.");
 //			return;
 //		}
+		getMapZoneManager().executeVoid(this, zone -> zone.logout(this));
 		getSession().write(new StaticPacketBuilder().setId(86).toPacket()).addListener(new IoFutureListener() {
 			@Override
 			public void operationComplete(IoFuture current) {

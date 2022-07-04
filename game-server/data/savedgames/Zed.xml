@@ -2072,10 +2072,6 @@
         <itemAmount>0</itemAmount>
       </item>
       <item>
-        <itemId>841</itemId>
-        <itemAmount>1</itemAmount>
-      </item>
-      <item>
         <itemId>-1</itemId>
         <itemAmount>0</itemAmount>
       </item>
@@ -2112,8 +2108,12 @@
         <itemAmount>0</itemAmount>
       </item>
       <item>
-        <itemId>882</itemId>
-        <itemAmount>25</itemAmount>
+        <itemId>-1</itemId>
+        <itemAmount>0</itemAmount>
+      </item>
+      <item>
+        <itemId>-1</itemId>
+        <itemAmount>0</itemAmount>
       </item>
     </slots>
   </equipment>
@@ -2178,8 +2178,8 @@
         <itemAmount>25</itemAmount>
       </item>
       <item>
-        <itemId>-1</itemId>
-        <itemAmount>0</itemAmount>
+        <itemId>1351</itemId>
+        <itemAmount>1</itemAmount>
       </item>
       <item>
         <itemId>590</itemId>
@@ -2206,7 +2206,7 @@
         <itemAmount>1</itemAmount>
       </item>
       <item>
-        <itemId>1277</itemId>
+        <itemId>1265</itemId>
         <itemAmount>1</itemAmount>
       </item>
       <item>
@@ -2214,7 +2214,7 @@
         <itemAmount>1</itemAmount>
       </item>
       <item>
-        <itemId>1265</itemId>
+        <itemId>1277</itemId>
         <itemAmount>1</itemAmount>
       </item>
       <item>
@@ -2222,12 +2222,12 @@
         <itemAmount>1</itemAmount>
       </item>
       <item>
-        <itemId>1351</itemId>
+        <itemId>841</itemId>
         <itemAmount>1</itemAmount>
       </item>
       <item>
-        <itemId>-1</itemId>
-        <itemAmount>0</itemAmount>
+        <itemId>882</itemId>
+        <itemAmount>25</itemAmount>
       </item>
       <item>
         <itemId>556</itemId>
@@ -2301,4 +2301,12 @@
     <privateStatus>0</privateStatus>
     <tradeStatus>0</tradeStatus>
   </friends>
+  <currentMapZone>
+    <value class="com.xeno.content.mapzone.impl.TestMapZone">
+      <mapeZoneName>TEST</mapeZoneName>
+      <safety>SAFE</safety>
+      <type>NORMAL</type>
+      <restriction>0</restriction>
+    </value>
+  </currentMapZone>
 </player>

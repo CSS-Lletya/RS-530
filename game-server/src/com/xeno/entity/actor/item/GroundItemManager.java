@@ -111,6 +111,8 @@ public class GroundItemManager {
 			if (!p.getInventory().addItem(item.getItemId(), item.getItemAmount())) {
 				return;
 			}
+			if (!p.getMapZoneManager().execute(p, zone -> zone.canTakeItem(p, item)))
+				return;
 			clearGlobalItem(item);
 			if (item.isRespawn()) {
 				final GroundItem i = item;

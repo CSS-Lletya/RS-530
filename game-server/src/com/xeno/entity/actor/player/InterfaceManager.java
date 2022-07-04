@@ -23,6 +23,7 @@ public class InterfaceManager {
 			player.getPlayerDetails().setRecievedStarter(true);
 			GameConstants.STARTER.forEach(player.getInventory()::addItem);
 		}
+		player.getMapZoneManager().executeVoid(player, zone -> zone.login(player));
 		player.getActionSender().sendMessage("Welcome to "+GameConstants.SERVER_NAME+".");
 		player.getActionSender().sendEnergy();
 		player.getActionSender().sendConfig(173, 0);

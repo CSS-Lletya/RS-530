@@ -5,6 +5,7 @@ import com.xeno.content.emote.Skillcape;
 import com.xeno.entity.Location;
 import com.xeno.entity.actor.attribute.Attribute;
 import com.xeno.entity.actor.item.GroundItem;
+import com.xeno.entity.actor.item.Item;
 import com.xeno.entity.actor.item.ItemConstants;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.CoordinateTask;
@@ -110,6 +111,8 @@ public class ItemInteractionPacket implements OutgoingPacket {
 				|| player.getAttributes().exist(Attribute.LOCKED)) {
 			return;
 		}
+		if (!player.getMapZoneManager().execute(player, zone -> zone.canUseItemOnItem(player, new Item(itemUsed), new Item(usedWith))))
+			return;
 		player.getInterfaceManager().closeInterfaces();
 		if (player.getInventory().getSlot(itemSlot).getItemId() == itemUsed
 				&& player.getInventory().getSlot(withSlot).getItemId() == usedWith) {
@@ -217,6 +220,8 @@ public class ItemInteractionPacket implements OutgoingPacket {
 			int amt = player.getInventory().getAmountInSlot(slot);
 			GroundItem i = new GroundItem(id, amt, Location.location(player.getLocation().getX(),
 					player.getLocation().getY(), player.getLocation().getZ()), player);
+			if (!player.getMapZoneManager().execute(player, zone -> zone.canDropItem(player, i)))
+				return;
 			if (player.getInventory().deleteItem(id, slot, amt)) {
 				if (!World.getInstance().getGroundItems().addToStack(id, amt, player.getLocation(), player)) {
 					World.getInstance().getGroundItems().newEntityDrop(i);

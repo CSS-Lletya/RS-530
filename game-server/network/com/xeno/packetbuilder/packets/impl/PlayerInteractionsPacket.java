@@ -51,6 +51,8 @@ public class PlayerInteractionsPacket implements OutgoingPacket {
 		if (p2 == null) {
 			return;
 		}
+		if (!player.getMapZoneManager().execute(player, zone -> zone.canPlayerOption1(player, p2)))
+			return;
 		player.setFaceLocation(new FaceLocation(p2.getLocation()));
 		player.getInterfaceManager().closeInterfaces();
 //		Combat.newAttack(player, p2);
@@ -66,6 +68,8 @@ public class PlayerInteractionsPacket implements OutgoingPacket {
 		if (p2 == null) {
 			return;
 		}
+		if (player.getMapZoneManager().execute(player, zone -> zone.canPlayerOption2(player, p2)))
+			return;
 		player.getFollow().setFollowing(p2);
 	}
 
@@ -79,6 +83,8 @@ public class PlayerInteractionsPacket implements OutgoingPacket {
 		if (p2 == null) {
 			return;
 		}
+		if (!player.getMapZoneManager().execute(player, zone -> zone.canPlayerOption3(player)))
+			return;
 		player.setFaceLocation(new FaceLocation(p2.getLocation()));
 		if (player.getTrade() != null) {
 			player.getTrade().decline();

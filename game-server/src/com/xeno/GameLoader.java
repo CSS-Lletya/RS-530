@@ -87,7 +87,7 @@ public class GameLoader {
 			try {
 				LogUtility.log(LogType.INFO, "Loading item definitions...");
 				ItemDefinition.load();
-				LogUtility.log(LogType.INFO, "Loading object definitions...");
+				LogUtility.log(LogType.INFO, "Loading object definitions... - NOT FINISHED");
 				ObjectDefinitions.loadConfig();
 				LogUtility.log(LogType.INFO, "Loading npc definitions...");
 				NPCDefinition.load();
