@@ -17,22 +17,17 @@ import com.xeno.content.TradeSession;
 import com.xeno.content.emote.SkillCapes;
 import com.xeno.content.mapzone.MapZone;
 import com.xeno.content.mapzone.MapZoneManager;
-import com.xeno.entity.Entity;
 import com.xeno.entity.EntityType;
 import com.xeno.entity.Follow;
 import com.xeno.entity.Location;
 import com.xeno.entity.WalkingQueue;
 import com.xeno.entity.actor.Actor;
 import com.xeno.entity.actor.attribute.Attribute;
-import com.xeno.entity.actor.item.GroundItem;
-import com.xeno.entity.actor.item.Item;
-import com.xeno.entity.actor.npc.NPC;
 import com.xeno.entity.actor.player.task.LinkedTaskSequence;
 import com.xeno.model.player.skills.Skills;
 import com.xeno.model.player.skills.magic.TeleportType;
 import com.xeno.model.player.skills.prayer.PrayerData;
 import com.xeno.model.player.skills.prayer.Prayers;
-import com.xeno.model.player.skills.prayer.ProtectedItems;
 import com.xeno.net.ActionSender;
 import com.xeno.net.Packet;
 import com.xeno.net.definitions.NPCDefinition;
@@ -355,88 +350,6 @@ public class Player extends Actor {
 
 	@Override
 	public void dropLoot() {
-		Entity killer = this.getKiller();
-		Player klr = killer instanceof NPC ? null : (Player) killer;
-		if (klr == null) {
-			klr = this;
-		}
-		int amountToKeep = playerDetails.isSkulled() ? 0 : 3;
-		if (prayers.isProtectItem()) {
-			amountToKeep = playerDetails.isSkulled() ? 1 : 4;
-		}
-		int[] protectedItems = new int[amountToKeep];
-		boolean[] saved = new boolean[amountToKeep];
-		if (protectedItems.length > 0) {
-			protectedItems[0] = ProtectedItems.getProtectedItem1(this)[0];
-		} 
-		if (protectedItems.length > 1) {
-			protectedItems[1] = ProtectedItems.getProtectedItem2(this)[0];
-		}
-		if (protectedItems.length > 2) {
-			protectedItems[2] = ProtectedItems.getProtectedItem3(this)[0];
-		}
-		if (protectedItems.length > 3) {
-			protectedItems[3] = ProtectedItems.getProtectedItem4(this)[0];
-		}
-		boolean save = false;
-		for(int i = 0; i < 28; i++) {
-			save = false;
-			Item item = inventory.getSlot(i);
-			if (item.getItemId() > 0) {
-				for (int j = 0; j < protectedItems.length; j++) {
-					if (amountToKeep > 0 && protectedItems[j] > 0) {
-						if (!saved[j] && !save) {
-							if (item.getItemId() == protectedItems[j] && item.getItemAmount() == 1) {
-								saved[j] = true;
-								save = true;
-							}
-							if (item.getItemId() == protectedItems[j] && item.getItemAmount() > 1) {
-								item.setItemAmount(item.getItemAmount() - 1);
-								saved[j] = true;
-								save = true;
-							}
-						}
-					}
-				}
-				if (!save) {
-					int itemId = item.getItemId();
-					GroundItem gi = new GroundItem(itemId, item.getItemAmount(), this.getLocation(), item.getDefinition().isPlayerBound() ? this : klr);
-					World.getInstance().getGroundItems().newEntityDrop(gi);
-				}
-			}
-		}
-		inventory.clearAll();
-		saved = new boolean[amountToKeep];
-		for(int i = 0; i < 14; i++) {
-			save = false;
-			Item item = this.getEquipment().getSlot(i);
-			if (item.getItemId() > 0) {
-				for (int j = 0; j < protectedItems.length; j++) {
-					if (amountToKeep > 0 && protectedItems[j] > -1) {
-						if (!saved[j] && !save) {
-							if (item.getItemId() == protectedItems[j] && item.getItemAmount() == 1) {
-								saved[j] = true;
-								save = true;
-							}
-							if (item.getItemId() == protectedItems[j] && item.getItemAmount() > 1) {
-								item.setItemAmount(item.getItemAmount() - 1);
-								saved[j] = true;
-								save = true;
-							}
-						}
-					}
-				}
-				if (!save) {
-					int itemId = item.getItemId();
-					GroundItem gi = new GroundItem(itemId, item.getItemAmount(), this.getLocation(), item.getDefinition().isPlayerBound() ? this : klr);
-					World.getInstance().getGroundItems().newEntityDrop(gi);
-				}
-			}
-		}
-		equipment.clearAll();
-		GroundItem gi = new GroundItem(526, 1, this.getLocation(), klr);
-		World.getInstance().getGroundItems().newEntityDrop(gi);
-		inventory.setProtectedItems(protectedItems);
 	}
 
 	@Override

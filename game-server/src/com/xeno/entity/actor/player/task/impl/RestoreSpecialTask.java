@@ -1,10 +1,7 @@
 package com.xeno.entity.actor.player.task.impl;
 
-import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.Task;
 import com.xeno.world.World;
-
-import lombok.SneakyThrows;
 
 public final class RestoreSpecialTask extends Task {
 	
@@ -16,7 +13,6 @@ public final class RestoreSpecialTask extends Task {
 	}
 	
 	@Override
-	@SneakyThrows(Throwable.class)
 	public void execute() {
 //		for (Player p : World.getInstance().getPlayerList()) {
 //			if (p == null) {

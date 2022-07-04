@@ -1,17 +1,9 @@
 package com.xeno.world;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-
-import com.xeno.content.DoorControl;
 import com.xeno.entity.Location;
 import com.xeno.entity.actor.item.GroundItem;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.Task;
-import com.xeno.utility.LogUtility;
-import com.xeno.utility.LogUtility.LogType;
 import com.xeno.utility.RandomUtils;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -21,20 +13,13 @@ public class ObjectManager {
 
 	private ObjectArrayList<WorldObject> objects;
 	private static final int FIRE = 1;
-	private DoorControl doors;
 	
 	public ObjectManager() {
 		objects = new ObjectArrayList<WorldObject>();
-		doors = new DoorControl();
-		loadSpawnedObjects();
-		loadDeletedObjects();
 	}
 
 	public void lowerHealth(int originalId, Location location) {
 		WorldObject object = getObject(originalId, location);
-		if (object == null) {
-			addObjectToList(originalId, location);
-		}
 		if (object.getOriginalId() == 733) { // Web
 			if (RandomUtils.random(6) == 0) {
 				changeObject(object);
@@ -130,14 +115,6 @@ public class ObjectManager {
 		}
 	}
 
-	private void addObjectToList(int originalId, Location location) {
-		WorldObject object = new WorldObject(originalId, getSecondaryId(originalId), getFace(originalId, location), location, getRestore(originalId), getHealth(originalId));
-		object.setType(getType(object));
-		synchronized(objects) {
-			objects.add(object);
-		}
-	}
-	
 	public void add(WorldObject object) {
 		synchronized(objects) {
 			objects.add(object);
@@ -164,7 +141,7 @@ public class ObjectManager {
 				}
 			}
 		}
-		doors.refreshDoorsForPlayer(p);
+//		doors.refreshDoorsForPlayer(p);
 	}
 	
 	public void newFire(Player p, int fireId, Location location) {
@@ -178,10 +155,6 @@ public class ObjectManager {
 	
 	public boolean originalObjectExists(int originalId, Location location) {
 		WorldObject object = getObject(originalId, location);
-		if (object == null) {
-			addObjectToList(originalId, location);
-			return true;
-		}
 		return object != null && !object.isSecondForm() && object.getObjectHealth() > 0;
 	}
 
@@ -194,10 +167,6 @@ public class ObjectManager {
 			}
 		}
 		return null;
-	}
-	
-	private int getFace(int originalId, Location location) {
-		return World.getInstance().getObjectLocations().getFace(originalId, location);
 	}
 	
 	private int getHealth(int originalId) {
@@ -835,151 +804,5 @@ public class ObjectManager {
 				break;
 		}
 		return 10;
-	}
-
-	public DoorControl getDoors() {
-		return doors;
-	}
-	
-	public boolean loadSpawnedObjects() {
-		String line = "";
-		String token = "";
-		String token2 = "";
-		String token2_2 = "";
-		String[] token3 = new String[10];
-		boolean EndOfFile = false;
-		int ReadMode = 0;
-		BufferedReader characterfile = null;
-
-		try {
-			characterfile = new BufferedReader(
-			new FileReader("./data/spawnedObjects.cfg"));
-		} catch (FileNotFoundException fileex) {
-			return false;
-		}
-		try {
-			line = characterfile.readLine();
-		} catch (IOException ioexception) {
-			return false;
-		}
-		int amount = 0;
-		while (EndOfFile == false && line != null) {
-			line = line.trim();
-			int spot = line.indexOf("=");
-
-			if (spot > -1) {
-				token = line.substring(0, spot);
-				token = token.trim();
-				token2 = line.substring(spot + 1);
-				token2 = token2.trim();
-				token2_2 = token2.replaceAll("\t\t", "\t");
-				token2_2 = token2_2.replaceAll("\t\t", "\t");
-				token2_2 = token2_2.replaceAll("\t\t", "\t");
-				token2_2 = token2_2.replaceAll("\t\t", "\t");
-				token2_2 = token2_2.replaceAll("\t\t", "\t");
-				token2_2 = token2_2.replaceAll("\t\t", "\t");
-				token3 = token2_2.split("\t");
-				if (token.equals("object")) {
-					amount++;
-					int id = Integer.parseInt(token3[0]);
-					Location location = Location.location(Integer.parseInt(token3[1]), Integer.parseInt(token3[2]), Integer.parseInt(token3[3]));
-					int face = Integer.parseInt(token3[4]);
-					int type = Integer.parseInt(token3[5]);
-					WorldObject object = new WorldObject(id, location, face, type, true);
-					
-					// these 3 methods are to set variables for spawned rocks, trees etc.
-					object.setRestore(getRestore(id));
-					object.setObjectHealth(getHealth(id));
-					object.setSecondaryId(getSecondaryId(id));
-					
-					objects.add(object);
-					World.getInstance().getObjectLocations().addObject(object); // we KNOW this object is legit..since we spawned it.
-				}
-			} else {
-				if (line.equals("[ENDOFLIST]")) {
-					try {
-						characterfile.close();
-						LogUtility.log(LogType.INFO, "Loaded " + amount + " custom objects.");
-					} catch (IOException ioexception) {}
-					return true;
-				}
-			}
-			try {
-				line = characterfile.readLine();
-			} catch (IOException ioexception1) {
-				EndOfFile = true;
-			}
-		}
-		try {
-			characterfile.close();
-		} catch (IOException ioexception) {}
-		return false;
-	}
-	
-	public boolean loadDeletedObjects() {
-		String line = "";
-		String token = "";
-		String token2 = "";
-		String token2_2 = "";
-		String[] token3 = new String[10];
-		boolean EndOfFile = false;
-		int ReadMode = 0;
-		BufferedReader characterfile = null;
-
-		try {
-			characterfile = new BufferedReader(
-			new FileReader("./data/deletedObjects.cfg"));
-		} catch (FileNotFoundException fileex) {
-			return false;
-		}
-		try {
-			line = characterfile.readLine();
-		} catch (IOException ioexception) {
-			return false;
-		}
-		int amount = 0;
-		while (EndOfFile == false && line != null) {
-			line = line.trim();
-			int spot = line.indexOf("=");
-
-			if (spot > -1) {
-				token = line.substring(0, spot);
-				token = token.trim();
-				token2 = line.substring(spot + 1);
-				token2 = token2.trim();
-				token2_2 = token2.replaceAll("\t\t", "\t");
-				token2_2 = token2_2.replaceAll("\t\t", "\t");
-				token2_2 = token2_2.replaceAll("\t\t", "\t");
-				token2_2 = token2_2.replaceAll("\t\t", "\t");
-				token2_2 = token2_2.replaceAll("\t\t", "\t");
-				token2_2 = token2_2.replaceAll("\t\t", "\t");
-				token3 = token2_2.split("\t");
-				if (token.equals("object")) {
-					amount++;
-					Location loc = Location.location(Integer.parseInt(token3[0]), Integer.parseInt(token3[1]), Integer.parseInt(token3[2]));
-					int face = Integer.parseInt(token3[3]);
-					int type = Integer.parseInt(token3[4]);
-					WorldObject deletedObject = new WorldObject(loc, face, type, true);
-					objects.add(deletedObject);
-				}
-			} else {
-				if (line.equals("[ENDOFLIST]")) {
-					try {
-						characterfile.close();
-						LogUtility.log(LogType.INFO, "Loaded " + amount + " deleted objects.");
-					} catch (IOException ioexception) {}
-					return true;
-				}
-			}
-			try {
-				line = characterfile.readLine();
-			} catch (IOException ioexception1) {
-				EndOfFile = true;
-			}
-		}
-		try {
-			characterfile.close();
-		} catch (IOException ioexception) {}
-		return false;
 	}
 }

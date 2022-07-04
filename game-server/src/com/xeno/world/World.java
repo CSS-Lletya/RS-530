@@ -105,12 +105,6 @@ public class World {
 	private ObjectManager objectManager;
 	
 	/**
-	 * Manages pre-loaded object coordinates .
-	 * (Rare objects that could be spawned client side, Rune rocks for example).
-	 */
-	private ObjectLocations objectLocations;
-	
-	/**
 	 * The clan manager.
 	 */
 	private ClanManager clanManager;
@@ -380,7 +374,6 @@ public class World {
 			npcs.add(n);
 		}
 		LogUtility.log(LogType.DEBUG, "Loaded " + spawns.size() + " npc spawns.");
-		objectLocations = new ObjectLocations();
 		shopManager = new ShopManager();
 		itemManager = new GroundItemManager();
 		objectManager = new ObjectManager();
@@ -436,10 +429,6 @@ public class World {
 		return shopManager;
 	}
 	
-	public ObjectLocations getObjectLocations() {
-		return objectLocations;
-	}
-
 	public ClanManager getClanManager() {
 		return clanManager;
 	}

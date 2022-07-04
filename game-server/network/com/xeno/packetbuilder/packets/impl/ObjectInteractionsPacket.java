@@ -13,7 +13,6 @@ import com.xeno.packetbuilder.packets.OutgoingPacket;
 import com.xeno.packetbuilder.packets.OutgoingPacketSignature;
 import com.xeno.utility.LogUtility;
 import com.xeno.utility.LogUtility.LogType;
-import com.xeno.world.World;
 import com.xeno.world.WorldObject;
 
 @OutgoingPacketSignature(packetId = {254,194,84,247}, description = "Represents an event where a Player interacting with an Game Object")
@@ -48,11 +47,8 @@ public class ObjectInteractionsPacket implements OutgoingPacket {
 		objectX = packet.readLEShort();
 		int objectId = packet.readShortA();
 		objectY = packet.readShort();
-		ObjectDefinitions def = ObjectDefinitions.objectOf(objectId);
-        if (def == null) {
-            return;
-        }
-        System.out.println(def.name);
+//		ObjectDefinitions def = ObjectDefinitions.objectOf(objectId);
+//        System.out.println(def.name);
 		if (objectX < 1000 || objectY < 1000 || player.getAttributes().exist(Attribute.DEAD) ||
 				player.getAttributes().exist(Attribute.LOCKED)) {
 			return;
@@ -80,10 +76,7 @@ public class ObjectInteractionsPacket implements OutgoingPacket {
 
 	private void handleFirstClickObject(final Player player, Packet packet) {
 		LogUtility.log(LogType.INFO, "Object Click: 1 [id: "+object.getId()+" - x: "+ objectX +", y: "+objectY+"]");
-		if (World.getInstance().getGlobalObjects().getDoors().useDoor(player, object.getId(), objectX, objectY,
-				player.getLocation().getZ())) {
-			return;
-		} else if (WildernessObelisks.useWildernessObelisk(player, object.getId(),
+		if (WildernessObelisks.useWildernessObelisk(player, object.getId(),
 				Location.location(objectX, objectY, player.getLocation().getZ()))) {
 			return;
 		}

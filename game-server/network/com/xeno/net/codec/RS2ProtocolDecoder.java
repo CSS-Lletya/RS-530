@@ -12,10 +12,14 @@ import com.xeno.utility.LogUtility.LogType;
 
 public class RS2ProtocolDecoder extends CumulativeProtocolDecoder {
 	
+	private final ISAACCipher incoming;
+	
 	/**
 	 * To make sure only the CodecFactory can initialise us.
+	 * @param incoming
 	 */
-	protected RS2ProtocolDecoder() {
+	protected RS2ProtocolDecoder(ISAACCipher incoming) {
+		this.incoming = incoming;
 	}
 
 	@Override
@@ -30,7 +34,7 @@ public class RS2ProtocolDecoder extends CumulativeProtocolDecoder {
 		try {
 			if(in.remaining() >= 1) {
 				// get opcode
-				int id = in.get() & 0xFF;
+				int id = 0xff & in.get() - incoming.getNextKey();
 				// get length
 				int len = Constants.PACKET_LENGTHS[id];
 				if(len == -1) {

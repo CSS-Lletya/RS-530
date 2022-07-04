@@ -1,6 +1,5 @@
 package com.xeno.entity.actor.npc;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -9,10 +8,7 @@ import com.xeno.entity.Follow;
 import com.xeno.entity.Location;
 import com.xeno.entity.actor.Actor;
 import com.xeno.entity.actor.attribute.Attribute;
-import com.xeno.entity.actor.item.GroundItem;
-import com.xeno.entity.actor.item.Item;
 import com.xeno.entity.actor.player.Player;
-import com.xeno.net.definitions.ItemDefinition;
 import com.xeno.net.definitions.NPCDefinition;
 import com.xeno.net.entity.masks.Animation;
 import com.xeno.net.entity.masks.EntityFocus;
@@ -21,7 +17,6 @@ import com.xeno.net.entity.masks.ForceText;
 import com.xeno.net.entity.masks.Graphics;
 import com.xeno.net.entity.masks.Hits;
 import com.xeno.net.entity.masks.Hits.Hit;
-import com.xeno.utility.RandomUtils;
 import com.xeno.utility.Utility;
 import com.xeno.world.World;
 
@@ -102,69 +97,7 @@ public class NPC extends Actor {
 
     @Override
     public void dropLoot() {
-        Actor killer = this.getKiller();
-        Player p = killer instanceof Player ? (Player) killer : null;
-        NPCDrop drop = this.definition.getDrop();
-        if (killer == null || p == null) {
-            return;
-        }
-        if (drop != null) {
-            try {
-                ArrayList<Item> drops = new ArrayList<Item>();
-                int random = RandomUtils.random(100);
-                int random2 = 100 - random;
-                if (random2 == 0) {
-                    random2++;
-                }
-                if (random2 < 25) { // 25% - semi rare
-                    if (drop.getUncommonDrops() != null) {
-                        drops.add(drop.getUncommonDrops().get(RandomUtils.random(drop.getUncommonDrops().size() - 1)));
-                    }
-                } else if (random2 >= 25 && random2 < 95) { // 65%  common
-                    if (drop.getCommonDrops() != null) {
-                        drops.add(drop.getCommonDrops().get(RandomUtils.random(drop.getCommonDrops().size() - 1)));
-                    }
-                } else if (random2 >= 95) { // 5% - rare
-                    if (drop.getRareDrops() != null) {
-                        drops.add(drop.getRareDrops().get(RandomUtils.random(drop.getRareDrops().size() - 1)));
-                    }
-                } else {
-
-                }
-                random = random2;
-                if (!drop.getAlwaysDrops().isEmpty()) {
-                    for (Item d : drop.getAlwaysDrops()) {
-                        drops.add(d);
-                    }
-                }
-                for (Item randomItem : drops) {
-                    int amount = randomItem.getItemAmount();
-                    int itemId = randomItem.getItemId();
-                    if (amount < 0) {
-                        amount = RandomUtils.random((amount - (amount * 2)));
-                        if (amount == 0) {
-                            amount = 1;
-                        }
-                    }
-                    boolean stackable = ItemDefinition.forId(itemId).isNoted() || ItemDefinition.forId(itemId).isStackable();
-                    if (stackable || (!stackable && amount == 1)) {
-                        if (World.getInstance().getGroundItems().addToStack(itemId, amount, this.getLocation(), p)) {
-
-                        } else {
-                            GroundItem item = new GroundItem(itemId, amount, this.getLocation(), p);
-                            World.getInstance().getGroundItems().newEntityDrop(item);
-                        }
-                    } else {
-                        for (int i = 0; i < amount; i++) {
-                            GroundItem item = new GroundItem(itemId, 1, this.getLocation(), p);
-                            World.getInstance().getGroundItems().newEntityDrop(item);
-                        }
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+       
     }
 
 

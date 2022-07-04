@@ -25,9 +25,6 @@ public class XStreamUtil {
 			xstream.alias("npcDefinition", com.xeno.net.definitions.NPCDefinition.class);
 			xstream.alias("npc", com.xeno.entity.actor.npc.NPC.class);
 			xstream.alias("shop", com.xeno.content.Shop.class);
-			xstream.alias("npcDrop", com.xeno.entity.actor.npc.NPCDrop.class);
-			xstream.alias("door", com.xeno.content.DoorControl.Door.class);
-			xstream.alias("doorControl", com.xeno.content.DoorControl.class);
 		}
 		return xstream;
 	}

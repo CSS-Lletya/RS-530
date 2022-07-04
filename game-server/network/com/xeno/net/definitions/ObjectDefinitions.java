@@ -4,8 +4,11 @@ import com.xeno.cache.MemoryArchive;
 import com.xeno.net.ByteStream;
 import com.xeno.net.ByteStreamExt;
 
+import lombok.NonNull;
+
 public final class ObjectDefinitions {
 
+	@NonNull
 	public static ObjectDefinitions objectOf(int i) {
 		for (int j = 0; j < 20; j++)
 			if (cache[j].type == i)

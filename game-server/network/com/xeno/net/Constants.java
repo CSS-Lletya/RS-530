@@ -81,13 +81,13 @@ public class Constants {
 	 * You could set this lower, although 2000 is the max.
 	 * (Technically 2048 is the max).
 	 */
-	public static final int PLAYER_CAP = 2000;
+	public static final int PLAYER_CAP = (1 << 11) - 1;
 
 	/**
 	 * NPC cap, you could set this higher or lower,
 	 * although 32768 is the max.
 	 */
-	public static final int NPC_CAP = 4000;
+	public static final int NPC_CAP = (1 << 15) - 1;
 
 	/**
 	 * Server->client direction translation.

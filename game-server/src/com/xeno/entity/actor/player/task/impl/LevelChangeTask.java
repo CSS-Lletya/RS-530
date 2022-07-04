@@ -1,7 +1,6 @@
 package com.xeno.entity.actor.player.task.impl;
 
 import com.xeno.entity.actor.attribute.Attribute;
-import com.xeno.entity.actor.npc.NPC;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.Task;
 import com.xeno.model.player.skills.Skills;

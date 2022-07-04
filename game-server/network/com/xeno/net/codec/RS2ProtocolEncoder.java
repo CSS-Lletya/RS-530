@@ -6,15 +6,18 @@ import org.apache.mina.filter.codec.ProtocolEncoder;
 import org.apache.mina.filter.codec.ProtocolEncoderOutput;
 
 import com.xeno.net.Packet;
-import com.xeno.utility.LogUtility;
-import com.xeno.utility.LogUtility.LogType;
 
 public class RS2ProtocolEncoder implements ProtocolEncoder {
 	
+	private final ISAACCipher outgoing;
+	
 	/**
 	 * Only CodecFactory can create us.
+	 * @param outgoing
 	 */
-	protected RS2ProtocolEncoder() {}
+	protected RS2ProtocolEncoder(ISAACCipher outgoing) {
+		this.outgoing = outgoing;
+	}
 
 	@Override
 	/**
@@ -32,7 +35,7 @@ public class RS2ProtocolEncoder implements ProtocolEncoder {
 			if (!p.isBare()) {
 				buffer = ByteBuffer.allocate(dataLength + 3);
 				int id = p.getId();
-				buffer.put((byte)id);
+				buffer.put((byte) (id + outgoing.getNextKey()));
 				if(p.getSize() != Packet.Size.Fixed) { //variable length
 					//Logger.log("variable length: id="+id+",dataLength="+dataLength);
 					if(p.getSize() == Packet.Size.VariableByte) {
@@ -53,7 +56,6 @@ public class RS2ProtocolEncoder implements ProtocolEncoder {
 			buffer.flip();
 			out.write(buffer);
 		} catch(Exception err) {
-			LogUtility.log(LogType.INFO, err.toString());
 		}
 	}
 	

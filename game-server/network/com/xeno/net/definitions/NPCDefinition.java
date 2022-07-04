@@ -4,7 +4,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.List;
 
-import com.xeno.entity.actor.npc.NPCDrop;
 import com.xeno.utility.LogUtility;
 import com.xeno.utility.LogUtility.LogType;
 import com.xeno.utility.XStreamUtil;
@@ -32,7 +31,6 @@ public class NPCDefinition {
 			definitions.put(def.getId(), def);
 		}
 		LogUtility.log(LogType.INFO, "Loaded " + definitions.size() + " npc definitions.");
-		NPCDrop.load();
 	}
 	
 	public static NPCDefinition forId(int id) {
@@ -48,7 +46,6 @@ public class NPCDefinition {
 	private int respawn = 20, combat = 0, hitpoints = 1, maxHit = 0, size = 1, attackSpeed = 8, attackAnim = 422, defenceAnim = 404, deathAnim = 7197;
 	private boolean aggressive = false, superAggressive = false, bossMonster = false;
 	private int attackType = MELEE;
-	private transient NPCDrop drop = null;
 	
 	public int getId() {
 		return id;
@@ -125,13 +122,4 @@ public class NPCDefinition {
 	public boolean isBoss() {
 		return bossMonster;
 	}
-
-	public NPCDrop getDrop() {
-		return drop;
-	}
-
-	public void setDrop(NPCDrop d) {
-		this.drop = d;
-	}
-
 }
