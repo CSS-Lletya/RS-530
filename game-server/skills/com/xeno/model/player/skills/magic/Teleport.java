@@ -6,7 +6,6 @@ import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.Task;
 import com.xeno.net.entity.masks.Animation;
 import com.xeno.net.entity.masks.Graphics;
-import com.xeno.utility.Area;
 import com.xeno.utility.RandomUtils;
 import com.xeno.world.World;
 
@@ -18,18 +17,6 @@ public class Teleport extends MagicData {
 	
 	public static void homeTeleport(final Player p) {
 		if (p.getAttributes().exist(Attribute.TELEPORTING) || p.getAttributes().exist(Attribute.HOME_TELEPORTING) || p.getAttributes().exist(Attribute.LOCKED)) {
-			return;
-		}
-		if (Area.inFightPits(p.getLocation())) {
-			p.getActionSender().sendMessage("You are unable to teleport from the fight pits.");
-			return;
-		}
-		if (p.getAttributes().exist("teleblocked")) {
-			p.getActionSender().sendMessage("A magical force prevents you from teleporting!");
-			return;
-		}
-		if (Area.inWilderness(p.getLocation()) && Area.getWildLevel(p) >= 20) {
-			p.getActionSender().sendMessage("You cannot teleport above level 20 wilderness!");
 			return;
 		}
 		p.getInterfaceManager().closeInterfaces();
@@ -121,14 +108,6 @@ public class Teleport extends MagicData {
 			p.getActionSender().sendMessage("You do not have enough runes to cast this teleport.");
 			return false;
 		}
-		if (Area.inFightPits(p.getLocation())) {
-			p.getActionSender().sendMessage("You are unable to teleport from the fight pits.");
-			return false;
-		}
-		if (Area.inWilderness(p.getLocation()) && Area.getWildLevel(p) >= 20) {
-			p.getActionSender().sendMessage("You cannot teleport above level 20 wilderness!");
-			return false;
-		}
 		if (p.getAttributes().exist(Attribute.DEAD)){
 			return false;
 		}
@@ -146,14 +125,6 @@ public class Teleport extends MagicData {
 			return false;
 		}
 		if (p.getAttributes().exist(Attribute.TELEPORTING) || p.getAttributes().exist(Attribute.HOME_TELEPORTING) || p.getAttributes().exist(Attribute.LOCKED)) {
-			return false;
-		}
-		if (Area.inFightPits(p.getLocation())) {
-			p.getActionSender().sendMessage("You are unable to teleport from the fight pits.");
-			return false;
-		}
-		if (Area.inWilderness(p.getLocation()) && Area.getWildLevel(p) >= 20) {
-			p.getActionSender().sendMessage("You cannot teleport above level 20 wilderness!");
 			return false;
 		}
 		final int x = TELE_X[index] + RandomUtils.random(TELE_EXTRA_X[index]);

@@ -4,7 +4,6 @@ import com.xeno.entity.Location;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.Task;
 import com.xeno.net.definitions.ItemDefinition;
-import com.xeno.utility.Area;
 import com.xeno.world.World;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -131,9 +130,6 @@ public class GroundItemManager {
 	}
 	
 	public void refreshGlobalItems(Player p) {
-		if (Area.inFightCave(p.getLocation())) {
-			return;
-		}
 		for(GroundItem i : items) {
 			if (i != null) {
 				if ((i.isGlobal() && ((i.getOwner() != null && i.getOwner().equals(p))))  // is your item after shown to other players (only shows for you)

@@ -20,7 +20,6 @@ public class CommandPacket implements OutgoingPacket {
 			return;
 		switch (cmd[0].toLowerCase()) {
 		case "tele":
-			System.out.println("?");
 			cmd = cmd[1].split(",");
 			int plane = Integer.valueOf(cmd[0]);
 			int x = Integer.valueOf(cmd[1]) << 6 | Integer.valueOf(cmd[3]);

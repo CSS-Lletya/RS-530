@@ -18,7 +18,6 @@ import com.xeno.entity.actor.player.task.AreaTask;
 import com.xeno.entity.actor.player.task.CoordinateTask;
 import com.xeno.entity.actor.player.task.Task;
 import com.xeno.entity.actor.player.task.TaskManager;
-import com.xeno.entity.actor.player.task.impl.AreaVariablesTask;
 import com.xeno.entity.actor.player.task.impl.LevelChangeTask;
 import com.xeno.entity.actor.player.task.impl.RestoreSpecialTask;
 import com.xeno.entity.actor.player.task.impl.RunEnergyTask;
@@ -27,7 +26,6 @@ import com.xeno.net.Constants;
 import com.xeno.net.entity.EntityList;
 import com.xeno.net.entity.NPCUpdate;
 import com.xeno.net.entity.PlayerUpdate;
-import com.xeno.utility.Area;
 import com.xeno.utility.LogUtility;
 import com.xeno.utility.LogUtility.LogType;
 import com.xeno.utility.XStreamUtil;
@@ -136,7 +134,6 @@ public class World {
 	 * Register our global events.
 	 */
 	public void registerGlobalEvents() {
-		World.getInstance().submit(new AreaVariablesTask());
 		World.getInstance().submit(new LevelChangeTask());
 		World.getInstance().submit(new RestoreSpecialTask());
 		World.getInstance().submit(new RunEnergyTask());
@@ -329,9 +326,6 @@ public class World {
 		if (p.getTrade() != null) {
 			p.getTrade().decline();
 			p.setTrade(null);
-		}
-		if (Area.inFightPits(p.getLocation())) {//seems odd
-			return;
 		}
 		
 //		if (!Combat.isXSecondsSinceCombat(p, p.getLastAttacked(), 10000) || p.isDead() || p.getTemporaryAttribute(Attribute.LOCKED) != null) {
