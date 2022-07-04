@@ -690,4 +690,8 @@ public class Player extends Actor {
 			getAttributes().get(Attribute.LOCKED).set(false);
 		}).start();
 	}
+	
+	public void simpleTask(int delay, Consumer<Player> actor) {
+		this.task(delay, tasker -> tasker.toPlayer());
+	}
 }

@@ -1,10 +1,13 @@
 package com.xeno.net.entity.masks;
 
+import lombok.Data;
+
 /**
  * Holds data for a single animation request.
  * @author Graham
  *
  */
+@Data
 public class Animation {
 	
 	private int id, delay;
@@ -18,12 +21,14 @@ public class Animation {
 		this.delay = delay;
 	}
 	
-	public int getId() {
-		return id;
+	public Animation(int id, Runnable executable) {
+		this(id, 0);
+		executable.run();
 	}
 	
-	public int getDelay() {
-		return delay;
+	public Animation(int id, int delay, Runnable executable) {
+		this.id = id;
+		this.delay = delay;
+		executable.run();
 	}
-
 }
