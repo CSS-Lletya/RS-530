@@ -3,6 +3,7 @@ package com.xeno.entity.actor.player;
 import com.xeno.entity.actor.item.Item;
 import com.xeno.entity.actor.item.ItemConstants;
 import com.xeno.net.definitions.ItemDefinition;
+import com.xenorune.entity.actor.combat.constants.Requirement;
 
 public class Equipment {
 
@@ -54,7 +55,8 @@ public class Equipment {
 				return false;
 			} 
 		}
-		
+		if(!Requirement.canEquip(p, new Item(itemID)))
+			return false;
 		if (p.getMapZoneManager().execute(p, zone -> !zone.canEquip(p, slot, itemID)))
 			return false;
 		

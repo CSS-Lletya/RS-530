@@ -106,7 +106,7 @@ public class InterfaceManager {
 			sendTab(70, 748); // HP bar
 			sendTab(71, 749); // Prayer bar
 			sendTab(72, 750); // Energy bar
-			// sendTab(67, 747); // Summoning bar
+			 sendTab(67, 747); // Summoning bar
 			player.getActionSender().sendInterface(1, 752, 8, 137); // Username on chat
 			sendTab(83, 92); // Attack tab
 			sendTab(84, 320); // Skill tab
@@ -133,7 +133,7 @@ public class InterfaceManager {
 			sendTab(13, 748); // HP bar
 			sendTab(14, 749); // Prayer bar
 			sendTab(15, 750); // Energy bar
-			// sendTab(16, 747); // Summoning bar
+			 sendTab(16, 747); // Summoning bar
 			sendTab(93, 92); // Attack tab
 			sendTab(94, 320); // Skill tab
 			sendTab(95, achievementDiary ? 259 : 274); // Quest tab

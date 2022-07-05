@@ -17,6 +17,7 @@ import com.xeno.net.definitions.NPCDefinition;
 import com.xeno.net.definitions.ObjectDefinitions;
 import com.xeno.packetbuilder.packets.OutgoingPacketDispatcher;
 import com.xeno.utility.BlockingExecutorService;
+import com.xeno.utility.EquipmentRequirementLoader;
 import com.xeno.utility.LogUtility;
 import com.xeno.utility.LogUtility.LogType;
 import com.xeno.utility.TimeStamp;
@@ -96,7 +97,7 @@ public class GameLoader {
 		});
 		getBackgroundLoader().submit(() -> {
 			AttributeKey.init();
-			
+			new EquipmentRequirementLoader().load();
 		});
 		getBackgroundLoader().submit(() -> {
 			OutgoingPacketDispatcher.load();

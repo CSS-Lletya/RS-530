@@ -112,7 +112,7 @@ public class Player extends Actor {
 	private Inventory inventory;
 	private Friends friends;
 	private transient MapZoneManager mapZoneManager;
-	private Optional<MapZone> currentMapZone = Optional.empty();
+	private Optional<MapZone> currentMapZone;
 	
 	/**
 	 * Represents a Player's last Emote delay (used for various things)
@@ -163,6 +163,7 @@ public class Player extends Actor {
 		queuedHits = new LinkedList<Hit>();
 		interfaceManager = new InterfaceManager(this);
 		mapZoneManager = new MapZoneManager();
+		currentMapZone = Optional.empty();
 		return this;
 	}
 

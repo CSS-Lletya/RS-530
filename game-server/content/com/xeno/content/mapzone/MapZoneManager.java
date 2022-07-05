@@ -66,6 +66,6 @@ public final class MapZoneManager {
 		}
 		if(mapZone.isPresent() && mapZone.get().contains(player))
 			return mapZone;
-		return Optional.empty();
+		return player.getCurrentMapZone();
 	}
 }
