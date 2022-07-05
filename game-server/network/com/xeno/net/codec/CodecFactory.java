@@ -12,41 +12,37 @@ import com.xeno.net.WorkerThread;
  *
  */
 public class CodecFactory implements ProtocolCodecFactory {
-
+	
+	public CodecFactory(WorkerThread workerThread) {
+		this.decoder = new RS2LoginProtocolDecoder(workerThread);
+	}
+	
+	public CodecFactory() {
+		this.decoder = new RS2ProtocolDecoder();
+	}
+	
 	/**
 	 * The encoder.
 	 */
-	private ProtocolEncoder encoder;
-
+	private ProtocolEncoder encoder = new RS2ProtocolEncoder();
+	
 	/**
 	 * The decoder.
 	 */
 	private ProtocolDecoder decoder;
-
-	/**
-	 * Constructs a new {@code CodecFactory}.
-	 * @param workerThread
-	 */
-	public CodecFactory(WorkerThread workerThread) {
-		this.decoder = new RS2LoginProtocolDecoder(workerThread);
-		this.encoder = new RS2ProtocolEncoder(null);
-	}
-
-	/**
-	 * Constructs a new {@code CodecFactory}.
-	 * @param group
-	 */
-	public CodecFactory(IsaacGroup group) {
-		this.decoder = new RS2ProtocolDecoder(group.getIncoming());
-		this.encoder = new RS2ProtocolEncoder(group.getOutgoing());
-	}
-
+	
 	@Override
+	/**
+	 * Get the encoder.
+	 */
 	public ProtocolEncoder getEncoder() throws Exception {
 		return encoder;
 	}
 
 	@Override
+	/**
+	 * Get the decoder.
+	 */
 	public ProtocolDecoder getDecoder() throws Exception {
 		return decoder;
 	}

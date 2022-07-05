@@ -80,28 +80,28 @@ public class ObjectInteractionsPacket implements OutgoingPacket {
 				Location.location(objectX, objectY, player.getLocation().getZ()))) {
 			return;
 		}
-		if (!player.getMapZoneManager().execute(player, zone -> zone.processObjectClick1(player, object)))
+		if (player.getMapZoneManager().execute(player, zone -> !zone.processObjectClick1(player, object)))
 			return;
 		PluginManager.handle(new ObjectClickEvent(player, object, 1));
 	}
 
 	private void handleSecondClickObject(Player player, Packet packet) {
 		LogUtility.log(LogType.INFO, "Object Click: 2 [id: "+object.getId()+" - x: "+ objectX +", y: "+objectY+"]");
-		if (!player.getMapZoneManager().execute(player, zone -> zone.processObjectClick2(player, object)))
+		if (player.getMapZoneManager().execute(player, zone -> !zone.processObjectClick2(player, object)))
 			return;
 		PluginManager.handle(new ObjectClickEvent(player, object, 2));
 	}
 
 	private void handleThirdClickObject(Player player, Packet packet) {
 		LogUtility.log(LogType.INFO, "Object Object Click: 3 [id: "+object.getId()+" - x: "+ objectX +", y: "+objectY+"]");
-		if (!player.getMapZoneManager().execute(player, zone -> zone.processObjectClick3(player, object)))
+		if (player.getMapZoneManager().execute(player, zone -> !zone.processObjectClick3(player, object)))
 			return;
 		PluginManager.handle(new ObjectClickEvent(player, object, 3));
 	}
 
 	private void handleFourthClickObject(Player player, Packet packet) {
 		LogUtility.log(LogType.INFO, "Object Click: 4 [id: " +object.getId()+ " - x: "+ objectX +", y: "+objectY+"]");
-		if (!player.getMapZoneManager().execute(player, zone -> zone.processObjectClick4(player, object)))
+		if (player.getMapZoneManager().execute(player, zone -> !zone.processObjectClick4(player, object)))
 			return;
 		PluginManager.handle(new ObjectClickEvent(player, object, 4));
 	}

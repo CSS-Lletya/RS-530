@@ -220,7 +220,7 @@ public class ItemInteractionPacket implements OutgoingPacket {
 			int amt = player.getInventory().getAmountInSlot(slot);
 			GroundItem i = new GroundItem(id, amt, Location.location(player.getLocation().getX(),
 					player.getLocation().getY(), player.getLocation().getZ()), player);
-			if (!player.getMapZoneManager().execute(player, zone -> zone.canDropItem(player, i)))
+			if (player.getMapZoneManager().execute(player, zone -> !zone.canDropItem(player, i)))
 				return;
 			if (player.getInventory().deleteItem(id, slot, amt)) {
 				if (!World.getInstance().getGroundItems().addToStack(id, amt, player.getLocation(), player)) {

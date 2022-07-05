@@ -2,6 +2,7 @@ package com.rs.plugin.standard.impl.commands;
 
 import com.rs.plugin.standard.listener.Command;
 import com.rs.plugin.standard.wrapper.CommandSignature;
+import com.xeno.content.mapzone.impl.TestMapZone;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.net.entity.masks.Animation;
 
@@ -9,6 +10,8 @@ import com.xeno.net.entity.masks.Animation;
 public final class TestCommandPlugin implements Command {
     @Override
     public void execute(Player player, String[] parts, String command) {
-    	player.setNextAnimation(new Animation(50, () -> player.simpleTask(5, p -> p.getActionSender().sendMessage("lol"))));
+    	System.out.println(player.getCurrentMapZone().isPresent());
+    	player.getMapZoneManager().submitMapZone(player, new TestMapZone());
+    	System.out.println(player.getCurrentMapZone().isPresent());
     }
 }

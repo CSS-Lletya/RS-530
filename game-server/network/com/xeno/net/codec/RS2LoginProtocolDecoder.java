@@ -154,12 +154,12 @@ public class RS2LoginProtocolDecoder extends CumulativeProtocolDecoder {
 					sessionKey[1] = (int)clientSessionKey;
 					sessionKey[2] = (int)(serverSessionKey >> 32);
 					sessionKey[3] = (int)serverSessionKey;
-					ISAACCipher incoming = new ISAACCipher(sessionKey);
-					for (int i = 0; i < 4; i++) {
-						sessionKey[i] += 50;
-					}
-					ISAACCipher outgoing = new ISAACCipher(sessionKey);
-					IsaacGroup group = new IsaacGroup(incoming, outgoing);
+//					ISAACCipher incoming = new ISAACCipher(sessionKey);
+//					for (int i = 0; i < 4; i++) {
+//						sessionKey[i] += 50;
+//					}
+//					ISAACCipher outgoing = new ISAACCipher(sessionKey);
+//					IsaacGroup group = new IsaacGroup(incoming, outgoing);
 					/*session.setAttribute("CRYPTION_IN", new ISAACCipher(sessionKey));
 					for(int i = 0; i < 4; i++) {
 						sessionKey[i] += 50;
@@ -179,7 +179,7 @@ public class RS2LoginProtocolDecoder extends CumulativeProtocolDecoder {
 					session.setIdleTime(IdleStatus.BOTH_IDLE, Constants.SESSION_IDLE_TIME);
 
 					session.getFilterChain().remove("protocolFilter");
-					session.getFilterChain().addLast("protocolFilter", new ProtocolCodecFilter(new CodecFactory(group)));
+					session.getFilterChain().addLast("protocolFilter", new ProtocolCodecFilter(new CodecFactory()));
 					return true;
 				} else {
 					in.rewind();

@@ -35,6 +35,11 @@ public class InterfaceManager {
 		player.getPlayerDetails().refresh();
 		player.getEquipment().setWeapon();
 		player.getActionSender().setPrivacyOptions();
+		player.getActionSender().sendConfig(313, -1);// Emotes
+		player.getActionSender().sendConfig(465, 7);// Goblin emotes
+		player.getActionSender().sendConfig(802, -1);// Stronghold of security.
+		player.getActionSender().sendConfig(1085, 249852);// Zombie hand emote
+		player.getActionSender().sendConfig(1160,-1); //summoning orb
 		setWelcome();
 	}
 

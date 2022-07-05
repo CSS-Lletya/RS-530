@@ -19,4 +19,9 @@ public class TestMapZone extends MapZone {
 	public void finish(Player player) {
 		
 	}
+	
+	@Override
+	public boolean canMove(Player player, int dir) {
+		return true;
+	}
 }

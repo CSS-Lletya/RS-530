@@ -64,7 +64,7 @@ public class NPCInteractionsPacket implements OutgoingPacket {
 		if (npc == null || npc.isValid()) {
 			return;
 		}
-		if (!player.getMapZoneManager().execute(player, zone -> zone.processNPCClick1(player, npc)))
+		if (player.getMapZoneManager().execute(player, zone -> !zone.processNPCClick1(player, npc)))
 			return;
 		System.out.println("NPC ID = " + npc.getId());
 //		Combat.newAttack(player, npc);
@@ -80,7 +80,7 @@ public class NPCInteractionsPacket implements OutgoingPacket {
 		if (npc == null || npc.isValid()) {
 			return;
 		}
-		if (!player.getMapZoneManager().execute(player, zone -> zone.processNPCClick2(player, npc)))
+		if (player.getMapZoneManager().execute(player, zone -> !zone.processNPCClick2(player, npc)))
 			return;
 		System.out.println("Second click NPC " + npc.getId());
 	}
@@ -95,7 +95,7 @@ public class NPCInteractionsPacket implements OutgoingPacket {
 		if (npc == null || npc.isValid()) {
 			return;
 		}
-		if (!player.getMapZoneManager().execute(player, zone -> zone.processNPCClick3(player, npc)))
+		if (player.getMapZoneManager().execute(player, zone -> !zone.processNPCClick3(player, npc)))
 			return;
 		System.out.println("Third click NPC " + npc.getId());
 	}
@@ -110,7 +110,7 @@ public class NPCInteractionsPacket implements OutgoingPacket {
 		if (npc == null || npc.isValid()) {
 			return;
 		}
-		if (!player.getMapZoneManager().execute(player, zone -> zone.processNPCClick4(player, npc)))
+		if (player.getMapZoneManager().execute(player, zone -> !zone.processNPCClick4(player, npc)))
 			return;
 		System.out.println("Fourth click NPC " + npc.getId());
 	}
@@ -160,7 +160,7 @@ public class NPCInteractionsPacket implements OutgoingPacket {
 		if (npc == null || npc.isValid()) {
 			return;
 		}
-		if (!player.getMapZoneManager().execute(player, zone -> zone.processItemOnNPC(player, npc, new Item(item))))
+		if (player.getMapZoneManager().execute(player, zone -> !zone.processItemOnNPC(player, npc, new Item(item))))
 			return;
 		player.getInterfaceManager().closeInterfaces();
 		System.out.println("Item on NPC " + npc.getId());

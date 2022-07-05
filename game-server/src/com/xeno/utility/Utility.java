@@ -1262,5 +1262,16 @@ public class Utility {
 		}
 		return classes;
 	}
+
+	private static final long INIT_MILLIS = System.currentTimeMillis();
+	private static final long INIT_NANOS = System.nanoTime();
+
+	private static long millisSinceClassInit() {
+		return (System.nanoTime() - INIT_NANOS) / 1000000;
+	}
+
+	public static long currentTimeMillis() {
+		return INIT_MILLIS + millisSinceClassInit();
+	}
 	
 }

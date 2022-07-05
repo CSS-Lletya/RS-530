@@ -55,7 +55,7 @@ public class Equipment {
 			} 
 		}
 		
-		if (!p.getMapZoneManager().execute(p, zone -> zone.canEquip(p, slot, itemID)))
+		if (p.getMapZoneManager().execute(p, zone -> !zone.canEquip(p, slot, itemID)))
 			return false;
 		
 		if (!p.getInventory().deleteItem(itemID, slot, amount)) {

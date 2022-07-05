@@ -10,6 +10,6 @@ public class EmotesInterfacePlugin implements RSInterface {
 
 	@Override
 	public void execute(Player player, int interfaceId, int button, int button2) throws Exception {
-		Emotes.emote(player, button);
+		Emotes.Emote.executeEmote(player, button);
 	}
 }

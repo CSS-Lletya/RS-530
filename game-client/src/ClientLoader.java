@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 public class ClientLoader extends Applet
 {
 	public static final boolean useRsa = false;
-	public static final boolean USEISAAC = true;
+	public static final boolean USEISAAC = false;
 	public static Properties props = new Properties();
 	public JFrame frame;
 	private JPanel jp = new JPanel();

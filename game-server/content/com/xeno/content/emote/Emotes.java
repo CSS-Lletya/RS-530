@@ -1,116 +1,197 @@
 package com.xeno.content.emote;
 
+import java.util.Optional;
+
 import com.xeno.entity.actor.player.Player;
+import com.xeno.entity.actor.player.task.LinkedTaskSequence;
 import com.xeno.net.entity.masks.Animation;
 import com.xeno.net.entity.masks.Graphics;
+import com.xeno.utility.Utility;
+
+import lombok.Getter;
 
 /**
- * Emotes helper class.
- * @author Graham
+ * A new way of handling Emotes & Special Emotes such as Linked Queue emotes &
+ * Skillcapes.
+ * 
+ * @author Dennis
  *
  */
 public class Emotes {
 	
 	/**
-	 * Handles a player emote: does the appropriate animation.
-	 * @param player
-	 * @param buttonId
-	 * @return
+	 * A list of Emotes for the Player to perform from the Emotes tab
+	 * 
+	 * @author Dennis
+	 *
 	 */
-	public static boolean emote(Player player, int buttonId) {
-		if (buttonId == 2) {
-			player.setNextAnimation(new Animation(855, 0));
-		} else if (buttonId == 3) {
-			player.setNextAnimation(new Animation(856, 0));
-		} else if (buttonId == 4) {
-			player.setNextAnimation(new Animation(858, 0));
-		} else if (buttonId == 5) {
-			player.setNextAnimation(new Animation(859, 0));
-		} else if (buttonId == 6) {
-			player.setNextAnimation(new Animation(857, 0));
-		} else if (buttonId == 7) {
-			player.setNextAnimation(new Animation(863, 0));
-		} else if (buttonId == 8) {
-			player.setNextAnimation(new Animation(2113, 0));
-		} else if (buttonId == 9) {
-			player.setNextAnimation(new Animation(862, 0));
-		} else if (buttonId == 10) {
-			player.setNextAnimation(new Animation(864, 0));
-		} else if (buttonId == 11) {
-			player.setNextAnimation(new Animation(861, 0));
-		} else if (buttonId == 12) {
-			player.setNextAnimation(new Animation(2109, 0));
-		} else if (buttonId == 13) {
-			player.setNextAnimation(new Animation(2111, 0));
-		} else if (buttonId == 14) {
-			player.setNextAnimation(new Animation(866, 0));
-		} else if (buttonId == 15) {
-			player.setNextAnimation(new Animation(2106, 0));
-		} else if (buttonId == 16) {
-			player.setNextAnimation(new Animation(2107, 0));
-		} else if (buttonId == 17) {
-			player.setNextAnimation(new Animation(2108, 0));
-		} else if (buttonId == 18) {
-			player.setNextAnimation(new Animation(860, 0));
-		} else if (buttonId == 19) {
-			player.setNextAnimation(new Animation(0x558, 0));
-			player.setNextGraphic(new Graphics(574, 0));
-		} else if (buttonId == 20) {
-			player.setNextAnimation(new Animation(2105, 0));
-		} else if (buttonId == 21) {
-			player.setNextAnimation(new Animation(2110, 0));
-		} else if (buttonId == 22) {
-			player.setNextAnimation(new Animation(865, 0));
-		} else if (buttonId == 23) {
-			player.setNextAnimation(new Animation(2112, 0));
-		} else if (buttonId == 24) {
-			player.setNextAnimation(new Animation(0x84F, 0));
-		} else if (buttonId == 25) {
-			player.setNextAnimation(new Animation(0x850, 0));
-		} else if (buttonId == 26) {
-			player.setNextAnimation(new Animation(1131, 0));
-		} else if (buttonId == 27) {
-			player.setNextAnimation(new Animation(1130, 0));
-		} else if (buttonId == 28) {
-			player.setNextAnimation(new Animation(1129, 0));
-		} else if (buttonId == 29) {
-			player.setNextAnimation(new Animation(1128, 0));
-		} else if (buttonId == 30) {
-			player.setNextAnimation(new Animation(4275, 0));
-		} else if (buttonId == 31) {
-			player.setNextAnimation(new Animation(1745, 0));
-		} else if (buttonId == 32) {
-			player.setNextAnimation(new Animation(4280, 0));
-		} else if (buttonId == 33) {
-			player.setNextAnimation(new Animation(4276, 0));
-		} else if (buttonId == 34) {
-			player.setNextAnimation(new Animation(3544, 0));
-		} else if (buttonId == 35) {
-			player.setNextAnimation(new Animation(3543, 0));
-		} else if (buttonId == 36) {
-			player.setNextAnimation(new Animation(7272, 0));
-			player.setNextGraphic(new Graphics(1244, 0));
-		} else if (buttonId == 37) {
-			player.setNextAnimation(new Animation(2836, 0));
-		} else if (buttonId == 38) {
-			player.setNextAnimation(new Animation(6111, 0));
-		} else if (buttonId == 39) {
-			Skillcape.emote(player);
-		} else if (buttonId == 40) {
-			player.setNextAnimation(new Animation(7531, 0)); 
-		} else if (buttonId == 41) {
-			player.setNextAnimation(new Animation(2414, 0));
-			player.setNextGraphic(new Graphics(1537, 0));
-		} else if (buttonId == 42)  {
-			player.setNextAnimation(new Animation(8770, 0)); 
-			player.setNextGraphic(new Graphics(1553, 0));
-		} else if (buttonId == 43) {
-			player.setNextAnimation(new Animation(9990, 0));
-			player.setNextGraphic(new Graphics(1734, 0));
-		} else {
+	public enum Emote {
+		YES((byte) 2, Optional.of(new Animation(855)), Optional.empty(), Optional.empty()),
+		NO((byte) 3, Optional.of(new Animation(856)), Optional.empty(), Optional.empty()),
+		BOW((byte) 4, Optional.of(new Animation(858)), Optional.empty(), Optional.empty()),
+		ANGRY((byte) 5, Optional.of(new Animation(859)), Optional.empty(), Optional.empty()),
+		THINKING((byte) 6, Optional.of(new Animation(857)), Optional.empty(), Optional.empty()),
+		WAVE((byte) 7, Optional.of(new Animation(863)), Optional.empty(), Optional.empty()),
+		SHRUG((byte) 8, Optional.of(new Animation(2113)), Optional.empty(), Optional.empty()),
+		CHEER((byte) 9, Optional.of(new Animation(862)), Optional.empty(), Optional.empty()),
+		BECKON((byte) 10, Optional.of(new Animation(864)), Optional.empty(), Optional.empty()),
+		LAUGH((byte) 12, Optional.of(new Animation(861)), Optional.empty(), Optional.empty()),
+		JUMP_FOR_JOY((byte) 11, Optional.of(new Animation(2109)), Optional.empty(), Optional.empty()),
+		YAWN((byte) 13, Optional.of(new Animation(2111)), Optional.empty(), Optional.empty()),
+		DANCE((byte) 14, Optional.of(new Animation(866)), Optional.empty(), Optional.empty()),
+		JIG((byte) 15, Optional.of(new Animation(2106)), Optional.empty(), Optional.empty()),
+		TWIRL((byte) 16, Optional.of(new Animation(2107)), Optional.empty(), Optional.empty()),
+		HEADBANG((byte) 17, Optional.of(new Animation(2108)), Optional.empty(), Optional.empty()),
+		CRY((byte) 18, Optional.of(new Animation(860)), Optional.empty(), Optional.empty()),
+		BLOW_KISS((byte) 19, Optional.of(new Animation(1374)), Optional.of(new Graphics(1702)), Optional.empty()),
+		PANIC((byte) 20, Optional.of(new Animation(2105)), Optional.empty(), Optional.empty()),
+		RASPBERRY((byte) 21, Optional.of(new Animation(2110)), Optional.empty(), Optional.empty()),
+		CLAP((byte) 22, Optional.of(new Animation(865)), Optional.empty(), Optional.empty()),
+		SALUTE((byte) 23, Optional.of(new Animation(2112)), Optional.empty(), Optional.empty()),
+		GOBLIN_BOW((byte) 24, Optional.of(new Animation(0x84F)), Optional.empty(), Optional.empty()),
+		GOBLIN_SALUTE((byte) 25, Optional.of(new Animation(0x850)), Optional.empty(), Optional.empty()),
+		GLASS_BOX((byte) 26, Optional.of(new Animation(1131)), Optional.empty(), Optional.empty()),
+		CLIMB_ROPE((byte) 27, Optional.of(new Animation(1130)), Optional.empty(), Optional.empty()),
+		LEAN((byte) 28, Optional.of(new Animation(1129)), Optional.empty(), Optional.empty()),
+		GLASS_WALL((byte) 29, Optional.of(new Animation(1128)), Optional.empty(), Optional.empty()),
+		IDEA((byte) 30, Optional.of(new Animation(4275)), Optional.empty(), Optional.empty()),
+		STOMP((byte) 31, Optional.of(new Animation(1745)), Optional.empty(), Optional.empty()),
+		FLAP((byte) 32, Optional.of(new Animation(4280)), Optional.empty(), Optional.empty()),
+		SLAP_HEAD((byte) 33, Optional.of(new Animation(4276)), Optional.empty(), Optional.empty()),
+		ZOMBIE_WALK((byte) 34, Optional.of(new Animation(3544)), Optional.empty(), Optional.empty()),
+		ZOMBIE_DANCE((byte) 35, Optional.of(new Animation(3543)), Optional.empty(), Optional.empty()),
+		ZOMBIE_HAND((byte) 36, Optional.of(new Animation(7272)), Optional.of(new Graphics(1244)), Optional.empty()),
+		SCARED((byte) 37, Optional.of(new Animation(2836)), Optional.empty(), Optional.empty()),
+		BUNNY_HOP((byte) 38, Optional.of(new Animation(6111)), Optional.empty(), Optional.empty()),
+		//skillcape is 39
+		SNOWMAN_DANCE((byte) 40, Optional.of(new Animation(7531)), Optional.empty(), Optional.empty()),
+		AIR_GUITAR((byte) 41, Optional.of(new Animation(2414)), Optional.of(new Graphics(1537)), Optional.of(SpecialEmote.AIR_GUITAR)),
+		SAFETY_FIRST((byte) 42, Optional.of(new Animation(8770)), Optional.of(new Graphics(1553)), Optional.empty()),
+		EXPLORE((byte) 43, Optional.of(new Animation(9990)), Optional.of(new Graphics(1734)), Optional.empty()),
+		TRICK((byte) 44, Optional.of(new Animation(10530)), Optional.of(new Graphics(1864)), Optional.empty()),
+		FREEZE((byte) 45, Optional.of(new Animation(11044)), Optional.of(new Graphics(1973)), Optional.empty()),
+		TURKEY((byte) 46, Optional.empty(),  Optional.empty(), Optional.of(SpecialEmote.TURKEY)),
+		AROUND_THE_WORLD_IN_EGGTY_DAYS((byte) 47, Optional.of(new Animation(11542)), Optional.of(new Graphics(2037)), Optional.empty()),
+		DRAMATIC_POINT((byte) 48, Optional.of(new Animation(12658)), Optional.empty(), Optional.empty()),
+		FAINT((byte) 49, Optional.of(new Animation(14165 )), Optional.empty(), Optional.empty()),
+		PUPPET_MASTER((byte) 50, Optional.of(new Animation(14869)), Optional.of(new Graphics(2837)), Optional.empty()),
+		TASK_MASTER((byte) 51, Optional.of(new Animation(15033)), Optional.of(new Graphics(2930)), Optional.empty())
+		;
+
+		/**
+		 * The button Id (slot id).
+		 */
+		@Getter
+		private final byte buttonId;
+		
+		/**
+		 * The Animation being performed.
+		 */
+		@Getter
+		private final Optional<Animation> animation;
+		
+		/**
+		 * The Graphics being performed.
+		 */
+		@Getter
+		private final Optional<Graphics> graphics;
+		
+		/**
+		 * The Special Emote being performed.
+		 */
+		@Getter
+		private final Optional<SpecialEmote> specialEmote;
+
+		/**
+		 * Constructs a new Player Emote.
+		 * 
+		 * @param buttonId
+		 * @param animation
+		 * @param graphics
+		 * @param specialEmote
+		 */
+		private Emote(byte buttonId, Optional<Animation> animation, Optional<Graphics> graphics,
+				Optional<SpecialEmote> specialEmote) {
+			this.buttonId = buttonId;
+			this.animation = animation;
+			this.graphics = graphics;
+			this.specialEmote = specialEmote;
+		}
+
+		/**
+		 * Executes the Emote.
+		 * 
+		 * @param player
+		 * @param buttonId
+		 */
+		public static void executeEmote(Player player, int buttonId) {
+			if (isDoingEmote(player))
+	    		return;
+			for (Emote emote : Emote.values()) {
+				if (buttonId == emote.getButtonId()) {
+					System.out.println(buttonId);
+					emote.getSpecialEmote().ifPresent(user -> user.handleSpecialEmote(player));
+
+					emote.getAnimation().ifPresent(player::setNextAnimation);
+					emote.getGraphics().ifPresent(player::setNextGraphic);
+					if (!isDoingEmote(player))
+//					    setNextEmoteEnd(player);
+						System.out.println("need anim def for anim delays");
+				}
+			}
+		}
+
+	    public void setNextEmoteEnd(Player player, long delay) {
+	    	player.setNextEmoteEnd(Utility.currentTimeMillis() + delay);
+	    }
+
+	    public static boolean isDoingEmote(Player player) {
+	    	return player.getNextEmoteEnd() >= Utility.currentTimeMillis();
+	    }
+	}
+	
+	/**
+	 * A list of Special Emote events to take place (Skillcapes, Linked Queue events, etc..).
+	 * @author Dennis
+	 *
+	 */
+	private enum SpecialEmote {
+		AIR_GUITAR {
+			@Override
+			protected boolean handleSpecialEmote(Player player) {
+//				player.getActionSender().sendMusicEffect(302);
+				return true;
+			}
+		},
+		TURKEY {
+			@Override
+			protected boolean handleSpecialEmote(Player player) {
+				LinkedTaskSequence turkeySeq = new LinkedTaskSequence();
+				turkeySeq.connect(1, () -> {
+					player.setNextAnimation(new Animation(10994));
+					player.setLastGraphics(new Graphics(86));
+				});
+				turkeySeq.connect(2, () -> {
+					player.setNextAnimation(new Animation(10996));
+					player.getAppearance().setNpcId(8499);
+				});
+				turkeySeq.connect(6, () -> {
+					player.setNextAnimation(new Animation(10995));
+					player.setLastGraphics(new Graphics(86));
+					player.getAppearance().setNpcId(-1);
+				});
+				turkeySeq.start();
+				return true;
+			}
+		};
+		
+		/**
+		 * The execution method for the Special Emote.
+		 * @param player
+		 * @return state
+		 */
+		protected boolean handleSpecialEmote(Player player) {
 			return false;
 		}
-		return true;
 	}
-
 }

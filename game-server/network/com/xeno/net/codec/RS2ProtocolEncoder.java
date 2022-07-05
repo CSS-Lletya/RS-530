@@ -9,15 +9,11 @@ import com.xeno.net.Packet;
 
 public class RS2ProtocolEncoder implements ProtocolEncoder {
 	
-	private final ISAACCipher outgoing;
 	
 	/**
 	 * Only CodecFactory can create us.
-	 * @param outgoing
 	 */
-	protected RS2ProtocolEncoder(ISAACCipher outgoing) {
-		this.outgoing = outgoing;
-	}
+	protected RS2ProtocolEncoder() {}
 
 	@Override
 	/**
@@ -35,7 +31,7 @@ public class RS2ProtocolEncoder implements ProtocolEncoder {
 			if (!p.isBare()) {
 				buffer = ByteBuffer.allocate(dataLength + 3);
 				int id = p.getId();
-				buffer.put((byte) (id + outgoing.getNextKey()));
+				buffer.put((byte)id);
 				if(p.getSize() != Packet.Size.Fixed) { //variable length
 					//Logger.log("variable length: id="+id+",dataLength="+dataLength);
 					if(p.getSize() == Packet.Size.VariableByte) {

@@ -14,7 +14,6 @@ import org.apache.mina.common.IoSession;
 import com.xeno.content.Clan;
 import com.xeno.content.ShopSession;
 import com.xeno.content.TradeSession;
-import com.xeno.content.emote.SkillCapes;
 import com.xeno.content.mapzone.MapZone;
 import com.xeno.content.mapzone.MapZoneManager;
 import com.xeno.entity.EntityType;
@@ -106,7 +105,6 @@ public class Player extends Actor {
 	private transient ShopSession shopSession;
 	private transient Clan clan;
 	private transient Prayers prayers;
-	private transient SkillCapes skillCapes;
 	private Bank bank;
 	private Appearance appearance;
 	private Equipment equipment;
@@ -115,6 +113,11 @@ public class Player extends Actor {
 	private Friends friends;
 	private transient MapZoneManager mapZoneManager;
 	private Optional<MapZone> currentMapZone = Optional.empty();
+	
+	/**
+	 * Represents a Player's last Emote delay (used for various things)
+	 */
+	private transient long nextEmoteEnd;
     
     public transient InterfaceManager interfaceManager;
 	private transient Queue<Hit> queuedHits;
@@ -158,7 +161,6 @@ public class Player extends Actor {
 		duelRequests = new ArrayList<Player>();
 		playerCredentials.refreshLongName();
 		queuedHits = new LinkedList<Hit>();
-		skillCapes = new SkillCapes(this);
 		interfaceManager = new InterfaceManager(this);
 		mapZoneManager = new MapZoneManager();
 		return this;
