@@ -19,6 +19,12 @@ public class Location implements Cloneable {
 		this.z = z;
 	}
 	
+	public Location(int x, int y) {
+		this.x = x;
+		this.y = y;
+		this.z = 0;
+	}
+	
 	public int getX() {
 		return x;
 	}

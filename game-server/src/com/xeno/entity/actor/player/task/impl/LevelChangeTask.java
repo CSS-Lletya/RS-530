@@ -35,11 +35,11 @@ public final class LevelChangeTask extends Task {
 						continue;
 					}
 				}
-				if (p.getSkills().getLevelForXp(i) < p.getSkills().getLevelForXp(i)) {
-					p.getSkills().setLevel(i, p.getSkills().getLevelForXp(i) + 1);
+				if (p.getSkills().getTrueLevel(i) < p.getSkills().getTrueLevel(i)) {
+					p.getSkills().setLevel(i, p.getSkills().getTrueLevel(i) + 1);
 					updated = true;
-				} else if (p.getSkills().getLevelForXp(i) > p.getSkills().getLevelForXp(i) && i != 3 && status == 1) { // status == 1 so stats DONT go down 2x faster.
-					p.getSkills().setLevel(i, p.getSkills().getLevelForXp(i) - 1);
+				} else if (p.getSkills().getTrueLevel(i) > p.getSkills().getTrueLevel(i) && i != 3 && status == 1) { // status == 1 so stats DONT go down 2x faster.
+					p.getSkills().setLevel(i, p.getSkills().getTrueLevel(i) - 1);
 					updated = true;
 				}
 			}

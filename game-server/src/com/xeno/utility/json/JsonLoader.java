@@ -1,4 +1,4 @@
-package com.xeno.utility;
+package com.xeno.utility.json;
 
 import com.google.gson.*;
 

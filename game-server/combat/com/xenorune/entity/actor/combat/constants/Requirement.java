@@ -2,8 +2,8 @@ package com.xenorune.entity.actor.combat.constants;
 
 import com.xeno.entity.actor.item.Item;
 import com.xeno.entity.actor.player.Player;
-import com.xeno.model.player.skills.SkillData;
 import com.xeno.model.player.skills.Skills;
+import com.xeno.utility.json.impl.EquipmentRequirementLoader.SkillData;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
 
@@ -65,7 +65,7 @@ public final class Requirement {
 		if(req == null)
 			return true;
 		for(Requirement r : req) {
-			if(player.getSkills().getLevelForXp(r.skill.getId()) < r.level) {
+			if(player.getSkills().getTrueLevel(r.skill.getId()) < r.level) {
 				player.getActionSender().sendMessage
 				("You need " + Skills.SKILL_NAME[r.skill.getId()] + " " + "level of " + r.level + " to equip this item.");
 				return false;

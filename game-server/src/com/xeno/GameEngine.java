@@ -1,6 +1,7 @@
 package com.xeno;
 
 import com.xeno.net.NetworkServer;
+import com.xeno.utility.json.impl.EquipmentRequirementLoader;
 import com.xeno.world.World;
 
 import lombok.Getter;
@@ -33,6 +34,7 @@ public class GameEngine {
 	 */
 	public GameEngine() throws Exception {
 		getLoader().getBackgroundLoader().waitForPendingTasks().shutdown();
+		new EquipmentRequirementLoader().load();
 		World.getInstance().setEngine(this);
 	}
 	

@@ -100,7 +100,7 @@ public class Teleport extends MagicData {
 		if (p.getAttributes().exist(Attribute.TELEPORTING) || p.getAttributes().exist(Attribute.LOCKED)) {
 			return false;
 		}
-		if (p.getSkills().getLevelForXp(MAGIC) < TELEPORT_LVL[teleport]) {
+		if (p.getSkills().getTrueLevel(MAGIC) < TELEPORT_LVL[teleport]) {
 			p.getActionSender().sendMessage("You need a Magic level of " + TELEPORT_LVL[teleport] + " to use this teleport!");
 			return false;
 		}

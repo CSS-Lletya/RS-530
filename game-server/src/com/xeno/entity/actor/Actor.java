@@ -207,7 +207,7 @@ public abstract class Actor extends Entity {
 	 * @param type
 	 * @return actor
 	 */
-	public Actor readResolve(EntityType type) {
+	public Actor register(EntityType type) {
 		this.type = requireNonNull(type);
 		hits = new Hits();
 		target = null;

@@ -30,7 +30,7 @@ public class NPC extends Actor {
 
     public static enum WalkType {
         STATIC,
-        RANGE,
+        WALK,
     }
 
     private int id;
@@ -54,12 +54,17 @@ public class NPC extends Actor {
     public NPC(int id) {
         this.id = id;
         this.definition = NPCDefinition.forId(id);
-        this.setWalkType(WalkType.RANGE);
+        this.setWalkType(WalkType.WALK);
         this.faceDirection = FaceDirection.NORTH;
     }
+    
+    public NPC(int id, Location location) {
+    	this(id);
+    	this.location = location;
+    }
 
-    public Object readResolve() {
-        super.readResolve(EntityType.NPC);
+    public Actor register() {
+        super.register(EntityType.NPC);
         definition = NPCDefinition.forId(id);
         updateFlags = new NPCUpdateFlags();
         this.setFollow(new Follow(this));
@@ -76,7 +81,7 @@ public class NPC extends Actor {
             getFollow().followEntity();
             return;
         }
-        if (Math.random() > 0.8 && walkType == WalkType.RANGE && !this.inCombat() && !getAttributes().exist(Attribute.DEAD) && !getAttributes().exist(Attribute.FROZEN) && id != 0) {
+        if (Math.random() > 0.8 && walkType == WalkType.WALK && !this.inCombat() && !getAttributes().exist(Attribute.DEAD) && !getAttributes().exist(Attribute.FROZEN) && id != 0) {
             int moveX = (int) (Math.floor((Math.random() * 3)) - 1);
             int moveY = (int) (Math.floor((Math.random() * 3)) - 1);
             int tgtX = this.getLocation().getX() + moveX;

@@ -368,12 +368,6 @@ public class World {
 	@SneakyThrows(FileNotFoundException.class)
 	public void setEngine(GameEngine gameEngine){
 		this.engine = gameEngine;
-		LogUtility.log(LogType.DEBUG, "Loading npcs spawns...");
-		List<NPC> spawns = (List<NPC>) XStreamUtil.getXStream().fromXML(new FileInputStream("data/npcs.xml"));
-		for(NPC n : spawns) {
-			npcs.add(n);
-		}
-		LogUtility.log(LogType.DEBUG, "Loaded " + spawns.size() + " npc spawns.");
 		shopManager = new ShopManager();
 		itemManager = new GroundItemManager();
 		objectManager = new ObjectManager();

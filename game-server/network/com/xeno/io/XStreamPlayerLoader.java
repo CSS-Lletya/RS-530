@@ -45,7 +45,7 @@ public class XStreamPlayerLoader implements PlayerLoader {
 			result.returnCode = Constants.ReturnCodes.LOGIN_OK;
 			result.player = new Player(p);
 			result.player.setLocation(GameConstants.RESPAWN_LOCATION);
-			result.player = (Player) result.player.readResolve();
+			result.player = (Player) result.player.register();
 		}
 		return result;
 	}

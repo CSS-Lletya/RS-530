@@ -68,10 +68,10 @@ public class LevelUp {
 		if (!player.getAttributes().exist(Attribute.TELEPORTING)) {
 			player.setNextGraphic(new Graphics(199, 0, 100));
 		}
-		player.getActionSender().sendMessage("You've just advanced a " + Skills.SKILL_NAME[skill] + " level! You have reached level " + player.getSkills().getLevelForXp(skill) + ".");
+		player.getActionSender().sendMessage("You've just advanced a " + Skills.SKILL_NAME[skill] + " level! You have reached level " + player.getSkills().getTrueLevel(skill) + ".");
 		
 		player.getActionSender().modifyText(s + "Congratulations, you have just advanced a " + Skills.SKILL_NAME[skill] + " level!", 740, 0);
-		player.getActionSender().modifyText(s1 + "You have now reached level " + player.getSkills().getLevelForXp(skill) + ".", 740, 1);
+		player.getActionSender().modifyText(s1 + "You have now reached level " + player.getSkills().getTrueLevel(skill) + ".", 740, 1);
 		player.getActionSender().modifyText("", 740, 2);
 		checkTotal(player);
 		player.getActionSender().sendConfig(1179, getConfigHash(skill));

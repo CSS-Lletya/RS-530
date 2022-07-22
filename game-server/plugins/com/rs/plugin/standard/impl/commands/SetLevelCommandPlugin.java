@@ -15,7 +15,7 @@ public final class SetLevelCommandPlugin implements Command {
 		}
 		try {
 			player.getSkills().setLevel(Integer.valueOf(cmd[1]), Integer.valueOf(cmd[2]));
-			player.getSkills().setXp(Integer.valueOf(cmd[1]), player.getSkills().getXpForLevel(Integer.valueOf(cmd[2])));
+			player.getSkills().setXp(Integer.valueOf(cmd[1]), player.getSkills().getTrueExperienceOfLevel(Integer.valueOf(cmd[2])));
 		} catch (Exception e) {
 			//player.getSkills().setLevel(Integer.valueOf(cmd[1]), 99);
 			//player.getSkills().setXp(Integer.valueOf(cmd[1]), player.getSkills().getXpForLevel(99));

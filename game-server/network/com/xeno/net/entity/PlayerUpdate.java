@@ -287,9 +287,9 @@ public class PlayerUpdate implements PacketBuilder {
 	}
 
 	private static void appendHitUpdate(Player p, StaticPacketBuilder updateBlock) {
-		int ratio =  p.getSkills().getLevelForXp(3) * 255 / p.getSkills().getLevelForXp(3);
-		if (p.getSkills().getLevelForXp(3) > p.getSkills().getLevelForXp(3)) {
-			ratio = p.getSkills().getLevelForXp(3) * 255 / p.getSkills().getLevelForXp(3);
+		int ratio =  p.getSkills().getTrueLevel(3) * 255 / p.getSkills().getTrueLevel(3);
+		if (p.getSkills().getTrueLevel(3) > p.getSkills().getTrueLevel(3)) {
+			ratio = p.getSkills().getTrueLevel(3) * 255 / p.getSkills().getTrueLevel(3);
 		}
 		updateBlock.addByte((byte) p.getHits().getHitDamage1());
 		updateBlock.addByteA((byte) p.getHits().getHitType1());

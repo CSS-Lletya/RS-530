@@ -142,8 +142,8 @@ public class Player extends Actor {
 	 * 
 	 * NOTE: other loaders should call this also.
 	 */
-	public Object readResolve() {
-		super.readResolve(EntityType.PLAYER);
+	public Actor register() {
+		super.register(EntityType.PLAYER);
 		actionSender = new ActionSender(this);
 		follow = new Follow(this);
 		queuedPackets = new ObjectArrayFIFOQueue<Packet>();
@@ -265,7 +265,7 @@ public class Player extends Actor {
 				actionSender.sendMessage("Using your prayer skill, you heal yourself.");
 				skills.setLevel(5, 0);
 				actionSender.sendSkillLevel(5);
-				heal((int) (skills.getLevelForXp(5) * 0.25));
+				heal((int) (skills.getTrueLevel(5) * 0.25));
 			}
 		}
 			if (newHp >= 1 && newHp <= maxHp * 0.10 && !redemption) {
@@ -281,8 +281,8 @@ public class Player extends Actor {
 				}
 			}
 		boolean damageOverZero = damage > 0;
-		if(damage > skills.getLevelForXp(3)) {
-			damage = skills.getLevelForXp(3);
+		if(damage > skills.getTrueLevel(3)) {
+			damage = skills.getTrueLevel(3);
 		}
 		if (damageOverZero && damage == 0) {
 			type = Hits.HitType.NO_DAMAGE;
@@ -299,8 +299,8 @@ public class Player extends Actor {
 				return;
 			}
 		}
-		skills.setLevel(3, skills.getLevelForXp(3) - damage);
-		if(skills.getLevelForXp(3) <= 0) {
+		skills.setLevel(3, skills.getTrueLevel(3) - damage);
+		if(skills.getTrueLevel(3) <= 0) {
 			skills.setLevel(3, 0);
 			if(!getAttributes().exist(Attribute.DEAD)) {
 //				World.getInstance().registerEvent(new DeathEvent(this));//TODO: Finish converting
@@ -389,7 +389,7 @@ public class Player extends Actor {
 
 	@Override
 	public int getHp() {
-		return this.getSkills().getLevelForXp(3);
+		return this.getSkills().getTrueLevel(3);
 	}
 
 	@Override
@@ -478,7 +478,7 @@ public class Player extends Actor {
 
 	@Override
 	public int getMaxHp() {
-		return this.getSkills().getLevelForXp(3);
+		return this.getSkills().getTrueLevel(3);
 	}
 
 	@Override
@@ -486,12 +486,12 @@ public class Player extends Actor {
 		if (getAttributes().exist(Attribute.DEAD)) {
 			return;
 		}
-		if ((skills.getLevelForXp(3) + amount) > (skills.getLevelForXp(3))) {
-			skills.setLevel(3, skills.getLevelForXp(3));
+		if ((skills.getTrueLevel(3) + amount) > (skills.getTrueLevel(3))) {
+			skills.setLevel(3, skills.getTrueLevel(3));
 			actionSender.sendSkillLevel(3);
 			return;
 		}
-		skills.setLevel(3, skills.getLevelForXp(3) + amount);
+		skills.setLevel(3, skills.getTrueLevel(3) + amount);
 		actionSender.sendSkillLevel(3);
 	}
 

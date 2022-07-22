@@ -1,23 +1,30 @@
 package com.xeno.model.player.skills;
 
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 
 import com.xeno.entity.actor.player.Player;
-import com.xeno.model.player.skills.prayer.Prayer;
 
 import lombok.Data;
 
+
 /**
- * Manages the player's skills.
- * @author Graham
+ * Represents a Players set of Skills & Skiling methods.
+ * @author Dennis
  *
  */
 @Data
 public class Skills {
 	
+	/**
+	 * Represents the Player training a Skill.
+	 */
 	private transient Player player;
 	
-	public static final double MAXIMUM_EXP = 200000000;
+	/**
+	 * The maximum amount of experience to achieve in a Skill.
+	 */
+	public static final double MAXIMUM_EXP = 200_000_000;
 	
 	/**
 	 * Simple Skill name with value constants
@@ -35,39 +42,48 @@ public class Skills {
 			"Herblore", "Agility", "Thieving", "Slayer", "Farming", "Runecrafting", "Hunter", "Construction",
 			"Summoning", "Dungeoneering" };
 	
+	/**
+	 * Represents the maximum amount of Skills to be trained.
+	 */
 	public static final int SKILL_COUNT = 24;
 	
-	private int level[] = new int[SKILL_COUNT];
-	private double xp[] = new double[SKILL_COUNT];
-	private transient int tempHealthLevel;
+	/**
+	 * An array of skills to be trained.
+	 */
+	private final int SKILL[] = new int[SKILL_COUNT];
 	
+	/**
+	 * An array of experienced per skill.
+	 */
+	private final double EXPERIENCE[] = new double[SKILL_COUNT];
+	
+	/**
+	 * Constructs a new set of Skills for a new Player.
+	 */
 	public Skills() {
-		IntStream.range(0, 24).forEach(skill -> {
-			level[skill] = 1;
-			xp[skill] = 0;
+		IntStream.range(0, SKILL_COUNT).forEach(skills -> {
+			SKILL[skills] = 1;
+			EXPERIENCE[skills] = 0;
 		});
-		level[HITPOINTS] = 10;
-		xp[HITPOINTS] = 1184;
+		SKILL[HITPOINTS] = 10;
+		EXPERIENCE[HITPOINTS] = 1184;
+		SKILL[HERBLORE] = 3;
+		EXPERIENCE[HERBLORE] = 250;
 	}
 	
-	public Object readResolve() {
-		tempHealthLevel = level[3];
-		return this;
-	}
-	
-	public double getXp(int skill) {
-		return xp[skill];
-	}
-	
+	/**
+	 * Caclulates the Players Combat Level.
+	 * @return
+	 */
 	public int getCombatLevel() {
-		int attack = getLevelForXp(0);
-		int defence = getLevelForXp(1);
-		int strength = getLevelForXp(2);
-		int hp = getLevelForXp(3);
-		int prayer = getLevelForXp(5);
-		int ranged = getLevelForXp(4);
-		int magic = getLevelForXp(6);
-		int summoning = getLevelForXp(23);
+		int attack = getTrueLevel(Skills.ATTACK);
+		int defence = getTrueLevel(Skills.DEFENCE);
+		int strength = getTrueLevel(Skills.STRENGTH);
+		int hp = getTrueLevel(Skills.HITPOINTS);
+		int prayer = getTrueLevel(Skills.PRAYER);
+		int ranged = getTrueLevel(Skills.RANGE);
+		int magic = getTrueLevel(Skills.RANGE);
+		int summoning = getTrueLevel(Skills.SUMMONING);
 		
 		double combatLevel = (defence + hp + Math.floor(prayer / 2) + Math.floor(summoning / 2)) * 0.25;
 		double warrior = (attack + strength) * 0.325;
@@ -76,30 +92,53 @@ public class Skills {
 
 		return (int) (combatLevel + Math.max(warrior, Math.max(ranger, mage)));
 	}
-
-	public void setLevel(int skill, int lvl) {
-		level[skill] = lvl;
-		if (level[skill] <= 1 && skill != 3 && skill != 5) {
-			level[skill] = 1;
-		}
-		if (skill == 5) {
-			player.getPlayerDetails().setPrayerPoints((int) lvl);
-			if (level[5] <= 0 || lvl == 0) {
-				level[5] = 0;
-				player.getActionSender().sendMessage("You have run out of Prayer points, please recharge your prayer at an altar.");
-				Prayer.deactivateAllPrayers(player);
-			}
-		} else if (skill == 3) {
-			tempHealthLevel = lvl;
-		}
+	
+	/**
+	 * Sets the target Skill to a specific level.
+	 * @param skills
+	 * @param lvl
+	 */
+	public void setLevel(int skills, int lvl) {
+		if (SKILL[skills] <= 1)
+			SKILL[skills] = 1;
+		SKILL[skills] = lvl;
 	}
 	
+	/**
+	 * Increase a target skill by one.
+	 * @param skill
+	 * @param targetLevel
+	 */
+	public void increaseLevel(int skill) {
+		SKILL[skill]++;
+	}
+	
+	/**
+	 * Decrease a target skill by one.
+	 * @param skill
+	 * @param targetLevel
+	 */
+	public void decreaseLevel(int skill) {
+		SKILL[skill]--;
+	}
+	
+	/**
+	 * Sets the specified Skill new experience.
+	 * @param skill
+	 * @param newXp
+	 */
 	public void setXp(int skill, int newXp) {
-		xp[skill] = newXp;
+		EXPERIENCE[skill] = newXp;
 	}
 	
-	public int getLevelForXp(int skill) {
-		double exp = xp[skill];
+	/**
+	 * Gets the true level of the Skill
+	 * (potions, such give bonus, this method gets the real base level)
+	 * @param skill
+	 * @return
+	 */
+	public int getTrueLevel(int skill) {
+		double exp = EXPERIENCE[skill];
 		int points = 0;
 		int output = 0;
 		for(int lvl = 1; lvl < 100; lvl++) {
@@ -112,7 +151,12 @@ public class Skills {
 		return 99;
 	}
 	
-	public int getXpForLevel(int level) {
+	/**
+	 * Gets the true experience of a Skill level
+	 * @param skill
+	 * @return
+	 */
+	public int getTrueExperienceOfLevel(int level) {
 		int points = 0;
 		int output = 0;
 		for (int lvl = 1; lvl <= level; lvl++) {
@@ -125,62 +169,86 @@ public class Skills {
 		return 0;
 	}
 	
+	/**
+	 * Adds specified amount of experience to a specific skill.
+	 * @param skill
+	 * @param exp
+	 */
 	public void addXp(int skill, double exp) {
-		int oldLevel = getLevelForXp(skill);
-		xp[skill] += exp;
-		if(xp[skill] >= MAXIMUM_EXP) {
-			xp[skill] = MAXIMUM_EXP;
+		int oldLevel = getTrueLevel(skill);
+		EXPERIENCE[skill] += exp;
+		if(EXPERIENCE[skill] >= MAXIMUM_EXP) {
+			EXPERIENCE[skill] = MAXIMUM_EXP;
 		}
-		int newLevel = getLevelForXp(skill);
+		int newLevel = getTrueLevel(skill);
 		if(newLevel > oldLevel && newLevel <= 99) {
-			if (skill != 3) {
-				level[skill] = newLevel;
-			} else {
-				level[3]++;
-				tempHealthLevel = level[3];
-			}
 			LevelUp.levelUp(player, skill);
 			player.getUpdateFlags().setAppearanceUpdateRequired(true);
 		}
 		player.getActionSender().sendSkillLevel(skill);
 	}
+	
+	/**
+	 * Gets the total XP of a Players current set of skills.
+	 * @return
+	 */
+	public int getTotalXp() {
+		AtomicInteger total = new AtomicInteger();
+		IntStream.range(0, SKILL_COUNT).forEach(skill -> total.getAndSet((int) (total.doubleValue() + EXPERIENCE[skill])));
+		return total.get();
+	}
 
-	public boolean hasMultiple99s() {
-		int j = 0;
-		for (int i = 0; i < SKILL_COUNT; i++) {
-			if (getLevelForXp(i) >= 99) {
-				j++;
-			}
-		}
-		return j > 1;
+	/**
+	 * Gets the total level of a Players current set of skills.
+	 * @return
+	 */
+	public int getTotalLevel() {
+		AtomicInteger total = new AtomicInteger();
+		IntStream.range(0, SKILL_COUNT).forEach(skill -> total.getAndSet((int) (total.doubleValue() + getTrueLevel(skill))));
+		return total.get();
+	}
+
+	/**
+	 * Increase prayer points by one, typically on a level up we'd do this (rsps wise).
+	 */
+	public void increasePrayerPoint() {
+		increasePrayerPoints(1);
 	}
 	
-	public int getTotalXp() {
-		int total = 0;
-		for (int i = 0; i < SKILL_COUNT; i++) {
-			total += xp[i];
-		}
-		return total;
-	}
-
-	public int getTotalLevel() {
-		int total = 0;
-		for (int i = 0; i < SKILL_COUNT; i++) {
-			total += getLevelForXp(i);
-		}
-		return total;
-	}
-
+	/**
+	 * Increases the Prayer points of a Player to a specific amount
+	 * 
+	 * @param modification
+	 */
 	public void increasePrayerPoints(double modification) {
 		int prayerPoints = (int) player.getPlayerDetails().getPrayerPoints();
 		int lvlBefore = (int) Math.ceil(prayerPoints);
-		if(prayerPoints >= 0) {
+		if(prayerPoints >= 0) 
 			prayerPoints = (int) (prayerPoints + modification == 0 ? 0 : prayerPoints + modification);
-		}
 		int lvlAfter = (int) Math.ceil(prayerPoints);
 		if (lvlBefore - lvlAfter >= 1) {
 			player.getSkills().setLevel(5, lvlAfter);
 			player.getActionSender().sendSkillLevel(5);
 		}
+	}
+	
+	/**
+	 * Determine whether the specified skill is a combat skill.
+	 * Prayer and Summoning are included and counted as combat skills.
+	 * @param skill
+	 * @return true if so.
+	 */
+	public boolean isCombat(int skill){
+		return (skill >= ATTACK && skill <= MAGIC) || (skill == SUMMONING);
+	}
+
+	/**
+	 * Checks if the Player has the appropriate level requirement of a specific Skill.
+	 * @param skill
+	 * @param levelRequired
+	 * @return
+	 */
+	public boolean hasLevel(int skill, int levelRequired) {
+		return getTrueLevel(skill) >= levelRequired;
 	}
 }

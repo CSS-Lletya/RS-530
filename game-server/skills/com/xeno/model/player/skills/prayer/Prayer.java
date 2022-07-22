@@ -41,7 +41,7 @@ public class Prayer extends PrayerData {
 		if (id < 5 || id > 57) {
 			return false;
 		}
-		if (p.getSkills().getLevelForXp(5) <= 0) {
+		if (p.getSkills().getTrueLevel(5) <= 0) {
 			System.out.println("cant use");
 			return false;
 		}
@@ -55,7 +55,7 @@ public class Prayer extends PrayerData {
 					p.getActionSender().sendConfig(1168, 0);
 					continue;
 				}
-				if (p.getSkills().getLevelForXp(PRAYER) < PRAYER_LVL[j]) {
+				if (p.getSkills().getTrueLevel(PRAYER) < PRAYER_LVL[j]) {
 					p.getInterfaceManager().softCloseInterfaces();
 					p.getActionSender().modifyText("You need level " + PRAYER_LVL[j] + " Prayer to use " + PRAYER_NAME[j] + ".", 210, 1);
 					p.getActionSender().sendChatboxInterface(210);
@@ -152,7 +152,7 @@ public class Prayer extends PrayerData {
 		if (p.getAttributes().exist(Attribute.DEAD)) {
 			return;
 		}
-		if (p.getSkills().getLevelForXp(5) <= 0) {
+		if (p.getSkills().getTrueLevel(5) <= 0) {
 			deactivateAllPrayers(p);
 			return;
 		}
