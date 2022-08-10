@@ -1,8 +1,8 @@
 package com.xeno;
 
 import com.google.common.collect.ImmutableList;
-import com.xeno.entity.Location;
 import com.xeno.entity.actor.item.Item;
+import com.xeno.world.Location;
 
 /**
  * A generic interface containing generic data for the game server to utilize.
@@ -37,8 +37,6 @@ public interface GameConstants {
 	 * Represents the location to respawn after death, teleport, etc..
 	 */
 	public final Location RESPAWN_LOCATION = new Location(3222, 3222, 0);
-	
-	public final int EXPERIENCE_MULTIPLIER = 1;
 	
 	/**
 	 * An immutable list of starter items given to a new player.

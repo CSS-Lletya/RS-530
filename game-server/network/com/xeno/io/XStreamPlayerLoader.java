@@ -6,11 +6,11 @@ import java.io.FileOutputStream;
 
 import com.thoughtworks.xstream.XStream;
 import com.xeno.GameConstants;
-import com.xeno.entity.Location;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.PlayerCredentials;
 import com.xeno.net.Constants;
 import com.xeno.utility.XStreamUtil;
+import com.xeno.world.Location;
 import com.xeno.world.World;
 
 /**
@@ -45,7 +45,7 @@ public class XStreamPlayerLoader implements PlayerLoader {
 			result.returnCode = Constants.ReturnCodes.LOGIN_OK;
 			result.player = new Player(p);
 			result.player.setLocation(GameConstants.RESPAWN_LOCATION);
-			result.player = (Player) result.player.register();
+			result.player = (Player) result.player.readResolve();
 		}
 		return result;
 	}

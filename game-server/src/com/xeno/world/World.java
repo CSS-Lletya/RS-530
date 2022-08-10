@@ -1,8 +1,6 @@
 package com.xeno.world;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
@@ -23,12 +21,12 @@ import com.xeno.entity.actor.player.task.impl.RestoreSpecialTask;
 import com.xeno.entity.actor.player.task.impl.RunEnergyTask;
 import com.xeno.entity.actor.player.task.impl.SkullCycleTask;
 import com.xeno.net.Constants;
+import com.xeno.net.definitions.ObjectDefinitions;
 import com.xeno.net.entity.EntityList;
 import com.xeno.net.entity.NPCUpdate;
 import com.xeno.net.entity.PlayerUpdate;
 import com.xeno.utility.LogUtility;
 import com.xeno.utility.LogUtility.LogType;
-import com.xeno.utility.XStreamUtil;
 
 import lombok.Getter;
 import lombok.SneakyThrows;
@@ -239,14 +237,8 @@ public class World {
 	 */
 	public void majorUpdate() {
 		getTaskManager().sequence();
-		players().forEach(player -> {
-			player.tick();
-			player.getWalkingQueue().getNextPlayerMovement();
-		});
-		npcs().forEach(npc -> {
-			npc.tick();
-			npc.processQueuedHits();
-		});
+		entities().forEach(Actor::tick);
+		players().forEach(player -> player.getWalkingQueue().getNextPlayerMovement());
 		players().forEach(player -> {
 			if(!player.getPlayerCredentials().getSession().isConnected()) {
 				unregister(player);
@@ -255,15 +247,13 @@ public class World {
 				NPCUpdate.update(player);
 			}
 		});
+		npcs().forEach(npc -> npc.processQueuedHits());
+		entities().forEach(entity -> entity.getHits().clear());
 		players().forEach(player -> {
 			player.getUpdateFlags().clear();
-			player.getHits().clear();
 			player.setRebuildNpcList(false);
 		});
-		npcs().forEach(npc -> {
-			npc.getUpdateFlags().clear();
-			npc.getHits().clear();
-		});
+		npcs().forEach(npc -> npc.getUpdateFlags().clear());
 	}
 	
 	/**
@@ -364,7 +354,6 @@ public class World {
 	 * @param gameEngine
 	 * @throws FileNotFoundException
 	 */
-	@SuppressWarnings("unchecked")
 	@SneakyThrows(FileNotFoundException.class)
 	public void setEngine(GameEngine gameEngine){
 		this.engine = gameEngine;
@@ -374,6 +363,8 @@ public class World {
 		clanManager = new ClanManager();
 		registerGlobalEvents();
 		//cache = new LoadCache();
+		Region.load();
+		ObjectDefinitions.loadConfig();
 	}
 	
 	private final long serverStartupTime = System.currentTimeMillis();
@@ -393,14 +384,7 @@ public class World {
 	 * @return
 	 */
 	public boolean isOnline(String name) {
-		for(Player p : players) {
-			if(p != null) {
-				if(p.getPlayerCredentials().getUsername().equalsIgnoreCase(name)) {
-					return true;
-				}
-			}
-		}
-		return false;
+		return players().anyMatch(player -> player.getPlayerCredentials().getUsername().equalsIgnoreCase(name));
 	}
 	
 	/**

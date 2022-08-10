@@ -14,7 +14,7 @@ public class SpawnNPCCommandPlugin implements Command {
 		int id = Integer.valueOf(cmd[1]);
 		NPC npc = new NPC(id);
 		npc.setLocation(player.getLocation());
-		npc.register();
+		npc.readResolve();
 		World.getInstance().getNpcList().add(npc);
     }
 }

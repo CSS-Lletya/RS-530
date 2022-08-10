@@ -16,6 +16,11 @@ public final class ItemsContainer<T extends Item> {
 		this.alwaysStackable = alwaysStackable;
 	}
 
+	public ItemsContainer(int size) {
+		data = new Item[size];
+		this.alwaysStackable = true;
+	}
+	
 	public void shift() {
 		Item[] oldData = data;
 		data = new Item[oldData.length];

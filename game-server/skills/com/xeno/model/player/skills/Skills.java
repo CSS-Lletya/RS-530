@@ -1,5 +1,7 @@
 package com.xeno.model.player.skills;
 
+import java.util.Arrays;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 
@@ -62,7 +64,7 @@ public class Skills {
 	 */
 	public Skills() {
 		IntStream.range(0, SKILL_COUNT).forEach(skills -> {
-			SKILL[skills] = 1;
+			SKILL[skills] = 0;
 			EXPERIENCE[skills] = 0;
 		});
 		SKILL[HITPOINTS] = 10;
@@ -250,5 +252,15 @@ public class Skills {
 	 */
 	public boolean hasLevel(int skill, int levelRequired) {
 		return getTrueLevel(skill) >= levelRequired;
+	}
+	
+	/**
+	 * Checks if the Player has the appropriate level requirement of a specific set of Skills.
+	 * @param skill
+	 * @param levelRequired
+	 * @return
+	 */
+	public boolean hasLevels(int[][] skills) {
+		return Arrays.stream(skills).filter(skill -> skill[0] == SKILL[skill[0]] && hasLevel(skill[0], skill[1])).anyMatch(skill -> skill == skills[0]);
 	}
 }

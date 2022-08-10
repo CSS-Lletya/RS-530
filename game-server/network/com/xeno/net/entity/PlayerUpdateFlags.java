@@ -1,6 +1,8 @@
 package com.xeno.net.entity;
 
-import com.xeno.entity.Location;
+import com.xeno.world.Location;
+
+import lombok.Data;
 
 /**
  * Manages update flags.
@@ -8,6 +10,7 @@ import com.xeno.entity.Location;
  * @author Luke132
  *
  */
+@Data
 public class PlayerUpdateFlags {
 	
 	private Location lastRegion;
@@ -39,101 +42,5 @@ public class PlayerUpdateFlags {
 		forceTextUpdateRequired = false;
 		faceLocationUpdateRequired = false;
 		forceMovementRequired = false;
-	}
-	
-	public boolean isAppearanceUpdateRequired() {
-		return appearanceUpdateRequired;
-	}
-	
-	public boolean isGraphicsUpdateRequired() {
-		return graphicsUpdateRequired;
-	}
-	
-	public void setGraphicsUpdateRequired(boolean b) {
-		this.graphicsUpdateRequired = b;
-	}
-	
-	public boolean didTeleport() {
-		return didTeleport;
-	}
-	
-	public boolean didMapRegionChange() {
-		return didMapRegionChange;
-	}
-	
-	public void setDidMapRegionChange(boolean didMapRegionChange) {
-		this.didMapRegionChange = didMapRegionChange;
-	}
-
-	public void setDidTeleport(boolean didTeleport) {
-		this.didTeleport = didTeleport;
-	}
-
-	public void setAppearanceUpdateRequired(boolean b) {
-		appearanceUpdateRequired = b;
-	}
-	
-	public void setChatTextUpdateRequired(boolean b) {
-		chatTextUpdateRequired = b;
-	}
-
-	public boolean isChatTextUpdateRequired() {
-		return chatTextUpdateRequired;
-	}
-
-	public void setAnimationUpdateRequired(boolean b) {
-		this.animationUpdateRequired = b;
-	}
-	
-	public boolean isAnimationUpdateRequired() {
-		return this.animationUpdateRequired;
-	}
-	
-	public void setHitUpdateRequired(boolean b) {
-		this.hitUpdateRequired = b;
-	}
-	
-	public boolean isHitUpdateRequired() {
-		return this.hitUpdateRequired;
-	}
-	
-	public void setHit2UpdateRequired(boolean b) {
-		this.hit2UpdateRequired = b;
-	}
-	
-	public boolean isHit2UpdateRequired() {
-		return this.hit2UpdateRequired;
-	}
-
-	public void setEntityFocusUpdateRequired(boolean b) {
-		this.entityFocusUpdateRequired = b;
-	}
-
-	public boolean isEntityFocusUpdateRequired() {
-		return entityFocusUpdateRequired;
-	}
-
-	public void setForceTextUpdateRequired(boolean b) {
-		this.forceTextUpdateRequired = b;
-	}
-
-	public boolean isForceTextUpdateRequired() {
-		return forceTextUpdateRequired;
-	}
-
-	public boolean isFaceLocationUpdateRequired() {
-		return faceLocationUpdateRequired;
-	}
-
-	public void setFaceLocationUpdateRequired(boolean b) {
-		this.faceLocationUpdateRequired = b;
-	}
-
-	public boolean isForceMovementRequired() {
-		return forceMovementRequired;
-	}
-	
-	public void setForceMovementRequired(boolean b) {
-		this.forceMovementRequired = b;
 	}
 }

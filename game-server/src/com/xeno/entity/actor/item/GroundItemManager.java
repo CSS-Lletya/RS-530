@@ -1,9 +1,9 @@
 package com.xeno.entity.actor.item;
 
-import com.xeno.entity.Location;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.Task;
 import com.xeno.net.definitions.ItemDefinition;
+import com.xeno.world.Location;
 import com.xeno.world.World;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;

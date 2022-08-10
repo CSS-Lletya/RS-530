@@ -1,4 +1,4 @@
-package com.xeno.entity;
+package com.xeno.world;
 
 /**
  * Represents a location in the world.

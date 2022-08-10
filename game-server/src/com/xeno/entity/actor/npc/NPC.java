@@ -5,7 +5,6 @@ import java.util.Queue;
 
 import com.xeno.entity.EntityType;
 import com.xeno.entity.Follow;
-import com.xeno.entity.Location;
 import com.xeno.entity.actor.Actor;
 import com.xeno.entity.actor.attribute.Attribute;
 import com.xeno.entity.actor.player.Player;
@@ -18,6 +17,7 @@ import com.xeno.net.entity.masks.Graphics;
 import com.xeno.net.entity.masks.Hits;
 import com.xeno.net.entity.masks.Hits.Hit;
 import com.xeno.utility.Utility;
+import com.xeno.world.Location;
 import com.xeno.world.World;
 
 /**
@@ -63,8 +63,8 @@ public class NPC extends Actor {
     	this.location = location;
     }
 
-    public Actor register() {
-        super.register(EntityType.NPC);
+    public Object readResolve() {
+        super.readResolve(EntityType.NPC);
         definition = NPCDefinition.forId(id);
         updateFlags = new NPCUpdateFlags();
         this.setFollow(new Follow(this));
@@ -74,6 +74,7 @@ public class NPC extends Actor {
         return this;
     }
 
+    @Override
     public void tick() {
         getSprite().setSprites(-1, -1);
         int sprite = -1;
@@ -351,18 +352,6 @@ public class NPC extends Actor {
 
     public int getFaceDirection() {
         return faceDirection;
-    }
-
-    public int getDeathTime() {
-        int id = this.id;
-        if (id == 6203) {
-            return 4000;
-        } else if (id >= 2734 && id <= 2745) { // Fight cave monsters
-            return 3300;
-        } else if (id >= 4278 && id <= 4284) { // animated armours
-            return 2500;
-        }
-        return 5000;
     }
 
     public static final class FaceDirection {

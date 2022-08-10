@@ -3,8 +3,8 @@ package com.xeno.utility;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.xeno.entity.Location;
 import com.xeno.entity.actor.Actor;
+import com.xeno.world.Location;
 
 import lombok.Data;
 

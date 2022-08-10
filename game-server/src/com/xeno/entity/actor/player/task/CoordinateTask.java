@@ -1,7 +1,7 @@
 package com.xeno.entity.actor.player.task;
 
-import com.xeno.entity.Location;
 import com.xeno.entity.actor.player.Player;
+import com.xeno.world.Location;
 
 public abstract class CoordinateTask {
 	

@@ -40,7 +40,7 @@ public class NPCUpdate implements PacketBuilder {
 		p.getLocalEntities().npcListSize = 0;
         boolean[] newNpc = new boolean[Constants.NPC_CAP];
 		for(int i = 0; i < size; i++) {
-			if(p.getLocalEntities().npcList[i] == null || !p.getLocalEntities().npcList[i].getLocation().withinDistance(p.getLocation()) || p.getUpdateFlags().didTeleport() || p.getLocalEntities().npcList[i].getAttributes().exist(Attribute.HIDDEN)) {
+			if(p.getLocalEntities().npcList[i] == null || !p.getLocalEntities().npcList[i].getLocation().withinDistance(p.getLocation()) || p.getUpdateFlags().isDidTeleport() || p.getLocalEntities().npcList[i].getAttributes().exist(Attribute.HIDDEN)) {
 				if(p.getLocalEntities().npcList[i] != null) {
 					p.getLocalEntities().npcsInList[p.getLocalEntities().npcList[i].getIndex()] = 0;
 				//	p.getLocalEntities().npcList[i] = null;

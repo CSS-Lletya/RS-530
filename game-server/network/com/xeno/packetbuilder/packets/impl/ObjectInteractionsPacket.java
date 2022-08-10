@@ -3,7 +3,6 @@ package com.xeno.packetbuilder.packets.impl;
 import com.rs.plugin.PluginManager;
 import com.rs.plugin.eventbus.ObjectClickEvent;
 import com.xeno.content.WildernessObelisks;
-import com.xeno.entity.Location;
 import com.xeno.entity.actor.attribute.Attribute;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.net.Packet;
@@ -13,6 +12,7 @@ import com.xeno.packetbuilder.packets.OutgoingPacket;
 import com.xeno.packetbuilder.packets.OutgoingPacketSignature;
 import com.xeno.utility.LogUtility;
 import com.xeno.utility.LogUtility.LogType;
+import com.xeno.world.Location;
 import com.xeno.world.WorldObject;
 
 @OutgoingPacketSignature(packetId = {254,194,84,247}, description = "Represents an event where a Player interacting with an Game Object")

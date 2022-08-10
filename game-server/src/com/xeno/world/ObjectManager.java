@@ -1,6 +1,5 @@
 package com.xeno.world;
 
-import com.xeno.entity.Location;
 import com.xeno.entity.actor.item.GroundItem;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.Task;
@@ -48,8 +47,8 @@ public class ObjectManager {
 					}
 				}
 			}
-			int delay = object.isFire() ? (60000 + RandomUtils.random(90000)) : object.getRestoreDelay(); 
-			World.getInstance().submit(new Task(delay) {//doesn't seem right, circle back!
+			int delay = object.isFire() ? (60 + RandomUtils.random(90)) : object.getRestoreDelay(); 
+			World.getInstance().submit(new Task(delay) {
 				@Override
 				protected void execute() {
 					restoreObject(object);

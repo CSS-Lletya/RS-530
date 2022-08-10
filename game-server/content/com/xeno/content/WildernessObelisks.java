@@ -1,12 +1,12 @@
 package com.xeno.content;
 
-import com.xeno.entity.Location;
 import com.xeno.entity.actor.player.Player;
 import com.xeno.entity.actor.player.task.AreaTask;
 import com.xeno.entity.actor.player.task.Task;
 import com.xeno.net.entity.masks.Animation;
 import com.xeno.net.entity.masks.Graphics;
 import com.xeno.utility.RandomUtils;
+import com.xeno.world.Location;
 import com.xeno.world.World;
 import com.xeno.world.WorldObject;
 

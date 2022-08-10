@@ -9,7 +9,6 @@ import com.google.common.base.Preconditions;
 import com.xeno.entity.Entity;
 import com.xeno.entity.EntityType;
 import com.xeno.entity.Follow;
-import com.xeno.entity.Location;
 import com.xeno.entity.actor.attribute.AttributeMap;
 import com.xeno.entity.actor.npc.NPC;
 import com.xeno.entity.actor.player.Player;
@@ -17,6 +16,7 @@ import com.xeno.entity.actor.player.task.Task;
 import com.xeno.net.entity.masks.EntityFocus;
 import com.xeno.net.entity.masks.Hits;
 import com.xeno.net.entity.masks.Hits.HitType;
+import com.xeno.world.Location;
 import com.xeno.net.entity.masks.Sprite;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
@@ -201,13 +201,15 @@ public abstract class Actor extends Entity {
 	 * Represents the amount of Hitpoints to heal an Actor.
 	 */
 	public abstract void heal(int amt);
+	
+	public abstract void tick();
 
 	/**
 	 * Defines an Actors attributes.
 	 * @param type
 	 * @return actor
 	 */
-	public Actor register(EntityType type) {
+	public Object readResolve(EntityType type) {
 		this.type = requireNonNull(type);
 		hits = new Hits();
 		target = null;

@@ -41,11 +41,11 @@ public class NPCDefinition {
 		return d;
 	}
 	
-	private int id;
-	private String name, examine;
-	private int respawn = 20, combat = 0, hitpoints = 1, maxHit = 0, size = 1, attackSpeed = 8, attackAnim = 422, defenceAnim = 404, deathAnim = 7197;
-	private boolean aggressive = false, superAggressive = false, bossMonster = false;
-	private int attackType = MELEE;
+	public int id;
+	public String name, examine;
+	public int respawn = 20, combat = 0, hitpoints = 1, maxHit = 0, size = 1, attackSpeed = 8, attackAnim = 422, defenceAnim = 404, deathAnim = 7197;
+	public boolean aggressive = false, superAggressive = false, bossMonster = false;
+	public int attackType = MELEE;
 	
 	public int getId() {
 		return id;

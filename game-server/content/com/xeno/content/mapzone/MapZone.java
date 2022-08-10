@@ -1,11 +1,11 @@
 package com.xeno.content.mapzone;
 
-import com.xeno.entity.Location;
 import com.xeno.entity.actor.Actor;
 import com.xeno.entity.actor.item.GroundItem;
 import com.xeno.entity.actor.item.Item;
 import com.xeno.entity.actor.npc.NPC;
 import com.xeno.entity.actor.player.Player;
+import com.xeno.world.Location;
 import com.xeno.world.WorldObject;
 
 import io.vavr.collection.Array;

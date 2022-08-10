@@ -18,7 +18,6 @@ import com.xeno.content.mapzone.MapZone;
 import com.xeno.content.mapzone.MapZoneManager;
 import com.xeno.entity.EntityType;
 import com.xeno.entity.Follow;
-import com.xeno.entity.Location;
 import com.xeno.entity.WalkingQueue;
 import com.xeno.entity.actor.Actor;
 import com.xeno.entity.actor.attribute.Attribute;
@@ -45,6 +44,7 @@ import com.xeno.net.entity.masks.Hits.Hit;
 import com.xeno.packetbuilder.StaticPacketBuilder;
 import com.xeno.packetbuilder.packets.OutgoingPacketDispatcher;
 import com.xeno.utility.RandomUtils;
+import com.xeno.world.Location;
 import com.xeno.world.World;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayFIFOQueue;
@@ -142,8 +142,8 @@ public class Player extends Actor {
 	 * 
 	 * NOTE: other loaders should call this also.
 	 */
-	public Actor register() {
-		super.register(EntityType.PLAYER);
+	public Object readResolve() {
+		super.readResolve(EntityType.PLAYER);
 		actionSender = new ActionSender(this);
 		follow = new Follow(this);
 		queuedPackets = new ObjectArrayFIFOQueue<Packet>();
@@ -170,7 +170,7 @@ public class Player extends Actor {
 	/**
 	 * Called roughly every 600ms.
 	 */
-	
+	@Override
 	public void tick() {
 //		if (this.inCombat()) {
 //			Combat.combatLoop(this);

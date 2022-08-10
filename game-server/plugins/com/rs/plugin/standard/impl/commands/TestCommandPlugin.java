@@ -11,8 +11,6 @@ import com.xeno.net.entity.masks.Animation;
 public final class TestCommandPlugin implements Command {
     @Override
     public void execute(Player player, String[] parts, String command) {
-    	System.out.println(player.getSkills().getTotalLevel());
-    	player.getSkills().addXp(Skills.ATTACK, 5000);
-    	System.out.println(player.getSkills().getTotalLevel());
+    	System.out.println(player.getSkills().hasLevels(new int[][] { {Skills.ATTACK, 70} }));
     }
 }

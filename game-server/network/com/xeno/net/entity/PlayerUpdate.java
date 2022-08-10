@@ -1,6 +1,5 @@
 package com.xeno.net.entity;
 
-import com.xeno.entity.Location;
 import com.xeno.entity.actor.item.Item;
 import com.xeno.entity.actor.item.ItemConstants;
 import com.xeno.entity.actor.player.Player;
@@ -11,6 +10,7 @@ import com.xeno.net.entity.masks.ForceMovement;
 import com.xeno.packetbuilder.PacketBuilder;
 import com.xeno.packetbuilder.StaticPacketBuilder;
 import com.xeno.utility.Utility;
+import com.xeno.world.Location;
 import com.xeno.world.World;
 
 /**
@@ -30,7 +30,7 @@ public class PlayerUpdate implements PacketBuilder {
 	 * @param p
 	 */
 	public static void update(Player p) {
-		if(p.getUpdateFlags().didMapRegionChange()) {
+		if(p.getUpdateFlags().isDidMapRegionChange()) {
 			p.getActionSender().sendMapRegion();
 		}
 		StaticPacketBuilder mainPacket = new StaticPacketBuilder().setId(225).setSize(Size.VariableShort).initBitAccess();
@@ -44,7 +44,7 @@ public class PlayerUpdate implements PacketBuilder {
         p.getLocalEntities().playerListSize = 0;
         boolean[] newPlayer = new boolean[Constants.PLAYER_CAP];
 		for(int i = 0; i < size; i++) {
-			if(p.getLocalEntities().playerList[i] == null || p.getLocalEntities().playerList[i].isDisconnected() || !p.getLocalEntities().playerList[i].getLocation().withinDistance(p.getLocation()) || p.getLocalEntities().playerList[i].getUpdateFlags().didTeleport()) {
+			if(p.getLocalEntities().playerList[i] == null || p.getLocalEntities().playerList[i].isDisconnected() || !p.getLocalEntities().playerList[i].getLocation().withinDistance(p.getLocation()) || p.getLocalEntities().playerList[i].getUpdateFlags().isDidTeleport()) {
 				if(p.getLocalEntities().playerList[i] != null) {
 					p.getLocalEntities().playersInList[p.getLocalEntities().playerList[i].getIndex()] = 0;
 				}
@@ -129,11 +129,11 @@ public class PlayerUpdate implements PacketBuilder {
 	}
 
 	private static void updateThisPlayerMovement(Player p, StaticPacketBuilder mainPacket) {
-		if(p.getUpdateFlags().didTeleport()) {
+		if(p.getUpdateFlags().isDidTeleport()) {
 			mainPacket.addBits(1, 1);
 			mainPacket.addBits(2, 3);
 			mainPacket.addBits(7, p.getLocation().getLocalY(p.getUpdateFlags().getLastRegion()));
-			mainPacket.addBits(1, p.getUpdateFlags().didTeleport() ? 1 : 0);
+			mainPacket.addBits(1, p.getUpdateFlags().isDidTeleport() ? 1 : 0);
 			mainPacket.addBits(2, p.getLocation().getZ());
 			mainPacket.addBits(1, p.getUpdateFlags().isUpdateRequired() ? 1 : 0);
 			mainPacket.addBits(7, p.getLocation().getLocalX(p.getUpdateFlags().getLastRegion()));

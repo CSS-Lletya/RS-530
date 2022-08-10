@@ -2,7 +2,6 @@ package com.xeno.packetbuilder.packets.impl;
 
 import com.xeno.content.DestroyItem;
 import com.xeno.content.emote.Skillcape;
-import com.xeno.entity.Location;
 import com.xeno.entity.actor.attribute.Attribute;
 import com.xeno.entity.actor.item.GroundItem;
 import com.xeno.entity.actor.item.Item;
@@ -16,6 +15,7 @@ import com.xeno.packetbuilder.packets.OutgoingPacket;
 import com.xeno.packetbuilder.packets.OutgoingPacketSignature;
 import com.xeno.utility.LogUtility;
 import com.xeno.utility.LogUtility.LogType;
+import com.xeno.world.Location;
 import com.xeno.world.World;
 
 @OutgoingPacketSignature(packetId = { 55, 27, 156, 134, 206, 135, 66, 231, 161, 153, 92 }, description = "Represents an event where a Player interacts with an Item")

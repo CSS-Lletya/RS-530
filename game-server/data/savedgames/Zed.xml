@@ -8,20 +8,24 @@
     <attributes serialization="custom">
       <it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap>
         <default>
-          <size>2</size>
+          <size>3</size>
         </default>
         <string>lastWindowType</string>
         <com.xeno.entity.actor.attribute.AttributeValue>
-          <value class="int">0</value>
+          <value class="int">2</value>
         </com.xeno.entity.actor.attribute.AttributeValue>
         <string>sendLogin</string>
         <com.xeno.entity.actor.attribute.AttributeValue>
           <value class="boolean">true</value>
         </com.xeno.entity.actor.attribute.AttributeValue>
+        <string>skillMenu</string>
+        <com.xeno.entity.actor.attribute.AttributeValue>
+          <value class="int">1</value>
+        </com.xeno.entity.actor.attribute.AttributeValue>
       </it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap>
     </attributes>
-    <lastKey>sendLogin</lastKey>
-    <lastValue reference="../attributes/it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap/com.xeno.entity.actor.attribute.AttributeValue[2]"/>
+    <lastKey>skillMenu</lastKey>
+    <lastValue reference="../attributes/it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap/com.xeno.entity.actor.attribute.AttributeValue[3]"/>
   </attributes>
   <type>PLAYER</type>
   <playerCredentials>
@@ -30,7 +34,7 @@
   </playerCredentials>
   <playerDetails>
     <runEnergy>100</runEnergy>
-    <rights>0</rights>
+    <rights>2</rights>
     <recievedStarter>true</recievedStarter>
     <chat>true</chat>
     <split>false</split>
@@ -2118,7 +2122,7 @@
     </slots>
   </equipment>
   <skills>
-    <level>
+    <SKILL>
       <int>1</int>
       <int>1</int>
       <int>1</int>
@@ -2134,6 +2138,7 @@
       <int>1</int>
       <int>1</int>
       <int>1</int>
+      <int>3</int>
       <int>1</int>
       <int>1</int>
       <int>1</int>
@@ -2142,9 +2147,8 @@
       <int>1</int>
       <int>1</int>
       <int>1</int>
-      <int>1</int>
-    </level>
-    <xp>
+    </SKILL>
+    <EXPERIENCE>
       <double>0.0</double>
       <double>0.0</double>
       <double>0.0</double>
@@ -2160,6 +2164,7 @@
       <double>0.0</double>
       <double>0.0</double>
       <double>0.0</double>
+      <double>250.0</double>
       <double>0.0</double>
       <double>0.0</double>
       <double>0.0</double>
@@ -2168,8 +2173,7 @@
       <double>0.0</double>
       <double>0.0</double>
       <double>0.0</double>
-      <double>0.0</double>
-    </xp>
+    </EXPERIENCE>
   </skills>
   <inventory>
     <slots>
@@ -2301,12 +2305,5 @@
     <privateStatus>0</privateStatus>
     <tradeStatus>0</tradeStatus>
   </friends>
-  <currentMapZone>
-    <value class="com.xeno.content.mapzone.impl.TestMapZone">
-      <mapeZoneName>TEST</mapeZoneName>
-      <safety>SAFE</safety>
-      <type>NORMAL</type>
-      <restriction>0</restriction>
-    </value>
-  </currentMapZone>
+  <currentMapZone/>
 </player>

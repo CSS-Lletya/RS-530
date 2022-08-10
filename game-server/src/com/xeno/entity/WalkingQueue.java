@@ -2,6 +2,7 @@ package com.xeno.entity;
 
 import com.xeno.entity.actor.player.Player;
 import com.xeno.utility.Utility;
+import com.xeno.world.Location;
 
 /**
  * Handles walking.
@@ -154,7 +155,7 @@ public class WalkingQueue {
 			} else if((ry-entity.getLocation().getRegionY()) <= -4) {
 				entity.getUpdateFlags().setDidMapRegionChange(true);
 			}
-			if(entity.getUpdateFlags().didMapRegionChange()) {
+			if(entity.getUpdateFlags().isDidMapRegionChange()) {
 				if(walkDir != -1) {
 					wQueueReadPtr--;
 				}
