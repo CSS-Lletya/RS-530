@@ -16,7 +16,7 @@ public class Teleport extends MagicData {
 	}
 	
 	public static void homeTeleport(final Player p) {
-		if (p.getAttributes().exist(Attribute.TELEPORTING) || p.getAttributes().exist(Attribute.HOME_TELEPORTING) || p.getAttributes().exist(Attribute.LOCKED)) {
+		if (p.getAttributes().get(Attribute.TELEPORTING).getBoolean() || p.getAttributes().get(Attribute.HOME_TELEPORTING).getBoolean() || p.getAttributes().get(Attribute.LOCKED).getBoolean()) {
 			return;
 		}
 		p.getInterfaceManager().closeInterfaces();
@@ -29,7 +29,7 @@ public class Teleport extends MagicData {
 			
 			@Override
 			protected void execute() {
-				if (p.getAttributes().exist(Attribute.HOME_TELEPORTING)) {
+				if (p.getAttributes().get(Attribute.HOME_TELEPORTING).getBoolean()) {
 					p.setNextAnimation(new Animation(65535));
 					p.setNextGraphic(new Graphics(65535));
 					resetTeleport(p);
@@ -97,7 +97,7 @@ public class Teleport extends MagicData {
 	}
 
 	private static boolean canTeleport(Player p, int teleport) {
-		if (p.getAttributes().exist(Attribute.TELEPORTING) || p.getAttributes().exist(Attribute.LOCKED)) {
+		if (p.getAttributes().get(Attribute.TELEPORTING).getBoolean() || p.getAttributes().get(Attribute.LOCKED).getBoolean()) {
 			return false;
 		}
 		if (p.getSkills().getTrueLevel(MAGIC) < TELEPORT_LVL[teleport]) {
@@ -108,54 +108,8 @@ public class Teleport extends MagicData {
 			p.getActionSender().sendMessage("You do not have enough runes to cast this teleport.");
 			return false;
 		}
-		if (p.getAttributes().exist(Attribute.DEAD)){
+		if (p.getAttributes().get(Attribute.DEAD).getBoolean()){
 			return false;
-		}
-		return true;
-	}
-	
-	public static boolean useTeletab(final Player p, int item, int slot) {
-		int index = -1;
-		for (int i = 0; i < TELETABS.length; i++) {
-			if (item == TELETABS[i]) {
-				index = i;
-			}
-		}
-		if (index == -1) {
-			return false;
-		}
-		if (p.getAttributes().exist(Attribute.TELEPORTING) || p.getAttributes().exist(Attribute.HOME_TELEPORTING) || p.getAttributes().exist(Attribute.LOCKED)) {
-			return false;
-		}
-		final int x = TELE_X[index] + RandomUtils.random(TELE_EXTRA_X[index]);
-		final int y = TELE_Y[index] + RandomUtils.random(TELE_EXTRA_Y[index]);
-		p.getInterfaceManager().closeInterfaces();
-		p.getActionSender().sendBlankClientScript(1297);
-		p.getWalkingQueue().reset();
-		p.getActionSender().clearMapFlag();
-		if (p.getInventory().deleteItem(item, slot, 1)) {
-			p.getAttributes().get(Attribute.LOCKED).set(true);
-			p.getAttributes().get(Attribute.TELEPORTING).set(true);
-			p.setNextAnimation(new Animation(9597));
-			p.setNextGraphic(new Graphics(1680));
-			//p.setNextGraphics(678, 0, 0); // blue gfx
-			World.getInstance().submit(new Task(1) {
-				int i = 0;
-				@Override
-				protected void execute() {
-					if (i == 0) {
-						p.setNextAnimation(new Animation(4071));
-						i++;
-					} else {
-						p.setNextAnimation(new Animation(65535));
-						p.getAttributes().get(Attribute.LOCKED).set(false);
-						p.teleport(Location.location(x, y, 0));
-						resetTeleport(p);
-						this.stop();
-					}
-				}
-			});
-			return true;
 		}
 		return true;
 	}

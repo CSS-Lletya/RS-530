@@ -21,7 +21,7 @@ public final class DrainPrayerTask extends Task {
 	@SneakyThrows(Throwable.class)
 	public void execute() {
 		for (Player p : World.getInstance().getPlayerList()) {
-			if (p == null || p.getAttributes().exist(Attribute.DEAD) || !Prayer.isPrayerActive(p)) {
+			if (p == null || p.getAttributes().get(Attribute.DEAD).getBoolean() || !Prayer.isPrayerActive(p)) {
 				this.stop();
 				return;
 			}

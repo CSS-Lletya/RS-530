@@ -67,7 +67,7 @@ public class ConfigureAppearance {
 	private static int getHairStyle(Player p, boolean decrease) {
 		int oldHair = p.getAppearance().getLook(0);
 		int newHair = oldHair;
-		if (p.getAttributes().exist(Attribute.HAIR_TOGGLE)) {
+		if (p.getAttributes().get(Attribute.HAIR_TOGGLE).getBoolean()) {
 			p.getAttributes().get(Attribute.HAIR_TOGGLE).set(0);
 			return 0;
 		}

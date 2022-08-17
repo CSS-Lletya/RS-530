@@ -18,7 +18,7 @@ public class AcceptTradeRequestPacket implements OutgoingPacket {
 	@Override
 	public void execute(Player player, Packet packet) {
 		int index = packet.readLEShortA();
-		if(index < 0 || index >= Constants.PLAYER_CAP || player.getAttributes().exist(Attribute.DEAD) || player.getAttributes().exist(Attribute.LOCKED)) {
+		if(index < 0 || index >= Constants.PLAYER_CAP || player.getAttributes().get(Attribute.DEAD).getBoolean() || player.getAttributes().get(Attribute.LOCKED).getBoolean()) {
 			return;
 		}
 		final Player p2 = World.getInstance().getPlayerList().get(index);

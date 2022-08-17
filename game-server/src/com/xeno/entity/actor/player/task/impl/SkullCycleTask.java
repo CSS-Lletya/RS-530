@@ -21,7 +21,7 @@ public final class SkullCycleTask extends Task {
 	public void execute() {
 		for (Player p : World.getInstance().getPlayerList()) {
 			if (p != null) {
-				if (p.getPlayerDetails().isSkulled() && !p.getAttributes().exist(Attribute.DEAD)) {
+				if (p.getPlayerDetails().isSkulled() && !p.getAttributes().get(Attribute.DEAD).getBoolean()) {
 					p.getPlayerDetails().setSkullCycles(p.getPlayerDetails().getSkullCycles() - 1);
 				}
 			}

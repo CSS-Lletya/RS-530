@@ -61,7 +61,7 @@ public class ActionSender {
 
 	public ActionSender sendMapRegion() {
 		player.getUpdateFlags().setLastRegion(player.getLocation());
-		if (player.getLocation().getX() >= 19000 && player.getAttributes().exist(Attribute.SEND_LOGIN)) {
+		if (player.getLocation().getX() >= 19000 && player.getAttributes().get(Attribute.SEND_LOGIN).getBoolean()) {
 			sendFightCaveMapdata();
 		}
 		StaticPacketBuilder spb = new StaticPacketBuilder().setId(162).setSize(Packet.Size.VariableShort);

@@ -42,7 +42,7 @@ public class WalkingPacket implements OutgoingPacket {
 		if (!following) {
 			player.getFollow().setFollowing(null);
 		}
-		if (player.getAttributes().exist(Attribute.HOME_TELEPORTING)) {
+		if (player.getAttributes().get(Attribute.HOME_TELEPORTING).getBoolean()) {
 			player.getAttributes().get(Attribute.HOME_TELEPORTING).set(false);
 		}
 		if (player.getTrade() != null) {
@@ -68,17 +68,18 @@ public class WalkingPacket implements OutgoingPacket {
 	}
 
 	private boolean canWalk(Player player, Packet packet, boolean following) {
-		if (player.getAttributes().exist(Attribute.TELEPORTING)
-				&& !player.getAttributes().exist(Attribute.HOME_TELEPORTING)) {
+		if (player.getAttributes().get(Attribute.TELEPORTING).getBoolean()
+				&& !player.getAttributes().get(Attribute.HOME_TELEPORTING).getBoolean()) {
 			return false;
-		} else if (player.getAttributes().exist(Attribute.FROZEN)) {
+		} else if (player.getAttributes().get(Attribute.FROZEN).getBoolean()) {
 			if (packet.getId() != 218 && !following) {
 				player.getActionSender().sendMessage("A magic force prevents you from moving!");
 			}
 			return false;
-		} else if (player.getAttributes().exist(Attribute.LOCKED)) {
+		} else if (player.getAttributes().get(Attribute.LOCKED).getBoolean()) {
+			System.out.println("locked");
 			return false;
-		} else if (player.getAttributes().exist(Attribute.DEAD)) {
+		} else if (player.getAttributes().get(Attribute.DEAD).getBoolean()) {
 			return false;
 		} else if (player.getTeleportTo() != null) {
 			return false;

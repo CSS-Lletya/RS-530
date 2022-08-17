@@ -56,8 +56,8 @@ public class NPCInteractionsPacket implements OutgoingPacket {
 
 	private void handleFirstClickNPC(Player player, Packet packet) {
 		int npcIndex = packet.readLEShortA();
-		if (npcIndex < 0 || npcIndex > Constants.NPC_CAP || player.getAttributes().exist(Attribute.DEAD)
-				|| player.getAttributes().exist(Attribute.LOCKED)) {
+		if (npcIndex < 0 || npcIndex > Constants.NPC_CAP || player.getAttributes().get(Attribute.DEAD).getBoolean()
+				|| player.getAttributes().get(Attribute.LOCKED).getBoolean()) {
 			return;
 		}
 		final NPC npc = World.getInstance().getNpcList().get(npcIndex);
@@ -72,8 +72,8 @@ public class NPCInteractionsPacket implements OutgoingPacket {
 
 	private void handleSecondClickNPC(Player player, Packet packet) {
 		int npcIndex = packet.readLEShort();
-		if (npcIndex < 0 || npcIndex > Constants.NPC_CAP || player.getAttributes().exist(Attribute.DEAD)
-				|| player.getAttributes().exist(Attribute.LOCKED)) {
+		if (npcIndex < 0 || npcIndex > Constants.NPC_CAP || player.getAttributes().get(Attribute.DEAD).getBoolean()
+				|| player.getAttributes().get(Attribute.LOCKED).getBoolean()) {
 			return;
 		}
 		final NPC npc = World.getInstance().getNpcList().get(npcIndex);
@@ -87,8 +87,8 @@ public class NPCInteractionsPacket implements OutgoingPacket {
 
 	private void handleThirdClickNPC(Player player, Packet packet) {
 		int npcIndex = packet.readShortA();
-		if (npcIndex < 0 || npcIndex > Constants.NPC_CAP || player.getAttributes().exist(Attribute.DEAD)
-				|| player.getAttributes().exist(Attribute.LOCKED)) {
+		if (npcIndex < 0 || npcIndex > Constants.NPC_CAP || player.getAttributes().get(Attribute.DEAD).getBoolean()
+				|| player.getAttributes().get(Attribute.LOCKED).getBoolean()) {
 			return;
 		}
 		final NPC npc = World.getInstance().getNpcList().get(npcIndex);
@@ -102,8 +102,8 @@ public class NPCInteractionsPacket implements OutgoingPacket {
 
 	private void handleFourthClickNPC(Player player, Packet packet) {
 		int npcIndex = packet.readShort();
-		if (npcIndex < 0 || npcIndex > Constants.NPC_CAP || player.getAttributes().exist(Attribute.DEAD)
-				|| player.getAttributes().exist(Attribute.LOCKED)) {
+		if (npcIndex < 0 || npcIndex > Constants.NPC_CAP || player.getAttributes().get(Attribute.DEAD).getBoolean()
+				|| player.getAttributes().get(Attribute.LOCKED).getBoolean()) {
 			return;
 		}
 		final NPC npc = World.getInstance().getNpcList().get(npcIndex);
@@ -119,8 +119,8 @@ public class NPCInteractionsPacket implements OutgoingPacket {
 	@Deprecated
 	private void handleFifthClickNPC(Player player, Packet packet) {
 		int npcIndex = packet.readLEShort();
-		if (npcIndex < 0 || npcIndex > Constants.NPC_CAP || player.getAttributes().exist(Attribute.DEAD)
-				|| player.getAttributes().exist(Attribute.LOCKED)) {
+		if (npcIndex < 0 || npcIndex > Constants.NPC_CAP || player.getAttributes().get(Attribute.DEAD).getBoolean()
+				|| player.getAttributes().get(Attribute.LOCKED).getBoolean()) {
 			return;
 		}
 		final NPC npc = World.getInstance().getNpcList().get(npcIndex);
@@ -135,8 +135,8 @@ public class NPCInteractionsPacket implements OutgoingPacket {
 		int interfaceId = packet.readLEShort();
 		int junk = packet.readShortA();
 		int npcIndex = packet.readLEShortA();
-		if (npcIndex < 0 || npcIndex > Constants.NPC_CAP || player.getAttributes().exist(Attribute.DEAD)
-				|| player.getAttributes().exist(Attribute.LOCKED)) {
+		if (npcIndex < 0 || npcIndex > Constants.NPC_CAP || player.getAttributes().get(Attribute.DEAD).getBoolean()
+				|| player.getAttributes().get(Attribute.LOCKED).getBoolean()) {
 			return;
 		}
 		final NPC npc = World.getInstance().getNpcList().get(npcIndex);
@@ -152,8 +152,8 @@ public class NPCInteractionsPacket implements OutgoingPacket {
 		int slot = packet.readLEShort();
 		int npcIndex = packet.readLEShort();
 		int item = packet.readLEShortA();
-		if (npcIndex < 0 || npcIndex > Constants.NPC_CAP || player.getAttributes().exist(Attribute.DEAD)
-				|| player.getAttributes().exist(Attribute.LOCKED)) {
+		if (npcIndex < 0 || npcIndex > Constants.NPC_CAP || player.getAttributes().get(Attribute.DEAD).getBoolean()
+				|| player.getAttributes().get(Attribute.LOCKED).getBoolean()) {
 			return;
 		}
 		final NPC npc = World.getInstance().getNpcList().get(npcIndex);

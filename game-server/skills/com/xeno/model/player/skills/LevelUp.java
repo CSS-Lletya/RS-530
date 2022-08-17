@@ -65,7 +65,7 @@ public class LevelUp {
 		leveled[skill] = true;
 		String s = "<br><br><br>";
 		String s1 = "<br><br><br><br>";
-		if (!player.getAttributes().exist(Attribute.TELEPORTING)) {
+		if (!player.getAttributes().get(Attribute.TELEPORTING).getBoolean()) {
 			player.setNextGraphic(new Graphics(199, 0, 100));
 		}
 		player.getActionSender().sendMessage("You've just advanced a " + Skills.SKILL_NAME[skill] + " level! You have reached level " + player.getSkills().getTrueLevel(skill) + ".");

@@ -20,7 +20,7 @@ public class Follow {
 	Location lastLoc = null;
 
 	public void followEntity() {
-		if (follower == null || entity.getAttributes().exist(Attribute.DEAD) || follower.getAttributes().exist(Attribute.DEAD) || follower.isValid()) {
+		if (follower == null || entity.getAttributes().get(Attribute.DEAD).getBoolean() || follower.getAttributes().get(Attribute.DEAD).getBoolean() || follower.isValid()) {
 			follower = null;
 			return;
 		}

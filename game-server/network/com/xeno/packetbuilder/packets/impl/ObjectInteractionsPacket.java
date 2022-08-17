@@ -49,8 +49,8 @@ public class ObjectInteractionsPacket implements OutgoingPacket {
 		objectY = packet.readShort();
 //		ObjectDefinitions def = ObjectDefinitions.objectOf(objectId);
 //        System.out.println(def.name);
-		if (objectX < 1000 || objectY < 1000 || player.getAttributes().exist(Attribute.DEAD) ||
-				player.getAttributes().exist(Attribute.LOCKED)) {
+		if (objectX < 1000 || objectY < 1000 || player.getAttributes().get(Attribute.DEAD).getBoolean() ||
+				player.getAttributes().get(Attribute.LOCKED).getBoolean()) {
 			return;
 		}
 		

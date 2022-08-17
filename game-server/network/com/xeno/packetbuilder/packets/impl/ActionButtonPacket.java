@@ -31,7 +31,7 @@ public class ActionButtonPacket implements OutgoingPacket {
 		slot = buttonId2;
 		if (GameConstants.DEBUG_MODE)
 			LogUtility.log(LogType.INFO, "Inter: "+ interfaceId + " - button: " + buttonId + " button type 2: " + buttonId2);
-		if (player.getAttributes().exist(Attribute.LOCKED))
+		if (player.getAttributes().get(Attribute.LOCKED).getBoolean())
 			return;
 		if (IntStream.of(3).anyMatch(id -> id == interfaceId))
 			player.getInterfaceManager().closeChatboxInterface();

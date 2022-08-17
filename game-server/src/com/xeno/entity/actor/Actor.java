@@ -317,7 +317,7 @@ public abstract class Actor extends Entity {
 	
 	public void teleport(Location location) {
 		this.teleportTo = location;
-		ifPlayer(p -> p.getWalkingQueue().reset());
+//		ifPlayer(p -> p.getWalkingQueue().reset());
 	}
 	
 	public void resetTeleportTo() {

@@ -47,12 +47,12 @@ public class World {
 	/**
 	 * Represents a valid Player check
 	 */
-	private final Predicate<Player> VALID_PLAYER = (player) -> player != null && !player.isDisconnected() && !player.isValid();
+	private final Predicate<Player> VALID_PLAYER = (player) -> player != null && !player.isDisconnected() && player.isValid();
 	
 	/**
 	 * Represents a valid NPC check
 	 */
-	private final Predicate<NPC> VALID_NPC = (npc) -> npc != null && !npc.isValid();
+	private final Predicate<NPC> VALID_NPC = (npc) -> npc != null && npc.isValid();
 	
 	/**
 	 * Represents a valid Actor check
@@ -363,8 +363,6 @@ public class World {
 		clanManager = new ClanManager();
 		registerGlobalEvents();
 		//cache = new LoadCache();
-		Region.load();
-		ObjectDefinitions.loadConfig();
 	}
 	
 	private final long serverStartupTime = System.currentTimeMillis();

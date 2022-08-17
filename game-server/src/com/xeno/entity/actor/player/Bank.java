@@ -505,12 +505,12 @@ public class Bank {
 	}*/
 	
 	public void asNote() {
-		if (!p.getAttributes().exist(Attribute.WITHDRAW_ITEM_AS_NOTE)) {
+		if (!p.getAttributes().get(Attribute.WITHDRAW_ITEM_AS_NOTE).getBoolean()) {
 			p.getAttributes().get(Attribute.WITHDRAW_ITEM_AS_NOTE).set(true);
 			asNote = true;
 			return;
 		}
-		if (p.getAttributes().exist(Attribute.WITHDRAW_ITEM_AS_NOTE)) {
+		if (p.getAttributes().get(Attribute.WITHDRAW_ITEM_AS_NOTE).getBoolean()) {
 			p.getAttributes().get(Attribute.WITHDRAW_ITEM_AS_NOTE).set(false);
 			asNote = false;
 			return;

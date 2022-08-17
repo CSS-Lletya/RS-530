@@ -91,7 +91,7 @@ public class ItemInteractionPacket implements OutgoingPacket {
 		int item = packet.readLEShort();
 		int slot = packet.readShortA();
 		int interfaceId = packet.readInt(); // actually readInt1
-		if (slot > 28 || slot < 0 || player.getAttributes().exist(Attribute.DEAD) || player.getAttributes().exist(Attribute.LOCKED)) {
+		if (slot > 28 || slot < 0 || player.getAttributes().get(Attribute.DEAD).getBoolean() || player.getAttributes().get(Attribute.LOCKED).getBoolean()) {
 			return;
 		}
 		if (player.getInventory().getItemInSlot(slot) == item) {
@@ -107,8 +107,8 @@ public class ItemInteractionPacket implements OutgoingPacket {
 		int unused2 = packet.readInt();
 		int itemUsed = packet.readLEShortA();
 		int usedWith = packet.readLEShortA();
-		if (itemSlot > 28 || itemSlot < 0 || withSlot > 28 || withSlot < 0 || player.getAttributes().exist(Attribute.DEAD)
-				|| player.getAttributes().exist(Attribute.LOCKED)) {
+		if (itemSlot > 28 || itemSlot < 0 || withSlot > 28 || withSlot < 0 || player.getAttributes().get(Attribute.DEAD).getBoolean()
+				|| player.getAttributes().get(Attribute.LOCKED).getBoolean()) {
 			return;
 		}
 		if (!player.getMapZoneManager().execute(player, zone -> zone.canUseItemOnItem(player, new Item(itemUsed), new Item(usedWith))))
@@ -126,7 +126,7 @@ public class ItemInteractionPacket implements OutgoingPacket {
 		int item = packet.readShortA();
 		int childId = packet.readLEShort();
 		int interfaceId = packet.readLEShort();
-		if (slot > 28 || slot < 0 || player.getAttributes().exist(Attribute.DEAD) || player.getAttributes().exist(Attribute.LOCKED)) {
+		if (slot > 28 || slot < 0 || player.getAttributes().get(Attribute.DEAD).getBoolean() || player.getAttributes().get(Attribute.LOCKED).getBoolean()) {
 			return;
 		}
 		if (player.getInventory().getItemInSlot(slot) == item) {
@@ -149,7 +149,7 @@ public class ItemInteractionPacket implements OutgoingPacket {
 		int interfaceId = packet.readLEShort();
 		int child = packet.readShort();
 		int objectId = packet.readShortA();
-		if (slot > 28 || slot < 0 || player.getAttributes().exist(Attribute.DEAD) || player.getAttributes().exist(Attribute.LOCKED)) {
+		if (slot > 28 || slot < 0 || player.getAttributes().get(Attribute.DEAD).getBoolean() || player.getAttributes().get(Attribute.LOCKED).getBoolean()) {
 			return;
 		}
 		System.out.println("Item on object = " + objectId + " " + objectX + " " + objectY);
@@ -190,7 +190,7 @@ public class ItemInteractionPacket implements OutgoingPacket {
 		int slot = packet.readLEShort();
 		int interfaceId = packet.readLEShort();
 		int childId = packet.readLEShort();
-		if (slot < 0 || slot > 28 || player.getAttributes().exist(Attribute.DEAD) || player.getAttributes().exist(Attribute.LOCKED)) {
+		if (slot < 0 || slot > 28 || player.getAttributes().get(Attribute.DEAD).getBoolean() || player.getAttributes().get(Attribute.LOCKED).getBoolean()) {
 			return;
 		}
 		if (player.getEquipment().getItemInSlot(slot) == item) {
@@ -207,7 +207,7 @@ public class ItemInteractionPacket implements OutgoingPacket {
 		int slot = packet.readShortA();
 		int interfaceId = packet.readLEShort();
 		int childId = packet.readShort();
-		if (slot > 28 || slot < 0 || player.getAttributes().exist(Attribute.DEAD) || player.getAttributes().exist(Attribute.LOCKED)) {
+		if (slot > 28 || slot < 0 || player.getAttributes().get(Attribute.DEAD).getBoolean() || player.getAttributes().get(Attribute.LOCKED).getBoolean()) {
 			return;
 		}
 		if (player.getInventory().getItemInSlot(slot) == item) {
@@ -235,8 +235,8 @@ public class ItemInteractionPacket implements OutgoingPacket {
 		final int id = packet.readShort();
 		int y = packet.readLEShortA();
 		Location l = Location.location(x, y, player.getLocation().getZ());
-		if (x < 1000 || y < 1000 | id < 0 || player.getAttributes().exist(Attribute.DEAD)
-				|| player.getAttributes().exist(Attribute.LOCKED)) {
+		if (x < 1000 || y < 1000 | id < 0 || player.getAttributes().get(Attribute.DEAD).getBoolean()
+				|| player.getAttributes().get(Attribute.LOCKED).getBoolean()) {
 			return;
 		}
 		player.getInterfaceManager().closeInterfaces();
@@ -262,8 +262,8 @@ public class ItemInteractionPacket implements OutgoingPacket {
 		int oldAmount = player.getInventory().getAmountInSlot(oldSlot);
 		int newItem = player.getInventory().getItemInSlot(newSlot);
 		int newAmount = player.getInventory().getAmountInSlot(newSlot);
-		if (oldSlot > 28 || oldSlot < 0 || newSlot > 28 || oldSlot < 0 || player.getAttributes().exist(Attribute.DEAD)
-				|| player.getAttributes().exist(Attribute.LOCKED)) {
+		if (oldSlot > 28 || oldSlot < 0 || newSlot > 28 || oldSlot < 0 || player.getAttributes().get(Attribute.DEAD).getBoolean()
+				|| player.getAttributes().get(Attribute.LOCKED).getBoolean()) {
 			return;
 		}
 		switch (interfaceId) {
@@ -294,8 +294,8 @@ public class ItemInteractionPacket implements OutgoingPacket {
 		int oldAmount = player.getInventory().getAmountInSlot(oldSlot);
 		int newItem = player.getInventory().getItemInSlot(newSlot);
 		int newAmount = player.getInventory().getAmountInSlot(newSlot);
-		if (oldSlot > 28 || oldSlot < 0 || newSlot > 28 || oldSlot < 0 || player.getAttributes().exist(Attribute.DEAD)
-				|| player.getAttributes().exist(Attribute.LOCKED)) {
+		if (oldSlot > 28 || oldSlot < 0 || newSlot > 28 || oldSlot < 0 || player.getAttributes().get(Attribute.DEAD).getBoolean()
+				|| player.getAttributes().get(Attribute.LOCKED).getBoolean()) {
 			return;
 		}
 		switch (interfaceId) {
@@ -321,7 +321,7 @@ public class ItemInteractionPacket implements OutgoingPacket {
 		int interfaceId = packet.readLEShort();
 		int item = packet.readLEShortA();
 		int slot = packet.readLEShortA();
-		if (slot > 28 || slot < 0 || player.getAttributes().exist(Attribute.DEAD) || player.getAttributes().exist(Attribute.LOCKED)) {
+		if (slot > 28 || slot < 0 || player.getAttributes().get(Attribute.DEAD).getBoolean() || player.getAttributes().get(Attribute.LOCKED).getBoolean()) {
 			return;
 		}
 		if (player.getInventory().getItemInSlot(slot) == item) {
@@ -336,7 +336,7 @@ public class ItemInteractionPacket implements OutgoingPacket {
 		int interfaceId = packet.readLEShort();
 		int slot = packet.readLEShort();
 		int item = packet.readLEShort();
-		if (slot < 0 || slot > 28 || player.getAttributes().exist(Attribute.DEAD) || player.getAttributes().exist(Attribute.LOCKED)) {
+		if (slot < 0 || slot > 28 || player.getAttributes().get(Attribute.DEAD).getBoolean() || player.getAttributes().get(Attribute.LOCKED).getBoolean()) {
 			return;
 		}
 		if (player.getInventory().getItemInSlot(slot) == item) {

@@ -27,7 +27,7 @@ public final class PoisonTask extends Task {
 	@Override
 	@SneakyThrows(Throwable.class)
 	public void execute() {
-		if (!target.isPoisoned() || target.getAttributes().exist(Attribute.DEAD)) {
+		if (!target.isPoisoned() || target.getAttributes().get(Attribute.DEAD).getBoolean()) {
 			stop();
 			return;
 		}

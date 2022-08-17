@@ -78,11 +78,11 @@ public class NPC extends Actor {
     public void tick() {
         getSprite().setSprites(-1, -1);
         int sprite = -1;
-        if (getFollow().getFollowing() != null && !getAttributes().exist(Attribute.FROZEN)) {
+        if (getFollow().getFollowing() != null && !getAttributes().get(Attribute.FROZEN).getBoolean()) {
             getFollow().followEntity();
             return;
         }
-        if (Math.random() > 0.8 && walkType == WalkType.WALK && !this.inCombat() && !getAttributes().exist(Attribute.DEAD) && !getAttributes().exist(Attribute.FROZEN) && id != 0) {
+        if (Math.random() > 0.8 && walkType == WalkType.WALK && !this.inCombat() && !getAttributes().get(Attribute.DEAD).getBoolean() && !getAttributes().get(Attribute.FROZEN).getBoolean() && id != 0) {
             int moveX = (int) (Math.floor((Math.random() * 3)) - 1);
             int moveY = (int) (Math.floor((Math.random() * 3)) - 1);
             int tgtX = this.getLocation().getX() + moveX;
@@ -123,7 +123,7 @@ public class NPC extends Actor {
     }
 
     public void hit(int damage) {
-        if (getAttributes().exist(Attribute.DEAD)) {
+        if (getAttributes().get(Attribute.DEAD).getBoolean()) {
             damage = 0;
         }
         hit(damage, damage <= 0 ? Hits.HitType.NO_DAMAGE : Hits.HitType.NORMAL_DAMAGE);
@@ -151,7 +151,7 @@ public class NPC extends Actor {
         hp -= damage;
         if (hp <= 0) {
             hp = 0;
-            if (!getAttributes().exist(Attribute.DEAD)) {
+            if (!getAttributes().get(Attribute.DEAD).getBoolean()) {
 //                World.getInstance().registerEvent(new DeathEvent(this)); //TODO: Convert this
             }
         }

@@ -24,7 +24,7 @@ public final class LevelChangeTask extends Task {
 			boolean updated = false;
 			boolean rapidHeal = p.getPrayers().isRapidHeal();
 			boolean rapidRestore = p.getPrayers().isRapidRestore();
-			if (p.getAttributes().exist(Attribute.DEAD) || p == null || (status == 0 && !rapidHeal && !rapidRestore)) {
+			if (p.getAttributes().get(Attribute.DEAD).getBoolean() || p == null || (status == 0 && !rapidHeal && !rapidRestore)) {
 				continue;
 			}
 			for (int i = 0; i < Skills.SKILL_COUNT; i++) {
@@ -48,7 +48,7 @@ public final class LevelChangeTask extends Task {
 			}
 		}
 		if (status == 1) {
-			World.getInstance().npcs().filter(n -> n.getHp() < n.getMaxHp() && !n.getAttributes().exist(Attribute.DEAD) && !n.inCombat()).forEach(n -> n.heal(1));
+			World.getInstance().npcs().filter(n -> n.getHp() < n.getMaxHp() && !n.getAttributes().get(Attribute.DEAD).getBoolean() && !n.inCombat()).forEach(n -> n.heal(1));
 		}
 		status = status == 0 ? 1 : 0;
 	}

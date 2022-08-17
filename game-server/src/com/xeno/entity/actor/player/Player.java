@@ -252,7 +252,7 @@ public class Player extends Actor {
 	}
 	
 	public void hit(int damage, Hits.HitType type) {
-		if (getAttributes().exist(Attribute.DEAD)) {
+		if (getAttributes().get(Attribute.DEAD).getBoolean()) {
 			damage = 0;
 			type = Hits.HitType.NO_DAMAGE;
 		}
@@ -302,7 +302,7 @@ public class Player extends Actor {
 		skills.setLevel(3, skills.getTrueLevel(3) - damage);
 		if(skills.getTrueLevel(3) <= 0) {
 			skills.setLevel(3, 0);
-			if(!getAttributes().exist(Attribute.DEAD)) {
+			if(!getAttributes().get(Attribute.DEAD).getBoolean()) {
 //				World.getInstance().registerEvent(new DeathEvent(this));//TODO: Finish converting
 			}
 		}
@@ -483,7 +483,7 @@ public class Player extends Actor {
 
 	@Override
 	public void heal(int amount) {
-		if (getAttributes().exist(Attribute.DEAD)) {
+		if (getAttributes().get(Attribute.DEAD).getBoolean()) {
 			return;
 		}
 		if ((skills.getTrueLevel(3) + amount) > (skills.getTrueLevel(3))) {
@@ -503,7 +503,7 @@ public class Player extends Actor {
 
 	@Override
 	public boolean isValid() {
-		return !World.getInstance().getPlayerList().contains(this);
+		return World.getInstance().getPlayerList().contains(this);
 	}
 
 	//seems weird but okay
@@ -565,7 +565,7 @@ public class Player extends Actor {
 	 * @param player
 	 */
 	public void move(Location destination, TeleportType type, Consumer<Player> onFinish) {
-		move((byte) 0, destination, type, onFinish);
+		move((byte) 1, destination, type, onFinish);
 	}
 	
 	public void move(byte delay, Location destination, TeleportType type, Consumer<Player> onFinish) {
@@ -590,7 +590,7 @@ public class Player extends Actor {
 	 * @param entity
 	 */
 	public void move(Location destination, TeleportType type) {
-		move((byte) 0, destination, type);
+		move((byte) 1, destination, type);
 	}
 	
 	public void move(byte delay, Location location, TeleportType type) {

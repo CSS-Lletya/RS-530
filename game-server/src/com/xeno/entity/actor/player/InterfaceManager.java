@@ -92,7 +92,7 @@ public class InterfaceManager {
 		int magicInterface = player.getPlayerDetails().getMagicType() == 2 ? 193
 				: player.getPlayerDetails().getMagicType() == 3 ? 430 : 192;
 		
-		int lastWindowType = !player.getAttributes().exist(Attribute.LAST_WINDOW_TYPE) ? -1
+		int lastWindowType = !player.getAttributes().get(Attribute.LAST_WINDOW_TYPE).getBoolean() ? -1
 				: player.getAttributes().get(Attribute.LAST_WINDOW_TYPE).getInt();
 		if (lastWindowType == windowType) {
 			return;
@@ -156,7 +156,7 @@ public class InterfaceManager {
 			//reset any attributes
 			player.getEquipment().setWeapon();
 		}
-		if (!player.getAttributes().exist(Attribute.SEND_LOGIN)) {
+		if (!player.getAttributes().get(Attribute.SEND_LOGIN).getBoolean()) {
 			player.getInterfaceManager().sendLogin();
 			player.getAttributes().get(Attribute.SEND_LOGIN).set(true);
 		}

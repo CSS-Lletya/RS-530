@@ -149,7 +149,7 @@ public class Prayer extends PrayerData {
 	}
 
 	public static void togglePrayer(Player p, int prayerType, int prayerID) {
-		if (p.getAttributes().exist(Attribute.DEAD)) {
+		if (p.getAttributes().get(Attribute.DEAD).getBoolean()) {
 			return;
 		}
 		if (p.getSkills().getTrueLevel(5) <= 0) {
