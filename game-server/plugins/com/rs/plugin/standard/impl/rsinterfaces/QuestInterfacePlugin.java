@@ -1,8 +1,8 @@
 package com.rs.plugin.standard.impl.rsinterfaces;
 
+import com.rs.entity.actor.player.Player;
 import com.rs.plugin.standard.listener.RSInterface;
 import com.rs.plugin.standard.wrapper.RSInterfaceSignature;
-import com.xeno.entity.actor.player.Player;
 
 //TODO: Fix, doesn't seem to work properly on resize hd mode for some reason.
 @RSInterfaceSignature(interfaceId = {274, 259})

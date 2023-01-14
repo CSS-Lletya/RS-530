@@ -8,11 +8,11 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import com.rs.entity.actor.player.Player;
+import com.rs.net.Packet;
 import com.rs.plugin.standard.listener.RSInterface;
 import com.rs.plugin.standard.wrapper.RSInterfaceSignature;
-import com.xeno.entity.actor.player.Player;
-import com.xeno.net.Packet;
-import com.xeno.utility.Utility;
+import com.rs.utility.Utility;
 
 import io.vavr.control.Try;
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;

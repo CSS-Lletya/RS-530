@@ -1,9 +1,9 @@
 package com.rs.plugin.standard.impl.commands;
 
+import com.rs.entity.actor.player.Player;
 import com.rs.plugin.standard.listener.Command;
 import com.rs.plugin.standard.wrapper.CommandSignature;
-import com.xeno.entity.actor.player.Player;
-import com.xeno.world.Location;
+import com.rs.world.Location;
 
 @CommandSignature(alias = {"tt","totile"}, rights = {2}, syntax = "Teleport to a specific location")
 public final class TeleportCommandPlugin implements Command {

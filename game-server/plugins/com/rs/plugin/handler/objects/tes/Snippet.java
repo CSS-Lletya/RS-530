@@ -1,9 +1,9 @@
 package com.rs.plugin.handler.objects.tes;
 
+import com.rs.net.definitions.ObjectDefinitions;
 import com.rs.plugin.annotations.PluginEventHandler;
 import com.rs.plugin.eventbus.ObjectClickEvent;
 import com.rs.plugin.handler.objects.ObjectClickHandler;
-import com.xeno.net.definitions.ObjectDefinitions;
 
 @PluginEventHandler
 public class Snippet {

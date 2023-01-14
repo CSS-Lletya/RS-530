@@ -5,12 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.rs.entity.actor.player.Player;
 import com.rs.plugin.PluginEvent;
 import com.rs.plugin.handler.PluginHandler;
 import com.rs.plugin.handler.objects.ObjectClickHandler;
-import com.xeno.entity.actor.player.Player;
-import com.xeno.world.Location;
-import com.xeno.world.WorldObject;
+import com.rs.world.Location;
+import com.rs.world.WorldObject;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 

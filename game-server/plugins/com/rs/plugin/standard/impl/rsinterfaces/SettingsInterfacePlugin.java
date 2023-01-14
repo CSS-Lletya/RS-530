@@ -1,8 +1,8 @@
 package com.rs.plugin.standard.impl.rsinterfaces;
 
+import com.rs.entity.actor.player.Player;
 import com.rs.plugin.standard.listener.RSInterface;
 import com.rs.plugin.standard.wrapper.RSInterfaceSignature;
-import com.xeno.entity.actor.player.Player;
 
 @RSInterfaceSignature(interfaceId = { 261 })
 public class SettingsInterfacePlugin implements RSInterface {

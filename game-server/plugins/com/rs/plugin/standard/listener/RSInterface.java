@@ -1,6 +1,6 @@
 package com.rs.plugin.standard.listener;
 
-import com.xeno.entity.actor.player.Player;
+import com.rs.entity.actor.player.Player;
 
 /**
  * An RS Interface we're going to interact with

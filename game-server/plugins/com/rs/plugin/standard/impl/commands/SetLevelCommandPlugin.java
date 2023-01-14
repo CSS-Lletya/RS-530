@@ -1,8 +1,8 @@
 package com.rs.plugin.standard.impl.commands;
 
+import com.rs.entity.actor.player.Player;
 import com.rs.plugin.standard.listener.Command;
 import com.rs.plugin.standard.wrapper.CommandSignature;
-import com.xeno.entity.actor.player.Player;
 
 @CommandSignature(alias = {"sl","setlevel", "setlvl"}, rights = {2}, syntax = "Set a specified skill id to a level of choice.")
 public final class SetLevelCommandPlugin implements Command {

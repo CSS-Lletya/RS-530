@@ -1,6 +1,6 @@
 package com.rs.plugin.standard.listener;
 
-import com.xeno.entity.actor.player.Player;
+import com.rs.entity.actor.player.Player;
 
 /**
  * Represents a command which holds functionality for the execution of

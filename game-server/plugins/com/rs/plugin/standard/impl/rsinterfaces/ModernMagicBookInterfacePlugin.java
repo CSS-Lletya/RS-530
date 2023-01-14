@@ -1,11 +1,11 @@
 package com.rs.plugin.standard.impl.rsinterfaces;
 
+import com.rs.entity.actor.player.Player;
+import com.rs.player.skills.magic.MagicTeleporting;
+import com.rs.player.skills.magic.TeleportType;
 import com.rs.plugin.standard.listener.RSInterface;
 import com.rs.plugin.standard.wrapper.RSInterfaceSignature;
-import com.xeno.entity.actor.player.Player;
-import com.xeno.model.player.skills.magic.MagicTeleporting;
-import com.xeno.model.player.skills.magic.TeleportType;
-import com.xeno.world.Location;
+import com.rs.world.Location;
 
 @RSInterfaceSignature(interfaceId = {192})
 public class ModernMagicBookInterfacePlugin implements RSInterface {

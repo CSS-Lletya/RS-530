@@ -11,9 +11,9 @@ import java.util.Set;
 
 import com.rs.plugin.annotations.PluginEventHandler;
 import com.rs.plugin.handler.PluginHandler;
-import com.xeno.utility.LogUtility;
-import com.xeno.utility.LogUtility.LogType;
-import com.xeno.utility.Utility;
+import com.rs.utility.LogUtility;
+import com.rs.utility.Utility;
+import com.rs.utility.LogUtility.LogType;
 
 import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;

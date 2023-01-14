@@ -1,9 +1,9 @@
 package com.rs.plugin.standard.impl.rsinterfaces;
 
+import com.rs.entity.actor.player.Player;
+import com.rs.player.skills.SkillMenu;
 import com.rs.plugin.standard.listener.RSInterface;
 import com.rs.plugin.standard.wrapper.RSInterfaceSignature;
-import com.xeno.entity.actor.player.Player;
-import com.xeno.model.player.skills.SkillMenu;
 
 @RSInterfaceSignature(interfaceId = {320, 499})
 public class SkillInterfacePlugin implements RSInterface {

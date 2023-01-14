@@ -4,8 +4,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import com.rs.plugin.handler.PluginHandler;
-import com.xeno.utility.LogUtility;
-import com.xeno.utility.LogUtility.LogType;
+import com.rs.utility.LogUtility;
+import com.rs.utility.LogUtility.LogType;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 

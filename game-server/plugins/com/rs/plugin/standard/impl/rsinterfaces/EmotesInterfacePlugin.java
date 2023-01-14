@@ -1,9 +1,9 @@
 package com.rs.plugin.standard.impl.rsinterfaces;
 
+import com.rs.content.emote.Emotes;
+import com.rs.entity.actor.player.Player;
 import com.rs.plugin.standard.listener.RSInterface;
 import com.rs.plugin.standard.wrapper.RSInterfaceSignature;
-import com.xeno.content.emote.Emotes;
-import com.xeno.entity.actor.player.Player;
 
 @RSInterfaceSignature(interfaceId = {464})
 public class EmotesInterfacePlugin implements RSInterface {
